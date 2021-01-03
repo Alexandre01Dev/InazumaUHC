@@ -1,0 +1,12 @@
+name: InazumaUHC
+version: ${project.version}
+main: be.alexandre01.inazuma.uhc.InazumaUHC
+authors: [ Alexandre01Dev ]
+description: UHC
+website: https://dreamnetwork.cloud/
+commands:
+  lChunk:
+  scenario:
+    aliases:
+      - scenarios
+  start:

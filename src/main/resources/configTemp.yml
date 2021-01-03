@@ -1,0 +1,17 @@
+#UHC Config
+language:
+  en:
+    error:
+      stopped: "The server should be stopped due to an error."
+    files:
+      notFound: "file not found!"
+    mysql:
+      connections:
+        notFound: "Ceci est un test"
+    configuration:
+      no-spawn: "There is no spawn configurated"
+    exceptions:
+      LanguageNotFoundException: "Language %lang% cannot be found, replacing by another language"
+options:
+  language: en
+  idk: lol
