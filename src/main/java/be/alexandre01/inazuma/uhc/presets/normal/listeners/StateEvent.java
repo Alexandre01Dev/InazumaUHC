@@ -7,6 +7,9 @@ import be.alexandre01.inazuma.uhc.custom_events.state.WaitingEvent;
 import be.alexandre01.inazuma.uhc.presets.IPreset;
 import be.alexandre01.inazuma.uhc.presets.Preset;
 import be.alexandre01.inazuma.uhc.presets.normal.Normal;
+import be.alexandre01.inazuma.uhc.presets.normal.scoreboards.GameScoreboard;
+import be.alexandre01.inazuma.uhc.presets.normal.scoreboards.WaitingScoreboard;
+import be.alexandre01.inazuma.uhc.presets.normal.timers.BordureTimer;
 import be.alexandre01.inazuma.uhc.presets.normal.timers.NetherTimer;
 import be.alexandre01.inazuma.uhc.presets.normal.timers.PVPTimer;
 import be.alexandre01.inazuma.uhc.presets.normal.timers.WaitingTimer;
@@ -35,7 +38,8 @@ public class StateEvent implements Listener {
     @EventHandler
     public void onWaiting(WaitingEvent event){
         System.out.println("Waitingevent called");
-        n.waitingScoreboard();
+        WaitingScoreboard waitingScoreboard = new WaitingScoreboard(n);
+        waitingScoreboard.setScoreboard();
         i.getScoreboardManager().refreshPlayers();
     }
     @EventHandler
@@ -50,11 +54,16 @@ public class StateEvent implements Listener {
             player.setFlying(true);
             player.setFlySpeed(0);
         }
-        p.getPlatform().despawn();
+        if(p.getPlatform() != null){
+            p.getPlatform().despawn();
+        }
+
 
         i.teamManager.distributeTeamToPlayer();
         i.teamManager.safeTeamTeleport(0);
-        n.gameScoreboard();
+        GameScoreboard gameScoreboard = new GameScoreboard(n);
+        gameScoreboard.setScoreboard();
+       // n.gameScoreboard();
         i.getScoreboardManager().refreshPlayers();
     }
     @EventHandler
@@ -68,9 +77,8 @@ public class StateEvent implements Listener {
                 player.setFlying(false);
                 player.setGameMode(GameMode.SURVIVAL);
                 player.setAllowFlight(false);
-                player.setFlySpeed(0.5f);
+                player.setFlySpeed(0.1f);
             }
-            System.out.println("HelloWorld");
             Bukkit.getScheduler().scheduleSyncDelayedTask(i, new BukkitRunnable() {
                         @Override
                         public void run() {
@@ -82,6 +90,8 @@ public class StateEvent implements Listener {
                                 timer = i.tm.getTimer(NetherTimer.class);
                                 timer.runTaskTimerAsynchronously(InazumaUHC.get,0,10);
                             }
+                            timer = i.tm.getTimer(BordureTimer.class);
+                            timer.runTaskTimerAsynchronously(InazumaUHC.get,0,10);
                         }
                     });
 

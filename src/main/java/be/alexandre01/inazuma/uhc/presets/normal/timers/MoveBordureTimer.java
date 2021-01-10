@@ -16,9 +16,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class BordureTimer extends Timer {
-    public BordureTimer() {
-        super("bordureTimer");
+public class MoveBordureTimer extends Timer {
+    public MoveBordureTimer() {
+        super("moveBordureTimer");
         Normal p = (Normal) Preset.instance.p;
         InazumaUHC i = InazumaUHC.get;
         iSpigot iSpigot = spg.lgdev.iSpigot.INSTANCE;
@@ -35,14 +35,14 @@ public class BordureTimer extends Timer {
 
             @Override
             public void preRun() {
-
+                InazumaUHC.get.worldGen.defaultWorld.getWorldBorder().setSize(p.getEndBordure(),p.getEndBordureTime());
             }
 
             @Override
             public void run() {
                 long now = new Date().getTime();
                 if(this.time == 0){
-                    time = (p.getBordureTime()* 1000L)+now;
+                    time = (p.getEndBordureTime()* 1000L)+now;
                 }
 
                 Normal.bordureText = "§cBordure: ";
@@ -61,15 +61,14 @@ public class BordureTimer extends Timer {
 
 
                 if(date.getTime() <= 0){
-
-                   Timer timer = i.tm.getTimer(MoveBordureTimer.class);
-                    timer.runTaskTimerAsynchronously(InazumaUHC.get,0,10);
+                    Normal.bordureText = "§cBordure: ";
+                    Normal.bordureValue= "§cFermé";
                     cancel();
                     return;
                 }
               if(date.getTime() < 10000) {
                   for(Player player : Bukkit.getOnlinePlayers()){
-                      TitleUtils.sendActionBar(player,"§eLa §c§lBordure§e se déplacera dans "+second+" seconde(s)");
+                      TitleUtils.sendActionBar(player,"§eLa §c§lBordure§e se stoppera dans \"+second+\" seconde(s)");
                   }
                   lenght = lenght + 0.05f;
               }
@@ -86,6 +85,14 @@ public class BordureTimer extends Timer {
 
               }
                 Normal.bordureValue = "§e"+sb.toString()+"s";
+
+
+
+
+
+
+
+
                 }
         });
     }

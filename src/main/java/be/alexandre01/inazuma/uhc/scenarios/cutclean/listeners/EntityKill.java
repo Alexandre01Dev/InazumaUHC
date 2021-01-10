@@ -17,11 +17,14 @@ public class EntityKill implements Listener {
     public void onEntityKill(EntityDeathEvent event){
 
         Entity entity = event.getEntity();
-        if(entity.getLastDamageCause().getCause().equals(EntityDamageEvent.DamageCause.ENTITY_ATTACK)){
-            Player player = event.getEntity().getKiller();
-            player.giveExp(event.getDroppedExp());
-            event.setDroppedExp(0);
+        if(entity.getLastDamageCause() != null){
+            if(entity.getLastDamageCause().getCause().equals(EntityDamageEvent.DamageCause.ENTITY_ATTACK)){
+                Player player = event.getEntity().getKiller();
+                player.giveExp(event.getDroppedExp());
+                event.setDroppedExp(0);
+            }
         }
+
 
         if(entity instanceof Pig){
             for(ItemStack i  : event.getDrops()){

@@ -1,5 +1,5 @@
 package be.alexandre01.inazuma.uhc.state;
 
 public enum State {
-    NONE,WAITING, STARTING, PLAYING, STOPPING;
+    NONE,PREPARING,WAITING, STARTING, PLAYING, STOPPING;
 }

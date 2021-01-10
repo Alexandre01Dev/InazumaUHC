@@ -1,14 +1,15 @@
-package be.alexandre01.inazuma.uhc.custom_events.chunks;
+package be.alexandre01.inazuma.uhc.custom_events.state;
 
-import be.alexandre01.inazuma.uhc.generations.chunks.ChunksGenerator;
+import be.alexandre01.inazuma.uhc.state.State;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
-public class ForcedChunkLoadingEvent extends Event implements Cancellable {
+public class PreparingEvent extends Event implements Cancellable {
     private static final HandlerList HANDLERS = new HandlerList();
+    private State pState;
+    private State nState;
     private boolean isCancelled;
-    private ChunksGenerator chunkGenerator;
 
     @Override
     public HandlerList getHandlers() {
@@ -19,14 +20,18 @@ public class ForcedChunkLoadingEvent extends Event implements Cancellable {
         return HANDLERS;
     }
 
-    public ForcedChunkLoadingEvent(ChunksGenerator chunkGenerator){
-        this.chunkGenerator = chunkGenerator;
+    public PreparingEvent(State pState, State nState){
+        this.pState = pState;
+        this.nState = nState;
     }
 
-    public ChunksGenerator get(){
-        return chunkGenerator;
+    public State getFrom(){
+        return pState;
     }
 
+    public State getTo(){
+        return nState;
+    }
 
     @Override
     public boolean isCancelled() {
@@ -37,6 +42,4 @@ public class ForcedChunkLoadingEvent extends Event implements Cancellable {
     public void setCancelled(boolean b) {
         this.isCancelled = b;
     }
-
 }
-

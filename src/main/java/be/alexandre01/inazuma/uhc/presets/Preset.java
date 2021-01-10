@@ -12,7 +12,9 @@ public class Preset {
     public Preset(IPreset iPreset){
        Preset.instance = this;
        this.p = iPreset;
-       configurate();
+       if(!InazumaUHC.get.isHosted){
+           configurate();
+       }
     }
 
     public void set(IPreset iPrecet){
@@ -20,7 +22,7 @@ public class Preset {
         configurate();
     }
 
-    private void configurate(){
+    public void configurate(){
         InazumaUHC.get.worldGen.gen();
 
     }

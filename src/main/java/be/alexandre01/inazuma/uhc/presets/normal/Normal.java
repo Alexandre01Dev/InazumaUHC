@@ -4,13 +4,12 @@ import be.alexandre01.inazuma.uhc.custom_events.state.PlayingEvent;
 import be.alexandre01.inazuma.uhc.generations.Plateform;
 import be.alexandre01.inazuma.uhc.presets.IPreset;
 import be.alexandre01.inazuma.uhc.presets.Preset;
+import be.alexandre01.inazuma.uhc.presets.PresetData;
 import be.alexandre01.inazuma.uhc.presets.normal.listeners.*;
-import be.alexandre01.inazuma.uhc.presets.normal.timers.NetherTimer;
-import be.alexandre01.inazuma.uhc.presets.normal.timers.PVPTimer;
-import be.alexandre01.inazuma.uhc.presets.normal.timers.StartingTimer;
-import be.alexandre01.inazuma.uhc.presets.normal.timers.WaitingTimer;
+import be.alexandre01.inazuma.uhc.presets.normal.timers.*;
 import be.alexandre01.inazuma.uhc.scenarios.Scenario;
 import be.alexandre01.inazuma.uhc.scenarios.cutclean.Cutclean;
+import be.alexandre01.inazuma.uhc.scoreboard.IPersonalScoreBoard;
 import be.alexandre01.inazuma.uhc.scoreboard.IScoreBoard;
 import be.alexandre01.inazuma.uhc.scoreboard.ObjectiveSign;
 import be.alexandre01.inazuma.uhc.scoreboard.PersonalScoreboard;
@@ -23,21 +22,33 @@ import org.bukkit.event.Listener;
 import org.bukkit.util.Vector;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.UUID;
 
-public class Normal implements IPreset {
-    private boolean hasScenario = true;
-    private ArrayList<Scenario> scenarios = new ArrayList<>();
-    private ArrayList<Listener> listeners = new ArrayList<>();
-    private ArrayList<Timer> timers = new ArrayList<>();
-    private Plateform plateform;
-    public static int lastModifier = 0;
-    public static String timerText = "";
-    public static String timerValue = "";
-    public static String bordureValue ="";
-    public static String bordureText ="";
-    public static String netherText ="";
-    public static String netherValue ="";
-    IPersonalScoreBoard i;
+public class Normal extends PresetData implements IPreset {
+    public int pvpTime;
+    public int netherTime;
+    public int bordureTime;
+    public int endBordureTime;
+    public int endBordureSize;
+    public Normal(){
+        //DefaultSettings Value
+        generatorSettings = new String[]{"", ""};
+        hasNether = false;
+        minPlayerToStart = 2;
+        playerSize = 30;
+        totalTime = 60*60;
+        pvpTime = 60*20;
+        netherTime = 55*60;
+        bordureTime = 60*60;
+        endBordureTime = 60*15;
+        endBordureSize = 250*2;
+    }
+
+    @Override
+    public boolean autoJoinWorld() {
+        return false;
+    }
 
     @Override
     public String getName() {
@@ -69,6 +80,8 @@ public class Normal implements IPreset {
             timers.add(new StartingTimer());
             timers.add(new PVPTimer());
             timers.add(new NetherTimer());
+            timers.add(new BordureTimer());
+            timers.add(new MoveBordureTimer());
         }
         return timers;
     }
@@ -83,8 +96,13 @@ public class Normal implements IPreset {
     }
 
     @Override
+    public ArrayList<IPersonalScoreBoard> getScoreboards() {
+        return null;
+    }
+
+    @Override
     public boolean getNether() {
-        return true;
+        return hasNether;
     }
 
     @Override
@@ -94,39 +112,37 @@ public class Normal implements IPreset {
 
     @Override
     public int getMinPlayerToStart() {
-        return 2;
+        return minPlayerToStart;
     }
 
     @Override
     public int getTotalTime() {
-        return 60*60;
+        return totalTime;
     }
 
     @Override
     public int getPVPTime() {
-        return 40;//60*2;
+        return pvpTime;//60*2;
     }
 
     @Override
     public int getNetherTime() {
-        return 50;
+        return netherTime;
     }
 
     @Override
     public int getBordureTime() {
-        return 90;
+        return 60*60;
     }
 
     @Override
-    public int startBordure() {
-        return 60*20*60*60;
+    public int getEndBordure() {
+        return 250*2;
     }
-
     @Override
-    public int endBordure() {
-        return (60*20*60+20)+(20*20*60);
+    public int getEndBordureTime() {
+        return 60*15;
     }
-
     @Override
     public Plateform getPlatform() {
         if(plateform != null){
@@ -162,141 +178,8 @@ public class Normal implements IPreset {
     public int getTeamSize() {
         return 1;
     }
-    public void waitingScoreboard(){
-        i = player -> {
-            PersonalScoreboard ps = new PersonalScoreboard(player);
-            ps.setIScore(new IScoreBoard() {
-                @Override
-                public void lines(String ip, ObjectiveSign objectiveSign) {
-                    objectiveSign.setDisplayName("§8»§6§lInazumaUHC§8«");
 
-                    objectiveSign.setLine(0, "§l§8»§8§m------------§l§8«§r");
-                    objectiveSign.setLine(2,"§f§l» §a§lUHC§a CLASSIC §f§l«");
-                    objectiveSign.setLine(4, "§r§l§8»§8§m------------§l§8«");
-                    objectiveSign.setLine(6, "§7Joueurs §l» §e" + Bukkit.getOnlinePlayers().size() + "§7/§e"+getPlayerSize());
-                    objectiveSign.setLine(7, "§7 §l» §cEn attentes de joueurs§e");
-                    objectiveSign.setLine(8, "§7 §l» §e§l"+Normal.lastModifier+"s.");
-                    objectiveSign.setLine(9, "§r§l§8»§8§m------------§l§8«§r");
-                    World world = player.getWorld();
-                    int borderSize = Preset.instance.p.getBorderSize(world.getEnvironment());
-                    objectiveSign.setLine(10,"§7Bordure §l» §e-"+ borderSize+"§7/§e"+borderSize);
-                    objectiveSign.setLine(11, "§l§8»§8§m------------§l§8«");
-                    if(hasScenario){
-                        if(scenarios.size()> 1){
-                            objectiveSign.setLine(13, "§7Scénarios §l» §8/scenario");
-                        }else {
-                            objectiveSign.setLine(13, "§7Scénario §l» §a"+getScenarios().get(0).getName());
-                        }
 
-                    }else {
-                        objectiveSign.setLine(13, "§7Scénario §l» §cAucun");
-                    }
-
-                    objectiveSign.setLine(14, "§l§8»§8§m------------§l§8« ");
-                    objectiveSign.setLine(15, ip);
-
-                    objectiveSign.updateLines();
-
-                }
-            });
-            return ps;
-        };
-
-    }
-    public void gameScoreboard(){
-        i = player -> {
-            PersonalScoreboard ps = new PersonalScoreboard(player);
-            ps.setIScore(new IScoreBoard() {
-                @Override
-                public void lines(String ip, ObjectiveSign objectiveSign) {
-                    objectiveSign.setDisplayName("§8»§6§lInazumaUHC§8«");
-
-                    objectiveSign.setLine(0, "§l§8»§8§m------------§l§8«§r");
-                    objectiveSign.setLine(2,"§f§l» §a§lUHC§a CLASSIC §f§l«");
-                    objectiveSign.setLine(4, "§r§l§8»§8§m------------§l§8«");
-                    objectiveSign.setLine(6, "§7Joueurs §l» §e" + Bukkit.getOnlinePlayers().size() + "§7/§e"+getPlayerSize());
-                    objectiveSign.setLine(7, "§r§l§8»§8§m------------§l§8«§f");
-                    objectiveSign.setLine(8, "§7"+Normal.timerText+" §l» §e" + Normal.timerValue);
-                    if(getNether()){
-                        objectiveSign.setLine(9,"§7"+Normal.netherText+" §l» §e" + Normal.netherValue);
-                    }
-                    objectiveSign.setLine(10,"§7"+Normal.bordureText+" §l» §e" + Normal.bordureValue);
-                    objectiveSign.setLine(16, "§r§l§8»§8§m------------§l§8«§r");
-                    World world = player.getWorld();
-                    int borderSize = Preset.instance.p.getBorderSize(world.getEnvironment());
-                    objectiveSign.setLine(17,"§7Bordure §l» §e-"+ borderSize+"§7/§e"+borderSize);
-
-                    Location l1 =  player.getLocation();
-                    l1.setPitch(0);
-                    l1.setY(0);
-                    Vector direction = l1.getDirection();
-                    Location l2 =  world.getSpawnLocation();
-                    l2.setY(0);
-                    Vector loc = l2.subtract(l1).toVector();
-
-                    double angleDir = (Math.atan2(loc.getZ(),loc.getX()) / 2 / Math.PI * 360 + 360) % 360;
-
-                    double angleLook = (Math.atan2(direction.getZ(),direction.getX()) / 2 / Math.PI * 360 + 360) % 360;
-
-                    double angle = (angleDir - angleLook + 360) % 360;
-                    String c = "§l•";
-                    if(l1.distance(l2)> 20){
-                        if(angle >= 337.5 && angle <= 360 || angle >= 0 && angle < 22.5){
-                            c = "⬆";
-                        }else {
-                            if(angle >= 22.5 && angle < 67.5){
-                                c = "⬈";
-                            }else {
-                                if(angle >= 67.5 && angle < 112.5){
-                                    c = "➡";
-                                }else {
-                                    if(angle >= 112.5 && angle < 157.5){
-                                        c = "⬊";
-                                    }else {
-                                        if(angle >= 157.5 && angle < 202.5){//180
-                                            c = "⬇";
-                                        }else {
-                                            if(angle >= 202.5 && angle < 247.5){
-                                                c = "⬋";
-                                            }else {
-                                                if(angle >= 247.5 && angle < 292.5){
-                                                    c = "§l⬅";
-                                                }else {
-                                                    if(angle >= 292.5 && angle < 337.5){
-                                                        c = "⬉";
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-
-                                }
-                            }
-                        }
-                    }
-                    objectiveSign.setLine(18,"§7Centre §l» §e "+ c);
-                    objectiveSign.setLine(19, "§l§8»§8§m------------§l§8«");
-                    if(hasScenario){
-
-                        if(scenarios.size()> 1){
-                            objectiveSign.setLine(20, "§7Scénarios §l» §8/scenario");
-                        }else {
-                            objectiveSign.setLine(20, "§7Scénario §l» §a"+getScenarios().get(0).getName());
-                        }
-                    }else {
-                        objectiveSign.setLine(20, "§7Scénario §l» §cAucun");
-                    }
-
-                    objectiveSign.setLine(21, "§l§8»§8§m------------§l§8« ");
-                    objectiveSign.setLine(22, ip);
-
-                    objectiveSign.updateLines();
-                }
-            });
-            return ps;
-        };
-
-    }
     @Override
     public PersonalScoreboard getScoreboard(Player player) {
         return i.actual(player);
@@ -307,7 +190,7 @@ public class Normal implements IPreset {
         int i = 0;
         switch (environment){
             case NORMAL:
-                i = 250;
+                i = 500;
                 break;
             case NETHER:
                 i = 150;
@@ -323,10 +206,10 @@ public class Normal implements IPreset {
         String s = "";
         switch (environment){
             case NORMAL:
-                s = "";
+                s = generatorSettings[0];
                 break;
             case NETHER:
-                s = "";
+                s = generatorSettings[1];
                 break;
         }
         return s;
@@ -337,10 +220,10 @@ public class Normal implements IPreset {
         String s = "";
         switch (environment){
             case NORMAL:
-                s = "250";
+                s = "1";
                 break;
             case NETHER:
-                s = "20";
+                s = "2";
                 break;
         }
         return s;
@@ -360,9 +243,16 @@ public class Normal implements IPreset {
         return s;
     }
 
+    @Override
+    public boolean isArrowCalculated() {
+        return true;
+    }
 
+    @Override
+    public HashMap<UUID, String> getArrows() {
+        return arrows;
+    }
 }
 
-interface IPersonalScoreBoard{
-    public PersonalScoreboard actual(Player player);
-}
+
+

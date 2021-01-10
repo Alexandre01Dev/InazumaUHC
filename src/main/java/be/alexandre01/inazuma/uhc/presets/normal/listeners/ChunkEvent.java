@@ -16,16 +16,19 @@ public class ChunkEvent implements Listener {
         this.i = InazumaUHC.get;
     }
     @EventHandler
-    public void onForceChunkStopped(ForcedChunkFinishedEvent event){
+    public void onForcedChunkStopped(ForcedChunkFinishedEvent event){
         IPreset p = Preset.instance.p;
-        if(p.getNether() && world == 1){
-            Timer timer = i.tm.getTimer(WaitingTimer.class);
-            timer.runTaskTimer(i,0,20);
+        if(InazumaUHC.get.autoStart){
+            if(p.getNether() && world == 1){
+                Timer timer = i.tm.getTimer(WaitingTimer.class);
+                timer.runTaskTimer(i,0,20);
+            }
+            if(!p.getNether() && world == 0){
+                Timer timer = i.tm.getTimer(WaitingTimer.class);
+                timer.runTaskTimer(i,0,20);
+            }
         }
-        if(!p.getNether() && world == 0){
-            Timer timer = i.tm.getTimer(WaitingTimer.class);
-            timer.runTaskTimer(i,0,20);
-        }
+
 
         world++;
         System.out.println("ChunkFinished");

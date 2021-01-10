@@ -1,32 +1,31 @@
-package be.alexandre01.inazuma.uhc.generations;
+package be.alexandre01.inazuma.uhc.generations.chunks;
 
 import be.alexandre01.inazuma.uhc.InazumaUHC;
 import be.alexandre01.inazuma.uhc.custom_events.chunks.ForcedChunkFinishedEvent;
 import be.alexandre01.inazuma.uhc.custom_events.chunks.ForcedChunkLoadingEvent;
+import be.alexandre01.inazuma.uhc.utils.TitleUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.World;
+import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.scheduler.BukkitTask;
-import org.github.paperspigot.PaperSpigotConfig;
-import org.github.paperspigot.PaperSpigotWorldConfig;
 
 import java.time.Duration;
 import java.time.Instant;
 import java.util.*;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
-public class ChunkGenerator {
+public class ChunksGenerator {
+    private ChunksExecutor chunksExecutor;
     private  ArrayList<ChunkCoord> chunksCord;
     private int totalChunk;
+    private int calculateChunks = 0;
     private int actualChunk = 0;
     private InazumaUHC inazumaUHC;
     private  World world;
 
-    public ChunkGenerator(){
+    public ChunksGenerator(){
         inazumaUHC = InazumaUHC.get;
+        chunksExecutor = new ChunksExecutor(this);
     }
     private ArrayList<ChunkCoord> around(Chunk origin, int radius) {
 
@@ -50,19 +49,26 @@ public class ChunkGenerator {
 
     public void generate(final Chunk origin, final int radius, boolean n) {
         if (n) {
-            this.world = origin.getWorld();
-            this.chunksCord = around(origin, radius);
-            this.totalChunk = this.chunksCord.size();
             ForcedChunkLoadingEvent forcedChunkLoadingEvent = new ForcedChunkLoadingEvent(this);
             Bukkit.getPluginManager().callEvent(forcedChunkLoadingEvent);
             if(forcedChunkLoadingEvent.isCancelled()){
                 return;
             }
+
+            this.world = origin.getWorld();
+            this.chunksCord = around(origin, radius);
+            this.totalChunk = this.chunksCord.size();
+            System.out.println("ENVIRONNEMENT >>"+world.getEnvironment().name());
+            if(world.getEnvironment().equals(World.Environment.NORMAL)){
+                chunksExecutor.schedule();
+            }
+
         }
         Instant before = Instant.now();
         for (int i = this.actualChunk; i < this.chunksCord.size(); i++) {
             ChunkCoord cc = this.chunksCord.get(i);
             this.chunksCord.remove(cc);
+            calculateChunks++;
             Chunk c = this.world.getChunkAt(cc.getX(), cc.getZ());
             c.load(true);
             if (Duration.between(before, Instant.now()).toMillis() >= 500) {
@@ -72,11 +78,17 @@ public class ChunkGenerator {
 
                 new BukkitRunnable() {
                     public void run() {
-                        ChunkGenerator.this.generate(origin, radius, false);
+                        ChunksGenerator.this.generate(origin, radius, false);
                     }
 
                 }.runTaskLater(inazumaUHC, 7);
                 return;
+            }
+        }
+        if(world.getEnvironment().equals(World.Environment.NORMAL)){
+            chunksExecutor.getScheduledExecutorService().shutdown();
+            for(Player player : Bukkit.getOnlinePlayers()){
+                TitleUtils.sendActionBar(player,"§eLa §lmap §evient d'être §a§lGÉNÉRÉ !");
             }
         }
         System.out.println("finish");
@@ -99,6 +111,10 @@ public class ChunkGenerator {
     public World getWorld() {
         return world;
     }
+
+    public int getCalculateChunks() {
+        return calculateChunks;
+    }
 }
 
     class ChunkCoord{
@@ -116,5 +132,6 @@ public class ChunkGenerator {
         public int getZ() {
             return z;
         }
+
 }
 

@@ -1,17 +1,10 @@
 package be.alexandre01.inazuma.uhc.listeners.game;
 
 import be.alexandre01.inazuma.uhc.InazumaUHC;
-import be.alexandre01.inazuma.uhc.commands.test.ChunkCommand;
 import be.alexandre01.inazuma.uhc.config.Options;
-import be.alexandre01.inazuma.uhc.generations.ChunkGenerator;
+import be.alexandre01.inazuma.uhc.generations.chunks.ChunksGenerator;
 import be.alexandre01.inazuma.uhc.presets.IPreset;
 import be.alexandre01.inazuma.uhc.presets.Preset;
-import be.alexandre01.inazuma.uhc.utils.NmsUtils;
-import be.alexandre01.inazuma.uhc.worlds.WorldUtils;
-import com.avaje.ebeaninternal.server.cluster.Packet;
-import net.minecraft.server.v1_8_R3.PacketPlayOutMapChunk;
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -21,8 +14,6 @@ import org.bukkit.event.world.WorldInitEvent;
 import org.bukkit.event.world.WorldLoadEvent;
 
 import java.time.Instant;
-
-import static org.joor.Reflect.*;
 
 public class WorldGenEvent implements Listener {
     private InazumaUHC i;
@@ -65,7 +56,7 @@ public class WorldGenEvent implements Listener {
 
                 event.getWorld().setSpawnLocation(0,100,0);
                 //ChunkCommand.around(event.getWorld().getChunkAt(0,0),(p.getBorderSize(event.getWorld().getEnvironment())/16)+InazumaUHC.get.getServer().getViewDistance());
-                ChunkGenerator c = new ChunkGenerator();
+                ChunksGenerator c = new ChunksGenerator();
                 c.generate(event.getWorld().getChunkAt(0,0),(p.getBorderSize(event.getWorld().getEnvironment())/16)+InazumaUHC.get.getServer().getViewDistance(),true);
 
                 //event.getWorld().getPopulators().add(new OrePopulator(UHC.uhc));
@@ -102,7 +93,7 @@ public class WorldGenEvent implements Listener {
             if(event.getWorld().getName().equals(o.get("netherUUID").getString())){
                 event.getWorld().setSpawnLocation(0,100,0);
               //ChunkCommand.around(event.getWorld().getChunkAt(0,0),(p.getBorderSize(event.getWorld().getEnvironment())/16)+InazumaUHC.get.getServer().getViewDistance());
-                ChunkGenerator c = new ChunkGenerator();
+                ChunksGenerator c = new ChunksGenerator();
                 c.generate(event.getWorld().getChunkAt(0,0),(p.getBorderSize(event.getWorld().getEnvironment())/16)+InazumaUHC.get.getServer().getViewDistance(),true);
                 event.getWorld().setGameRuleValue("randomTickSpeed", p.getRandomTickSpeed(event.getWorld().getEnvironment()));
                 event.getWorld().setGameRuleValue("naturalRegeneration", p.getNaturalRegeneration(event.getWorld().getEnvironment()));

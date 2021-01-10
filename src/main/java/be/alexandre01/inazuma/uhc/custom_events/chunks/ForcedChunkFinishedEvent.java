@@ -1,14 +1,12 @@
 package be.alexandre01.inazuma.uhc.custom_events.chunks;
 
-import be.alexandre01.inazuma.uhc.generations.ChunkGenerator;
-import be.alexandre01.inazuma.uhc.state.State;
-import org.bukkit.event.Cancellable;
+import be.alexandre01.inazuma.uhc.generations.chunks.ChunksGenerator;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
 public class ForcedChunkFinishedEvent extends Event {
     private static final HandlerList HANDLERS = new HandlerList();
-    private ChunkGenerator chunkGenerator;
+    private ChunksGenerator chunkGenerator;
 
     @Override
     public HandlerList getHandlers() {
@@ -19,11 +17,11 @@ public class ForcedChunkFinishedEvent extends Event {
         return HANDLERS;
     }
 
-    public ForcedChunkFinishedEvent(ChunkGenerator chunkGenerator){
+    public ForcedChunkFinishedEvent(ChunksGenerator chunkGenerator){
         this.chunkGenerator = chunkGenerator;
     }
 
-    public ChunkGenerator get(){
+    public ChunksGenerator get(){
         return chunkGenerator;
     }
 

@@ -5,6 +5,7 @@ import be.alexandre01.inazuma.uhc.commands.test.ChunkCommand;
 import be.alexandre01.inazuma.uhc.config.Config;
 import be.alexandre01.inazuma.uhc.config.Options;
 import be.alexandre01.inazuma.uhc.config.yaml.YamlUtils;
+import be.alexandre01.inazuma.uhc.generations.NetherPortalsManager;
 import be.alexandre01.inazuma.uhc.presets.IPreset;
 import be.alexandre01.inazuma.uhc.presets.Preset;
 import org.bukkit.Bukkit;
@@ -34,6 +35,7 @@ public class WorldGen {
     }
     public void gen(){
         ImanityWorldConfig iwc =  iSpigot.INSTANCE.getWorldConfigByName("default");
+        /*
         iwc.set("generateRate",700);
         iwc.set("caveMinAltitude", 50);
         iwc.caveGenerateRate = 700;
@@ -45,6 +47,10 @@ public class WorldGen {
         iwc.orePopulatorRules.put(21,new OrePopulatorRule(21,40,0,30,10,1));
         iwc.orePopulatorRules.put(173,new OrePopulatorRule(173,80,0,60,10,1));
         iwc.biomePlains = false;
+        */
+        iwc.sugarCaneHeightMin = 4;
+        iwc.sugarCaneHeightMax = 8;
+        iwc.sugarCaneRound = 40;
         System.out.println("> GEN1 ");
         for (World ws: Bukkit.getWorlds()
         ) {
@@ -88,7 +94,9 @@ public class WorldGen {
     }
 
     public void defaultWorldLoaded(){
-        Preset.instance.p.getPlatform().spawn();
+        if(Preset.instance.p.getPlatform() != null){
+            Preset.instance.p.getPlatform().spawn();
+        }
 
 
 
@@ -104,5 +112,6 @@ public class WorldGen {
             w.generatorSettings(Preset.instance.p.getGeneratorSettings(w.environment()));
             this.netherWorld =  w.createWorld();
         }
+        InazumaUHC.get.npm = new NetherPortalsManager();
     }
 }

@@ -25,25 +25,31 @@ public class GameState{
         Bukkit.getPluginManager().callEvent(stateChangeEvent);
         if(!stateChangeEvent.isCancelled()){
             Cancellable cancellable = null;
-            if(state == State.WAITING){
-                cancellable = new WaitingEvent(this.state,state);
+            if(state == State.PREPARING){
+                cancellable = new PreparingEvent(this.state,state);
                 Bukkit.getPluginManager().callEvent((Event) cancellable);
             }else {
-                if(state == State.STARTING){
-                    cancellable = new StartingEvent(this.state,state);
+                if(state == State.WAITING){
+                    cancellable = new WaitingEvent(this.state,state);
                     Bukkit.getPluginManager().callEvent((Event) cancellable);
                 }else {
-                    if(state == State.PLAYING){
-                        cancellable = new PlayingEvent(this.state,state);
+                    if(state == State.STARTING){
+                        cancellable = new StartingEvent(this.state,state);
                         Bukkit.getPluginManager().callEvent((Event) cancellable);
                     }else {
-                        if(state == State.STOPPING){
-                            cancellable = new StoppingEvent(this.state,state);
+                        if(state == State.PLAYING){
+                            cancellable = new PlayingEvent(this.state,state);
                             Bukkit.getPluginManager().callEvent((Event) cancellable);
+                        }else {
+                            if(state == State.STOPPING){
+                                cancellable = new StoppingEvent(this.state,state);
+                                Bukkit.getPluginManager().callEvent((Event) cancellable);
+                            }
                         }
                     }
                 }
             }
+
             if(cancellable != null){
                 if(!cancellable.isCancelled()){
                     this.state = state;

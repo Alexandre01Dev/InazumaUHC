@@ -18,6 +18,8 @@ import be.alexandre01.inazuma.uhc.teams.TeamManager;
 import be.alexandre01.inazuma.uhc.timers.TimersManager;
 import be.alexandre01.inazuma.uhc.worlds.WorldGen;
 import be.alexandre01.inazuma.uhc.worlds.WorldUtils;
+import be.alexandre01.inazuma.uhc.worlds.executors.ArrowToCenter;
+import org.apache.logging.log4j.core.appender.rolling.action.IfAll;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.concurrent.Executors;
@@ -33,7 +35,11 @@ public final class InazumaUHC extends JavaPlugin {
     public ListenersManager lm;
     public TimersManager tm;
     public TeamManager teamManager;
+
+    public ArrowToCenter arrowToCenter;
     public String ip = "play.inazumauhc.fr";
+    public boolean isHosted = true;
+    public boolean autoStart = false;
     @Override
     public void onEnable() {
         //Instance
@@ -56,8 +62,11 @@ public final class InazumaUHC extends JavaPlugin {
         WorldUtils.patchBiomes();
         this.worldGen = new WorldGen(this);
         Preset p = new Preset(new Normal());
+        if(p.p.isArrowCalculated()){
+            arrowToCenter = new ArrowToCenter();
+            arrowToCenter.schedule();
+        }
 
-        this.npm = new NetherPortalsManager();
 
 
         scheduledExecutorService = Executors.newScheduledThreadPool(16);
@@ -76,7 +85,9 @@ public final class InazumaUHC extends JavaPlugin {
         lm.searchPresetListener();
 
          teamManager = new TeamManager();
+
         GameState gameState = new GameState();
+
         //lm.automaticFindListener();
 
     }

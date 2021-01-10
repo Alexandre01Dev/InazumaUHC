@@ -2,6 +2,8 @@ package be.alexandre01.inazuma.uhc.listeners.game;
 
 import be.alexandre01.inazuma.uhc.InazumaUHC;
 import be.alexandre01.inazuma.uhc.config.Options;
+import be.alexandre01.inazuma.uhc.presets.IPreset;
+import be.alexandre01.inazuma.uhc.presets.Preset;
 import be.alexandre01.inazuma.uhc.state.GameState;
 import be.alexandre01.inazuma.uhc.state.State;
 import be.alexandre01.inazuma.uhc.teams.Team;
@@ -19,15 +21,14 @@ import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerToggleFlightEvent;
+import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
 import java.util.logging.Handler;
 
 public class PlayerEvent implements Listener {
     public ArrayList<Player> players = null;
-    public PlayerEvent(){
 
-    }
     @EventHandler
     public void onJoin(PlayerJoinEvent event){
         InazumaUHC inazumaUHC = InazumaUHC.get;
@@ -38,6 +39,7 @@ public class PlayerEvent implements Listener {
         System.out.println(Options.to("worldsTemp").get("defaultUUID").getString());
         player.teleport(world.getSpawnLocation());
         player.getInventory().clear();
+        player.getInventory().setContents(new ItemStack[0]);
         player.updateInventory();
         player.setGameMode(GameMode.ADVENTURE);
         player.setHealth(20);
@@ -45,12 +47,21 @@ public class PlayerEvent implements Listener {
         player.setExp(0);
         player.setTotalExperience(0);
         inazumaUHC.getScoreboardManager().onLogin(player);
+        IPreset p = Preset.instance.p;
+        if(p.isArrowCalculated()){
+            p.getArrows().put(player.getUniqueId(),"§l~");
+        }
     }
 
     @EventHandler
     public void onLeave(PlayerQuitEvent event){
         InazumaUHC inazumaUHC = InazumaUHC.get;
-        inazumaUHC.getScoreboardManager().onLogout(event.getPlayer());
+        IPreset p = Preset.instance.p;
+        Player player = event.getPlayer();
+        inazumaUHC.getScoreboardManager().onLogout(player);
+        if(p.isArrowCalculated()){
+            p.getArrows().remove(player.getUniqueId());
+        }
     }
 
     @EventHandler

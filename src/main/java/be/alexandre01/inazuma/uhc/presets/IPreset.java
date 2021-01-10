@@ -2,6 +2,7 @@ package be.alexandre01.inazuma.uhc.presets;
 
 import be.alexandre01.inazuma.uhc.generations.Plateform;
 import be.alexandre01.inazuma.uhc.scenarios.Scenario;
+import be.alexandre01.inazuma.uhc.scoreboard.IPersonalScoreBoard;
 import be.alexandre01.inazuma.uhc.scoreboard.PersonalScoreboard;
 import be.alexandre01.inazuma.uhc.timers.Timer;
 import org.bukkit.World;
@@ -9,9 +10,13 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.UUID;
 
 
 public interface IPreset {
+    boolean autoJoinWorld();
+
     String getName();
 
     String getPackageName();
@@ -21,6 +26,8 @@ public interface IPreset {
     ArrayList<Timer> getTimers();
 
     ArrayList<Scenario> getScenarios();
+
+    ArrayList<IPersonalScoreBoard> getScoreboards();
 
     boolean getNether();
 
@@ -36,9 +43,9 @@ public interface IPreset {
 
     int getBordureTime();
 
-    int startBordure();
+    int getEndBordureTime();
 
-    int endBordure();
+    int getEndBordure();
 
     Plateform getPlatform();
 
@@ -61,6 +68,10 @@ public interface IPreset {
     String getRandomTickSpeed(World.Environment environment);
 
     String getNaturalRegeneration(World.Environment environment);
+
+    boolean isArrowCalculated();
+
+    HashMap<UUID,String> getArrows();
 
 
 }

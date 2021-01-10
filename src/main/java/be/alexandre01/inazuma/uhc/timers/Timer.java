@@ -23,6 +23,7 @@ public class Timer extends BukkitRunnable{
     iSpigot iSpigot = spg.lgdev.iSpigot.INSTANCE;
     BukkitTask bukkitTask;
     String timerName;
+    public boolean isRunning = false;
     ITimer run = null;
     public Timer(String timerName){
         this.timerName = timerName;

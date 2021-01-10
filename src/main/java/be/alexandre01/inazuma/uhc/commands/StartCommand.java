@@ -1,10 +1,12 @@
 package be.alexandre01.inazuma.uhc.commands;
 
+import be.alexandre01.inazuma.uhc.InazumaUHC;
 import be.alexandre01.inazuma.uhc.presets.IPreset;
 import be.alexandre01.inazuma.uhc.presets.Preset;
 import be.alexandre01.inazuma.uhc.scenarios.Scenario;
 import be.alexandre01.inazuma.uhc.state.GameState;
 import be.alexandre01.inazuma.uhc.state.State;
+import be.alexandre01.inazuma.uhc.timers.Timer;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.HoverEvent;
@@ -28,6 +30,12 @@ public class StartCommand implements CommandExecutor{
                 Player player = (Player) sender;
                 if(cmd.getName().equalsIgnoreCase("start")){
                     player.sendMessage("Start de la game");
+                    for(Timer timer : InazumaUHC.get.tm.timers.values()){
+                        if(timer.isRunning){
+                            System.out.println(timer.getTimerName());
+                            timer.cancel();
+                        }
+                    }
                     GameState.get().setTo(State.STARTING);
                     }
                 }
