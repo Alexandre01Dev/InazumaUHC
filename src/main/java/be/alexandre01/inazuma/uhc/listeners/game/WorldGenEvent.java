@@ -76,7 +76,9 @@ public class WorldGenEvent implements Listener {
                 // new ChunkManager().generateChunks(World.Environment.NORMAL);
                 event.getWorld().setSpawnLocation(0,141,0);
                 //  setPlatform(event.getWorld(),Material.STAINED_GLASS);
-                event.getWorld().getWorldBorder().setSize(p.getPlatform().size());
+                if(p.getPlatform() != null){
+                    event.getWorld().getWorldBorder().setSize(p.getPlatform().size());
+                }
                 event.getWorld().getWorldBorder().setCenter(0,0);
                 //modsManager.setPlayerMods(Mods.STARTING,new StartingMode());
                 //mSpigot potch

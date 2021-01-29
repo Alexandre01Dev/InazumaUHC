@@ -53,8 +53,6 @@ public class WaitingTimer extends Timer {
                         Normal.lastModifier = modifier;
                         modifier--;
                     }
-                    System.out.println(modifier);
-                    System.out.println(Normal.lastModifier);
                 }
         });
     }

@@ -12,10 +12,20 @@ import java.util.UUID;
 
 public class PresetData {
     protected boolean hasScenario = true;
+    public boolean isInvisible = true;
     public boolean hasNether = false;
     public int minPlayerToStart = 10;
     public int playerSize = 20;
     public int totalTime = 60*60;
+    public int pvpTime = 60*20;
+    public int invisibilityTime = 1;
+    public int netherTime = 55*60;
+    public int bordureTime = 60*60;
+    public int borderSize;
+    public int borderSizeNether;
+    public int endBordureTime = 60*15;
+    public int endBordureSize = 250*2;
+    public int teamSize = 1;
     protected ArrayList<Scenario> scenarios = new ArrayList<>();
     protected ArrayList<IPersonalScoreBoard> scoreboards = new ArrayList<>();
     protected ArrayList<Listener> listeners = new ArrayList<>();
@@ -172,4 +182,6 @@ public class PresetData {
     public String[] getGeneratorSettings() {
         return generatorSettings;
     }
+
+
 }

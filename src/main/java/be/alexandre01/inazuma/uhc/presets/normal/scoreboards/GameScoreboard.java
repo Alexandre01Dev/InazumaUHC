@@ -12,9 +12,19 @@ import org.bukkit.entity.Player;
 
 public class GameScoreboard {
     Normal normal;
+    String scenario;
     public GameScoreboard(Normal normal){
         this.normal = normal;
         setScoreboard();
+        if(normal.hasScenario()){
+            if(normal.getScenarios().size()> 1){
+                scenario = "§a/scenario";
+            }else {
+                scenario = "§a"+normal.getScenarios().get(0).getName();
+            }
+        }else {
+            scenario = "§cAucun";
+        }
     }
 
     public void setScoreboard(){
@@ -43,15 +53,9 @@ public class GameScoreboard {
 
                     objectiveSign.setLine(18,"§7Centre §l» §e "+ normal.getArrows().get(player.getUniqueId()));
                     objectiveSign.setLine(19, "§l§8»§8§m------------§l§8«");
-                    if(normal.hasScenario()){
-                        if(normal.getScenarios().size()> 1){
-                            objectiveSign.setLine(20, "§7Scénarios §l» §8/scenario");
-                        }else {
-                            objectiveSign.setLine(20, "§7Scénario §l» §a"+normal.getScenarios().get(0).getName());
-                        }
-                    }else {
-                        objectiveSign.setLine(20, "§7Scénario §l» §cAucun");
-                    }
+
+                    objectiveSign.setLine(20, "§7Scénario(s) §l» "+scenario);
+
 
                     objectiveSign.setLine(21, "§l§8»§8§m------------§l§8« ");
                     objectiveSign.setLine(22, ip);

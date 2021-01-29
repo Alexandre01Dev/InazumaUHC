@@ -31,7 +31,13 @@ public interface IPreset {
 
     boolean getNether();
 
+    boolean canRespawnOnRejoin();
+
+    boolean isInvicible();
+
     int getWaitingTime();
+
+    int getInvisibleTime();
 
     int getMinPlayerToStart();
 

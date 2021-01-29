@@ -20,11 +20,9 @@ public class JoinEvent implements Listener {
         Player player = event.getPlayer();
 
 
-        if(!gameState.contains(State.WAITING)){
-            player.sendMessage("§cLa partie a déjà commencé, vous êtes un spéctateur de celle-ci.");
-            player.setGameMode(GameMode.SPECTATOR);
+        if(!gameState.contains(State.WAITING) && !gameState.contains(State.PREPARING)){
             return;
         }
-        event.setJoinMessage("§e"+player.getName()+" a rejoins la partie");
+        event.setJoinMessage("§c"+player.getName()+"§e a rejoins la partie");
     }
 }

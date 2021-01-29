@@ -9,9 +9,11 @@ public class Preset {
 
     public HashMap<String, IPreset> presets;
     public IPreset p;
+    public PresetData pData;
     public Preset(IPreset iPreset){
        Preset.instance = this;
        this.p = iPreset;
+       this.pData = (PresetData) iPreset;
        if(!InazumaUHC.get.isHosted){
            configurate();
        }
@@ -24,7 +26,6 @@ public class Preset {
 
     public void configurate(){
         InazumaUHC.get.worldGen.gen();
-
     }
 
 }

@@ -1,21 +1,19 @@
 package be.alexandre01.inazuma.uhc.worlds;
 
 import be.alexandre01.inazuma.uhc.InazumaUHC;
-import be.alexandre01.inazuma.uhc.commands.test.ChunkCommand;
 import be.alexandre01.inazuma.uhc.config.Config;
 import be.alexandre01.inazuma.uhc.config.Options;
 import be.alexandre01.inazuma.uhc.config.yaml.YamlUtils;
 import be.alexandre01.inazuma.uhc.generations.NetherPortalsManager;
-import be.alexandre01.inazuma.uhc.presets.IPreset;
 import be.alexandre01.inazuma.uhc.presets.Preset;
+import be.alexandre01.inazuma.uhc.spectators.BukkitTeamInitializer;
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
 import org.bukkit.World;
 import org.bukkit.WorldCreator;
-import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import spg.lgdev.config.ImanityWorldConfig;
-import spg.lgdev.config.world.OrePopulatorRule;
 import spg.lgdev.iSpigot;
 
 import java.util.UUID;
@@ -24,6 +22,7 @@ public class WorldGen {
     YamlUtils yml;
     Plugin p;
     Options o;
+    boolean isGenerating = false;
     String defaultUUID;
     String netherUUID;
     public World defaultWorld;
@@ -34,6 +33,11 @@ public class WorldGen {
         this.o = Options.to("worldsTemp");
     }
     public void gen(){
+        for(Player player : Bukkit.getOnlinePlayers()){
+            player.setAllowFlight(true);
+            player.setFlying(false);
+        }
+        isGenerating = true;
         ImanityWorldConfig iwc =  iSpigot.INSTANCE.getWorldConfigByName("default");
         /*
         iwc.set("generateRate",700);
@@ -94,6 +98,7 @@ public class WorldGen {
     }
 
     public void defaultWorldLoaded(){
+        BukkitTeamInitializer.initialize();
         if(Preset.instance.p.getPlatform() != null){
             Preset.instance.p.getPlatform().spawn();
         }
@@ -113,5 +118,9 @@ public class WorldGen {
             this.netherWorld =  w.createWorld();
         }
         InazumaUHC.get.npm = new NetherPortalsManager();
+    }
+
+    public boolean isGenerating() {
+        return isGenerating;
     }
 }

@@ -31,6 +31,7 @@ public class WorldUtils {
                 biomes[BiomeBase.SWAMPLAND.id] = BiomeBase.PLAINS;
                 biomes[BiomeBase.EXTREME_HILLS_PLUS.id] = BiomeBase.PLAINS;
                 biomesField.set((Object)null, biomes);
+
             }
         } catch (NoSuchFieldException|IllegalAccessException e) {
             e.printStackTrace();

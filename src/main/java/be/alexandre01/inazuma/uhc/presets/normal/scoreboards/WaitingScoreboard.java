@@ -10,9 +10,19 @@ import org.bukkit.World;
 
 public class WaitingScoreboard {
     Normal normal;
+    String scenario;
     public WaitingScoreboard(Normal normal){
         this.normal = normal;
         setScoreboard();
+        if(normal.hasScenario()){
+            if(normal.getScenarios().size()> 1){
+                scenario = "§a/scenario";
+            }else {
+               scenario = "§a"+normal.getScenarios().get(0).getName();
+            }
+        }else {
+            scenario = "§cAucun";
+        }
     }
 
     public void setScoreboard(){
@@ -35,16 +45,11 @@ public class WaitingScoreboard {
                     int borderSize = Preset.instance.p.getBorderSize(world.getEnvironment());
                     objectiveSign.setLine(10,"§7Bordure §l» §e-"+ borderSize+"§7/§e"+borderSize);
                     objectiveSign.setLine(11, "§l§8»§8§m------------§l§8«");
-                    if(normal.hasScenario()){
-                        if(normal.getScenarios().size()> 1){
-                            objectiveSign.setLine(13, "§7Scénarios §l» §8/scenario");
-                        }else {
-                            objectiveSign.setLine(13, "§7Scénario §l» §a"+normal.getScenarios().get(0).getName());
-                        }
 
-                    }else {
-                        objectiveSign.setLine(13, "§7Scénario §l» §cAucun");
-                    }
+
+
+                    objectiveSign.setLine(13, "§7Scénario(s) §l» "+scenario);
+
 
                     objectiveSign.setLine(14, "§l§8»§8§m------------§l§8« ");
                     objectiveSign.setLine(15, ip);

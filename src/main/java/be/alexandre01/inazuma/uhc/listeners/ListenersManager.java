@@ -37,6 +37,7 @@ public class ListenersManager {
     }
 
     public void removeListener(Class listener){
+        unregisterListener(listener);
         listeners.remove(listener);
     }
 

@@ -10,3 +10,4 @@ commands:
     aliases:
       - scenarios
   start:
+  host:

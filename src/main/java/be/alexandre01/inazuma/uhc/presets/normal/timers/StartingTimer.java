@@ -35,7 +35,6 @@ public class StartingTimer extends Timer {
 
             @Override
             public void run() {
-                System.out.println("StartingTimer");
                for(Player player : Bukkit.getOnlinePlayers()){
                    TitleUtils.sendTitle(player,0,15,5,"§e"+modifier," ");
                    player.playSound(player.getLocation(), Sound.NOTE_PLING,1,lenght);

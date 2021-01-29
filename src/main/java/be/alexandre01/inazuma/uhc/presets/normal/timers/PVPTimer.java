@@ -45,11 +45,9 @@ public class PVPTimer extends Timer {
                 if(this.pvpTime == 0){
                     pvpTime = (p.getPVPTime()* 1000L)+now;
                 }
-                System.out.println("pvpTimer"+pvpTime);
-                System.out.println(now);
+
                 Normal.timerText = "§cPVP: ";
                 Normal.timerValue = "§e"+modifier+"s";
-                System.out.println("calc>> "+(pvpTime-now));
                 Date date = new Date(pvpTime-now);
                 int hour =  (int) ((date.getTime() / (1000*60*60)) % 24);
                 String minute = m.format(date);
@@ -60,8 +58,6 @@ public class PVPTimer extends Timer {
                 }
                 sb.append(minute+":");
                 sb.append(second);
-
-                System.out.println(date.getTime() );
 
                 if(date.getTime() <= 0){
                     i.worldGen.defaultWorld.setPVP(true);

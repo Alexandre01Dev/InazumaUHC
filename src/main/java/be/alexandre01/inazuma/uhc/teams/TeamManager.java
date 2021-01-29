@@ -50,7 +50,6 @@ public class TeamManager {
                 isAlone = false;
             }
         }
-
     }
     public boolean isAlone(){
         return isAlone;
@@ -88,7 +87,6 @@ public class TeamManager {
             System.out.println("new team");
 
         }
-
     }
     public void safeTeamTeleport(int i){
         isTeleportVerification = true;
@@ -113,6 +111,7 @@ public class TeamManager {
                   System.out.println(Duration.between(lastChunkLoaded, Instant.now()).toMillis());
                  if (Duration.between(lastChunkLoaded, Instant.now()).toMillis() >= 1000) {
                       System.out.println("nextTP");
+                      InazumaUHC.get.getRemainingPlayers().addAll(team.getPlayers().values());
                       safeTeamTeleport(i+1);
                       cancel();
                   }
@@ -121,10 +120,14 @@ public class TeamManager {
 
       }.runTaskTimer(this.i,0,1);
 }
-    public Team getTeam(Player player){
+    public boolean hasTeam(Player player){
         if(teamByPlayer.containsKey(player.getUniqueId())){
-            System.out.println("ContainsTeam");
+            return true;
         }
+        return false;
+    }
+
+    public Team getTeam(Player player){
         return teamByPlayer.get(player.getUniqueId());
     }
 }

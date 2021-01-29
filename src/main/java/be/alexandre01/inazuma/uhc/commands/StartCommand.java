@@ -1,6 +1,8 @@
 package be.alexandre01.inazuma.uhc.commands;
 
 import be.alexandre01.inazuma.uhc.InazumaUHC;
+import be.alexandre01.inazuma.uhc.listeners.host.InventoryClick;
+import be.alexandre01.inazuma.uhc.listeners.host.InventoryClose;
 import be.alexandre01.inazuma.uhc.presets.IPreset;
 import be.alexandre01.inazuma.uhc.presets.Preset;
 import be.alexandre01.inazuma.uhc.scenarios.Scenario;
@@ -29,14 +31,28 @@ public class StartCommand implements CommandExecutor{
             if(sender instanceof Player){
                 Player player = (Player) sender;
                 if(cmd.getName().equalsIgnoreCase("start")){
-                    player.sendMessage("Start de la game");
-                    for(Timer timer : InazumaUHC.get.tm.timers.values()){
-                        if(timer.isRunning){
-                            System.out.println(timer.getTimerName());
-                            timer.cancel();
+                    if(GameState.get().contains(State.PREPARING)){
+                        if(InazumaUHC.get.worldGen.isGenerating()){
+                            player.sendMessage("La prégen est entrain de s'effectuer");
+                            return true;
                         }
+                        InazumaUHC.get.lm.removeListener(InventoryClick.class);
+                        InazumaUHC.get.lm.removeListener(InventoryClose.class);
+
+                        player.sendMessage("Start de la prégen");
+                        InazumaUHC.get.worldGen.gen();
+                        return true;
                     }
-                    GameState.get().setTo(State.STARTING);
+                    if(GameState.get().contains(State.WAITING)){
+                        player.sendMessage("Start de la game");
+                        for(Timer timer : InazumaUHC.get.tm.timers.values()){
+                            if(timer.isRunning){
+                                System.out.println(timer.getTimerName());
+                                timer.cancel();
+                            }
+                        }
+                        GameState.get().setTo(State.STARTING);
+                    }
                     }
                 }
 

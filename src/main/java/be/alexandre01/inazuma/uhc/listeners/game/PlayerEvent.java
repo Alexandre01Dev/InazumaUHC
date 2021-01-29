@@ -2,29 +2,29 @@ package be.alexandre01.inazuma.uhc.listeners.game;
 
 import be.alexandre01.inazuma.uhc.InazumaUHC;
 import be.alexandre01.inazuma.uhc.config.Options;
+import be.alexandre01.inazuma.uhc.custom_events.teams.TeamDeathEvent;
 import be.alexandre01.inazuma.uhc.presets.IPreset;
 import be.alexandre01.inazuma.uhc.presets.Preset;
+import be.alexandre01.inazuma.uhc.spectators.SpectatorPlayer;
 import be.alexandre01.inazuma.uhc.state.GameState;
 import be.alexandre01.inazuma.uhc.state.State;
 import be.alexandre01.inazuma.uhc.teams.Team;
-import org.bukkit.Bukkit;
-import org.bukkit.GameMode;
-import org.bukkit.Location;
-import org.bukkit.World;
+import be.alexandre01.inazuma.uhc.teams.TeamManager;
+import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerKickEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerToggleFlightEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.potion.PotionEffect;
 
 import java.util.ArrayList;
-import java.util.logging.Handler;
 
 public class PlayerEvent implements Listener {
     public ArrayList<Player> players = null;
@@ -33,15 +33,41 @@ public class PlayerEvent implements Listener {
     public void onJoin(PlayerJoinEvent event){
         InazumaUHC inazumaUHC = InazumaUHC.get;
         Player player = event.getPlayer();
-        player.setFlySpeed(1);
+        if(!player.getScoreboard().getTeams().isEmpty()){
+            for(org.bukkit.scoreboard.Team team : player.getScoreboard().getTeams()){
+                team.removePlayer(player);
+            }
+        }
+        player.setFlySpeed(0.2f);
         player.setFlying(false);
-        World world = Bukkit.getWorld(Options.to("worldsTemp").get("defaultUUID").getString());
-        System.out.println(Options.to("worldsTemp").get("defaultUUID").getString());
+        World world = null;
+        if(!GameState.get().contains(State.PLAYING)){
+            if(Preset.instance.p.autoJoinWorld()){
+                world = Bukkit.getWorld(Options.to("worldsTemp").get("defaultUUID").getString());
+            }else {
+                world = Bukkit.getWorlds().get(0);
+            }
+        }else{
+            player.sendMessage("§cLa partie a déjà commencé, vous êtes un spéctateur de celle-ci.");
+            SpectatorPlayer spectatorPlayer = new SpectatorPlayer(player);
+            inazumaUHC.spectatorManager.addPlayer(player);
+            spectatorPlayer.setSpectator();
+            world = Bukkit.getWorld(Options.to("worldsTemp").get("defaultUUID").getString());
+        }
+
+
+
+
+        //System.out.println(Options.to("worldsTemp").get("defaultUUID").getString());
         player.teleport(world.getSpawnLocation());
         player.getInventory().clear();
         player.getInventory().setContents(new ItemStack[0]);
         player.updateInventory();
         player.setGameMode(GameMode.ADVENTURE);
+        player.setMaxHealth(20);
+        for(PotionEffect potionEffect : player.getActivePotionEffects()){
+            player.removePotionEffect(potionEffect.getType());
+        }
         player.setHealth(20);
         player.setFoodLevel(20);
         player.setExp(0);
@@ -51,6 +77,7 @@ public class PlayerEvent implements Listener {
         if(p.isArrowCalculated()){
             p.getArrows().put(player.getUniqueId(),"§l~");
         }
+
     }
 
     @EventHandler
@@ -62,6 +89,11 @@ public class PlayerEvent implements Listener {
         if(p.isArrowCalculated()){
             p.getArrows().remove(player.getUniqueId());
         }
+
+        if(inazumaUHC.teamManager.hasTeam(player)){
+            inazumaUHC.teamManager.getTeam(player).rmvPlayer(player);
+        }
+        InazumaUHC.get.getRemainingPlayers().remove(player);
     }
 
     @EventHandler
@@ -86,6 +118,15 @@ public class PlayerEvent implements Listener {
     }
 
     @EventHandler
+    public void onKicked(PlayerKickEvent event){
+        if(GameState.get().contains(State.STARTING)||GameState.get().contains(State.WAITING)){
+            if(event.getReason().equalsIgnoreCase("Flying is not enabled on this server")){
+                event.setCancelled(true);
+            }
+        }
+
+    }
+    @EventHandler
     public void onBlockBreak(BlockBreakEvent event){
         if(GameState.get().contains(State.WAITING)){
             event.setCancelled(true);
@@ -95,7 +136,7 @@ public class PlayerEvent implements Listener {
         }
     }
 
-    @EventHandler
+   /* @EventHandler(priority = EventPriority.HIGHEST)
     public void onFirstDamage(EntityDamageEvent event){
         if(GameState.get().contains(State.PLAYING)){
             if(players == null){
@@ -113,6 +154,65 @@ public class PlayerEvent implements Listener {
                     }
 
                 }
+            }
+
+        }
+    }*/
+
+    @EventHandler
+    public void onKill(EntityDamageEvent event){
+        if(GameState.get().contains(State.PLAYING)){
+
+            if(event.getEntity() instanceof Player){
+
+                Player player = (Player) event.getEntity();
+
+
+                    System.out.println("FINALKILL > DETECTED PL");
+                    System.out.println(player.getHealth()-event.getFinalDamage()+"< FINALKILL");
+                    System.out.println(player.getHealth()+"< FINALKILLhEALTH");
+                    System.out.println(event.getFinalDamage()+"< FINALKILLhEALTH");
+                if(!Preset.instance.pData.isInvisible){
+                    if(player.getHealth()-event.getFinalDamage() <= 0){
+
+                            event.setCancelled(true);
+                            player.setHealth(20);
+                            player.setMaxHealth(2);
+                            player.setFoodLevel(20);
+                            player.getInventory().clear();
+                            player.updateInventory();
+                            System.out.println("FINALKILL > DETECTED PL");
+                            //KILLED
+                            player.setGameMode(GameMode.SPECTATOR);
+                            InazumaUHC.get.getRemainingPlayers().remove(player);
+                            player.getWorld().spigot().strikeLightningEffect(player.getLocation(),true);
+                            for(Player p : Bukkit.getOnlinePlayers()){
+                                p.playSound(p.getLocation(), Sound.AMBIENCE_THUNDER,0.6f,1);
+                            }
+
+                            //TEAM VERIFICATION
+                            InazumaUHC i = InazumaUHC.get;
+                            TeamManager tM = i.teamManager;
+                            Team team = tM.getTeam(player);
+                            if(!team.isKilled(player)){
+                                team.killPlayer(player);
+
+                                if(team.getDeaths().size() >= team.getAllPlayers().size()){
+                                    TeamDeathEvent teamDeath = new TeamDeathEvent(team,player);
+                                    tM.getTeams().remove(team);
+                                    Bukkit.getPluginManager().callEvent(teamDeath);
+                                }
+                            }
+                            SpectatorPlayer spectatorPlayer = new SpectatorPlayer(player);
+                            spectatorPlayer.setSpectator();
+                            i.spectatorManager.addPlayer(player);
+                            World world = InazumaUHC.get.worldGen.defaultWorld;
+                            player.teleport(world.getSpawnLocation());
+
+                        }
+                    return;
+                    }
+                event.setCancelled(true);
             }
 
         }

@@ -8,5 +8,6 @@ public class Cutclean extends Scenario {
     public Cutclean() {
         super("Cutclean", "Ceci est la déscription du plugin *test");
         addListener(new EntityKill(), new OreBreak());
+
     }
 }

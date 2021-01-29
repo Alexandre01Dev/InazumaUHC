@@ -14,6 +14,10 @@ language:
       LanguageNotFoundException: "Language %lang% cannot be found, replacing by another language"
     game:
       netherAllowed: "§cLe Nether est désactivé dans ce mode de jeu"
+    hostOption:
+      hasNether: "§cActiver le Nether"
+      minPlayerToStart: "§cNbre de joueurs pour démarrer la partie."
+      totalTime: "§cLe temps de la partie."
 opt:
   language: en
   idk: lol

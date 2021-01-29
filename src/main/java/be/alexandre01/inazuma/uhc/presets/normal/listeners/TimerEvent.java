@@ -2,6 +2,7 @@ package be.alexandre01.inazuma.uhc.presets.normal.listeners;
 
 import be.alexandre01.inazuma.uhc.custom_events.timers.TimerCancelEvent;
 import be.alexandre01.inazuma.uhc.custom_events.timers.TimerCreateEvent;
+import be.alexandre01.inazuma.uhc.presets.Preset;
 import be.alexandre01.inazuma.uhc.state.GameState;
 import be.alexandre01.inazuma.uhc.state.State;
 import org.bukkit.event.EventHandler;
@@ -22,5 +23,8 @@ public class TimerEvent implements Listener {
        if(event.getTimerName().equals("startingTimer")){
            GameState.get().setTo(State.PLAYING);
        }
+        if(event.getTimerName().equals("invicibilityTimer")){
+            Preset.instance.pData.isInvisible = false;
+        }
     }
 }

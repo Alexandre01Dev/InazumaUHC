@@ -23,12 +23,23 @@ public class Timer extends BukkitRunnable{
     iSpigot iSpigot = spg.lgdev.iSpigot.INSTANCE;
     BukkitTask bukkitTask;
     String timerName;
+    setup setup = null;
+    long delay;
+    long period;
     public boolean isRunning = false;
     ITimer run = null;
     public Timer(String timerName){
         this.timerName = timerName;
     }
+    public Timer(String timerName,boolean register){
+        this.timerName = timerName;
+        if(register){
+            InazumaUHC.get.tm.addTimer(this);
+        }
+        Class c = getClass();
 
+
+    }
     public void setTimer(ITimer iTimer){
         run = iTimer;
     }
@@ -36,15 +47,22 @@ public class Timer extends BukkitRunnable{
     @Override
     public void run() {
         if(optimisation){
-            if (!b && iSpigot.getTPS()[0] >= 18) {
+            System.out.println("> Optimisation + "+ iSpigot.getTPS()[0]);
+            if(iSpigot.getTPS()[0] >= 18.5){
+
+            if (!b) {
                 Instant i = Instant.now();
-                if(Duration.between(now,i).toMillis() >= 900){
+                if(Duration.between(now,i).toMillis() >= ((delay*50)/1.40)){
                     b = true;
                 }
-                if(Duration.between(sec,i).toMillis() >= 1000){
+                if(Duration.between(sec,i).toMillis() >= (delay*50)){
                     sec = Instant.now();
                     c = true;
                 }
+
+            }
+            }else {
+                b = true;
             }
             if(b||c){
                 run.run();
@@ -71,6 +89,7 @@ public class Timer extends BukkitRunnable{
         TimerCreateEvent createTimerEvent = new TimerCreateEvent(this);
         Bukkit.getPluginManager().callEvent(createTimerEvent);
         if(!createTimerEvent.isCancelled()){
+            setOptimisation(false);
             run.preRun();
 
             bukkitTask = super.runTask(plugin);
@@ -93,6 +112,7 @@ public class Timer extends BukkitRunnable{
         TimerCreateEvent createTimerEvent = new TimerCreateEvent(this);
         Bukkit.getPluginManager().callEvent(createTimerEvent);
         if(!createTimerEvent.isCancelled()){
+            setOptimisation(false);
             run.preRun();
             bukkitTask = super.runTaskAsynchronously(plugin);
             return bukkitTask;
@@ -113,6 +133,7 @@ public class Timer extends BukkitRunnable{
         TimerCreateEvent createTimerEvent = new TimerCreateEvent(this);
         Bukkit.getPluginManager().callEvent(createTimerEvent);
         if(!createTimerEvent.isCancelled()){
+            setOptimisation(false);
             run.preRun();
             bukkitTask = super.runTaskLater(plugin, delay);
             return bukkitTask;
@@ -133,6 +154,7 @@ public class Timer extends BukkitRunnable{
         TimerCreateEvent createTimerEvent = new TimerCreateEvent(this);
         Bukkit.getPluginManager().callEvent(createTimerEvent);
         if(!createTimerEvent.isCancelled()){
+            setOptimisation(false);
             run.preRun();
             bukkitTask = super.runTaskLaterAsynchronously(plugin, delay);
             return bukkitTask;
@@ -153,6 +175,8 @@ public class Timer extends BukkitRunnable{
         TimerCreateEvent createTimerEvent = new TimerCreateEvent(this);
         Bukkit.getPluginManager().callEvent(createTimerEvent);
         if(!createTimerEvent.isCancelled()){
+            this.delay = period;
+            this.period = period;
             run.preRun();
             bukkitTask = super.runTaskTimer(plugin, delay,period);
             return bukkitTask;
@@ -174,6 +198,8 @@ public class Timer extends BukkitRunnable{
             TimerCreateEvent createTimerEvent = new TimerCreateEvent(this);
             Bukkit.getPluginManager().callEvent(createTimerEvent);
             if(!createTimerEvent.isCancelled()){
+                this.delay = period;
+                this.period = period;
                 run.preRun();
                 bukkitTask = super.runTaskTimerAsynchronously(plugin, delay, period);
                 isAlreadyLaunched = true;
@@ -186,17 +212,27 @@ public class Timer extends BukkitRunnable{
     @Override
     public synchronized void cancel() throws IllegalStateException {
         TimerCancelEvent cancelTimerEvent = new TimerCancelEvent(this);
-        Bukkit.getPluginManager().callEvent(cancelTimerEvent);
-        if(!cancelTimerEvent.isCancelled()){
 
-            bukkitTask.cancel();
-            try {
-                InazumaUHC.get.tm.timers.put(this.getClass(),this.getClass().newInstance());
-            } catch (InstantiationException e) {
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
+        Class c = this.getClass();
+        if(!cancelTimerEvent.isCancelled()){
+            if(setup == null){
+                setSetup(new setup(){
+                    @Override
+                    public Timer setInstance() {
+                        try {
+                            return (Timer) c.newInstance();
+                        } catch (InstantiationException e) {
+                            e.printStackTrace();
+                        } catch (IllegalAccessException e) {
+                            e.printStackTrace();
+                        }
+                        return null;
+                    };
+                });
             }
+            bukkitTask.cancel();
+            InazumaUHC.get.tm.timers.put(this.getClass(),newInstance());
+            Bukkit.getPluginManager().callEvent(cancelTimerEvent);
         }
     }
 
@@ -208,4 +244,15 @@ public class Timer extends BukkitRunnable{
         this.optimisation = optimisation;
     }
 
+    public Timer newInstance(){
+        return setup.setInstance();
+    }
+
+    public void setSetup(Timer.setup setup) {
+        this.setup = setup;
+    }
+
+    protected interface setup{
+        public Timer setInstance();
+    }
 }

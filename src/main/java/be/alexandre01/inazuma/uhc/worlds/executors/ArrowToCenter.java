@@ -19,7 +19,7 @@ public class ArrowToCenter {
     public ArrowToCenter(){
         super();
         p = Preset.instance.p;
-        scheduledExecutorService = Executors.newScheduledThreadPool(8);
+        scheduledExecutorService = Executors.newScheduledThreadPool(4);
     }
 
     public void schedule(){

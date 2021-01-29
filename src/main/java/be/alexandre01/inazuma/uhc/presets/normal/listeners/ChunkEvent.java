@@ -5,6 +5,8 @@ import be.alexandre01.inazuma.uhc.custom_events.chunks.ForcedChunkFinishedEvent;
 import be.alexandre01.inazuma.uhc.presets.IPreset;
 import be.alexandre01.inazuma.uhc.presets.Preset;
 import be.alexandre01.inazuma.uhc.presets.normal.timers.WaitingTimer;
+import be.alexandre01.inazuma.uhc.state.GameState;
+import be.alexandre01.inazuma.uhc.state.State;
 import be.alexandre01.inazuma.uhc.timers.Timer;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -18,16 +20,24 @@ public class ChunkEvent implements Listener {
     @EventHandler
     public void onForcedChunkStopped(ForcedChunkFinishedEvent event){
         IPreset p = Preset.instance.p;
-        if(InazumaUHC.get.autoStart){
+
+
             if(p.getNether() && world == 1){
+                GameState.get().setTo(State.WAITING);
+                if(InazumaUHC.get.autoStart){
                 Timer timer = i.tm.getTimer(WaitingTimer.class);
                 timer.runTaskTimer(i,0,20);
+                }
+
             }
             if(!p.getNether() && world == 0){
-                Timer timer = i.tm.getTimer(WaitingTimer.class);
-                timer.runTaskTimer(i,0,20);
+                GameState.get().setTo(State.WAITING);
+                if(InazumaUHC.get.autoStart){
+                    Timer timer = i.tm.getTimer(WaitingTimer.class);
+                    timer.runTaskTimer(i,0,20);
+                }
             }
-        }
+
 
 
         world++;

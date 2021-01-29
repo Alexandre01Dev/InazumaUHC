@@ -2,20 +2,18 @@ package be.alexandre01.inazuma.uhc.presets.normal.listeners;
 
 import be.alexandre01.inazuma.uhc.InazumaUHC;
 import be.alexandre01.inazuma.uhc.custom_events.state.PlayingEvent;
+import be.alexandre01.inazuma.uhc.custom_events.state.PreparingEvent;
 import be.alexandre01.inazuma.uhc.custom_events.state.StartingEvent;
 import be.alexandre01.inazuma.uhc.custom_events.state.WaitingEvent;
 import be.alexandre01.inazuma.uhc.presets.IPreset;
 import be.alexandre01.inazuma.uhc.presets.Preset;
 import be.alexandre01.inazuma.uhc.presets.normal.Normal;
 import be.alexandre01.inazuma.uhc.presets.normal.scoreboards.GameScoreboard;
+import be.alexandre01.inazuma.uhc.presets.normal.scoreboards.PreparingScoreboard;
 import be.alexandre01.inazuma.uhc.presets.normal.scoreboards.WaitingScoreboard;
-import be.alexandre01.inazuma.uhc.presets.normal.timers.BordureTimer;
-import be.alexandre01.inazuma.uhc.presets.normal.timers.NetherTimer;
-import be.alexandre01.inazuma.uhc.presets.normal.timers.PVPTimer;
-import be.alexandre01.inazuma.uhc.presets.normal.timers.WaitingTimer;
+import be.alexandre01.inazuma.uhc.presets.normal.timers.*;
 import be.alexandre01.inazuma.uhc.teams.Team;
 import be.alexandre01.inazuma.uhc.timers.Timer;
-import be.alexandre01.inazuma.uhc.timers.TimersManager;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
@@ -34,6 +32,13 @@ public class StateEvent implements Listener {
         this.n = normal;
         this.i = InazumaUHC.get;
         this.p = Preset.instance.p;
+    }
+    @EventHandler
+    public void onPreparing(PreparingEvent event){
+        System.out.println("PreparingEvent called");
+        PreparingScoreboard preparingScoreboard = new PreparingScoreboard(n);
+        preparingScoreboard.setScoreboard();
+        i.getScoreboardManager().refreshPlayers();
     }
     @EventHandler
     public void onWaiting(WaitingEvent event){
@@ -77,7 +82,7 @@ public class StateEvent implements Listener {
                 player.setFlying(false);
                 player.setGameMode(GameMode.SURVIVAL);
                 player.setAllowFlight(false);
-                player.setFlySpeed(0.1f);
+                player.setFlySpeed(0.2f);
             }
             Bukkit.getScheduler().scheduleSyncDelayedTask(i, new BukkitRunnable() {
                         @Override
@@ -91,6 +96,9 @@ public class StateEvent implements Listener {
                                 timer.runTaskTimerAsynchronously(InazumaUHC.get,0,10);
                             }
                             timer = i.tm.getTimer(BordureTimer.class);
+                            timer.runTaskTimerAsynchronously(InazumaUHC.get,0,10);
+
+                            timer = i.tm.getTimer(InvincibilityTimer.class);
                             timer.runTaskTimerAsynchronously(InazumaUHC.get,0,10);
                         }
                     });
