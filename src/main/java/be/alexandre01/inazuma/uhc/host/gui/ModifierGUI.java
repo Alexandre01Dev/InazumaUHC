@@ -49,7 +49,7 @@ public class ModifierGUI extends TGUI{
         ItemBuilder last = new ItemBuilder(Material.ARROW);
         last.setName("Précédent");
         inv.setItem(17-8,last.toItemStack());
-
+        setLastArrow(17-8);
         setInv(inv);
     }
 

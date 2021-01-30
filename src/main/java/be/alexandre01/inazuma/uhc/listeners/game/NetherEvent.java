@@ -6,24 +6,17 @@ import be.alexandre01.inazuma.uhc.generations.NetherPortalsManager;
 import be.alexandre01.inazuma.uhc.generations.Portal;
 import be.alexandre01.inazuma.uhc.generations.PortalData;
 import be.alexandre01.inazuma.uhc.presets.Preset;
-import be.alexandre01.inazuma.uhc.utils.Cuboid;
-import be.alexandre01.inazuma.uhc.utils.Region;
 import net.minecraft.server.v1_8_R3.PortalTravelAgent;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.TravelAgent;
 import org.bukkit.World;
 import org.bukkit.block.Block;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.EntityPortalEnterEvent;
-import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerPortalEvent;
 import org.bukkit.event.world.PortalCreateEvent;
 
-import javax.lang.model.element.ElementVisitor;
-import javax.sound.sampled.Port;
 import java.util.ArrayList;
 
 public class NetherEvent  implements Listener {

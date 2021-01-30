@@ -1,6 +1,6 @@
 package be.alexandre01.inazuma.uhc.generations;
 
-import be.alexandre01.inazuma.uhc.utils.Cuboid;
+import be.alexandre01.inazuma.uhc.worlds.utils.Cuboid;
 import org.bukkit.Location;
 
 public class Portal extends Cuboid {

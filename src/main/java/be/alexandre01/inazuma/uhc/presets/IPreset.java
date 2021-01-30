@@ -19,13 +19,15 @@ public interface IPreset {
 
     String getName();
 
+    String prefixName();
+
     String getPackageName();
 
     ArrayList<Listener> getListeners();
 
     ArrayList<Timer> getTimers();
 
-    ArrayList<Scenario> getScenarios();
+    ArrayList<Class<?>> getScenarios();
 
     ArrayList<IPersonalScoreBoard> getScoreboards();
 

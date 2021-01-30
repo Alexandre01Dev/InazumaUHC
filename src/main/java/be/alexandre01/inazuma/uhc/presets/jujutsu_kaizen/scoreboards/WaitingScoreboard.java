@@ -16,11 +16,17 @@ public class WaitingScoreboard {
         this.jujutsu_kaizen = jujutsu_kaizen;
         setScoreboard();
         if(jujutsu_kaizen.hasScenario()){
+            if(!jujutsu_kaizen.getScenarios().isEmpty()){
+
             if(jujutsu_kaizen.getScenarios().size()> 1){
                 scenario = "§a/scenario";
             }else {
                scenario = "§a"+jujutsu_kaizen.getScenarios().get(0).getName();
             }
+        }else {
+            scenario = "§cAucun";
+        }
+
         }else {
             scenario = "§cAucun";
         }

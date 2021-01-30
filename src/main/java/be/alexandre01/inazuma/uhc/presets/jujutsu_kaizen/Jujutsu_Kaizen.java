@@ -27,7 +27,7 @@ public class Jujutsu_Kaizen extends PresetData implements IPreset{
     public Jujutsu_Kaizen(){
         //DefaultSettings Value
         generatorSettings = new String[]{"", ""};
-        hasNether = true;
+        hasNether = false;
         minPlayerToStart = 2;
         playerSize = 30;
         totalTime = 60*60;
@@ -39,7 +39,8 @@ public class Jujutsu_Kaizen extends PresetData implements IPreset{
         borderSizeNether = 150;
         endBordureTime = 60*15;
         endBordureSize = 250*2;
-
+        scenarios = null;
+        getScenarios();
     }
 
     @Override
@@ -50,6 +51,11 @@ public class Jujutsu_Kaizen extends PresetData implements IPreset{
     @Override
     public String getName() {
         return "Normal";
+    }
+
+    @Override
+    public String prefixName() {
+        return "§5Jujutsu Kaizen»§7 ";
     }
 
     @Override
@@ -79,19 +85,21 @@ public class Jujutsu_Kaizen extends PresetData implements IPreset{
             timers.add(new BordureTimer());
             timers.add(new MoveBordureTimer());
             timers.add(new InvincibilityTimer());
-            timers.add(new DelayedTimeChangeTimer(DelayedTimeChangeTimer.State.DAY,1,20*5));
+            timers.add(new DelayedTimeChangeTimer(DelayedTimeChangeTimer.State.DAY,1,20*13));
+            timers.add(new EpisodeTimer());
         }
         return timers;
     }
 
     @Override
-    public ArrayList<Scenario> getScenarios() {
-        if(scenarios.isEmpty()){
+    public ArrayList<Class<?>> getScenarios() {
+        if(scenarios == null){
+            scenarios = new ArrayList<>();
             System.out.println("SCENARIO CREATE!");
-            scenarios.add(new Cutclean());
-            scenarios.add(new CatEyes());
-            scenarios.add(new HasteyBoys());
-            scenarios.add(new Timber());
+            scenarios.add(Cutclean.class);
+            scenarios.add(CatEyes.class);
+            scenarios.add(HasteyBoys.class);
+            scenarios.add(Timber.class);
         }
         System.out.println("SCENARIO RETURN!");
         return scenarios;

@@ -22,6 +22,7 @@ public class ItemBuilder {
         this.is = is;
     }
 
+
     public ItemBuilder(Material m, int amount) {
         is = new ItemStack(m, amount);
     }

@@ -20,7 +20,8 @@ public class PlayerEvent implements Listener {
         Player player = event.getPlayer();
 
 
-        if(gameState.contains(State.PLAYING) || !gameState.contains(State.STOPPING)){
+        if(gameState.contains(State.PLAYING) || gameState.contains(State.STOPPING)){
+            event.setJoinMessage("");
             return;
         }
 
@@ -33,6 +34,10 @@ public class PlayerEvent implements Listener {
 
     @EventHandler
     public void onLeave(PlayerQuitEvent event){
+        if(gameState.contains(State.PLAYING) || gameState.contains(State.STOPPING)){
+            event.setQuitMessage("");
+            return;
+        }
         if(GameState.get().contains(State.WAITING)||(GameState.get().contains(State.PREPARING))){
             Bukkit.getOnlinePlayers().forEach((p) ->{
                 TitleUtils.sendActionBar(p,"§c"+event.getPlayer().getName()+"§e a quitté la partie");

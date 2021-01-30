@@ -19,12 +19,16 @@ public class StateEvent implements Listener {
     public void onPlaying(PlayingEvent event){
         System.out.println("PLAYING SCENARIO");
         if(!Preset.instance.pData.getScenarios().isEmpty()){
-            for(Scenario scenario : Preset.instance.pData.getScenarios()){
-                if(scenario.getLoad() != null){
-                    scenario.getLoad().a();
+            for(Class<?> c : Preset.instance.pData.getScenarios()){
+                if(Scenario.getScenarios().containsKey(c)){
+                    Scenario scenario = Scenario.getScenarios().get(c);
+                    if(scenario.getLoad() != null){
+                        scenario.getLoad().a();
+                    }
+
+                    scenario.deployListener();
                 }
 
-                scenario.deployListener();
             }
         }
     }

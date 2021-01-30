@@ -32,7 +32,10 @@ public class TimerEvent implements Listener {
             Preset.instance.pData.isInvisible = false;
             return;
         }
-        if(event.getTimerName().equals("delayedTimeChangeTimer")){
+        if(event.getTimerName().equals("episodeTimer")){
+            event.getTimer().runTaskTimerAsynchronously(InazumaUHC.get,0,20*10);
+        }
+       /* if(event.getTimerName().equals("delayedTimeChangeTimer")){
             DelayedTimeChangeTimer t = (DelayedTimeChangeTimer) InazumaUHC.get.tm.getTimer(DelayedTimeChangeTimer.class);
             if(t.getState().equals(DelayedTimeChangeTimer.State.DAY)){
                 t.setState(DelayedTimeChangeTimer.State.NIGHT);
@@ -41,6 +44,6 @@ public class TimerEvent implements Listener {
             }
             t.runTaskTimerAsynchronously(InazumaUHC.get,0,1);
             return;
-        }
+        }*/
     }
 }

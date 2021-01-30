@@ -70,7 +70,8 @@ public class ChunksGenerator {
             this.chunksCord.remove(cc);
             calculateChunks++;
             Chunk c = this.world.getChunkAt(cc.getX(), cc.getZ());
-            c.load(true);
+            c.load(false);
+            c = null;
             if (Duration.between(before, Instant.now()).toMillis() >= 500) {
                 int r = this.totalChunk - this.chunksCord.size();
                 int pourcentage = r * 100 / this.totalChunk;
@@ -91,9 +92,12 @@ public class ChunksGenerator {
                 TitleUtils.sendActionBar(player,"§eLa §lmap §evient d'être §a§lGÉNÉRÉ !");
             }
         }
+
+        chunksCord = null;
         System.out.println("finish");
         ForcedChunkFinishedEvent forcedChunkFinishedEvent = new ForcedChunkFinishedEvent(this);
         Bukkit.getPluginManager().callEvent(forcedChunkFinishedEvent);
+        System.gc();
     }
 
     public ArrayList<ChunkCoord> getChunksCord() {

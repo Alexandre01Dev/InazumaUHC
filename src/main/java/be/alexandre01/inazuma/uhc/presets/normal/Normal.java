@@ -38,6 +38,8 @@ public class Normal extends PresetData implements IPreset {
         borderSizeNether = 150;
         endBordureTime = 60*15;
         endBordureSize = 250*2;
+        scenarios = null;
+        getScenarios();
     }
 
     @Override
@@ -48,6 +50,11 @@ public class Normal extends PresetData implements IPreset {
     @Override
     public String getName() {
         return "Normal";
+    }
+
+    @Override
+    public String prefixName() {
+        return "§aClassico»§7 ";
     }
 
     @Override
@@ -82,13 +89,14 @@ public class Normal extends PresetData implements IPreset {
     }
 
     @Override
-    public ArrayList<Scenario> getScenarios() {
-        if(scenarios.isEmpty()){
+    public ArrayList<Class<?>> getScenarios() {
+        if(scenarios == null){
+            scenarios = new ArrayList<>();
             System.out.println("SCENARIO CREATE!");
-            scenarios.add(new Cutclean());
-            scenarios.add(new CatEyes());
-            scenarios.add(new HasteyBoys());
-            scenarios.add(new Timber());
+            scenarios.add(Cutclean.class);
+            scenarios.add(CatEyes.class);
+            scenarios.add(HasteyBoys.class);
+            scenarios.add(Timer.class);
         }
         System.out.println("SCENARIO RETURN!");
         return scenarios;

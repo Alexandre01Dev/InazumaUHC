@@ -109,7 +109,7 @@ public class TeamManager {
           public void run() {
               if(lastChunkLoaded != null){
                   System.out.println(Duration.between(lastChunkLoaded, Instant.now()).toMillis());
-                 if (Duration.between(lastChunkLoaded, Instant.now()).toMillis() >= 1000) {
+                 if (Duration.between(lastChunkLoaded, Instant.now()).toMillis() >= 600) {
                       System.out.println("nextTP");
                       InazumaUHC.get.getRemainingPlayers().addAll(team.getPlayers().values());
                       safeTeamTeleport(i+1);

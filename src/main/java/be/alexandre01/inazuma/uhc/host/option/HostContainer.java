@@ -3,12 +3,15 @@ package be.alexandre01.inazuma.uhc.host.option;
 import be.alexandre01.inazuma.uhc.host.gui.HostOptionsGui;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
-public class HostContainer {
-    private ArrayList<HostOption> hostOptions;
+public class HostContainer extends HostButton{
+    private ArrayList<HostButton> hostOptions;
     private String name;
     private String description;
     private int slot = 0;
@@ -16,11 +19,12 @@ public class HostContainer {
     private HostOptionsGui hostOptionsGui;
 
     public HostContainer(String name){
+        super(Type.CONTAINER);
         hostOptions = new ArrayList<>();
         this.name = name;
     }
 
-    public ArrayList<HostOption> getHostOptions() {
+    public ArrayList<HostButton> getHostOptions() {
         return hostOptions;
     }
 
@@ -50,6 +54,14 @@ public class HostContainer {
     }
 
     public void setDescription(String description) {
+        if(itemStack != null){
+            ItemMeta itemMeta = itemStack.getItemMeta();
+            List<String> l = new ArrayList<>();
+            l.add(description);
+            itemMeta.setLore(l);
+            itemStack.setItemMeta(itemMeta);
+        }
+
         this.description = description;
     }
 

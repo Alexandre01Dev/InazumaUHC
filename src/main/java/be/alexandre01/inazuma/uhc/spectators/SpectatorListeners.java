@@ -35,6 +35,15 @@ public class SpectatorListeners implements Listener {
     }
 
     @EventHandler
+    public void onDamage(EntityDamageEvent event){
+        if(event.getEntity() instanceof Player){
+            Player player = (Player) event.getEntity();
+            if(i.spectatorManager.getPlayers().contains(player)){
+                event.setCancelled(true);
+            }
+        }
+    }
+    @EventHandler
     public void onFood(FoodLevelChangeEvent event){
         if(event.getEntity() instanceof Player){
             Player player = (Player) event.getEntity();

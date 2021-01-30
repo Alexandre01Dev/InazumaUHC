@@ -24,14 +24,22 @@ public class ScenarioCommand implements CommandExecutor {
         if(sender instanceof Player){
             Player player = (Player) sender;
             if(cmd.getName().equalsIgnoreCase("scenario")){
-                ArrayList<Scenario> scenarios = iPreset.getScenarios();
+                ArrayList<Class<?>> c = iPreset.getScenarios();
                 player.sendMessage("§9Scénarios activés:");
-                for(Scenario s : scenarios){
-                    BaseComponent b = new TextComponent("§e§l- §a"+s.getName());
-                    b.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,new ComponentBuilder("§e"+s.getDescription()).create()));
-                    player.spigot().sendMessage(b);
-
+                if(c.isEmpty()) {
+                    return false;
                 }
+
+                for(Class<?> sc : c){
+                    if(Scenario.getScenarios().containsKey(sc)){
+                        Scenario scenario = Scenario.getScenarios().get(sc);
+                      //  scenarios.remove(scenario);
+                        BaseComponent b = new TextComponent("§e§l- §a"+scenario.getName());
+                        b.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,new ComponentBuilder("§e"+scenario.getDescription()).create()));
+                        player.spigot().sendMessage(b);
+                    }
+                }
+
             }
         }
 

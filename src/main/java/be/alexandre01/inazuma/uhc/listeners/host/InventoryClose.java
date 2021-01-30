@@ -19,11 +19,11 @@ public class InventoryClose implements Listener {
     @EventHandler
     public void onInventoryClose(InventoryCloseEvent event){
         HumanEntity player = event.getPlayer();
-        if(host.currentTGUI.containsKey(player.getUniqueId())){
+     /*   if(host.currentTGUI.containsKey(player.getUniqueId())){
             if(host.lastTGUI.containsKey(player.getUniqueId())){
                 host.lastTGUI.remove(player.getUniqueId());
             }
             host.currentTGUI.remove(player.getUniqueId());
-        }
+        }*/
     }
 }

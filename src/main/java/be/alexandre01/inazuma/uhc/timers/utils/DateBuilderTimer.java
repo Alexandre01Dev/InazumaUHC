@@ -17,7 +17,7 @@ public class DateBuilderTimer {
     Format m;
     Format s;
     public DateBuilderTimer(long time){
-        this.time = time;
+        this.time = time+new Date().getTime();
          h = new SimpleDateFormat("hh");
          m = new SimpleDateFormat("mm");
          s = new SimpleDateFormat("ss");
@@ -26,7 +26,6 @@ public class DateBuilderTimer {
 
     public void loadDate(){
             long now = new Date().getTime();
-            this.time = time+now;
 
             Date date = new Date(time-now);
             int hour =  (int) ((date.getTime() / (1000*60*60)) % 24);
@@ -38,6 +37,8 @@ public class DateBuilderTimer {
             }
             sb.append(minute+":");
             sb.append(second);
+            this.date = date;
+            this.build = sb.toString();
         }
 
     public Date getDate() {

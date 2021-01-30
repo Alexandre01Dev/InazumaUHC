@@ -12,16 +12,14 @@ import be.alexandre01.inazuma.uhc.listeners.ListenersManager;
 import be.alexandre01.inazuma.uhc.listeners.game.*;
 import be.alexandre01.inazuma.uhc.presets.Preset;
 import be.alexandre01.inazuma.uhc.presets.jujutsu_kaizen.Jujutsu_Kaizen;
-import be.alexandre01.inazuma.uhc.presets.jujutsu_kaizen.roles.SatoruGojo;
-import be.alexandre01.inazuma.uhc.presets.normal.Normal;
-import be.alexandre01.inazuma.uhc.roles.Role;
+import be.alexandre01.inazuma.uhc.scenarios.Scenario;
 import be.alexandre01.inazuma.uhc.scoreboard.ScoreboardManager;
 import be.alexandre01.inazuma.uhc.spectators.SpectatorManager;
 import be.alexandre01.inazuma.uhc.state.GameState;
 import be.alexandre01.inazuma.uhc.teams.TeamManager;
 import be.alexandre01.inazuma.uhc.timers.TimersManager;
 import be.alexandre01.inazuma.uhc.worlds.WorldGen;
-import be.alexandre01.inazuma.uhc.worlds.WorldUtils;
+import be.alexandre01.inazuma.uhc.worlds.utils.WorldUtils;
 import be.alexandre01.inazuma.uhc.worlds.executors.ArrowToCenter;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
@@ -86,6 +84,7 @@ public final class InazumaUHC extends JavaPlugin {
         lm.addListener(new TeamsEvent());
         WorldUtils.patchBiomes();
         this.worldGen = new WorldGen(this);
+        Scenario.initialize();
         Preset p = new Preset(new Jujutsu_Kaizen());
         if(p.p.isArrowCalculated()){
             arrowToCenter = new ArrowToCenter();

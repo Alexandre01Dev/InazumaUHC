@@ -1,7 +1,9 @@
 package be.alexandre01.inazuma.uhc.scenarios.cateyes;
 
 import be.alexandre01.inazuma.uhc.scenarios.Scenario;
+import be.alexandre01.inazuma.uhc.utils.ItemBuilder;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -18,5 +20,7 @@ public class CatEyes extends Scenario {
                 }
             }
         });
+        ItemBuilder itemBuilder = new ItemBuilder(Material.EYE_OF_ENDER);
+        setItemStack(itemBuilder.toItemStack());
     }
 }

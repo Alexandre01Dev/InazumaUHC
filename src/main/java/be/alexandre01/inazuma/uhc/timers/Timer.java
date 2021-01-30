@@ -3,6 +3,8 @@ package be.alexandre01.inazuma.uhc.timers;
 import be.alexandre01.inazuma.uhc.InazumaUHC;
 import be.alexandre01.inazuma.uhc.custom_events.timers.TimerCancelEvent;
 import be.alexandre01.inazuma.uhc.custom_events.timers.TimerCreateEvent;
+import be.alexandre01.inazuma.uhc.presets.IPreset;
+import be.alexandre01.inazuma.uhc.presets.Preset;
 import be.alexandre01.inazuma.uhc.timers.exception.NullTimerException;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
@@ -10,13 +12,13 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 import spg.lgdev.iSpigot;
 
-import java.time.Duration;
 import java.time.Instant;
 
 public class Timer extends BukkitRunnable{
     boolean optimisation = true;
     boolean b = false;
     boolean c = false;
+    double d = 0;
     boolean isAlreadyLaunched = false;
     Instant now = Instant.now();
     Instant sec = Instant.now();
@@ -27,12 +29,18 @@ public class Timer extends BukkitRunnable{
     long delay;
     long period;
     public boolean isRunning = false;
+    public InazumaUHC i;
+    public IPreset p;
     ITimer run = null;
     public Timer(String timerName){
         this.timerName = timerName;
+        this.i = InazumaUHC.get;
+        this.p = Preset.instance.p;
     }
     public Timer(String timerName,boolean register){
         this.timerName = timerName;
+        this.i = InazumaUHC.get;
+        this.p = Preset.instance.p;
         if(register){
             InazumaUHC.get.tm.addTimer(this);
         }
@@ -46,32 +54,32 @@ public class Timer extends BukkitRunnable{
 
     @Override
     public void run() {
+
         if(optimisation){
-            System.out.println("> Optimisation + "+ iSpigot.getTPS()[0]);
-            if(iSpigot.getTPS()[0] >= 18.5){
+            double tps = iSpigot.getTPS()[0];
+            System.out.println("> Optimisation + "+ tps);
 
-            if (!b) {
-                Instant i = Instant.now();
-                if(Duration.between(now,i).toMillis() >= ((delay*50)/1.40)){
-                    b = true;
-                }
-                if(Duration.between(sec,i).toMillis() >= (delay*50)){
-                    sec = Instant.now();
-                    c = true;
-                }
+            if(tps > 22 || tps < 16.5){
+                if (b) {
+               d = d + 20/tps;
+               if(d >= 0.78){
+                    int round = (int) Math.round(d);
+                   for (int i = 0; i < round; i++) {
+                       run.run();
+                   }
+                   d = d-round;
 
-            }
+
+               }
+               }
             }else {
                 b = true;
-            }
-            if(b||c){
+                d = 0;
                 run.run();
             }
-            c = false;
-            now = Instant.now();
-        }else {
+            }else {
             run.run();
-        }
+            }
 
     }
 
@@ -230,8 +238,10 @@ public class Timer extends BukkitRunnable{
                     };
                 });
             }
+            Timer timer = newInstance();
+            cancelTimerEvent.setTimer(timer);
             bukkitTask.cancel();
-            InazumaUHC.get.tm.timers.put(this.getClass(),newInstance());
+            InazumaUHC.get.tm.timers.put(this.getClass(),timer);
             Bukkit.getPluginManager().callEvent(cancelTimerEvent);
         }
     }

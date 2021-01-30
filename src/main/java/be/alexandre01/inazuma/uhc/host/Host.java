@@ -13,11 +13,13 @@ import be.alexandre01.inazuma.uhc.listeners.host.InventoryClose;
 import be.alexandre01.inazuma.uhc.presets.IPreset;
 import be.alexandre01.inazuma.uhc.presets.Preset;
 import be.alexandre01.inazuma.uhc.presets.PresetData;
+import be.alexandre01.inazuma.uhc.scenarios.Scenario;
 import be.alexandre01.inazuma.uhc.utils.ItemBuilder;
 import org.bukkit.Material;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
@@ -37,23 +39,27 @@ public class Host {
         //ADD PRESET
         HostContainer hostContainer = new HostContainer("Settings");
         hostContainer.setItemStack(new ItemBuilder(Material.REDSTONE_COMPARATOR).setName(hostContainer.getName()).toItemStack());
-        hostContainer.setDescription("Les settings bordel de sushi");
+        hostContainer.setDescription("Les settings");
         hostContainer.setSlot(0);
         hostContainers.put(0,hostContainer);
-
+        //ADD PRESET
+        HostContainer hostContainer2 = new HostContainer("Settings2");
+        hostContainer2.setItemStack(new ItemBuilder(Material.REDSTONE_COMPARATOR).setName(hostContainer2.getName()).toItemStack());
+        hostContainer2.setDescription("Les settings");
+        hostContainer2.setSlot(1);
+        hostContainers.put(1,hostContainer2);
         //NETHER ACTIVATED
         HostOption nether = new HostOption(presetData.hasNether,"hasNether");
         nether.setModifiable(true);
-        nether.setVarType(VarType.BOOLEAN);
-        nether.setDescription(messages.get("hasNether"));
+        nether.setVarType(VarType.FASTBOOL);
         nether.setItemStack(new ItemStack(Material.NETHERRACK));
-
+        nether.setDescription(messages.get("hasNether"));
         //Minimum player to Start
         HostOption minPlayerToStart = new HostOption(presetData.minPlayerToStart,"minPlayerToStart");
         minPlayerToStart.setModifiable(true);
         minPlayerToStart.setVarType(VarType.INTEGER);
-        minPlayerToStart.setDescription(messages.get("minPlayerToStart"));
         minPlayerToStart.setItemStack(new ItemStack(Material.WOOD));
+        minPlayerToStart.setDescription(messages.get("minPlayerToStart"));
         minPlayerToStart.setMinAndMax(new int[]{2,50});
 
         //Total Time
@@ -84,13 +90,15 @@ public class Host {
 
         //Team Size
         HostOption teamSize = new HostOption(presetData.teamSize,"teamSize");
-        teamSize.setModifiable(true);
+        teamSize.setModifiable(false);
+
         //teamSize.setDescription(messages.get("teamSize"));
         teamSize.setMinAndMax(new int[]{1,4});
         teamSize.setVarType(VarType.INTEGER);
+
         ItemBuilder itemBuilder = new ItemBuilder(Material.SKULL_ITEM);
-        itemBuilder.setName("Team Size");
         teamSize.setItemStack(itemBuilder.toItemStack());
+        teamSize.setName("Taille des teams");
 
         //Bordure
         HostOption borderSize = new HostOption(presetData.borderSize,"borderSize");
@@ -121,8 +129,49 @@ public class Host {
         hostContainer.getHostOptions().add(borderSize);
         hostContainer.getHostOptions().add(borderSizeN);
         hostContainer.getHostOptions().add(invisibilityTimer);
+        hostContainer.getHostOptions().add(hostContainer2);
+
+        hostContainer2.getHostOptions().add(nether);
+        hostContainer2.deploy();
         hostContainer.deploy();
 
+
+        HostContainer scenarios = new HostContainer("§bScénarios");
+        scenarios.setItemStack(new ItemBuilder(Material.EYE_OF_ENDER).setName(scenarios.getName()).toItemStack());
+        scenarios.setDescription("Les scénarios");
+        scenarios.setSlot(3);
+        hostContainers.put(3,scenarios);
+
+
+        for(Scenario scenario : Scenario.getScenarios().values()){
+            boolean defaultValue = false;
+            if(presetData.getScenarios().contains(scenario.getClass())){
+                defaultValue = true;
+            }
+                HostOption s = new HostOption(defaultValue,"scenario");
+                s.setVarType(VarType.FASTBOOL);
+                s.setModifiable(true);
+                s.setName(scenario.getName());
+                s.setDescription(scenario.getDescription());
+                 s.setItemStack(scenario.getItemStack());
+                s.setAction(new HostOption.action() {
+                    @Override
+                    public void a(Object value) {
+                        boolean b = (boolean) value;
+                        if(b){
+                            presetData.getScenarios().add(scenario.getClass());
+                        }else {
+                            presetData.getScenarios().remove(scenario.getClass());
+                        }
+
+                        s.value = value;
+                        s.updateItemStack();
+                    }
+                });
+         scenarios.getHostOptions().add(s);
+
+        }
+        scenarios.deploy();
         InazumaUHC.get.lm.addListener(new InventoryClick(this));
         InazumaUHC.get.lm.addListener(new InventoryClose(this));
 
@@ -153,6 +202,10 @@ public class Host {
 
     public void setHostContainers(HashMap<Integer, HostContainer> hostContainers) {
         this.hostContainers = hostContainers;
+    }
+
+    public HostGUI getHostGUI() {
+        return hostGUI;
     }
 
     public Inventory getInv() {

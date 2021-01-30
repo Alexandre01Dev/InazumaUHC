@@ -28,7 +28,10 @@ import java.util.ArrayList;
 
 public class PlayerEvent implements Listener {
     public ArrayList<Player> players = null;
-
+    InazumaUHC i;
+    public PlayerEvent(){
+        this.i = InazumaUHC.get;
+    }
     @EventHandler
     public void onJoin(PlayerJoinEvent event){
         InazumaUHC inazumaUHC = InazumaUHC.get;
@@ -41,6 +44,39 @@ public class PlayerEvent implements Listener {
         player.setFlySpeed(0.2f);
         player.setFlying(false);
         World world = null;
+
+        //CLEAR INVENTORY
+        player.getInventory().clear();
+        player.getInventory().setHelmet(null);
+        player.getInventory().setChestplate(null);
+        player.getInventory().setLeggings(null);
+        player.getInventory().setBoots(null);
+        player.getInventory().setArmorContents(new ItemStack[0]);
+        player.updateInventory();
+
+        //GAMEMODE
+        player.setGameMode(GameMode.ADVENTURE);
+
+        //HEALTH & FOOD & EXP
+        player.setMaxHealth(20);
+        player.setHealth(20);
+        player.setFoodLevel(20);
+        player.setLevel(0);
+        player.setExp(0);
+        player.setTotalExperience(0);
+
+        //EFFECT
+        for(PotionEffect potionEffect : player.getActivePotionEffects()){
+            player.removePotionEffect(potionEffect.getType());
+        }
+
+
+        inazumaUHC.getScoreboardManager().onLogin(player);
+        IPreset p = Preset.instance.p;
+        if(p.isArrowCalculated()){
+            p.getArrows().put(player.getUniqueId(),"§l~");
+        }
+
         if(!GameState.get().contains(State.PLAYING)){
             if(Preset.instance.p.autoJoinWorld()){
                 world = Bukkit.getWorld(Options.to("worldsTemp").get("defaultUUID").getString());
@@ -60,24 +96,6 @@ public class PlayerEvent implements Listener {
 
         //System.out.println(Options.to("worldsTemp").get("defaultUUID").getString());
         player.teleport(world.getSpawnLocation());
-        player.getInventory().clear();
-        player.getInventory().setContents(new ItemStack[0]);
-        player.updateInventory();
-        player.setGameMode(GameMode.ADVENTURE);
-        player.setMaxHealth(20);
-        for(PotionEffect potionEffect : player.getActivePotionEffects()){
-            player.removePotionEffect(potionEffect.getType());
-        }
-        player.setHealth(20);
-        player.setFoodLevel(20);
-        player.setExp(0);
-        player.setTotalExperience(0);
-        inazumaUHC.getScoreboardManager().onLogin(player);
-        IPreset p = Preset.instance.p;
-        if(p.isArrowCalculated()){
-            p.getArrows().put(player.getUniqueId(),"§l~");
-        }
-
     }
 
     @EventHandler
@@ -166,7 +184,9 @@ public class PlayerEvent implements Listener {
             if(event.getEntity() instanceof Player){
 
                 Player player = (Player) event.getEntity();
-
+                if(i.spectatorManager.getPlayers().contains(player)){
+                    return;
+                }
 
                     System.out.println("FINALKILL > DETECTED PL");
                     System.out.println(player.getHealth()-event.getFinalDamage()+"< FINALKILL");

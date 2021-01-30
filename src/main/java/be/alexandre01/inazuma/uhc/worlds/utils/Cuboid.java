@@ -1,4 +1,4 @@
-package be.alexandre01.inazuma.uhc.utils;
+package be.alexandre01.inazuma.uhc.worlds.utils;
 
 import org.bukkit.Location;
 import org.bukkit.World;

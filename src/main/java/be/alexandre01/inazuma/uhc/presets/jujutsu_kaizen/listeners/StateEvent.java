@@ -104,8 +104,8 @@ public class StateEvent implements Listener {
                             timer = i.tm.getTimer(InvincibilityTimer.class);
                             timer.runTaskTimerAsynchronously(InazumaUHC.get,0,10);
 
-                            timer = i.tm.getTimer(DelayedTimeChangeTimer.class);
-                            timer.runTaskTimerAsynchronously(InazumaUHC.get,0,1);
+                            timer = i.tm.getTimer(EpisodeTimer.class);
+                            timer.runTaskTimerAsynchronously(InazumaUHC.get,0,20*10);
                         }
                     });
 

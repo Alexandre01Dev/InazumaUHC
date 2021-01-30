@@ -17,11 +17,17 @@ public class GameScoreboard {
         this.normal = normal;
         setScoreboard();
         if(normal.hasScenario()){
+            if(!normal.getScenarios().isEmpty()){
+
             if(normal.getScenarios().size()> 1){
                 scenario = "§a/scenario";
             }else {
                 scenario = "§a"+normal.getScenarios().get(0).getName();
             }
+        }else {
+            scenario = "§cAucun";
+        }
+
         }else {
             scenario = "§cAucun";
         }

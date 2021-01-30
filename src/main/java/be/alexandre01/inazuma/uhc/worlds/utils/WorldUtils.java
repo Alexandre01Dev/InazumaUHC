@@ -1,4 +1,4 @@
-package be.alexandre01.inazuma.uhc.worlds;
+package be.alexandre01.inazuma.uhc.worlds.utils;
 
 import net.minecraft.server.v1_8_R3.BiomeBase;
 import org.bukkit.Bukkit;

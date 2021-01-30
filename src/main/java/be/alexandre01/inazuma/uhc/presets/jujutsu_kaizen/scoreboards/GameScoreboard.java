@@ -1,6 +1,7 @@
 package be.alexandre01.inazuma.uhc.presets.jujutsu_kaizen.scoreboards;
 
 import be.alexandre01.inazuma.uhc.presets.jujutsu_kaizen.Jujutsu_Kaizen;
+import be.alexandre01.inazuma.uhc.presets.jujutsu_kaizen.objects.Episode;
 import be.alexandre01.inazuma.uhc.presets.normal.Normal;
 import be.alexandre01.inazuma.uhc.scoreboard.IScoreBoard;
 import be.alexandre01.inazuma.uhc.scoreboard.ObjectiveSign;
@@ -15,6 +16,7 @@ public class GameScoreboard {
         this.jujutsu_kaizen = jujutsu_kaizen;
         setScoreboard();
         if(jujutsu_kaizen.hasScenario()){
+            if(!jujutsu_kaizen.getScenarios().isEmpty()){
             if(jujutsu_kaizen.getScenarios().size()> 1){
                 scenario = "§a/scenario";
             }else {
@@ -23,8 +25,10 @@ public class GameScoreboard {
         }else {
             scenario = "§cAucun";
         }
+    }else {
+            scenario = "§cAucun";
+        }
     }
-
     public void setScoreboard(){
         jujutsu_kaizen.i = player -> {
             PersonalScoreboard ps = new PersonalScoreboard(player);
@@ -33,10 +37,10 @@ public class GameScoreboard {
                 @Override
                 public void lines(String ip, ObjectiveSign objectiveSign) {
                     objectiveSign.setDisplayName("§8»§5§lJujutsu Kaizen UHC§8«");
-
                     objectiveSign.setLine(4, "§r§l§8»§8§m------------§l§8«");
-                    objectiveSign.setLine(6, "§7Joueurs §l» §e" + Bukkit.getOnlinePlayers().size() + "§7/§e"+jujutsu_kaizen.getPlayerSize());
-                    objectiveSign.setLine(7, "§r§l§8»§8§m------------§l§8«§f");
+                    objectiveSign.setLine(5, "§7Joueurs §l» §e" + Bukkit.getOnlinePlayers().size() + "§7/§e"+jujutsu_kaizen.getPlayerSize());
+                    objectiveSign.setLine(6, "§r§l§8»§8§m------------§l§8«§f");
+                    objectiveSign.setLine(7,"§cEpisode §l» §e"+ Episode.getEpisode());
                     objectiveSign.setLine(8, "§7"+ Normal.timerText+" §l» §e" + Normal.timerValue);
                     if(jujutsu_kaizen.hasNether()){
                         objectiveSign.setLine(9,"§7"+Normal.netherText+" §l» §e" + Normal.netherValue);

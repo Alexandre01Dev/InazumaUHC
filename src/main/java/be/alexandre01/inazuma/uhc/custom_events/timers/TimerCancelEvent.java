@@ -42,5 +42,9 @@ public class TimerCancelEvent extends Event implements Cancellable {
     public void setCancelled(boolean b) {
         this.isCancelled = b;
     }
+
+    public void setTimer(Timer timer) {
+        this.timer = timer;
+    }
 }
 
