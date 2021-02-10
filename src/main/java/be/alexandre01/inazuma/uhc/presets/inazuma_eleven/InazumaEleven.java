@@ -6,6 +6,7 @@ import be.alexandre01.inazuma.uhc.presets.PresetData;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.categories.Alius;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.categories.Raimon;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.listeners.*;
+import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.roles.alius.Xavier;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.roles.raimon.Mark;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.timers.*;
 import be.alexandre01.inazuma.uhc.scenarios.cateyes.CatEyes;
@@ -48,6 +49,7 @@ public class InazumaEleven extends PresetData implements IPreset{
         new Alius("Académie-Alius","§5");
         //INITIALIZE ROLES
         new Mark();
+        new Xavier();
 
     }
 
