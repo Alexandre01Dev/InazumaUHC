@@ -1,4 +1,9 @@
 package be.alexandre01.inazuma.uhc.presets.inazuma_eleven.roles.alius;
 
-public class Janus {
+import be.alexandre01.inazuma.uhc.roles.Role;
+
+public class Janus extends Role {
+    public Janus() {
+        super("Janus");
+    }
 }

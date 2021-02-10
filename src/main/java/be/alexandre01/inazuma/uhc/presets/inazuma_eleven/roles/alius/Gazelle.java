@@ -1,5 +1,9 @@
 package be.alexandre01.inazuma.uhc.presets.inazuma_eleven.roles.alius;
 
-public class Gazelle {
+import be.alexandre01.inazuma.uhc.roles.Role;
 
+public class Gazelle extends Role {
+    public Gazelle() {
+        super("Gazelle");
+    }
 }

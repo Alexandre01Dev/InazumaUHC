@@ -7,8 +7,8 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 public class Xavier extends Role {
-    public Xavier(String name) {
-        super(name);
+    public Xavier() {
+        super("Xéné");
         onLoad(new load() {
             @Override
             public void a() {

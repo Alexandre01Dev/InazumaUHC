@@ -1,4 +1,9 @@
 package be.alexandre01.inazuma.uhc.presets.inazuma_eleven.roles.alius;
 
-public class Bellatrix {
+import be.alexandre01.inazuma.uhc.roles.Role;
+
+public class Bellatrix extends Role {
+    public Bellatrix() {
+        super("Bellatrix");
+    }
 }

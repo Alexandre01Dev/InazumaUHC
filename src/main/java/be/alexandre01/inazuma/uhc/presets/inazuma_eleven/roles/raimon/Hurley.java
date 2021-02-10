@@ -4,7 +4,7 @@ import be.alexandre01.inazuma.uhc.roles.Role;
 
 public class Hurley extends Role {
 
-    public Hurley(String name, Class c) {
-        super(name, c);
+    public Hurley() {
+        super("Hurley Kane");
     }
 }
