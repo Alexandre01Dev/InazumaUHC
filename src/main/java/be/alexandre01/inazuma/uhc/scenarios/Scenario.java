@@ -33,7 +33,7 @@ public class Scenario {
         scenarios.put(HasteyBoys.class,new HasteyBoys());
         scenarios.put(Cutclean.class,new Cutclean());
         scenarios.put(Timber.class,new Timber());
-        scenarios.put(Timber.class,new RodLess());
+        scenarios.put(RodLess.class,new RodLess());
     }
     public Scenario(String name, String description) {
         this.name = name;
