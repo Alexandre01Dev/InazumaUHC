@@ -68,9 +68,7 @@ public class Timer extends BukkitRunnable{
                        run.run();
                    }
                    d = d-round;
-
-
-               }
+                }
                }
             }else {
                 b = true;

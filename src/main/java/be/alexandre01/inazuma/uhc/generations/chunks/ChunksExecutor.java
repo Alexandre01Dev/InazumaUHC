@@ -41,6 +41,7 @@ public class ChunksExecutor  {
                 if(r != 0 && totalCalculateChunks >= 25){
                     int sec  = c.getChunksCord().size()/r;
                     int min = 0;
+
                     if(sec > 60*5){
                         value = "+"+5 +" minute(s)";
                     }else {

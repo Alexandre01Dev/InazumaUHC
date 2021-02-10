@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class HostContainer extends HostButton{
-    private ArrayList<HostButton> hostOptions;
+    private HashMap<Integer,HostButton> hostOptions;
     private String name;
     private String description;
     private int slot = 0;
@@ -20,11 +20,11 @@ public class HostContainer extends HostButton{
 
     public HostContainer(String name){
         super(Type.CONTAINER);
-        hostOptions = new ArrayList<>();
+        hostOptions = new HashMap<>();
         this.name = name;
     }
 
-    public ArrayList<HostButton> getHostOptions() {
+    public HashMap<Integer,HostButton> getHostOptions() {
         return hostOptions;
     }
 

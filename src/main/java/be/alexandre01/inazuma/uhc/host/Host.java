@@ -42,12 +42,7 @@ public class Host {
         hostContainer.setDescription("Les settings");
         hostContainer.setSlot(0);
         hostContainers.put(0,hostContainer);
-        //ADD PRESET
-        HostContainer hostContainer2 = new HostContainer("Settings2");
-        hostContainer2.setItemStack(new ItemBuilder(Material.REDSTONE_COMPARATOR).setName(hostContainer2.getName()).toItemStack());
-        hostContainer2.setDescription("Les settings");
-        hostContainer2.setSlot(1);
-        hostContainers.put(1,hostContainer2);
+
         //NETHER ACTIVATED
         HostOption nether = new HostOption(presetData.hasNether,"hasNether");
         nether.setModifiable(true);
@@ -59,6 +54,7 @@ public class Host {
         minPlayerToStart.setModifiable(true);
         minPlayerToStart.setVarType(VarType.INTEGER);
         minPlayerToStart.setItemStack(new ItemStack(Material.WOOD));
+        minPlayerToStart.setName("Joueurs minimum pour commencer la partie");
         minPlayerToStart.setDescription(messages.get("minPlayerToStart"));
         minPlayerToStart.setMinAndMax(new int[]{2,50});
 
@@ -104,7 +100,7 @@ public class Host {
         HostOption borderSize = new HostOption(presetData.borderSize,"borderSize");
         borderSize.setModifiable(true);
 
-        borderSize.setMinAndMax(new int[]{1,1000});
+        borderSize.setMinAndMax(new int[]{1,6000});
         borderSize.setVarType(VarType.INTEGER);
         ItemBuilder borderSizeI = new ItemBuilder(Material.SKULL_ITEM);
         borderSizeI.setName("borderSize");
@@ -118,21 +114,20 @@ public class Host {
         borderSizeN.setMinAndMax(new int[]{1,200});
         borderSize.setRange(50);
         ItemBuilder borderSizeIN = new ItemBuilder(Material.SKULL_ITEM);
-        borderSizeIN.setName("borderSize");
+        borderSizeIN.setName("Taille de la bordure");
         borderSizeN.setItemStack(borderSizeIN.toItemStack());
 
-        hostContainer.getHostOptions().add(nether);
-        hostContainer.getHostOptions().add(minPlayerToStart);
-        hostContainer.getHostOptions().add(totalTime);
-        hostContainer.getHostOptions().add(playerSize);
-        hostContainer.getHostOptions().add(teamSize);
-        hostContainer.getHostOptions().add(borderSize);
-        hostContainer.getHostOptions().add(borderSizeN);
-        hostContainer.getHostOptions().add(invisibilityTimer);
-        hostContainer.getHostOptions().add(hostContainer2);
+        hostContainer.getHostOptions().put(0,nether);
+        hostContainer.getHostOptions().put(1,minPlayerToStart);
+        hostContainer.getHostOptions().put(2,totalTime);
+        hostContainer.getHostOptions().put(3,playerSize);
+        hostContainer.getHostOptions().put(4,teamSize);
+        hostContainer.getHostOptions().put(5,borderSize);
+        hostContainer.getHostOptions().put(6,borderSizeN);
+        hostContainer.getHostOptions().put(7,invisibilityTimer);
 
-        hostContainer2.getHostOptions().add(nether);
-        hostContainer2.deploy();
+
+
         hostContainer.deploy();
 
 
@@ -142,7 +137,7 @@ public class Host {
         scenarios.setSlot(3);
         hostContainers.put(3,scenarios);
 
-
+        int n = 0;
         for(Scenario scenario : Scenario.getScenarios().values()){
             boolean defaultValue = false;
             if(presetData.getScenarios().contains(scenario.getClass())){
@@ -168,7 +163,8 @@ public class Host {
                         s.updateItemStack();
                     }
                 });
-         scenarios.getHostOptions().add(s);
+         scenarios.getHostOptions().put(n,s);
+         n++;
 
         }
         scenarios.deploy();

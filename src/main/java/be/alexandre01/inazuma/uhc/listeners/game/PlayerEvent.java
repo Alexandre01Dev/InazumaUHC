@@ -2,6 +2,7 @@ package be.alexandre01.inazuma.uhc.listeners.game;
 
 import be.alexandre01.inazuma.uhc.InazumaUHC;
 import be.alexandre01.inazuma.uhc.config.Options;
+import be.alexandre01.inazuma.uhc.custom_events.player.PlayerInstantDeathEvent;
 import be.alexandre01.inazuma.uhc.custom_events.teams.TeamDeathEvent;
 import be.alexandre01.inazuma.uhc.presets.IPreset;
 import be.alexandre01.inazuma.uhc.presets.Preset;
@@ -10,21 +11,29 @@ import be.alexandre01.inazuma.uhc.state.GameState;
 import be.alexandre01.inazuma.uhc.state.State;
 import be.alexandre01.inazuma.uhc.teams.Team;
 import be.alexandre01.inazuma.uhc.teams.TeamManager;
+import be.alexandre01.inazuma.uhc.utils.ExperienceManager;
+import net.minecraft.server.v1_8_R3.EntityPlayer;
+import net.minecraft.server.v1_8_R3.PacketPlayInArmAnimation;
+import net.minecraft.server.v1_8_R3.PacketPlayOutAnimation;
 import org.bukkit.*;
+import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.ExperienceOrb;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerKickEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
-import org.bukkit.event.player.PlayerToggleFlightEvent;
+import org.bukkit.event.player.*;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class PlayerEvent implements Listener {
     public ArrayList<Player> players = null;
@@ -194,9 +203,27 @@ public class PlayerEvent implements Listener {
                     System.out.println(event.getFinalDamage()+"< FINALKILLhEALTH");
                 if(!Preset.instance.pData.isInvisible){
                     if(player.getHealth()-event.getFinalDamage() <= 0){
+                        List<ItemStack> l = new ArrayList<>();
+                        l.addAll(Arrays.asList(player.getInventory().getArmorContents()));
+                        l.addAll(Arrays.asList(player.getInventory().getContents()));
+                        PlayerInstantDeathEvent playerInstantDeathEvent = new PlayerInstantDeathEvent(player,l, ExperienceManager.getTotalExperience(player));
+                        Bukkit.getPluginManager().callEvent(playerInstantDeathEvent);
+                        if(!playerInstantDeathEvent.isCancelled()){
+                            for(ItemStack it : playerInstantDeathEvent.getDrops()){
+                                if(it != null){
+                                    if(!it.getType().equals(Material.AIR))
+                                        player.getWorld().dropItemNaturally(player.getLocation(),it);
+                                }
+
+                            }
+                            ((ExperienceOrb)player.getWorld().spawn(player.getLocation(),ExperienceOrb.class)).setExperience(ExperienceManager.getTotalExperience(playerInstantDeathEvent.getDroppedExp()));
+                        }
 
                             event.setCancelled(true);
                             player.setHealth(20);
+                            player.resetPlayerTime();
+                            player.resetMaxHealth();
+
                             player.setMaxHealth(2);
                             player.setFoodLevel(20);
                             player.getInventory().clear();
@@ -223,6 +250,7 @@ public class PlayerEvent implements Listener {
                                     Bukkit.getPluginManager().callEvent(teamDeath);
                                 }
                             }
+
                             SpectatorPlayer spectatorPlayer = new SpectatorPlayer(player);
                             spectatorPlayer.setSpectator();
                             i.spectatorManager.addPlayer(player);
@@ -235,6 +263,20 @@ public class PlayerEvent implements Listener {
                 event.setCancelled(true);
             }
 
+        }
+    }
+    @EventHandler(priority = EventPriority.LOWEST)
+    public void onDrop(PlayerDropItemEvent event){
+        if(!event.isCancelled()){
+            Player player = event.getPlayer();
+            EntityPlayer playerNms = ((CraftPlayer) player).getHandle();
+
+            PacketPlayOutAnimation packetPlayOutAnimation = new PacketPlayOutAnimation(playerNms,0);
+            for(Entity entity : player.getWorld().getNearbyEntities(player.getLocation(),12,12,12)){
+                if(entity instanceof Player){
+                        ((CraftPlayer)entity).getHandle().playerConnection.sendPacket(packetPlayOutAnimation);
+                }
+            }
         }
     }
 }

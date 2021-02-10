@@ -45,7 +45,7 @@ public class ArrowToCenter {
                  StringBuilder sb = new StringBuilder();
                  double distance = l1.distance(l2);
                  String c = "§l•";
-                 if(distance > 20){
+                 if(distance > 100){
                      if(angle >= 337.5 && angle <= 360 || angle >= 0 && angle < 22.5){
                          c = "⬆";
                      }else {
@@ -78,12 +78,14 @@ public class ArrowToCenter {
                              }
                          }
                      }
+                     sb.append(c+" (§c"+Math.round(distance/2)+"§e)");
+                     p.getArrows().put(player.getUniqueId(),sb.toString());
+                     return;
                  }
-
-                 sb.append(c+" (§c"+Math.round(distance/2)+"§e)");
+                 sb.append(c);
                  p.getArrows().put(player.getUniqueId(),sb.toString());
              }
             }
-        },0,400, TimeUnit.MILLISECONDS);
+        },0,1, TimeUnit.SECONDS);
     }
 }

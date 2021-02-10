@@ -58,6 +58,11 @@ public class Normal extends PresetData implements IPreset {
     }
 
     @Override
+    public boolean hasRoles() {
+        return false;
+    }
+
+    @Override
     public String getPackageName() {
         return "normal";
     }

@@ -57,7 +57,7 @@ public class WorldGenEvent implements Listener {
                 event.getWorld().setSpawnLocation(0,100,0);
                 //ChunkCommand.around(event.getWorld().getChunkAt(0,0),(p.getBorderSize(event.getWorld().getEnvironment())/16)+InazumaUHC.get.getServer().getViewDistance());
                 ChunksGenerator c = new ChunksGenerator();
-                c.generate(event.getWorld().getChunkAt(0,0),(p.getBorderSize(event.getWorld().getEnvironment())/16)+InazumaUHC.get.getServer().getViewDistance(),true);
+                c.generate(event.getWorld().getChunkAt(0,0),(p.getBorderSize(event.getWorld().getEnvironment())/16)+InazumaUHC.get.getServer().getViewDistance()+5,true);
 
                 //event.getWorld().getPopulators().add(new OrePopulator(UHC.uhc));
                 //event.getWorld().getPopulators().add(new NetherPopulator(UHC.uhc));
@@ -96,7 +96,7 @@ public class WorldGenEvent implements Listener {
                 event.getWorld().setSpawnLocation(0,100,0);
               //ChunkCommand.around(event.getWorld().getChunkAt(0,0),(p.getBorderSize(event.getWorld().getEnvironment())/16)+InazumaUHC.get.getServer().getViewDistance());
                 ChunksGenerator c = new ChunksGenerator();
-                c.generate(event.getWorld().getChunkAt(0,0),(p.getBorderSize(event.getWorld().getEnvironment())/16)+InazumaUHC.get.getServer().getViewDistance(),true);
+                c.generate(event.getWorld().getChunkAt(0,0),(p.getBorderSize(event.getWorld().getEnvironment())/16)+InazumaUHC.get.getServer().getViewDistance()+5,true);
                 event.getWorld().setGameRuleValue("randomTickSpeed", p.getRandomTickSpeed(event.getWorld().getEnvironment()));
                 event.getWorld().setGameRuleValue("naturalRegeneration", p.getNaturalRegeneration(event.getWorld().getEnvironment()));
                 event.getWorld().setGameRuleValue("announceAdvancements", "false");

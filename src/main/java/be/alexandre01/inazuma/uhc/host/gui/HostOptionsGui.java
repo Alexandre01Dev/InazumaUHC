@@ -29,28 +29,28 @@ public class HostOptionsGui extends TGUI{
 
         this.hostContainer = hostContainer;
         this.inv = Bukkit.createInventory(null,45,hostContainer.getName());
-        int i = 0;
-        for(HostButton hostButton : hostContainer.getHostOptions()){
+
+        for(Integer n : hostContainer.getHostOptions().keySet()){
+            HostButton hostButton = hostContainer.getHostOptions().get(n);
             if(hostButton instanceof HostOption){
                 HostOption hostOption = (HostOption) hostButton;
                 if(!hostOption.getVarType().equals(VarType.FASTBOOL)){
                     ModifierGUI modifierGUI = new ModifierGUI(hostOption);
                     hostOption.setModifierGUI(modifierGUI);
                     modifierGUIS.add(modifierGUI);
-                    hostOptions.put(hostOption,i);
+                    hostOptions.put(hostOption,n);
                     hostOption.addHostOption(this);
-                    inv.setItem(i,hostOption.getItemStack());
-                    i++;
+                    inv.setItem(n,hostOption.getItemStack());
+
                 }else {
-                    hostOptions.put(hostOption,i);
+                    hostOptions.put(hostOption,n);
                     hostOption.addHostOption(this);
-                    inv.setItem(i,hostOption.getItemStack());
-                    i++;
+                    inv.setItem(n,hostOption.getItemStack());
+
                 }
             }
             if(hostButton instanceof HostContainer){
-                inv.setItem(i,((HostContainer) hostButton).getItemStack());
-                i++;
+                inv.setItem(n,((HostContainer) hostButton).getItemStack());
             }
 
         }

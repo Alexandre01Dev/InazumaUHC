@@ -21,6 +21,8 @@ public interface IPreset {
 
     String prefixName();
 
+    boolean hasRoles();
+
     String getPackageName();
 
     ArrayList<Listener> getListeners();

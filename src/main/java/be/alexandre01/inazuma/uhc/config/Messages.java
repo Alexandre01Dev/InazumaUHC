@@ -10,6 +10,7 @@ import org.bukkit.plugin.Plugin;
 import java.util.HashMap;
 
 public class Messages {
+
     private FileConfiguration config;
     private HashMap<String,LanguageData> langs;
     private LanguageData langData;

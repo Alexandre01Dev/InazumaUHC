@@ -6,12 +6,15 @@ import be.alexandre01.inazuma.uhc.commands.StartCommand;
 import be.alexandre01.inazuma.uhc.commands.test.ChunkCommand;
 import be.alexandre01.inazuma.uhc.config.Config;
 import be.alexandre01.inazuma.uhc.config.Messages;
+import be.alexandre01.inazuma.uhc.config.yaml.YamlUtils;
 import be.alexandre01.inazuma.uhc.generations.NetherPortalsManager;
 import be.alexandre01.inazuma.uhc.host.Host;
 import be.alexandre01.inazuma.uhc.listeners.ListenersManager;
 import be.alexandre01.inazuma.uhc.listeners.game.*;
 import be.alexandre01.inazuma.uhc.presets.Preset;
-import be.alexandre01.inazuma.uhc.presets.jujutsu_kaizen.Jujutsu_Kaizen;
+import be.alexandre01.inazuma.uhc.presets.jujutsu_kaisen.Jujutsu_Kaisen;
+import be.alexandre01.inazuma.uhc.presets.normal.Normal;
+import be.alexandre01.inazuma.uhc.roles.RoleManager;
 import be.alexandre01.inazuma.uhc.scenarios.Scenario;
 import be.alexandre01.inazuma.uhc.scoreboard.ScoreboardManager;
 import be.alexandre01.inazuma.uhc.spectators.SpectatorManager;
@@ -23,11 +26,14 @@ import be.alexandre01.inazuma.uhc.worlds.utils.WorldUtils;
 import be.alexandre01.inazuma.uhc.worlds.executors.ArrowToCenter;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandMap;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -42,8 +48,10 @@ public final class InazumaUHC extends JavaPlugin {
     private ScheduledExecutorService scheduledExecutorService;
     public ListenersManager lm;
     public TimersManager tm;
+    public RoleManager rm;
     public TeamManager teamManager;
     public SpectatorManager spectatorManager;
+    public Preset p;
 
     public ArrowToCenter arrowToCenter;
     private ArrayList<Player> remainingPlayers;
@@ -85,7 +93,7 @@ public final class InazumaUHC extends JavaPlugin {
         WorldUtils.patchBiomes();
         this.worldGen = new WorldGen(this);
         Scenario.initialize();
-        Preset p = new Preset(new Jujutsu_Kaizen());
+         p = new Preset(new Normal());
         if(p.p.isArrowCalculated()){
             arrowToCenter = new ArrowToCenter();
             arrowToCenter.schedule();
@@ -119,11 +127,26 @@ public final class InazumaUHC extends JavaPlugin {
             host = new Host();
             this.getCommand("host").setExecutor(new HostCommand());
         }
-
+        if(p.p.hasRoles()){
+            rm = new RoleManager();
+        }
         //lm.automaticFindListener();
 
     }
 
+    public void registerCommand(String commandName, Command commandClass){
+        try{
+            final Field bukkitCommandMap = Bukkit.getServer().getClass().getDeclaredField("commandMap");
+
+            bukkitCommandMap.setAccessible(true);
+            CommandMap commandMap = (CommandMap) bukkitCommandMap.get(Bukkit.getServer());
+
+            commandMap.register(commandName, commandClass);
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+
+    }
 
     @Override
     public void onDisable() {
