@@ -5,6 +5,7 @@ import be.alexandre01.inazuma.uhc.scenarios.betazombie.BetaZombie;
 import be.alexandre01.inazuma.uhc.scenarios.cateyes.CatEyes;
 import be.alexandre01.inazuma.uhc.scenarios.cutclean.Cutclean;
 import be.alexandre01.inazuma.uhc.scenarios.hasteyboys.HasteyBoys;
+import be.alexandre01.inazuma.uhc.scenarios.rodless.RodLess;
 import be.alexandre01.inazuma.uhc.scenarios.timber.Timber;
 import org.bukkit.Material;
 import org.bukkit.event.Listener;
@@ -32,6 +33,7 @@ public class Scenario {
         scenarios.put(HasteyBoys.class,new HasteyBoys());
         scenarios.put(Cutclean.class,new Cutclean());
         scenarios.put(Timber.class,new Timber());
+        scenarios.put(Timber.class,new RodLess());
     }
     public Scenario(String name, String description) {
         this.name = name;
