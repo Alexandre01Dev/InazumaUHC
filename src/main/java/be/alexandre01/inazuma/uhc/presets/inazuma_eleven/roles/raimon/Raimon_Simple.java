@@ -6,8 +6,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 public class Raimon_Simple extends Role {
-    public Raimon_Simple(String name) {
-        super(name);
+    public Raimon_Simple() {
+        super("Joueur Raimon");
         onLoad(new load() {
             @Override
             public void a() {
