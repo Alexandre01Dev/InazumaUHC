@@ -40,7 +40,7 @@ public class PreparingScoreboard {
 
                 @Override
                 public void lines(String ip, ObjectiveSign objectiveSign) {
-                    objectiveSign.setDisplayName("§8»§5§lJujutsu Kaisen§8«");
+                    objectiveSign.setDisplayName("§3»§b§lInazuma§8-§3Eleven§8«");
 
                     objectiveSign.setLine(4, "§r§l§8»§8§m------------§l§8«");
                     objectiveSign.setLine(6, "§7Joueurs §l» §e" + Bukkit.getOnlinePlayers().size() + "§7/§e"+inazuma.getPlayerSize());
