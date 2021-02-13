@@ -16,10 +16,9 @@ public class Kevin extends Role {
         super("Kevin Dragonfly");
 
         addCommand("intimidate", new command() {
-            public int i = 0;
+        public int i = 0;
             @Override
-            public void a(CommandSender sender, Command cmd, String label, String[] args) {
-                Player player = (Player) sender;
+        public void a(String[] args, Player player) {
                 Player target = Bukkit.getPlayer(args[0]);
                 if(i > 3){
                     player.sendMessage(Preset.instance.p.prefixName()+" Vous avez dépassé le nombre d'utilisation de cette commande");
