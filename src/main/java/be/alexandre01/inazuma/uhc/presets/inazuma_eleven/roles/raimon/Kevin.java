@@ -2,6 +2,7 @@ package be.alexandre01.inazuma.uhc.presets.inazuma_eleven.roles.raimon;
 
 import be.alexandre01.inazuma.uhc.presets.Preset;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.categories.Alius;
+import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.categories.Raimon;
 import be.alexandre01.inazuma.uhc.roles.Role;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -14,7 +15,7 @@ import org.bukkit.potion.PotionEffectType;
 public class Kevin extends Role {
     public Kevin() {
         super("Kevin Dragonfly");
-
+        setRoleCategory(Raimon.class);
         addCommand("intimidate", new command() {
         public int i = 0;
             @Override

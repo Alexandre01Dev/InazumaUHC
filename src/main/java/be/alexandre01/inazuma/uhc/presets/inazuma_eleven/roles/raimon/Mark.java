@@ -16,6 +16,7 @@ public class Mark extends Role implements Listener {
 
     public Mark() {
         super("Mark Evans");
+        setRoleCategory(Raimon.class);
        // setRoleToSpoil(Victoria);
         addListener(this);
 

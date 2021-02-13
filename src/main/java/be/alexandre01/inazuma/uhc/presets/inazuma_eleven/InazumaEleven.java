@@ -5,6 +5,7 @@ import be.alexandre01.inazuma.uhc.presets.IPreset;
 import be.alexandre01.inazuma.uhc.presets.PresetData;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.categories.Alius;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.categories.Raimon;
+import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.categories.Solo;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.listeners.*;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.roles.alius.*;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.roles.raimon.*;
@@ -48,6 +49,7 @@ public class InazumaEleven extends PresetData implements IPreset{
         //INITIALIZE ROLESCATEGORIES
         new Raimon("Équipe Raimon","§6");
         new Alius("Académie-Alius","§5");
+        new Solo("Solo","§c");
         //INITIALIZE ROLES
         new Mark();
         new Byron();

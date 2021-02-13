@@ -1,6 +1,8 @@
 package be.alexandre01.inazuma.uhc.presets.inazuma_eleven.roles.raimon;
 
 import be.alexandre01.inazuma.uhc.custom_events.player.PlayerInstantDeathEvent;
+import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.categories.Alius;
+import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.categories.Raimon;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.roles.solo.Byron;
 import be.alexandre01.inazuma.uhc.roles.Role;
 import org.bukkit.Material;
@@ -13,6 +15,7 @@ import org.bukkit.potion.PotionEffectType;
 public class Axel extends Role {
     public Axel() {
         super("Axel Blaze");
+        setRoleCategory(Raimon.class);
         onLoad(new load() {
             @Override
             public void a() {

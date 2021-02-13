@@ -40,11 +40,11 @@ public class PreparingScoreboard {
 
                 @Override
                 public void lines(String ip, ObjectiveSign objectiveSign) {
-                    objectiveSign.setDisplayName("§3»§b§lInazuma§8-§3Eleven§8«");
+                    objectiveSign.setDisplayName("§8»§3§lInazuma§8-§3§lEleven§8«");
 
                     objectiveSign.setLine(4, "§r§l§8»§8§m------------§l§8«");
                     objectiveSign.setLine(6, "§7Joueurs §l» §e" + Bukkit.getOnlinePlayers().size() + "§7/§e"+inazuma.getPlayerSize());
-                    objectiveSign.setLine(7, "§7 §l» §cEn attentes du host§e");
+                    objectiveSign.setLine(7, "§7 §l» §cEn attente du host§e");
                     objectiveSign.setLine(9, "§r§l§8»§8§m------------§l§8«§r");
                     World world = player.getWorld();
                     int borderSize = Preset.instance.p.getBorderSize(world.getEnvironment());
