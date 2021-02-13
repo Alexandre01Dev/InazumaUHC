@@ -21,6 +21,7 @@ public class RoleManager {
         roles = new HashMap<>();
         classes = new HashMap<>();
         roleCategories = new HashMap<>();
+        rolesByCat = new HashMap<>();
         InazumaUHC.get.lm.addListener(new InteractItemEvent());
         InazumaUHC.get.lm.addListener(new DropRoleItemEvent());
         InazumaUHC.get.lm.addListener(new PlayerInstantDeath());
