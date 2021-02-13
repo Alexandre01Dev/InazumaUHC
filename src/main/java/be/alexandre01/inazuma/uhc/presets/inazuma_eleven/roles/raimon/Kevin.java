@@ -1,9 +1,11 @@
 package be.alexandre01.inazuma.uhc.presets.inazuma_eleven.roles.raimon;
 
+import be.alexandre01.inazuma.uhc.InazumaUHC;
 import be.alexandre01.inazuma.uhc.presets.Preset;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.categories.Alius;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.categories.Raimon;
 import be.alexandre01.inazuma.uhc.roles.Role;
+import be.alexandre01.inazuma.uhc.utils.TitleUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -30,9 +32,11 @@ public class Kevin extends Role {
                     return;
                 }
                 if(i > 3){
-                    player.sendMessage(Preset.instance.p.prefixName()+" Vous avez dépassé le nombre d'utilisation de cette commande");
+                    player.sendMessage(Preset.instance.p.prefixName()+"§c Vous avez dépassé le nombre d'utilisation de cette commande");
                     return;
                 }
+                target.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS,20,0,false,false));
+                TitleUtils.sendActionBar(target, Preset.instance.p.prefixName()+" Tu as été intimidé par Kevin!");
                 target.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 30*20, 1,false,false), true);
                 target.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 10*20, 1,false,false), true);
                 player.sendMessage(Preset.instance.p.prefixName()+"Vous avez intimidé"+target+".");
