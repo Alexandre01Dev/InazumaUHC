@@ -17,10 +17,10 @@ public class RoleManager {
     public HashMap<Class<?>,RoleCategory> roleCategories;
 
     public RoleManager(){
-        roleCategories = new HashMap<>();
         uuids = new HashMap<>();
         roles = new HashMap<>();
         classes = new HashMap<>();
+        roleCategories = new HashMap<>();
         InazumaUHC.get.lm.addListener(new InteractItemEvent());
         InazumaUHC.get.lm.addListener(new DropRoleItemEvent());
         InazumaUHC.get.lm.addListener(new PlayerInstantDeath());

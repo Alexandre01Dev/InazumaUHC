@@ -14,6 +14,9 @@ public class RoleCategory {
     public RoleCategory(String category, String prefixColor){
         this.category = category;
         this.prefixColor = prefixColor;
+        if(InazumaUHC.get.rm == null){
+            InazumaUHC.get.rm = new RoleManager();
+        }
         InazumaUHC.get.rm.addRoleCategory(this);
     }
 
