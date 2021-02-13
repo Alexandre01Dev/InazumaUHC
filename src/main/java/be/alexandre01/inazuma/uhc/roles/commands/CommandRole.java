@@ -15,12 +15,14 @@ public class CommandRole extends Command {
     private final ArrayList<Role> roles;
     private final HashMap<Role,Role.command> commands;
     private final RoleManager roleManager;
+    private InazumaUHC inazumaUHC;
     public CommandRole(String name, Role.command command,Role role) {
         super(name);
         roles = new ArrayList<>();
         roles.add(role);
         this.roleManager = InazumaUHC.get.rm;
         this.commands = new HashMap<>();
+        this.inazumaUHC = InazumaUHC.get;
         addCommand(role,command);
     }
 
@@ -37,6 +39,9 @@ public class CommandRole extends Command {
         if(sender instanceof Player){
             Player player = (Player) sender;
             Role role = roleManager.getRole(player.getUniqueId());
+            if(inazumaUHC.spectatorManager.getPlayers().contains(sender)){
+                player.sendMessage(inazumaUHC.p.p.prefixName()+"Désolé, mais tu ne peux plus utiliser la commande, t'es un homme mort.");
+            }
             if(!roles.contains(roleManager.getRole(player.getUniqueId()))){
                 player.sendMessage(Preset.instance.p.prefixName()+"§cLa commande n'est pas accessible depuis votre rôle.");
             }
