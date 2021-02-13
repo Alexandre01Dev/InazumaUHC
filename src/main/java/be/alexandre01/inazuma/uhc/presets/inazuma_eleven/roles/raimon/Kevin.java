@@ -27,7 +27,7 @@ public class Kevin extends Role {
                 target.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 30, 1,false,false), true);
                 target.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 10, 1,false,false), true);
                 player.sendMessage(Preset.instance.p.prefixName()+"Vous avez intimidé"+target+".");
-                player.sendMessage(Preset.instance.p.prefixName()+"Kevin vous a intimidé");
+                target.sendMessage(Preset.instance.p.prefixName()+"Kevin vous a intimidé");
                 i++;
             }
         });
