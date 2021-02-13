@@ -127,7 +127,7 @@ public final class InazumaUHC extends JavaPlugin {
             host = new Host();
             this.getCommand("host").setExecutor(new HostCommand());
         }
-        if(p.p.hasRoles() && rm != null){
+        if(p.p.hasRoles() && rm == null){
             rm = new RoleManager();
         }
         //lm.automaticFindListener();
