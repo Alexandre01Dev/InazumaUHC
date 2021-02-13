@@ -69,8 +69,6 @@ public class InazumaEleven extends PresetData implements IPreset{
         new David();
         new Caleb();
         new Bellatrix();
-
-
     }
 
     @Override

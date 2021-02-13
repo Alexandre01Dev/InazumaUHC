@@ -11,7 +11,7 @@ import org.bukkit.potion.PotionEffectType;
 
 public class SatoruGojo extends Role implements Listener {
     public SatoruGojo() {
-        super("Satoru Gojo",SatoruGojo.class);
+        super("Satoru Gojo");
         RoleItem territory = new RoleItem();
         territory.setItemstack(new ItemStack(Material.COBBLESTONE));
         territory.setRightClickOnPlayer((player, rightClicked) -> {

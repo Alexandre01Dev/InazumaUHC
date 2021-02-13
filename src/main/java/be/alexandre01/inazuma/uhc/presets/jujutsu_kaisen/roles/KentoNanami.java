@@ -14,7 +14,7 @@ import org.bukkit.util.Vector;
 
 public class KentoNanami extends Role {
     public KentoNanami() {
-        super("Kento Nanami", KentoNanami.class);
+        super("Kento Nanami");
 
         RoleItem rayonNoir = new RoleItem();
         rayonNoir.setItemstack(new ItemStack(Material.NETHERRACK));

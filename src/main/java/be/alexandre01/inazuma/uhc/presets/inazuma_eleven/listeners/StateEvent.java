@@ -28,8 +28,8 @@ public class StateEvent implements Listener {
     private be.alexandre01.inazuma.uhc.InazumaUHC i;
     private IPreset p;
     private boolean isLaunched = false;
-    public StateEvent(InazumaEleven jujutsu_kaizen){
-        this.n = jujutsu_kaizen;
+    public StateEvent(InazumaEleven inazuma){
+        this.n = inazuma;
         this.i = be.alexandre01.inazuma.uhc.InazumaUHC.get;
         this.p = Preset.instance.p;
     }

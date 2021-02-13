@@ -42,7 +42,6 @@ public class Plateform {
     }
 
     public void spawn(){
-        System.out.println("spawn");
         World w = InazumaUHC.get.worldGen.defaultWorld;
         if(plateformType.equals(PlateformType.CUBE)){
             for (int i = -depth/2; i <(depth/2)+1; i++) {
@@ -74,12 +73,8 @@ public class Plateform {
             return;
         }
         if(plateformType.equals(PlateformType.SQUARE)){
-            System.out.println("square spawn");
             for (int i = -width/2; i < width/2; i++) {
-                System.out.println("square i> "+i);
                 for (int j = -depth/2; j < depth/2; j++) {
-                    System.out.println("square j> "+j);
-                    System.out.println("x/i : "+i +"y :"+ (int)y +"z/j :"+ j);
                     Block b =  w.getBlockAt((int) (x+i), (int) y, (int) (z+j));
                     b.setType(Material.GLASS);
                     bs.add(b);
@@ -98,9 +93,7 @@ public class Plateform {
         registerPlateform.remove(this);
     }
     public void despawn(){
-        System.out.println("despawn> " +this.bs.size());
         for (Block b: bs){
-            System.out.println("despawn> "+b);
             b.setType(Material.AIR);
         }
     }

@@ -10,7 +10,7 @@ import org.bukkit.potion.PotionEffectType;
 
 public class ItadoriYuji extends Role {
     public ItadoriYuji() {
-        super("Itadori Yuji",ItadoriYuji.class);
+        super("Itadori Yuji");
         RoleItem eclairNoir = new RoleItem();
         eclairNoir.setItemstack(new ItemStack(Material.COBBLESTONE));
 

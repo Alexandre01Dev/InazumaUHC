@@ -19,8 +19,8 @@ public class Preset {
        }
     }
 
-    public void set(IPreset iPrecet){
-        p = iPrecet;
+    public void set(IPreset iPreset){
+        p = iPreset;
         configurate();
     }
 

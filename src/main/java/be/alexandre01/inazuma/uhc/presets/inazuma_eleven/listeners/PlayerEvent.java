@@ -26,7 +26,7 @@ public class PlayerEvent implements Listener {
         }
 
         Bukkit.getOnlinePlayers().forEach((p) ->{
-            TitleUtils.sendActionBar(p,"§a"+player.getName()+"§e a rejoins la partie");
+            TitleUtils.sendActionBar(p,"§a"+player.getName()+"§e a rejoint la partie");
         });
 
         event.setJoinMessage("");

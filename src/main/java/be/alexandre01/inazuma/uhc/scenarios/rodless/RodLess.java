@@ -13,7 +13,7 @@ import org.bukkit.inventory.ItemStack;
 
 public class RodLess extends Scenario implements Listener {
     public RodLess() {
-        super("BetaZombie", "Empêche toute utilisation de la Rod");
+        super("RodLess", "Empêche toute utilisation de la Rod");
         addListener(this);
         ItemBuilder itemBuilder = new ItemBuilder(Material.FISHING_ROD).setDurability((short) 2);
         setItemStack(itemBuilder.toItemStack());
