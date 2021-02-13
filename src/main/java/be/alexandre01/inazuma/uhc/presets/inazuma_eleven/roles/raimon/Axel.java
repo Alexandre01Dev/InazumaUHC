@@ -17,7 +17,7 @@ public class Axel extends Role {
             @Override
             public void a() {
                 for(Player player : getPlayers()){
-                    player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, Integer.MAX_VALUE, 1,false,false), true);
+                    player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, Integer.MAX_VALUE, 0,false,false), true);
                 }
             }
         });
@@ -29,7 +29,7 @@ public class Axel extends Role {
         Player killer = event.getPlayer().getKiller();
         if(killer != null){
             if (inazumaUHC.rm.getRole(killer.getUniqueId()).getClass().equals(Axel.class)){
-                killer.getInventory().setItem(1, new ItemStack(Material.GOLDEN_APPLE));
+                killer.getInventory().addItem(new ItemStack(Material.GOLDEN_APPLE));
             }
         }
     }

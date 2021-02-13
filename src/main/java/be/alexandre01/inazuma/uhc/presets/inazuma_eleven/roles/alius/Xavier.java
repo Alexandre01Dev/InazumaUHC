@@ -20,8 +20,8 @@ public class Xavier extends Role {
 
         RoleItem roleItem = new RoleItem();
         roleItem.setRightClick(player -> {
-            player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 60*2, 0,false,false), true);
-            player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 60*2, 0,false,false), true);
+            player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 60*2*20, 0,false,false), true);
+            player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 60*2*20, 0,false,false), true);
         });
         setRoleToSpoil(Bellatrix.class, Janus.class, Torch.class, Gazelle.class, Dvalin.class);
     }

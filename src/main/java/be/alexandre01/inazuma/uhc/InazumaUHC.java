@@ -12,6 +12,7 @@ import be.alexandre01.inazuma.uhc.host.Host;
 import be.alexandre01.inazuma.uhc.listeners.ListenersManager;
 import be.alexandre01.inazuma.uhc.listeners.game.*;
 import be.alexandre01.inazuma.uhc.presets.Preset;
+import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.InazumaEleven;
 import be.alexandre01.inazuma.uhc.presets.jujutsu_kaisen.Jujutsu_Kaisen;
 import be.alexandre01.inazuma.uhc.presets.normal.Normal;
 import be.alexandre01.inazuma.uhc.roles.RoleManager;
@@ -93,7 +94,7 @@ public final class InazumaUHC extends JavaPlugin {
         WorldUtils.patchBiomes();
         this.worldGen = new WorldGen(this);
         Scenario.initialize();
-         p = new Preset(new Normal());
+         p = new Preset(new InazumaEleven());
         if(p.p.isArrowCalculated()){
             arrowToCenter = new ArrowToCenter();
             arrowToCenter.schedule();

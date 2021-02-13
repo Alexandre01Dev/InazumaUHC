@@ -13,7 +13,7 @@ public class Scotty extends Role {
             @Override
             public void a() {
                 for(Player player : getPlayers()){
-                    player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 1,false,false), true);
+                    player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 0,false,false), true);
                 }
             }
         });
