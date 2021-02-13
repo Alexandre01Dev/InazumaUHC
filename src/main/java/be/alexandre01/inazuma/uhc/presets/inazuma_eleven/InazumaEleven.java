@@ -78,7 +78,7 @@ public class InazumaEleven extends PresetData implements IPreset{
 
     @Override
     public String getName() {
-        return "Inazuma-Eleven";
+        return "InazumaEleven";
     }
 
     @Override

@@ -9,18 +9,18 @@ import org.bukkit.Bukkit;
 import org.bukkit.World;
 
 public class PreparingScoreboard {
-    InazumaEleven jujutsu_kaizen;
+    InazumaEleven inazuma;
     String scenario;
     public PreparingScoreboard(InazumaEleven inazuma){
-        this.jujutsu_kaizen = jujutsu_kaizen;
+        this.inazuma = inazuma;
         setScoreboard();
-        if(jujutsu_kaizen.hasScenario()){
-            if(!jujutsu_kaizen.getScenarios().isEmpty()){
+        if(inazuma.hasScenario()){
+            if(!inazuma.getScenarios().isEmpty()){
 
-            if(jujutsu_kaizen.getScenarios().size()> 1){
+            if(inazuma.getScenarios().size()> 1){
                 scenario = "§a/scenario";
             }else {
-                scenario = "§a"+jujutsu_kaizen.getScenarios().get(0).getName();
+                scenario = "§a"+inazuma.getScenarios().get(0).getName();
             }
 
 
@@ -34,7 +34,7 @@ public class PreparingScoreboard {
 
 
     public void setScoreboard(){
-        jujutsu_kaizen.i = player -> {
+        inazuma.i = player -> {
             PersonalScoreboard ps = new PersonalScoreboard(player);
             ps.setIScore(new IScoreBoard() {
 
@@ -43,7 +43,7 @@ public class PreparingScoreboard {
                     objectiveSign.setDisplayName("§8»§5§lJujutsu Kaisen§8«");
 
                     objectiveSign.setLine(4, "§r§l§8»§8§m------------§l§8«");
-                    objectiveSign.setLine(6, "§7Joueurs §l» §e" + Bukkit.getOnlinePlayers().size() + "§7/§e"+jujutsu_kaizen.getPlayerSize());
+                    objectiveSign.setLine(6, "§7Joueurs §l» §e" + Bukkit.getOnlinePlayers().size() + "§7/§e"+inazuma.getPlayerSize());
                     objectiveSign.setLine(7, "§7 §l» §cEn attentes du host§e");
                     objectiveSign.setLine(9, "§r§l§8»§8§m------------§l§8«§r");
                     World world = player.getWorld();

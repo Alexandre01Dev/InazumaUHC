@@ -10,10 +10,10 @@ import org.bukkit.Bukkit;
 import org.bukkit.World;
 
 public class WaitingScoreboard {
-    InazumaEleven jujutsu_kaizen;
+    InazumaEleven inazuma;
     String scenario;
     public WaitingScoreboard(InazumaEleven inazuma){
-        this.jujutsu_kaizen = inazuma;
+        this.inazuma = inazuma;
         setScoreboard();
         if(inazuma.hasScenario()){
             if(!inazuma.getScenarios().isEmpty()){
@@ -33,7 +33,7 @@ public class WaitingScoreboard {
     }
 
     public void setScoreboard(){
-        jujutsu_kaizen.i = player -> {
+        inazuma.i = player -> {
             PersonalScoreboard ps = new PersonalScoreboard(player);
             ps.setIScore(new IScoreBoard() {
 
@@ -42,7 +42,7 @@ public class WaitingScoreboard {
                     objectiveSign.setDisplayName("§8»§5§lJujutsu Kaisen§8«");
 
                     objectiveSign.setLine(4, "§r§l§8»§8§m------------§l§8«");
-                    objectiveSign.setLine(6, "§7Joueurs §l» §e" + Bukkit.getOnlinePlayers().size() + "§7/§e"+jujutsu_kaizen.getPlayerSize());
+                    objectiveSign.setLine(6, "§7Joueurs §l» §e" + Bukkit.getOnlinePlayers().size() + "§7/§e"+inazuma.getPlayerSize());
                     objectiveSign.setLine(7, "§7 §l» §cEn attentes de joueurs§e");
                     objectiveSign.setLine(8, "§7 §l» §e§l"+Normal.lastModifier+"s.");
                     objectiveSign.setLine(9, "§r§l§8»§8§m------------§l§8«§r");
