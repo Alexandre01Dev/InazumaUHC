@@ -20,6 +20,14 @@ public class Kevin extends Role {
             @Override
         public void a(String[] args, Player player) {
                 Player target = Bukkit.getPlayer(args[0]);
+                if(target == null){
+                    player.sendMessage(Preset.instance.p.prefixName()+" Le joueur n'est pas en game.");
+                    return;
+                }
+                if(target == player){
+                    player.sendMessage(Preset.instance.p.prefixName()+" Vous essayez de vous intimider vous même mais en vain. Vous êtes (un peu) chelou.");
+                    return;
+                }
                 if(i > 3){
                     player.sendMessage(Preset.instance.p.prefixName()+" Vous avez dépassé le nombre d'utilisation de cette commande");
                     return;
