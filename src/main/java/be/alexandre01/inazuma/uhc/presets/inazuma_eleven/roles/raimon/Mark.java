@@ -41,6 +41,10 @@ public class Mark extends Role implements Listener {
                 for(Entity entity : player.getWorld().getNearbyEntities(player.getLocation(),25,25,25)){
                     if(entity instanceof Player){
                         Player p = (Player) entity;
+                        if(inazumaUHC.rm.getRole(p).getRoleCategory() == null){
+                            System.out.println(inazumaUHC.rm.getRole(p).getName());
+                            continue;
+                        }
                         if(inazumaUHC.rm.getRole(p).getRoleCategory().getClass().equals(Alius.class)){
                             a++;
                         }
