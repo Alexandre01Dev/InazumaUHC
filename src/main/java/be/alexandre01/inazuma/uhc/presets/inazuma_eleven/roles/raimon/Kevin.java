@@ -33,9 +33,9 @@ public class Kevin extends Role {
                     player.sendMessage(Preset.instance.p.prefixName()+" Vous avez dépassé le nombre d'utilisation de cette commande");
                     return;
                 }
-                target.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 30*20, 1,false,false), true);
-                target.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 10*20, 1,false,false), true);
-                player.sendMessage(Preset.instance.p.prefixName()+"Vous avez intimidé"+target+".");
+                target.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 20*20, 0,false,false), true);
+                target.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 20*20, 0,false,false), true);
+                player.sendMessage(Preset.instance.p.prefixName()+"Vous avez intimidé"+target.getName()+".");
                 target.sendMessage(Preset.instance.p.prefixName()+"Kevin vous a intimidé");
                 i++;
             }

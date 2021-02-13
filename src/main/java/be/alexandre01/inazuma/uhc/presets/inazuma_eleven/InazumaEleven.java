@@ -11,10 +11,13 @@ import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.roles.alius.*;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.roles.raimon.*;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.roles.solo.Byron;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.timers.*;
+import be.alexandre01.inazuma.uhc.scenarios.betazombie.BetaZombie;
 import be.alexandre01.inazuma.uhc.scenarios.cateyes.CatEyes;
 import be.alexandre01.inazuma.uhc.scenarios.cutclean.Cutclean;
 import be.alexandre01.inazuma.uhc.scenarios.hasteyboys.HasteyBoys;
+import be.alexandre01.inazuma.uhc.scenarios.rodless.RodLess;
 import be.alexandre01.inazuma.uhc.scenarios.timber.Timber;
+import be.alexandre01.inazuma.uhc.scenarios.trashpotion.TrashPotion;
 import be.alexandre01.inazuma.uhc.scoreboard.IPersonalScoreBoard;
 import be.alexandre01.inazuma.uhc.scoreboard.PersonalScoreboard;
 import be.alexandre01.inazuma.uhc.timers.Timer;
@@ -52,8 +55,8 @@ public class InazumaEleven extends PresetData implements IPreset{
         new Solo("Solo","§c");
         //INITIALIZE ROLES
         new Mark();
-        new Byron();
         new Xavier();
+        new Byron();
         new Kevin();
     }
 
@@ -118,6 +121,9 @@ public class InazumaEleven extends PresetData implements IPreset{
             scenarios.add(CatEyes.class);
             scenarios.add(HasteyBoys.class);
             scenarios.add(Timber.class);
+            scenarios.add(RodLess.class);
+            scenarios.add(BetaZombie.class);
+            scenarios.add(TrashPotion.class);
         }
         System.out.println("SCENARIO RETURN!");
         return scenarios;

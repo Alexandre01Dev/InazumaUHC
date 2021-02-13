@@ -7,6 +7,7 @@ import be.alexandre01.inazuma.uhc.scenarios.cutclean.Cutclean;
 import be.alexandre01.inazuma.uhc.scenarios.hasteyboys.HasteyBoys;
 import be.alexandre01.inazuma.uhc.scenarios.rodless.RodLess;
 import be.alexandre01.inazuma.uhc.scenarios.timber.Timber;
+import be.alexandre01.inazuma.uhc.scenarios.trashpotion.TrashPotion;
 import org.bukkit.Material;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
@@ -34,6 +35,7 @@ public class Scenario {
         scenarios.put(Cutclean.class,new Cutclean());
         scenarios.put(Timber.class,new Timber());
         scenarios.put(RodLess.class,new RodLess());
+        scenarios.put(TrashPotion.class,new TrashPotion());
     }
     public Scenario(String name, String description) {
         this.name = name;

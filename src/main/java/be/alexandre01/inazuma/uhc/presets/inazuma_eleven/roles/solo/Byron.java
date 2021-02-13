@@ -1,6 +1,8 @@
 package be.alexandre01.inazuma.uhc.presets.inazuma_eleven.roles.solo;
 
 import be.alexandre01.inazuma.uhc.custom_events.player.PlayerInstantDeathEvent;
+import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.categories.Raimon;
+import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.categories.Solo;
 import be.alexandre01.inazuma.uhc.roles.Role;
 import be.alexandre01.inazuma.uhc.roles.RoleItem;
 import org.bukkit.Material;
@@ -23,7 +25,7 @@ import java.util.List;
 public class Byron extends Role implements Listener {
     public Byron() {
         super("Byron Love");
-
+        setRoleCategory(Solo.class);
         onLoad(new load() {
             @Override
             public void a() {
@@ -42,7 +44,7 @@ public class Byron extends Role implements Listener {
         meta.addCustomEffect(new PotionEffect(PotionEffectType.REGENERATION, 10*20, 1,false,false), true);
         meta.addCustomEffect(new PotionEffect(PotionEffectType.SPEED, 20*20, 0,false,false), true);
         meta.setDisplayName("§fNectar §7Divin");
-        meta.setLore(Arrays.asList("Boisson Divine légué par §fDieu§r lui même","cette boisson vous rendra §fimmortel§r durant un certain moment."));
+        meta.setLore(Arrays.asList("Boisson Divine légué par §fDieu§r lui même","cette boisson vous rendra §fimmortel§r durant une corute période."));
         List<String> potLore = new ArrayList<String>();
         meta.setLore(potLore);
         pot1.setItemMeta(meta);
