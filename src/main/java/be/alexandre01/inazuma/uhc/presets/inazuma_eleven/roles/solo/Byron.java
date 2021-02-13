@@ -2,6 +2,7 @@ package be.alexandre01.inazuma.uhc.presets.inazuma_eleven.roles.solo;
 
 import be.alexandre01.inazuma.uhc.InazumaUHC;
 import be.alexandre01.inazuma.uhc.custom_events.player.PlayerInstantDeathEvent;
+import be.alexandre01.inazuma.uhc.presets.Preset;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.objects.Episode;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.roles.solo.listeners.FreezePlayerListener;
 import be.alexandre01.inazuma.uhc.roles.Role;
@@ -69,10 +70,10 @@ public class Byron extends Role implements Listener {
             @Override
             public void a(Player player) {
                 if(InazumaUHC.get.lm.listeners.containsKey(FreezePlayerListener.class)){
-                    player.sendMessage(inazumaUHC.p.p.prefixName()+" Tu ne peux pas utiliser l'§7§lInstant céleste§7 en ce moment.");
+                    player.sendMessage(Preset.instance.p.prefixName()+" Tu ne peux pas utiliser l'§7§lInstant céleste§7 en ce moment.");
                 }
-                if(i > 2){
-                    player.sendMessage(inazumaUHC.p.p.prefixName()+" Tu ne peux pas utiliser l'§7§lInstant céleste§7 plus de 2x");
+                if(i > 100){
+                    player.sendMessage(Preset.instance.p.prefixName()+" Tu ne peux pas utiliser l'§7§lInstant céleste§7 plus de 2x");
                     return;
                 }
                 FreezePlayerListener f = new FreezePlayerListener();
@@ -81,6 +82,12 @@ public class Byron extends Role implements Listener {
                 for(Entity entity : player.getWorld().getNearbyEntities(player.getLocation(),25,25,25)){
                     if(entity instanceof Player){
                         Player target = (Player) entity;
+                        if(target == player){
+                            continue;
+                        }
+                        if(InazumaUHC.get.spectatorManager.getPlayers().contains(player)){
+                            continue;
+                        }
                         freeze.freezePlayer(target);
                         p.add(target);
                         TitleUtils.sendActionBar(target,"§7§k§7§lLoINSTANT CELESTE§kLo");
@@ -89,7 +96,7 @@ public class Byron extends Role implements Listener {
                 f.setP(p);
                 InazumaUHC.get.lm.addListener(f);
                 freeze.setOnStop((() -> {
-                    InazumaUHC.get.lm.unregisterListener(f);
+                    InazumaUHC.get.lm.removeListener(f.getClass());
                 }));
 
                 freeze.launchTimer();

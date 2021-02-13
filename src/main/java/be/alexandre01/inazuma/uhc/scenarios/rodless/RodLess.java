@@ -22,6 +22,9 @@ public class RodLess extends Scenario implements Listener {
     @EventHandler
     public void onPlayerInteractEvent(PlayerInteractEvent event){
         Player p = event.getPlayer ();
+        if(event.getItem() == null)
+            return;
+
         if (event.getItem().getType () == Material.FISHING_ROD) {
             event.setCancelled(true);
             p.sendMessage( Preset.instance.p.prefixName() +" §7Rodless est activé, vous ne pouvez pas utiliser cette item.");

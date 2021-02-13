@@ -9,8 +9,10 @@ import net.minecraft.server.v1_8_R3.*;
 import net.minecraft.server.v1_8_R3.PacketPlayOutEntity.PacketPlayOutEntityLook;
 import net.minecraft.server.v1_8_R3.WorldSettings.EnumGamemode;
 import org.bukkit.Bukkit;
+
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.craftbukkit.v1_8_R3.CraftChunk;
 import org.bukkit.craftbukkit.v1_8_R3.CraftServer;
 import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
@@ -22,6 +24,8 @@ import org.bukkit.util.Vector;
 import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
+
+import static org.joor.Reflect.onClass;
 
 public class NPC extends Reflections {
 
@@ -112,7 +116,7 @@ public class NPC extends Reflections {
         setValue(packet, "g", getFixRotation(location.getPitch()));
         setValue(packet, "h", 0);
         entityPlayer.getBukkitEntity().teleport(location);
-        DataWatcher w = new DataWatcher((DataWatcher) null);
+        DataWatcher w = new DataWatcher((Entity) null);
         w.a(6,(float)20);
         w.a(10,(byte)127);
 
@@ -195,7 +199,7 @@ public class NPC extends Reflections {
         sendPacket(player,packet);
     }
     public void setInvisible(){
-        DataWatcher w = new DataWatcher((DataWatcher) null);
+        DataWatcher w = new DataWatcher((Entity) null);
 
         w.a(0,(byte)0x20);
         PacketPlayOutEntityMetadata metadataPacket = new PacketPlayOutEntityMetadata(entityID,w,true);
@@ -203,7 +207,7 @@ public class NPC extends Reflections {
 
     }
     public void setStanding(){
-        DataWatcher w = new DataWatcher((DataWatcher) null);
+        DataWatcher w = new DataWatcher((Entity) null);
 
         w.a(0,(byte)0);
         PacketPlayOutEntityMetadata metadataPacket = new PacketPlayOutEntityMetadata(entityID,w,true);
@@ -211,7 +215,7 @@ public class NPC extends Reflections {
 
     }
     public void setOnFire(){
-        DataWatcher w = new DataWatcher((DataWatcher) null);
+        DataWatcher w = new DataWatcher((Entity) null);
 
         w.a(0,(byte)0x01);
         PacketPlayOutEntityMetadata metadataPacket = new PacketPlayOutEntityMetadata(entityID,w,true);
@@ -219,7 +223,7 @@ public class NPC extends Reflections {
 
     }
     public void setCrouch(){
-        DataWatcher w = new DataWatcher((DataWatcher) null);
+        DataWatcher w = new DataWatcher((Entity) null);
 
         w.a(0,(byte)0x02);
         PacketPlayOutEntityMetadata metadataPacket = new PacketPlayOutEntityMetadata(entityID,w,true);
@@ -240,7 +244,6 @@ public class NPC extends Reflections {
     public void setCamera(Player player , boolean state){
         if(state){
             PacketPlayOutCamera packet = new PacketPlayOutCamera(entityPlayer);
-
             sendPacket(player,packet);
         }else {
             PacketPlayOutCamera packet = new PacketPlayOutCamera(((CraftPlayer)player).getHandle());
