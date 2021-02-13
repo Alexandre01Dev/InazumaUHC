@@ -13,7 +13,7 @@ public class BukkitTeamInitializer {
             score.registerNewTeam("0VIVANT");
         }
         Team tV = score.getTeam("0VIVANT");
-        tV.setPrefix("§a");
+        tV.setPrefix("§7");
         tV.setCanSeeFriendlyInvisibles(true);
 
 
@@ -21,7 +21,7 @@ public class BukkitTeamInitializer {
             score.registerNewTeam("999MORT");
         }
         Team tM = score.getTeam("999MORT");
-        tM.setPrefix("§7[DEAD] ");
+        tM.setPrefix("§8[MORT] ");
 
         tM.addEntry("collisionRule never");
         tM.setCanSeeFriendlyInvisibles(true);

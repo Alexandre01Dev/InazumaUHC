@@ -31,7 +31,6 @@ public class SpectatorPlayer{
 
             t = score.getTeam("999MORT");
 
-            t.setPrefix("§7[MORT] ");
             t.setDisplayName(player.getName());
 
 
