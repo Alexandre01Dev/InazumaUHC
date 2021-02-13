@@ -37,7 +37,7 @@ public class InazumaEleven extends PresetData implements IPreset{
         playerSize = 30;
         totalTime = 60*60;
         teamSize = 1;
-        pvpTime = 60*20;
+        pvpTime = 1*30;
         netherTime = 55*60;
         bordureTime = 60*60;
         borderSize = 500;
