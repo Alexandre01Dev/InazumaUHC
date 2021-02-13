@@ -17,6 +17,7 @@ public class RoleManager {
     public HashMap<Class<?>,RoleCategory> roleCategories;
 
     public RoleManager(){
+        roleCategories = new HashMap<>();
         uuids = new HashMap<>();
         roles = new HashMap<>();
         classes = new HashMap<>();
