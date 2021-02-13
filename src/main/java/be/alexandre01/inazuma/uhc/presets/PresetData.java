@@ -17,7 +17,7 @@ public class PresetData {
     public int minPlayerToStart = 10;
     public int playerSize = 20;
     public int totalTime = 60*60;
-    public int pvpTime = 60*20;
+    public int pvpTime = 1*30;
     public int invisibilityTime = 1;
     public int netherTime = 55*60;
     public int bordureTime = 60*60;
