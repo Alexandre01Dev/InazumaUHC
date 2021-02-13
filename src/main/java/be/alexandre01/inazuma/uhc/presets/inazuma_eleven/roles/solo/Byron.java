@@ -28,7 +28,7 @@ public class Byron extends Role implements Listener {
             @Override
             public void a() {
                 for(Player player : getPlayers()){
-                    player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, Integer.MAX_VALUE, 1,false,false), true);
+                    player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, Integer.MAX_VALUE, 0,false,false), true);
                     player.setMaxHealth(24);
                     player.setHealth(24);
                 }
@@ -39,8 +39,8 @@ public class Byron extends Role implements Listener {
         PotionMeta meta = (PotionMeta) pot1.getItemMeta();
         meta.clearCustomEffects();
         pot1.setItemMeta(meta);
-        meta.addCustomEffect(new PotionEffect(PotionEffectType.REGENERATION, 10, 2,false,false), true);
-        meta.addCustomEffect(new PotionEffect(PotionEffectType.SPEED, 20, 1,false,false), true);
+        meta.addCustomEffect(new PotionEffect(PotionEffectType.REGENERATION, 100, 2,false,false), true);
+        meta.addCustomEffect(new PotionEffect(PotionEffectType.SPEED, 200, 1,false,false), true);
         meta.setDisplayName("§fNectar §7Divin");
         meta.setLore(Arrays.asList("Boisson Divine légué par §fDieu§r lui même","cette boisson vous rendra §fimmortel§r durant un certain moment."));
         List<String> potLore = new ArrayList<String>();
