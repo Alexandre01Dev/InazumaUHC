@@ -70,10 +70,10 @@ public class Byron extends Role implements Listener {
             @Override
             public void a(Player player) {
                 if(InazumaUHC.get.lm.listeners.containsKey(FreezePlayerListener.class)){
-                    player.sendMessage(Preset.instance.p.prefixName()+" Tu ne peux pas utiliser l'§7§lInstant céleste§7 en ce moment.");
+                    player.sendMessage(Preset.instance.p.prefixName()+" Tu ne peux pas utiliser l'§7§lInstant Céleste§7 en ce moment.");
                 }
                 if(i > 100){
-                    player.sendMessage(Preset.instance.p.prefixName()+" Tu ne peux pas utiliser l'§7§lInstant céleste§7 plus de 2x");
+                    player.sendMessage(Preset.instance.p.prefixName()+" Tu ne peux pas utiliser l'§7§lInstant Céleste§7 plus de 2x");
                     return;
                 }
                 FreezePlayerListener f = new FreezePlayerListener();
@@ -90,7 +90,8 @@ public class Byron extends Role implements Listener {
                         }
                         freeze.freezePlayer(target);
                         p.add(target);
-                        TitleUtils.sendActionBar(target,"§7§k§7§lLoINSTANT CELESTE§kLo");
+                        player.sendMessage(Preset.instance.p.prefixName()+" Vous venez d'utiliser l'§7§lInstant Céleste§7.");
+                        TitleUtils.sendActionBar(target,"§7§lINSTANT CELESTE§7");
                     }
                 }
                 f.setP(p);
