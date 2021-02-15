@@ -38,6 +38,10 @@ public class Role {
     public void spoilRole(){
         RoleManager roleManager = InazumaUHC.get.rm;
         for(Player player : getPlayers()){
+            if(getRoleCategory() != null){
+                player.sendMessage(Preset.instance.p.prefixName()+"Tu es "+ getRoleCategory().getPrefixColor()+getName());
+                continue;
+            }
             player.sendMessage(Preset.instance.p.prefixName()+"Tu es §a"+getName());
         }
 

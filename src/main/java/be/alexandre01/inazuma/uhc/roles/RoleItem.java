@@ -1,12 +1,14 @@
 package be.alexandre01.inazuma.uhc.roles;
 
+import net.minecraft.server.v1_8_R3.Tuple;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 public class RoleItem {
     private ItemStack itemStack;
     private RightClick rightClick;
-    private RightClickOnPlayer rightClickOnPlayer;
+    private RightClickOnPlayer rightClickOnPlayer = null;
+    private Tuple<Integer,RightClickOnPlayer> rightClickOnPlayerFarTuple = null;
     private LeftClick leftClick;
     private int slot = 8;
 
@@ -38,6 +40,10 @@ public class RoleItem {
         return leftClick;
     }
 
+    public Tuple<Integer, RightClickOnPlayer> getRightClickOnPlayerFarTuple() {
+        return rightClickOnPlayerFarTuple;
+    }
+
     public RightClickOnPlayer getRightClickOnPlayer() {
         return rightClickOnPlayer;
     }
@@ -49,7 +55,9 @@ public class RoleItem {
     public void setRightClickOnPlayer(RightClickOnPlayer rightClickOnPlayer) {
         this.rightClickOnPlayer = rightClickOnPlayer;
     }
-
+    public void setRightClickOnPlayer(int reach,RightClickOnPlayer rightClickOnPlayerFar) {
+        this.rightClickOnPlayerFarTuple = new Tuple<>(reach,rightClickOnPlayerFar);
+    }
     public interface RightClick{
          void a(Player player);
     }
@@ -57,6 +65,7 @@ public class RoleItem {
     public interface RightClickOnPlayer{
          void a(Player player,Player rightClicked);
     }
+
 
     public interface LeftClick{
          void a(Player player);
