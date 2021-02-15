@@ -1,8 +1,14 @@
 package be.alexandre01.inazuma.uhc.roles;
 
+import be.alexandre01.inazuma.uhc.presets.Preset;
+import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.objects.Episode;
+import be.alexandre01.inazuma.uhc.timers.utils.DateBuilderTimer;
+import be.alexandre01.inazuma.uhc.timers.utils.MSToSec;
 import net.minecraft.server.v1_8_R3.Tuple;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+
+import java.util.Date;
 
 public class RoleItem {
     private ItemStack itemStack;
@@ -95,6 +101,64 @@ public class RoleItem {
         this.rightClickOnPlayerFarTuple = new Tuple<>(reach,rightClickOnPlayerFar);
     }
 
+    private VerificationGeneration initAutoVerification(VerificationType type, int value){
+        VerificationGeneration v = null;
+        if(type.equals(VerificationType.USAGES)){
+             v = new VerificationGeneration() {
+                int i = 0;
+                int iMax = value;
+                @Override
+                public boolean verification(Player player) {
+                    if(i >= value){
+                        player.sendMessage(Preset.instance.p.prefixName()+"§c Tu ne peux pas utiliser cette item plus de "+iMax+" fois durant la partie");
+                        return false;
+                    }
+                    i++;
+                    return true;
+                }
+            };
+        }
+        if(type.equals(VerificationType.EPISODES)){
+            v = new VerificationGeneration() {
+                int i = -value;
+                int episodeLastRange = value;
+                @Override
+                public boolean verification(Player player) {
+                    int currentEpisode = Episode.getEpisode();
+
+                    if(i+episodeLastRange > currentEpisode){
+                        player.sendMessage(Preset.instance.p.prefixName()+"§c Tu peux utiliser cette item tout les "+episodeLastRange+" épisodes après son utilisation ");
+                        return false;
+                    }
+                    i = Episode.getEpisode();
+                    return true;
+                }
+            };
+        }
+
+        if(type.equals(VerificationType.COOLDOWN)){
+            v = new VerificationGeneration() {
+                DateBuilderTimer dateBuilderTimer = new DateBuilderTimer(MSToSec.toMili(value));
+                String d = dateBuilderTimer.getBuild();
+                @Override
+                public boolean verification(Player player) {
+                    dateBuilderTimer.loadComplexDate();
+
+                    if(dateBuilderTimer.getDate().getTime() > 0){
+                        player.sendMessage(Preset.instance.p.prefixName()+"§c Tu peux utiliser cette item tout les "+dateBuilderTimer.getLongBuild()+"  après son utilisation");
+                        return false;
+                    }
+
+                    dateBuilderTimer = new DateBuilderTimer(MSToSec.toMili(value));
+                    return true;
+                }
+            };
+        }
+        return v;
+    }
+    public interface VerificationGeneration{
+        boolean verification(Player player);
+    }
     public interface VerificationOnRightClick{
         boolean verification(Player player);
     }
@@ -119,5 +183,8 @@ public class RoleItem {
          void execute(Player player);
     }
 
+    public enum VerificationType{
+        USAGES,EPISODES,COOLDOWN;
+    }
     
 }
