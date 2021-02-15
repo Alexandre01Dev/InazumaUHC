@@ -13,6 +13,7 @@ public class DateBuilderTimer {
     private long time;
     private Date date;
     private String build;
+    private String longBuild;
     Format h;
     Format m;
     Format s;
@@ -34,19 +35,50 @@ public class DateBuilderTimer {
             StringBuilder sb = new StringBuilder();
             if(hour > 0){
                 sb.append("0"+hour+":");
+
             }
             sb.append(minute+":");
             sb.append(second);
             this.date = date;
             this.build = sb.toString();
         }
+    public void loadComplexDate(){
+        long now = new Date().getTime();
 
+        Date date = new Date(time-now);
+        int hour =  (int) ((date.getTime() / (1000*60*60)) % 24);
+        String minute = m.format(date);
+        String second = s.format(date);
+        StringBuilder lsb = new StringBuilder();
+        StringBuilder sb = new StringBuilder();
+        if(hour > 0){
+            sb.append("0"+hour+":");
+            lsb.append(hour+" heure(s)");
+        }
+        if(Integer.parseInt(minute) != 0){
+            lsb.append(" et ");
+            lsb.append(minute+" minute(s)");
+        }
+        sb.append(minute+":");
+        if(Integer.parseInt(second) != 0){
+            lsb.append(" et ");
+            lsb.append(second+" seconde(s)");
+        }
+            sb.append(second);
+        this.date = date;
+        this.build = sb.toString();
+        this.longBuild = lsb.toString();
+    }
     public Date getDate() {
         return date;
     }
 
     public String getBuild() {
         return build;
+    }
+
+    public String getLongBuild() {
+        return longBuild;
     }
 }
 
