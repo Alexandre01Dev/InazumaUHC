@@ -7,7 +7,9 @@ import be.alexandre01.inazuma.uhc.timers.utils.MSToSec;
 import net.minecraft.server.v1_8_R3.Tuple;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.omg.CORBA.PUBLIC_MEMBER;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public class RoleItem {
@@ -38,10 +40,62 @@ public class RoleItem {
         return verificationOnRightClick;
     }
 
+    public ArrayList<VerificationGeneration> generateMultipleVerification(Tuple<VerificationType,Integer>... verificationTypes){
+        ArrayList<VerificationGeneration> verificationGenerations = new ArrayList<>();
+        for(Tuple t : verificationTypes){
+            verificationGenerations.add(initAutoVerification((VerificationType) t.a(),(Integer) t.b()));
+        }
+        return verificationGenerations;
+    }
+    public ArrayList<VerificationGeneration> generateMultipleVerification(ArrayList<VerificationGeneration> verificationGenerations,Tuple<VerificationType,Integer>... verificationTypes){
+        for(Tuple t : verificationTypes){
+            verificationGenerations.add(initAutoVerification((VerificationType) t.a(),(Integer) t.b()));
+        }
+        return verificationGenerations;
+    }
+
     public void setVerificationOnRightClick(VerificationOnRightClick verificationOnRightClick) {
         this.verificationOnRightClick = verificationOnRightClick;
     }
 
+    public void generateVerificationsOnRightClick(ArrayList<VerificationGeneration> verificationGenerations) {
+        verificationOnRightClick = new VerificationOnRightClick() {
+            @Override
+            public boolean verification(Player player) {
+                for(VerificationGeneration v : verificationGenerations){
+                    if(!(v.verification(player)))
+                        return false;
+                }
+                return false;
+            }
+        };
+    }
+
+    public void generateVerificationsOnLeftClick(ArrayList<VerificationGeneration> verificationGenerations) {
+        verificationOnLeftClick = new VerificationOnLeftClick() {
+            @Override
+            public boolean verification(Player player) {
+                for(VerificationGeneration v : verificationGenerations){
+                    if(!(v.verification(player)))
+                        return false;
+                }
+                return false;
+            }
+        };
+    }
+
+    public void generateVerificationsOnRightClickOnPlayer(ArrayList<VerificationGeneration> verificationGenerations) {
+        verificationOnRightClickOnPlayer = new VerificationOnRightClickOnPlayer() {
+            @Override
+            public boolean verification(Player player,Player target) {
+                for(VerificationGeneration v : verificationGenerations){
+                    if(!(v.verification(player)))
+                        return false;
+                }
+                return false;
+            }
+        };
+    }
     public VerificationOnLeftClick getVerificationOnLeftClick() {
         return verificationOnLeftClick;
     }
