@@ -24,6 +24,30 @@ public class RoleItem {
     private VerificationOnRightClickOnPlayer verificationOnRightClickOnPlayer = null;
     private int slot = 8;
 
+
+    public RoleItem(){
+        verificationOnLeftClick = new VerificationOnLeftClick() {
+            @Override
+            public boolean verification(Player player) {
+                return true;
+            }
+        };
+
+
+        verificationOnRightClick = new VerificationOnRightClick() {
+            @Override
+            public boolean verification(Player player) {
+                return true;
+            }
+        };
+
+        verificationOnRightClick = new VerificationOnRightClick() {
+            @Override
+            public boolean verification(Player player) {
+                return true;
+            }
+        };
+    }
     public int getSlot() {
         return slot;
     }

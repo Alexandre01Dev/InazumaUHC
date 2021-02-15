@@ -32,12 +32,14 @@ public class InteractItemEvent implements Listener {
                 if(roleItem.getItemStack().equals(event.getItem())){
                     if(action.equals(Action.RIGHT_CLICK_AIR) || action.equals(Action.RIGHT_CLICK_BLOCK)){
                         if(roleItem.getRightClick() != null){
-                            RoleItemUseEvent roleItemUseEvent = new RoleItemUseEvent(player, roleItem.getLinkedRole(), roleItem);
-                            Bukkit.getPluginManager().callEvent(roleItemUseEvent);
-                            if(roleItemUseEvent.isCancelled())
-                                return;
+                            if(roleItem.getVerificationOnRightClick().verification(player)){
+                                RoleItemUseEvent roleItemUseEvent = new RoleItemUseEvent(player, roleItem.getLinkedRole(), roleItem);
+                                Bukkit.getPluginManager().callEvent(roleItemUseEvent);
+                                if(roleItemUseEvent.isCancelled())
+                                    return;
 
-                            roleItem.getRightClick().a(player);
+                                roleItem.getRightClick().execute(player);
+                            }
                         }
 
                         if(roleItem.getRightClickOnPlayerFarTuple() != null){
@@ -55,24 +57,27 @@ public class InteractItemEvent implements Listener {
 
 
                             Player target = (Player) entity;
-                            RoleItemTargetEvent roleItemTargetEvent = new RoleItemTargetEvent(player,target, roleItem.getLinkedRole(), roleItem);
-                            Bukkit.getPluginManager().callEvent(roleItemTargetEvent);
-                            if(roleItemTargetEvent.isCancelled())
-                                return;
+                            if(roleItem.getVerificationOnRightClickOnPlayer().verification(player,target)){
+                                RoleItemTargetEvent roleItemTargetEvent = new RoleItemTargetEvent(player,target, roleItem.getLinkedRole(), roleItem);
+                                Bukkit.getPluginManager().callEvent(roleItemTargetEvent);
+                                if(roleItemTargetEvent.isCancelled())
+                                    return;
 
-                            roleItem.getRightClickOnPlayerFarTuple().b().a(player,target);
+                                roleItem.getRightClickOnPlayerFarTuple().b().execute(player,target);
+                            }
+                            return;
                         }
-                        return;
                     }
 
                     if(action.equals(Action.LEFT_CLICK_AIR) || action.equals(Action.LEFT_CLICK_BLOCK)){
                         if(roleItem.getLeftClick() != null){
-
-                            RoleItemUseEvent roleItemUseEvent = new RoleItemUseEvent(player, roleItem.getLinkedRole(), roleItem);
-                            Bukkit.getPluginManager().callEvent(roleItemUseEvent);
-                            if(roleItemUseEvent.isCancelled())
-                                return;
-                            roleItem.getLeftClick().a(player);
+                            if(roleItem.getVerificationOnLeftClick().verification(player)){
+                                RoleItemUseEvent roleItemUseEvent = new RoleItemUseEvent(player, roleItem.getLinkedRole(), roleItem);
+                                Bukkit.getPluginManager().callEvent(roleItemUseEvent);
+                                if(roleItemUseEvent.isCancelled())
+                                    return;
+                                roleItem.getLeftClick().execute(player);
+                            }
                         }
                         return;
                     }
@@ -94,13 +99,15 @@ public class InteractItemEvent implements Listener {
                 if(roleItem != null){
                     if(roleItem.getItemStack().equals(itemStack)){
                         if(roleItem.getRightClickOnPlayer() != null){
+                            if(roleItem.getVerificationOnRightClickOnPlayer().verification(player,rightClick)){
                             RoleItemTargetEvent roleItemTargetEvent = new RoleItemTargetEvent(player,rightClick, roleItem.getLinkedRole(), roleItem);
                             Bukkit.getPluginManager().callEvent(roleItemTargetEvent);
                             if(roleItemTargetEvent.isCancelled())
                                 return;
 
 
-                            roleItem.getRightClickOnPlayer().a(player,rightClick);
+                            roleItem.getRightClickOnPlayer().execute(player,rightClick);
+                        }
                         }
                     }
                 }
