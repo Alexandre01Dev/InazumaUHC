@@ -1,10 +1,13 @@
 package be.alexandre01.inazuma.uhc.roles.listeners;
 
 import be.alexandre01.inazuma.uhc.InazumaUHC;
+import be.alexandre01.inazuma.uhc.custom_events.roles.RoleItemTargetEvent;
+import be.alexandre01.inazuma.uhc.custom_events.roles.RoleItemUseEvent;
 import be.alexandre01.inazuma.uhc.presets.Preset;
 import be.alexandre01.inazuma.uhc.roles.Role;
 import be.alexandre01.inazuma.uhc.roles.RoleItem;
 import be.alexandre01.inazuma.uhc.utils.PlayerUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -29,6 +32,11 @@ public class InteractItemEvent implements Listener {
                 if(roleItem.getItemStack().equals(event.getItem())){
                     if(action.equals(Action.RIGHT_CLICK_AIR) || action.equals(Action.RIGHT_CLICK_BLOCK)){
                         if(roleItem.getRightClick() != null){
+                            RoleItemUseEvent roleItemUseEvent = new RoleItemUseEvent(player, roleItem.getLinkedRole(), roleItem);
+                            Bukkit.getPluginManager().callEvent(roleItemUseEvent);
+                            if(roleItemUseEvent.isCancelled())
+                                return;
+
                             roleItem.getRightClick().a(player);
                         }
 
@@ -47,6 +55,10 @@ public class InteractItemEvent implements Listener {
 
 
                             Player target = (Player) entity;
+                            RoleItemTargetEvent roleItemTargetEvent = new RoleItemTargetEvent(player,target, roleItem.getLinkedRole(), roleItem);
+                            Bukkit.getPluginManager().callEvent(roleItemTargetEvent);
+                            if(roleItemTargetEvent.isCancelled())
+                                return;
 
                             roleItem.getRightClickOnPlayerFarTuple().b().a(player,target);
                         }
@@ -55,6 +67,11 @@ public class InteractItemEvent implements Listener {
 
                     if(action.equals(Action.LEFT_CLICK_AIR) || action.equals(Action.LEFT_CLICK_BLOCK)){
                         if(roleItem.getLeftClick() != null){
+
+                            RoleItemUseEvent roleItemUseEvent = new RoleItemUseEvent(player, roleItem.getLinkedRole(), roleItem);
+                            Bukkit.getPluginManager().callEvent(roleItemUseEvent);
+                            if(roleItemUseEvent.isCancelled())
+                                return;
                             roleItem.getLeftClick().a(player);
                         }
                         return;
@@ -77,6 +94,12 @@ public class InteractItemEvent implements Listener {
                 if(roleItem != null){
                     if(roleItem.getItemStack().equals(itemStack)){
                         if(roleItem.getRightClickOnPlayer() != null){
+                            RoleItemTargetEvent roleItemTargetEvent = new RoleItemTargetEvent(player,rightClick, roleItem.getLinkedRole(), roleItem);
+                            Bukkit.getPluginManager().callEvent(roleItemTargetEvent);
+                            if(roleItemTargetEvent.isCancelled())
+                                return;
+
+
                             roleItem.getRightClickOnPlayer().a(player,rightClick);
                         }
                     }

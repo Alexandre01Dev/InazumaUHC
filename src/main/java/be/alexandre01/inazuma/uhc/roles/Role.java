@@ -136,6 +136,7 @@ public class Role {
 
     public void addRoleItem(RoleItem roleItem) {
         roleItems.put(roleItem.getItemStack(),roleItem);
+        roleItem.setLinkedRole(this);
     }
 
     public void addCommand(String name,command command){

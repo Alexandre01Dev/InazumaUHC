@@ -7,6 +7,7 @@ import org.bukkit.inventory.ItemStack;
 public class RoleItem {
     private ItemStack itemStack;
     private RightClick rightClick;
+    private Role LinkedRole;
     private RightClickOnPlayer rightClickOnPlayer = null;
     private Tuple<Integer,RightClickOnPlayer> rightClickOnPlayerFarTuple = null;
     private LeftClick leftClick;
@@ -14,6 +15,14 @@ public class RoleItem {
 
     public int getSlot() {
         return slot;
+    }
+
+    public Role getLinkedRole() {
+        return LinkedRole;
+    }
+
+    public void setLinkedRole(Role linkedRole) {
+        LinkedRole = linkedRole;
     }
 
     public void setSlot(int slot) {
