@@ -16,7 +16,7 @@ public class TrashPotion extends Scenario implements Listener {
     }
     @EventHandler
     public void onDrinkPotion(PlayerItemConsumeEvent e){
-        if (e.getItem().getType().equals(Material.POTION)){
+        if (e.getItem().getType().equals(Material.GLASS_BOTTLE)){
             e.getItem().setType(Material.AIR);
         }
     }

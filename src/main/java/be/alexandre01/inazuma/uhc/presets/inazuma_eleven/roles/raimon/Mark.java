@@ -50,7 +50,15 @@ public class Mark extends Role implements Listener {
                         }
                     }
                 }
-                player.sendMessage(Preset.instance.p.prefixName()+"Il y a "+a+" joueurs de l'Académie-Alius proche de vous.");
+                if( a == 0){
+                    player.sendMessage(Preset.instance.p.prefixName()+"Il n'y a aucun joueur(s) de l'Académie-Alius autour de vous.");
+                }
+                if( a == 1){
+                    player.sendMessage(Preset.instance.p.prefixName()+"Il y a "+a+" joueur de l'Académie-Alius proche de vous.");
+                }
+                if( a > 1){
+                    player.sendMessage(Preset.instance.p.prefixName()+"Il y a "+a+" joueurs de l'Académie-Alius proche de vous.");
+                }
                 i++;
             }
         });
@@ -69,7 +77,7 @@ public class Mark extends Role implements Listener {
         if(getPlayers().contains(event.getPlayer())){
             for(Role role : inazumaUHC.rm.getRoleCategory(Raimon.class).getRoles()){
                 role.getPlayers().forEach(p -> {
-                    p.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS,60*2,1),true);
+                    p.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS,60*2,0),true);
                 });
             }
         }
