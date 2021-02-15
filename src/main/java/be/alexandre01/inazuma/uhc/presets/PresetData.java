@@ -26,6 +26,7 @@ public class PresetData {
     public int endBordureTime = 60*15;
     public int endBordureSize = 250*2;
     public int teamSize = 1;
+    public int test = 1;
     protected ArrayList<Class<?>> scenarios = new ArrayList<>();
     protected ArrayList<IPersonalScoreBoard> scoreboards = new ArrayList<>();
     protected ArrayList<Listener> listeners = new ArrayList<>();
