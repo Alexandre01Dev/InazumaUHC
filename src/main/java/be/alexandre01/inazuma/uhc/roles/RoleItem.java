@@ -11,6 +11,9 @@ public class RoleItem {
     private RightClickOnPlayer rightClickOnPlayer = null;
     private Tuple<Integer,RightClickOnPlayer> rightClickOnPlayerFarTuple = null;
     private LeftClick leftClick;
+    private VerificationOnRightClick verificationOnRightClick = null;
+    private VerificationOnLeftClick verificationOnLeftClick = null;
+    private VerificationOnRightClickOnPlayer verificationOnRightClickOnPlayer = null;
     private int slot = 8;
 
     public int getSlot() {
@@ -23,6 +26,30 @@ public class RoleItem {
 
     public void setLinkedRole(Role linkedRole) {
         LinkedRole = linkedRole;
+    }
+
+    public VerificationOnRightClick getVerificationOnRightClick() {
+        return verificationOnRightClick;
+    }
+
+    public void setVerificationOnRightClick(VerificationOnRightClick verificationOnRightClick) {
+        this.verificationOnRightClick = verificationOnRightClick;
+    }
+
+    public VerificationOnLeftClick getVerificationOnLeftClick() {
+        return verificationOnLeftClick;
+    }
+
+    public void setVerificationOnLeftClick(VerificationOnLeftClick verificationOnLeftClick) {
+        this.verificationOnLeftClick = verificationOnLeftClick;
+    }
+
+    public VerificationOnRightClickOnPlayer getVerificationOnRightClickOnPlayer() {
+        return verificationOnRightClickOnPlayer;
+    }
+
+    public void setVerificationOnRightClickOnPlayer(VerificationOnRightClickOnPlayer verificationOnRightClickOnPlayer) {
+        this.verificationOnRightClickOnPlayer = verificationOnRightClickOnPlayer;
     }
 
     public void setSlot(int slot) {
@@ -67,17 +94,29 @@ public class RoleItem {
     public void setRightClickOnPlayer(int reach,RightClickOnPlayer rightClickOnPlayerFar) {
         this.rightClickOnPlayerFarTuple = new Tuple<>(reach,rightClickOnPlayerFar);
     }
+
+    public interface VerificationOnRightClick{
+        boolean verification(Player player);
+    }
+
+    public interface VerificationOnRightClickOnPlayer{
+        boolean verification(Player player,Player rightClicked);
+    }
+
+    public interface VerificationOnLeftClick{
+        boolean verification(Player player);
+    }
     public interface RightClick{
-         void a(Player player);
+         void execute(Player player);
     }
 
     public interface RightClickOnPlayer{
-         void a(Player player,Player rightClicked);
+         void execute(Player player,Player rightClicked);
     }
 
 
     public interface LeftClick{
-         void a(Player player);
+         void execute(Player player);
     }
 
     

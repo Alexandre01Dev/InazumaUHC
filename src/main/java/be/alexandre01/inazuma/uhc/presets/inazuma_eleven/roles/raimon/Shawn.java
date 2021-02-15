@@ -33,7 +33,7 @@ public class Shawn extends Role {
         blizzardEternel.setRightClickOnPlayer(15,new RoleItem.RightClickOnPlayer() {
             int lastEpisode = 0;
             @Override
-            public void a(Player player, Player rightClicked) {
+            public void execute(Player player, Player rightClicked) {
                 if(lastEpisode == Episode.getEpisode()){
                     player.sendMessage("§cTu ne peux pas faire ta technique plus de 1 fois par Episode.");
                     return;
