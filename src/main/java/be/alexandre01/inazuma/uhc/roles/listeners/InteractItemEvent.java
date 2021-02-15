@@ -1,8 +1,10 @@
 package be.alexandre01.inazuma.uhc.roles.listeners;
 
 import be.alexandre01.inazuma.uhc.InazumaUHC;
+import be.alexandre01.inazuma.uhc.presets.Preset;
 import be.alexandre01.inazuma.uhc.roles.Role;
 import be.alexandre01.inazuma.uhc.roles.RoleItem;
+import be.alexandre01.inazuma.uhc.utils.PlayerUtils;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -28,6 +30,25 @@ public class InteractItemEvent implements Listener {
                     if(action.equals(Action.RIGHT_CLICK_AIR) || action.equals(Action.RIGHT_CLICK_BLOCK)){
                         if(roleItem.getRightClick() != null){
                             roleItem.getRightClick().a(player);
+                        }
+
+                        if(roleItem.getRightClickOnPlayerFarTuple() != null){
+                            Entity entity = PlayerUtils.getNearestEntityInSight(player,roleItem.getRightClickOnPlayerFarTuple().a());
+                            if(entity == null){
+                                player.sendMessage(Preset.instance.p.prefixName()+" Vous n'avez séléctionné aucun joueur.");
+                                return;
+                            }
+
+
+                            if(!(entity instanceof Player)){
+                                player.sendMessage(Preset.instance.p.prefixName()+" Vous n'avez séléctionné aucun joueur.");
+                                return;
+                            }
+
+
+                            Player target = (Player) entity;
+
+                            roleItem.getRightClickOnPlayerFarTuple().b().a(player,target);
                         }
                         return;
                     }
@@ -63,4 +84,6 @@ public class InteractItemEvent implements Listener {
         }
     }
     }
+
+
 }
