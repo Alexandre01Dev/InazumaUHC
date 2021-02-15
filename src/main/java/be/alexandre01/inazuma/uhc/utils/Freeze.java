@@ -44,7 +44,7 @@ public class Freeze {
         loc.setY(player.getLocation().getY()+0.01);
         freezedPlayers.put(player,loc);
         Location cl = loc.clone();
-        cl.setY(cl.getY()+1);
+        cl.setY(cl.getY()+2);
 
         player.teleport(cl);
 
