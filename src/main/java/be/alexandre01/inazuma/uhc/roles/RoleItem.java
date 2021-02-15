@@ -71,6 +71,7 @@ public class RoleItem {
         }
         return verificationGenerations;
     }
+
     public ArrayList<VerificationGeneration> generateMultipleVerification(ArrayList<VerificationGeneration> verificationGenerations,Tuple<VerificationType,Integer>... verificationTypes){
         for(Tuple t : verificationTypes){
             verificationGenerations.add(initAutoVerification((VerificationType) t.a(),(Integer) t.b()));
@@ -78,11 +79,23 @@ public class RoleItem {
         return verificationGenerations;
     }
 
+    public ArrayList<VerificationGeneration> generateVerification(Tuple<VerificationType,Integer> verificationTypes){
+        ArrayList<VerificationGeneration> verificationGenerations = new ArrayList<>();
+
+            verificationGenerations.add(initAutoVerification((VerificationType) verificationTypes.a(),(Integer) verificationTypes.b()));
+         return verificationGenerations;
+    }
+
+    public ArrayList<VerificationGeneration> generateVerification(ArrayList<VerificationGeneration> verificationGenerations, Tuple<VerificationType,Integer> verificationTypes){
+        verificationGenerations.add(initAutoVerification((VerificationType) verificationTypes.a(),(Integer) verificationTypes.b()));
+        return verificationGenerations;
+    }
+
     public void setVerificationOnRightClick(VerificationOnRightClick verificationOnRightClick) {
         this.verificationOnRightClick = verificationOnRightClick;
     }
 
-    public void generateVerificationsOnRightClick(ArrayList<VerificationGeneration> verificationGenerations) {
+    public void deployVerificationsOnRightClick(ArrayList<VerificationGeneration> verificationGenerations) {
         verificationOnRightClick = new VerificationOnRightClick() {
             @Override
             public boolean verification(Player player) {
@@ -95,7 +108,7 @@ public class RoleItem {
         };
     }
 
-    public void generateVerificationsOnLeftClick(ArrayList<VerificationGeneration> verificationGenerations) {
+    public void deployVerificationsOnLeftClick(ArrayList<VerificationGeneration> verificationGenerations) {
         verificationOnLeftClick = new VerificationOnLeftClick() {
             @Override
             public boolean verification(Player player) {
@@ -108,7 +121,7 @@ public class RoleItem {
         };
     }
 
-    public void generateVerificationsOnRightClickOnPlayer(ArrayList<VerificationGeneration> verificationGenerations) {
+    public void deployVerificationsOnRightClickOnPlayer(ArrayList<VerificationGeneration> verificationGenerations) {
         verificationOnRightClickOnPlayer = new VerificationOnRightClickOnPlayer() {
             @Override
             public boolean verification(Player player,Player target) {

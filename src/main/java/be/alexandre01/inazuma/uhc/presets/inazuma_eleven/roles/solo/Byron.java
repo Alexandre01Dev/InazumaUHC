@@ -11,6 +11,7 @@ import be.alexandre01.inazuma.uhc.roles.RoleItem;
 import be.alexandre01.inazuma.uhc.utils.Freeze;
 import be.alexandre01.inazuma.uhc.utils.ItemBuilder;
 import be.alexandre01.inazuma.uhc.utils.TitleUtils;
+import net.minecraft.server.v1_8_R3.Tuple;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -66,14 +67,26 @@ public class Byron extends Role implements Listener {
         ItemBuilder t = new ItemBuilder(Material.WATCH).setName("§7§lInstant Céleste");
         timeStop.setItemstack(t.toItemStack());
         timeStop.setSlot(7);
+        ArrayList<RoleItem.VerificationGeneration> verificationGenerations = new ArrayList<>();
+
+        verificationGenerations.add(new RoleItem.VerificationGeneration() {
+            @Override
+            public boolean verification(Player player) {
+                if(InazumaUHC.get.lm.listeners.containsKey(FreezePlayerListener.class)){
+                    player.sendMessage(Preset.instance.p.prefixName()+" Tu ne peux pas utiliser l'§7§lInstant Céleste§7 en ce moment.");
+                    return false;
+                }
+             return true;
+            }
+        });
+
+        timeStop.deployVerificationsOnRightClick(timeStop.generateVerification(verificationGenerations,new Tuple<>(RoleItem.VerificationType.USAGES,100)));
+
 
         timeStop.setRightClick(new RoleItem.RightClick() {
             int i = 0;
             @Override
-            public void a(Player player) {
-                if(InazumaUHC.get.lm.listeners.containsKey(FreezePlayerListener.class)){
-                    player.sendMessage(Preset.instance.p.prefixName()+" Tu ne peux pas utiliser l'§7§lInstant Céleste§7 en ce moment.");
-                }
+            public void execute(Player player) {
                 if(i > 100){
                     player.sendMessage(Preset.instance.p.prefixName()+" Tu ne peux pas utiliser l'§7§lInstant Céleste§7 plus de 2x");
                     return;

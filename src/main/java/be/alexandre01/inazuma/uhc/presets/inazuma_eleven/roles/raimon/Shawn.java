@@ -6,10 +6,13 @@ import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.objects.Episode;
 import be.alexandre01.inazuma.uhc.roles.Role;
 import be.alexandre01.inazuma.uhc.roles.RoleItem;
 import be.alexandre01.inazuma.uhc.utils.ItemBuilder;
+import net.minecraft.server.v1_8_R3.Tuple;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+
+import java.util.ArrayList;
 
 public class Shawn extends Role {
     public Shawn() {
@@ -30,25 +33,19 @@ public class Shawn extends Role {
         itemBuilder.setName("§3Blizzard Eternel");
 
         RoleItem blizzardEternel = new RoleItem();
+
+
+        blizzardEternel.deployVerificationsOnRightClickOnPlayer(blizzardEternel.generateVerification(new Tuple<>(RoleItem.VerificationType.EPISODES,2)));
         blizzardEternel.setRightClickOnPlayer(15,new RoleItem.RightClickOnPlayer() {
-            int lastEpisode = 0;
             @Override
             public void execute(Player player, Player rightClicked) {
-                if(lastEpisode == Episode.getEpisode()){
-                    player.sendMessage("§cTu ne peux pas faire ta technique plus de 1 fois par Episode.");
-                    return;
-                }
-
-
                 rightClicked.addPotionEffect(new PotionEffect(PotionEffectType.SLOW,20*7,1));
                 rightClicked.sendMessage(Preset.instance.p.prefixName()+"Tu as été touché par le §3Blizzard Eternel");
-                lastEpisode = Episode.getEpisode();
             }
         });
 
         blizzardEternel.setItemstack(itemBuilder.toItemStack());
         addRoleItem(blizzardEternel);
 
-        //A CODER, UN SYSTEME DE RIGHTCLICK AU JOUEUR AU DESSUS DE LA REACH NORMAL.
     }
 }
