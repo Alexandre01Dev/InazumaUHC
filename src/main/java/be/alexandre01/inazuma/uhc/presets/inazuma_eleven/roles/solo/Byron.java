@@ -3,6 +3,7 @@ package be.alexandre01.inazuma.uhc.presets.inazuma_eleven.roles.solo;
 import be.alexandre01.inazuma.uhc.InazumaUHC;
 import be.alexandre01.inazuma.uhc.custom_events.player.PlayerInstantDeathEvent;
 import be.alexandre01.inazuma.uhc.presets.Preset;
+import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.categories.Solo;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.objects.Episode;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.roles.solo.listeners.FreezePlayerListener;
 import be.alexandre01.inazuma.uhc.roles.Role;
@@ -32,6 +33,7 @@ public class Byron extends Role implements Listener {
     public Byron() {
         super("Byron Love");
 
+        setRoleCategory(Solo.class);
         onLoad(new load() {
             @Override
             public void a() {
