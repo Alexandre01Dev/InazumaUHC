@@ -103,7 +103,7 @@ public class RoleItem {
                     if(!(v.verification(player)))
                         return false;
                 }
-                return false;
+                return true;
             }
         };
     }
