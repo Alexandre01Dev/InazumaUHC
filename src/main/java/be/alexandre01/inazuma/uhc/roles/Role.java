@@ -21,6 +21,7 @@ public class Role {
     private command command;
     private String description;
     protected InazumaUHC inazumaUHC;
+    public ArrayList<Listener> listeners = new ArrayList<>();
     private HashMap<String,CommandRole> commands;
   private final HashMap<ItemStack,RoleItem> roleItems = new HashMap<>();
     private static ArrayList<Role> rolesByInstance = new ArrayList<>();
@@ -108,9 +109,15 @@ public class Role {
         this.roleCategory.addRole(this);
     }
     public void addListener(Listener listener){
-        InazumaUHC.get.lm.addListener(listener);
+        listeners.add(listener);
+
     }
 
+    public void deployListeners(){
+        for(Listener listener : listeners){
+            InazumaUHC.get.lm.addListener(listener);
+        }
+    }
     public String getName() {
         return name;
     }

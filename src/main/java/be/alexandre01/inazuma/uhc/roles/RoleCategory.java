@@ -7,12 +7,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class RoleCategory {
-    String category;
+    String name;
     String prefixColor;
     private ArrayList<Role> roles = new ArrayList<>();
 
-    public RoleCategory(String category, String prefixColor){
-        this.category = category;
+    public RoleCategory(String name, String prefixColor){
+        this.name = name;
         this.prefixColor = prefixColor;
         if(InazumaUHC.get.rm == null){
             InazumaUHC.get.rm = new RoleManager();
@@ -32,8 +32,8 @@ public class RoleCategory {
         this.roles.remove(role);
     }
 
-    public String getCategory() {
-        return category;
+    public String getName() {
+        return name;
     }
 
     public String getPrefixColor() {

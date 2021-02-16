@@ -56,9 +56,15 @@ public class RoleManager {
         if(role.getLoad() != null){
             role.getLoad().a();
         }
+
+        if(!role.listeners.isEmpty()){
+            role.deployListeners();
+        }
+
         if(!role.getCommands().isEmpty()){
             role.loadCommands();
         }
+
 
     }
     public void distributeRole(ArrayList<Player> players){
