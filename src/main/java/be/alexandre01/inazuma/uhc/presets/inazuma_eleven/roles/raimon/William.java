@@ -44,6 +44,7 @@ public class William extends Role implements Listener {
     @EventHandler
     public void onItemUse(RoleItemUseEvent event){
         Player player = event.getPlayer();
+
         RoleCategory roleCat  = InazumaUHC.get.rm.getRole(player).getRoleCategory();
 
         for(Player william : InazumaUHC.get.rm.getRole(William.class).getPlayers()){
@@ -85,6 +86,7 @@ public class William extends Role implements Listener {
                     }
 
                 }
+                usedRole.add(raimon.get(0));
             }
             episode = 0;
         }
