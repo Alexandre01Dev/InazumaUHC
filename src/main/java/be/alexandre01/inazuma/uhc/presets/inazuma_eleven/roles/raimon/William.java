@@ -57,7 +57,7 @@ public class William extends Role implements Listener {
 
         raimon = new ArrayList<>(InazumaUHC.get.rm.getRoleCategory(Raimon.class).getRoles());
         for(Role used : usedRole){
-            raimon.remove(usedRole);
+            raimon.remove(used);
         }
         Collections.shuffle(raimon);
 
@@ -86,9 +86,4 @@ public class William extends Role implements Listener {
             episode = 0;
         }
     }
-
-
-
-    // A NE PAS OUBLIE -> IL FAUDRAIT SI UN JOUEUR REVIVE ET QU IL A UN ROLE RAIMON DE LE RAJOUTER DANS LA LISTE
-
 }
