@@ -41,10 +41,11 @@ public class Freeze {
     public void freezePlayer(Player player){
       //  player.setGameMode(GameMode.SPECTATOR);
         Location loc = player.getLocation().clone();
-        loc.setY(player.getLocation().getY()+0.01);
+
+
         freezedPlayers.put(player,loc);
         Location cl = loc.clone();
-        cl.setY(cl.getY()+2);
+        cl = cl.getDirection().normalize().toLocation(loc.getWorld());
 
         player.teleport(cl);
 

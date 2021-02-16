@@ -47,14 +47,12 @@ public class William extends Role implements Listener {
         RoleCategory roleCat  = InazumaUHC.get.rm.getRole(player).getRoleCategory();
 
         for(Player william : InazumaUHC.get.rm.getRole(William.class).getPlayers()){
-            william.sendMessage("Un pouvoir a été utilisé dans le camp "+ roleCat.getPrefixColor()+roleCat.getName());
+            william.sendMessage(Preset.instance.p.prefixName()+"Un pouvoir a été utilisé dans le camp "+ roleCat.getPrefixColor()+roleCat.getName());
         }
     }
 
     @EventHandler
     public void onEpisodeChangeEvent(EpisodeChangeEvent event){
-
-
         raimon = new ArrayList<>(InazumaUHC.get.rm.getRoleCategory(Raimon.class).getRoles());
         for(Role used : usedRole){
             raimon.remove(used);
@@ -63,10 +61,15 @@ public class William extends Role implements Listener {
 
 
         for(Role role : raimon){
+            if(role.getClass().equals(this.getClass())){
+                raimon.remove(this);
+                continue;
+            }
             boolean save = false;
             for(Player player : role.getPlayers())
                 if(player.isOnline()){
                     save = true;
+                    break;
                 }
             if(!save){
                 raimon.remove(role);
@@ -78,7 +81,7 @@ public class William extends Role implements Listener {
             if(raimon.get(0) != null){
                 for(Player player : getPlayers()){
                     for(Player target : raimon.get(0).getPlayers()){
-                        player.sendMessage(Preset.instance.p.prefixName()+" Vous avez découvert le role de "+ target.getName()+": Il est "+ raimon.get(0).getRoleCategory().getPrefixColor()+raimon.get(0).getName());
+                        player.sendMessage(Preset.instance.p.prefixName()+" Vous savez qu'"+ target.getName()+" fait partie de l' "+ raimon.get(0).getRoleCategory().getPrefixColor()+raimon.get(0).getRoleCategory().getName());
                     }
 
                 }
