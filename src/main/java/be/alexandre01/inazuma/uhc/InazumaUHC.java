@@ -22,9 +22,11 @@ import be.alexandre01.inazuma.uhc.spectators.SpectatorManager;
 import be.alexandre01.inazuma.uhc.state.GameState;
 import be.alexandre01.inazuma.uhc.teams.TeamManager;
 import be.alexandre01.inazuma.uhc.timers.TimersManager;
+import be.alexandre01.inazuma.uhc.utils.ScoreboardUtil;
 import be.alexandre01.inazuma.uhc.worlds.WorldGen;
 import be.alexandre01.inazuma.uhc.worlds.utils.WorldUtils;
 import be.alexandre01.inazuma.uhc.worlds.executors.ArrowToCenter;
+import net.minecraft.server.v1_8_R3.Scoreboard;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.command.Command;
@@ -100,7 +102,7 @@ public final class InazumaUHC extends JavaPlugin {
             arrowToCenter.schedule();
         }
 
-
+        ScoreboardUtil.initialize();
 
         scheduledExecutorService = Executors.newScheduledThreadPool(16);
         executorMonoThread = Executors.newScheduledThreadPool(1);

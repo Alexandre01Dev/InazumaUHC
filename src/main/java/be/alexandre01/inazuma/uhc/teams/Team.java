@@ -5,6 +5,7 @@ import be.alexandre01.inazuma.uhc.InazumaUHC;
 import be.alexandre01.inazuma.uhc.generations.Plateform;
 import be.alexandre01.inazuma.uhc.presets.IPreset;
 import be.alexandre01.inazuma.uhc.presets.Preset;
+import be.alexandre01.inazuma.uhc.utils.ScoreboardUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -84,6 +85,7 @@ public class Team {
 
             t.setDisplayName(player.getName());
             t.addPlayer(player);
+            ScoreboardUtil.get.addPlayer(score,t,player);
 
         }
 

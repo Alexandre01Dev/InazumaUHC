@@ -45,10 +45,13 @@ public class PlayerEvent implements Listener {
     public void onJoin(PlayerJoinEvent event){
         InazumaUHC inazumaUHC = InazumaUHC.get;
         Player player = event.getPlayer();
-        if(!player.getScoreboard().getTeams().isEmpty()){
+
+        if(player.getScoreboard().getTeams() != null){
             for(org.bukkit.scoreboard.Team team : player.getScoreboard().getTeams()){
                 team.removePlayer(player);
             }
+
+
         }
         player.setFlySpeed(0.2f);
         player.setFlying(false);
