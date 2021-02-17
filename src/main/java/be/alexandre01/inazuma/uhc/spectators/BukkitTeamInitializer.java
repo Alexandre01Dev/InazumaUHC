@@ -14,7 +14,7 @@ public class BukkitTeamInitializer {
         }
         Team tV = score.getTeam("0VIVANT");
         tV.setPrefix("§7");
-        tV.setCanSeeFriendlyInvisibles(true);
+        tV.setCanSeeFriendlyInvisibles(false);
 
 
         if(score.getTeam("999MORT")==null){

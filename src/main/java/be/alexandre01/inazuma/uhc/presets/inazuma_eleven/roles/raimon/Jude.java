@@ -64,7 +64,7 @@ public class Jude extends Role implements Listener {
 
     }
     private void setHealth(Player player){
-        int pourcentage  = (int) ((100*player.getHealth()) /player.getMaxHealth());
+        int pourcentage  = (int) ((100*Math.round(player.getHealth())) /Math.round(player.getMaxHealth()));
         Score s = score.getObjective("showhealth").getScore(player);
         s.setScore(pourcentage);
     }

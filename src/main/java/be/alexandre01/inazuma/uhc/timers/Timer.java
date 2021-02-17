@@ -260,7 +260,7 @@ public class Timer extends BukkitRunnable{
         this.setup = setup;
     }
 
-    protected interface setup{
+    public interface setup{
         public Timer setInstance();
     }
 }

@@ -1,5 +1,6 @@
 package be.alexandre01.inazuma.uhc.utils;
 
+import be.alexandre01.inazuma.uhc.InazumaUHC;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -28,5 +29,36 @@ public class PlayerUtils {
             }
         }
         return null;
+    }
+
+    public static ArrayList<Player> getNearbyPlayers(Location location, int x, int y, int z){
+        ArrayList<Player> p = new ArrayList<>();
+        InazumaUHC i = InazumaUHC.get;
+        for (Entity entity : location.getWorld().getNearbyEntities(location,x,y,z)){
+            if(entity instanceof Player){
+                Player player = (Player) entity;
+                if(!i.spectatorManager.getPlayers().contains(player)){
+                    p.add(player);
+                }
+            }
+        }
+        return p;
+    }
+
+    public static ArrayList<Player> getNearbyPlayersFromPlayer(Player player, int x, int y, int z){
+        ArrayList<Player> p = new ArrayList<>();
+        InazumaUHC i = InazumaUHC.get;
+        for (Entity entity : player.getWorld().getNearbyEntities(player.getLocation(),x,y,z)){
+            if(entity instanceof Player){
+                Player opposant = (Player) entity;
+                if(opposant == player)
+                    continue;
+
+                if(!i.spectatorManager.getPlayers().contains(opposant)){
+                    p.add(player);
+                }
+            }
+        }
+        return p;
     }
 }

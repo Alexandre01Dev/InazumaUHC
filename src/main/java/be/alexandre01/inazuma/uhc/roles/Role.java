@@ -29,6 +29,7 @@ public class Role {
     public Role(String name){
         this.players = new ArrayList<>();
         this.commands = new HashMap<>();
+        this.inazumaUHC = InazumaUHC.get;
         this.name = name;
         rolesByInstance.add(this);
     }
