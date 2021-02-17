@@ -42,7 +42,7 @@ public class Jack extends Role implements Listener {
                 return;
             }
 
-                Timer timer = new Timer("judesneaktimer",true);
+                Timer timer = new Timer("jacksneaktimer",true);
                 timer.setSetup(new Timer.setup() {
                     @Override
                     public Timer setInstance() {
