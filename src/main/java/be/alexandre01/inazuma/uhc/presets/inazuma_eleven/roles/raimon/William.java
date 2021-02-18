@@ -82,7 +82,7 @@ public class William extends Role implements Listener {
             if(raimon.get(0) != null){
                 for(Player player : getPlayers()){
                     for(Player target : raimon.get(0).getPlayers()){
-                        player.sendMessage(Preset.instance.p.prefixName()+" Vous savez qu'"+ target.getName()+" fait partie de l' "+ raimon.get(0).getRoleCategory().getPrefixColor()+raimon.get(0).getRoleCategory().getName());
+                        player.sendMessage(Preset.instance.p.prefixName()+" Vous savez désormais que"+ target.getName()+" fait partie de l' "+ raimon.get(0).getRoleCategory().getPrefixColor()+raimon.get(0).getRoleCategory().getName());
                     }
 
                 }

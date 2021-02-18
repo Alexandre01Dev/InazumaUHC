@@ -35,10 +35,11 @@ public class Shawn extends Role {
         RoleItem blizzardEternel = new RoleItem();
 
 
-        blizzardEternel.deployVerificationsOnRightClickOnPlayer(blizzardEternel.generateVerification(new Tuple<>(RoleItem.VerificationType.EPISODES,2)));
+        blizzardEternel.deployVerificationsOnRightClickOnPlayer(blizzardEternel.generateVerification(new Tuple<>(RoleItem.VerificationType.EPISODES,1)));
         blizzardEternel.setRightClickOnPlayer(15,new RoleItem.RightClickOnPlayer() {
             @Override
             public void execute(Player player, Player rightClicked) {
+                player.sendMessage(Preset.instance.p.prefixName()+"Vous avez utilisé votre §3Blizzard Eternel§7 sur §c"+ rightClicked.getName());
                 rightClicked.addPotionEffect(new PotionEffect(PotionEffectType.SLOW,20*7,1));
                 rightClicked.sendMessage(Preset.instance.p.prefixName()+"Tu as été touché par le §3Blizzard Eternel");
             }

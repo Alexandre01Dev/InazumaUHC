@@ -46,11 +46,11 @@ public class Hurley extends Role {
                player.sendMessage("§e-§9"+potionEffect.getType().getName());
             }
 
-            player.sendMessage(Preset.instance.p.prefixName()+" §cAttention§7, celui-ci sera prévenu dans une minute et 30 secondes que ton rôle à regarder ses effets.");
+            player.sendMessage(Preset.instance.p.prefixName()+" §cAttention§7, celui-ci sera prévenu dans 1 minute et 30 secondes que ton rôle à regarder ses effets.");
             Bukkit.getScheduler().runTaskLaterAsynchronously(inazumaUHC, new BukkitRunnable() {
                 @Override
                 public void run() {
-                    rightClicked.sendMessage(Preset.instance.p.prefixName() +" Tu viens d'apprendre que "+getRoleCategory().getPrefixColor()+getName()+" connait désormais tes effets.");
+                    rightClicked.sendMessage(Preset.instance.p.prefixName() +" Tu viens d'apprendre qu' "+getRoleCategory().getPrefixColor()+getName()+" connait désormais tes effets.");
                 }
             }, 20 * 90);
         });

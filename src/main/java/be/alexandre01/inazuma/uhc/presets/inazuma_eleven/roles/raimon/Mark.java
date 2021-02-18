@@ -5,6 +5,7 @@ import be.alexandre01.inazuma.uhc.presets.Preset;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.categories.Alius;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.categories.Raimon;
 import be.alexandre01.inazuma.uhc.roles.Role;
+import be.alexandre01.inazuma.uhc.utils.PlayerUtils;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -38,9 +39,7 @@ public class Mark extends Role implements Listener {
                     return;
                 }
                 int a = 0;
-                for(Entity entity : player.getWorld().getNearbyEntities(player.getLocation(),25,25,25)){
-                    if(entity instanceof Player){
-                        Player p = (Player) entity;
+                for(Player p : PlayerUtils.getNearbyPlayersFromPlayer(player,25,25,25)){
                         if(inazumaUHC.rm.getRole(p).getRoleCategory() == null){
                             System.out.println(inazumaUHC.rm.getRole(p).getName());
                             continue;
@@ -48,16 +47,12 @@ public class Mark extends Role implements Listener {
                         if(inazumaUHC.rm.getRole(p).getRoleCategory().getClass().equals(Alius.class)){
                             a++;
                         }
-                    }
                 }
                 if( a == 0){
                     player.sendMessage(Preset.instance.p.prefixName()+"Il n'y a aucun joueur(s) de l'Académie-Alius autour de vous.");
                 }
-                if( a == 1){
-                    player.sendMessage(Preset.instance.p.prefixName()+"Il y a "+a+" joueur de l'Académie-Alius proche de vous.");
-                }
-                if( a > 1){
-                    player.sendMessage(Preset.instance.p.prefixName()+"Il y a "+a+" joueurs de l'Académie-Alius proche de vous.");
+                if( a > 0){
+                    player.sendMessage(Preset.instance.p.prefixName()+"Il y a "+a+" joueur(s) de l'Académie-Alius proche de vous.");
                 }
                 i++;
             }

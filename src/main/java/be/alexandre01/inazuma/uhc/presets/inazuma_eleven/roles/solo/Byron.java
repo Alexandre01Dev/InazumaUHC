@@ -4,7 +4,6 @@ import be.alexandre01.inazuma.uhc.InazumaUHC;
 import be.alexandre01.inazuma.uhc.custom_events.player.PlayerInstantDeathEvent;
 import be.alexandre01.inazuma.uhc.presets.Preset;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.categories.Solo;
-import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.objects.Episode;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.roles.solo.listeners.FreezePlayerListener;
 import be.alexandre01.inazuma.uhc.roles.Role;
 import be.alexandre01.inazuma.uhc.roles.RoleItem;
@@ -17,7 +16,7 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.potion.Potion;
@@ -31,6 +30,7 @@ import java.util.List;
 
 
 public class Byron extends Role implements Listener {
+    private ItemStack potion;
     public Byron() {
         super("Byron Love");
 
@@ -52,17 +52,15 @@ public class Byron extends Role implements Listener {
         pot1.setItemMeta(meta);
         meta.addCustomEffect(new PotionEffect(PotionEffectType.REGENERATION, 10*20, 1,false,false), true);
         meta.addCustomEffect(new PotionEffect(PotionEffectType.SPEED, 20*20, 0,false,false), true);
-        meta.setDisplayName("§fNectar §7Divin");
+        meta.setDisplayName("§f§lNectar §7§lDivin");
         meta.setLore(Arrays.asList("Boisson Divine légué par §fDieu§r lui même","cette boisson vous rendra §fimmortel§r durant un certain moment."));
         List<String> potLore = new ArrayList<String>();
         meta.setLore(potLore);
         pot1.setItemMeta(meta);
         RoleItem potion = new RoleItem();
         potion.setItemstack(pot1);
+        this.potion = pot1;
         addRoleItem(potion);
-
-
-
         RoleItem timeStop = new RoleItem();
         ItemBuilder t = new ItemBuilder(Material.WATCH).setName("§7§lInstant Céleste");
         timeStop.setItemstack(t.toItemStack());
@@ -103,9 +101,9 @@ public class Byron extends Role implements Listener {
                         if(InazumaUHC.get.spectatorManager.getPlayers().contains(player)){
                             continue;
                         }
+                        player.sendMessage(Preset.instance.p.prefixName()+" Vous venez d'utiliser l'§7§lInstant Céleste§7.");
                         freeze.freezePlayer(target);
                         p.add(target);
-                        player.sendMessage(Preset.instance.p.prefixName()+" Vous venez d'utiliser l'§7§lInstant Céleste§7.");
                         TitleUtils.sendActionBar(target,"§7§lINSTANT CELESTE§7");
                     }
                 }
@@ -129,6 +127,16 @@ public class Byron extends Role implements Listener {
             if (inazumaUHC.rm.getRole(killer.getUniqueId()).getClass().equals(Byron.class)){
                 killer.setMaxHealth(killer.getMaxHealth()+1);
             }
+        }
+    }
+
+    @EventHandler
+    public void onDrinkPotion(PlayerItemConsumeEvent e){
+        ItemStack consumed = e.getItem();
+        Player p = e.getPlayer();
+        if (consumed == potion){
+            p.sendMessage(Preset.instance.p.prefixName()+" Vous venez de boire votre §f§lNectar §7§lDivin.");
+            potion.setType(Material.AIR);
         }
     }
 }
