@@ -30,17 +30,23 @@ public class WorldGen {
     String netherUUID;
     public World defaultWorld;
     public World netherWorld;
+    private boolean isWorldGen = false;
 
     public WorldGen(Plugin plugin){
         this.p = plugin;
         this.o = Options.to("worldsTemp");
     }
+
+
     public void gen(){
         for(Player player : Bukkit.getOnlinePlayers()){
-            player.setAllowFlight(true);
+            player.setAllowFlight(false);
             player.setFlying(false);
         }
-        isGenerating = true;
+        if(!InazumaUHC.get.loadWorldBefore){
+            isGenerating = true;
+        }
+
         ImanityWorldConfig iwc =  iSpigot.INSTANCE.getWorldConfigByName("default");
         /*
         iwc.set("generateRate",700);
@@ -59,17 +65,20 @@ public class WorldGen {
         iwc.sugarCaneHeightMax = 8;
         iwc.sugarCaneRound = 40;
         System.out.println("> GEN1 ");
-        for (World ws: Bukkit.getWorlds()
-        ) {
-            Bukkit.unloadWorld(ws,false);
+        if(InazumaUHC.get.unloadWorlds){
+            for (World ws: Bukkit.getWorlds()
+            ) {
+                Bukkit.unloadWorld(ws,false);
 
-            Chunk[] chunks = ws.getLoadedChunks();
-            for (Chunk chunk : chunks) {
-                chunk.unload(false);
+                Chunk[] chunks = ws.getLoadedChunks();
+                for (Chunk chunk : chunks) {
+                    chunk.unload(false);
+                }
+
+                //Config.removeDir(p.getServer().getWorldContainer().getAbsolutePath()+"/"+ws.getName());
             }
-
-            //Config.removeDir(p.getServer().getWorldContainer().getAbsolutePath()+"/"+ws.getName());
         }
+
         System.out.println("> GEN2 ");
         for (int i = 0; i <  InazumaUHC.get.getServer().getWorlds().size(); i++) {
             InazumaUHC.get.getServer().getWorlds().remove(i);
@@ -101,6 +110,7 @@ public class WorldGen {
     }
 
     public void defaultWorldLoaded(){
+        isGenerating = true;
         BukkitTeamInitializer.initialize();
         if(Preset.instance.p.getPlatform() != null){
             Preset.instance.p.getPlatform().spawn();

@@ -56,8 +56,10 @@ public class WorldGenEvent implements Listener {
 
                 event.getWorld().setSpawnLocation(0,100,0);
                 //ChunkCommand.around(event.getWorld().getChunkAt(0,0),(p.getBorderSize(event.getWorld().getEnvironment())/16)+InazumaUHC.get.getServer().getViewDistance());
-                ChunksGenerator c = new ChunksGenerator();
-                c.generate(event.getWorld().getChunkAt(0,0),(p.getBorderSize(event.getWorld().getEnvironment())/16)+InazumaUHC.get.getServer().getViewDistance()+5,true);
+                if(!InazumaUHC.get.loadWorldBefore){
+                    ChunksGenerator c = new ChunksGenerator();
+                    c.generate(event.getWorld().getChunkAt(0,0),(p.getBorderSize(event.getWorld().getEnvironment())/16)+InazumaUHC.get.getServer().getViewDistance()+5,true);
+                }
 
                 //event.getWorld().getPopulators().add(new OrePopulator(UHC.uhc));
                 //event.getWorld().getPopulators().add(new NetherPopulator(UHC.uhc));
@@ -85,7 +87,10 @@ public class WorldGenEvent implements Listener {
                 // waitingMode = new WaitingMode();
                 // Bukkit.dispatchCommand(Bukkit.getConsoleSender(),"mobai");
                 // modsManager.setPlayerMods(mods,waitingMode);
-                InazumaUHC.get.worldGen.defaultWorldLoaded();
+                if(!i.loadWorldBefore){
+                    InazumaUHC.get.worldGen.defaultWorldLoaded();
+                }
+
                 return;
             }
         }

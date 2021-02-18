@@ -52,6 +52,7 @@ public final class InazumaUHC extends JavaPlugin {
     public ListenersManager lm;
     public TimersManager tm;
     public RoleManager rm;
+
     public TeamManager teamManager;
     public SpectatorManager spectatorManager;
     public Preset p;
@@ -61,6 +62,8 @@ public final class InazumaUHC extends JavaPlugin {
     public String ip = "play.inazumauhc.fr";
     public boolean isHosted = true;
     public boolean autoStart = false;
+    public boolean loadWorldBefore = true;
+    public boolean unloadWorlds = false;
     @Override
     public void onEnable() {
         //Instance
@@ -95,11 +98,16 @@ public final class InazumaUHC extends JavaPlugin {
         lm.addListener(new TeamsEvent());
         WorldUtils.patchBiomes();
         this.worldGen = new WorldGen(this);
+
         Scenario.initialize();
          p = new Preset(new InazumaEleven());
         if(p.p.isArrowCalculated()){
             arrowToCenter = new ArrowToCenter();
             arrowToCenter.schedule();
+        }
+
+        if(loadWorldBefore){
+            worldGen.gen();
         }
 
         ScoreboardUtil.initialize();

@@ -72,7 +72,7 @@ public class ChunksGenerator {
             Chunk c = this.world.getChunkAt(cc.getX(), cc.getZ());
             c.load(false);
             c = null;
-            if (Duration.between(before, Instant.now()).toMillis() >= 500) {
+            if (Duration.between(before, Instant.now()).toMillis() >= 400) {
                 int r = this.totalChunk - this.chunksCord.size();
                 int pourcentage = r * 100 / this.totalChunk;
                 System.out.println("La map (" + (this.totalChunk / 16) + "/" + (this.totalChunk / 16) + ") est gen à " + pourcentage + "%");
@@ -82,7 +82,7 @@ public class ChunksGenerator {
                         ChunksGenerator.this.generate(origin, radius, false);
                     }
 
-                }.runTaskLater(inazumaUHC, 7);
+                }.runTaskLater(inazumaUHC, 5);
                 return;
             }
         }
@@ -119,23 +119,5 @@ public class ChunksGenerator {
     public int getCalculateChunks() {
         return calculateChunks;
     }
-}
-
-    class ChunkCoord{
-        private int x;
-        private int z;
-        public ChunkCoord(int x, int z){
-            this.x = x;
-            this.z =z;
-        }
-
-        public int getX() {
-            return x;
-        }
-
-        public int getZ() {
-            return z;
-        }
-
 }
 
