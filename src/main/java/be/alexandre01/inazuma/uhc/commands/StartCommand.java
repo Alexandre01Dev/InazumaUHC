@@ -1,6 +1,7 @@
 package be.alexandre01.inazuma.uhc.commands;
 
 import be.alexandre01.inazuma.uhc.InazumaUHC;
+import be.alexandre01.inazuma.uhc.generations.chunks.ChunksGenerator;
 import be.alexandre01.inazuma.uhc.listeners.host.InventoryClick;
 import be.alexandre01.inazuma.uhc.listeners.host.InventoryClose;
 import be.alexandre01.inazuma.uhc.presets.IPreset;
@@ -13,6 +14,7 @@ import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ComponentBuilder;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
+import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -33,18 +35,27 @@ public class StartCommand implements CommandExecutor{
                 if(cmd.getName().equalsIgnoreCase("start")){
                     if(GameState.get().contains(State.PREPARING)){
                         if(InazumaUHC.get.worldGen.isGenerating()){
-                            player.sendMessage("La prégen est entrain de s'effectuer");
+                            player.sendMessage("§7La §cprégénération §7est entrain de s'effectué.");
                             return true;
                         }
                         InazumaUHC.get.lm.removeListener(InventoryClick.class);
                         InazumaUHC.get.lm.removeListener(InventoryClose.class);
 
-                        player.sendMessage("Start de la prégen");
-                        InazumaUHC.get.worldGen.gen();
+                        player.sendMessage("§7Lancement de la §cprégénération§7.");
+                        if(!InazumaUHC.get.loadWorldBefore){
+                            InazumaUHC.get.worldGen.gen();
+                        }else {
+                            ChunksGenerator c = new ChunksGenerator();
+                            InazumaUHC.get.worldGen.defaultWorldLoaded();
+                            World world = InazumaUHC.get.worldGen.defaultWorld;
+                            c.generate(world.getChunkAt(0,0),(iPreset.getBorderSize(world.getEnvironment())/16)+InazumaUHC.get.getServer().getViewDistance()+5,true);
+                        }
+
                         return true;
                     }
                     if(GameState.get().contains(State.WAITING)){
-                        player.sendMessage("Start de la game");
+                        player.sendMessage("§7Lancement de la §apartie§7...");
+                        player.sendMessage("§7Téléportation des §ejoueurs§7.");
                         for(Timer timer : InazumaUHC.get.tm.timers.values()){
                             if(timer.isRunning){
                                 System.out.println(timer.getTimerName());
