@@ -34,17 +34,22 @@ public class StabilizationTimer extends Timer {
                     double tps = iSpigot.getTPS()[0];
 
 
-                    if(tps < 20.5 || tps > 19.5){
+                    if(tps < 20.5 && tps >= 20|| tps > 19.5 && tps <= 20){
+                        System.out.println("STAB...");
                         if(!activate){
                             dateBuilderTimer = new DateBuilderTimer(3*1000);
+                            activate = true;
                         }
                         dateBuilderTimer.loadDate();
 
 
                         if(dateBuilderTimer.getDate().getTime() <= 0){
+                            System.out.println("CANCEL :'( ...");
                             cancel();
                         }
+                        return;
                     }
+                    activate = false;
                 }
             });
 }

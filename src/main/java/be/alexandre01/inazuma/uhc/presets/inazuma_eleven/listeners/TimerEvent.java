@@ -29,10 +29,8 @@ public class TimerEvent implements Listener {
        }
 
        if(event.getTimerName().equals("stabilizationTimer")){
-           if(InazumaUHC.get.autoStart){
                Timer timer = InazumaUHC.get.tm.getTimer(StartingTimer.class);
                timer.runTaskTimer(InazumaUHC.get,0,20);
-           }
        }
        if(event.getTimerName().equals("startingTimer")){
            GameState.get().setTo(State.PLAYING);

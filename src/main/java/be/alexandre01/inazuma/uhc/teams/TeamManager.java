@@ -115,7 +115,7 @@ public class TeamManager {
                       InazumaUHC.get.getRemainingPlayers().addAll(team.getPlayers().values());
                       safeTeamTeleport(i+1);
                       for(Player player : Bukkit.getOnlinePlayers()){
-                          TitleUtils.sendTitle(player,0,20,10,"§eTÉLÉPORTATION..."," ");
+                          TitleUtils.sendTitle(player,0,20,10,"§eTéléportation..."," ");
                           TitleUtils.sendActionBar(player,"§eTéléportation en §ccours §e("+ (i+1)+"§c/§e"+ getTeams().size()+")");
                       }
                       cancel();
