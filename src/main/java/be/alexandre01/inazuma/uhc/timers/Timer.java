@@ -57,9 +57,9 @@ public class Timer extends BukkitRunnable{
 
         if(optimisation){
             double tps = iSpigot.getTPS()[0];
-            System.out.println("> Optimisation + "+ tps);
 
-            if(tps > 22 || tps < 16.5){
+
+            if(tps > 22){
                 if (b) {
                d = d + 20/tps;
                if(d >= 0.78){
