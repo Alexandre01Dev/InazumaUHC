@@ -9,6 +9,7 @@ import be.alexandre01.inazuma.uhc.utils.PlayerUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerToggleSneakEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -33,6 +34,20 @@ public class Jack extends Role implements Listener {
         addListener(this);
     }
 
+
+    @EventHandler
+    public void onDamage(EntityDamageByEntityEvent event){
+        if(event.getEntity() instanceof Player && event.getDamager() instanceof Player){
+            Player player = (Player) event.getEntity();
+            Player damager = (Player) event.getDamager();
+
+
+            if(getPlayers().contains(damager)){
+                damager.removePotionEffect(PotionEffectType.SLOW);
+                damager.addPotionEffect(new PotionEffect(PotionEffectType.SLOW,20*10,0,false,false),true);
+            }
+        }
+    }
     @EventHandler
     public void onSneak(PlayerToggleSneakEvent event){
         event.setAsync(true);
