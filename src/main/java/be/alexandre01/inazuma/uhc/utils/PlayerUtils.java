@@ -31,6 +31,25 @@ public class PlayerUtils {
         return null;
     }
 
+    public static Player getNearestPlayerInSight(Player player, int range) {
+        ArrayList<Player> players = (ArrayList<Player>) getNearbyPlayersFromPlayer(player,range, range, range);
+        ArrayList<Block> sightBlock = (ArrayList<Block>) player.getLineOfSight( (Set<Material>) null, range);
+        ArrayList<Location> sight = new ArrayList<Location>();
+        for (int i = 0;i<sightBlock.size();i++)
+            sight.add(sightBlock.get(i).getLocation());
+        for (int i = 0;i<sight.size();i++) {
+            for (int k = 0;k<players.size();k++) {
+                if (Math.abs(players.get(k).getLocation().getX()-sight.get(i).getX())<1.3) {
+                    if (Math.abs(players.get(k).getLocation().getY()-sight.get(i).getY())<1.5) {
+                        if (Math.abs(players.get(k).getLocation().getZ()-sight.get(i).getZ())<1.3) {
+                            return players.get(k);
+                        }
+                    }
+                }
+            }
+        }
+        return null;
+    }
     public static ArrayList<Player> getNearbyPlayers(Location location, int x, int y, int z){
         ArrayList<Player> p = new ArrayList<>();
         InazumaUHC i = InazumaUHC.get;

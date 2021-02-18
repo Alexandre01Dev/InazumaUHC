@@ -43,7 +43,7 @@ public class InteractItemEvent implements Listener {
                         }
 
                         if(roleItem.getRightClickOnPlayerFarTuple() != null){
-                            Entity entity = PlayerUtils.getNearestEntityInSight(player,roleItem.getRightClickOnPlayerFarTuple().a());
+                            Entity entity = PlayerUtils.getNearestPlayerInSight(player,roleItem.getRightClickOnPlayerFarTuple().a());
                             if(entity == null){
                                 player.sendMessage(Preset.instance.p.prefixName()+" Vous n'avez séléctionné aucun joueur.");
                                 return;
