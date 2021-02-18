@@ -4,6 +4,7 @@ import be.alexandre01.inazuma.uhc.InazumaUHC;
 import be.alexandre01.inazuma.uhc.custom_events.teams.TeamSafeTeleportEvent;
 import be.alexandre01.inazuma.uhc.presets.IPreset;
 import be.alexandre01.inazuma.uhc.presets.Preset;
+import be.alexandre01.inazuma.uhc.utils.TitleUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -109,10 +110,14 @@ public class TeamManager {
           public void run() {
               if(lastChunkLoaded != null){
                   System.out.println(Duration.between(lastChunkLoaded, Instant.now()).toMillis());
-                 if (Duration.between(lastChunkLoaded, Instant.now()).toMillis() >= 600) {
+                 if (Duration.between(lastChunkLoaded, Instant.now()).toMillis() >= 350) {
                       System.out.println("nextTP");
                       InazumaUHC.get.getRemainingPlayers().addAll(team.getPlayers().values());
                       safeTeamTeleport(i+1);
+                      for(Player player : Bukkit.getOnlinePlayers()){
+                          TitleUtils.sendTitle(player,0,20,10,"§eTÉLÉPORTATION..."," ");
+                          TitleUtils.sendActionBar(player,"§eTéléportation en §ccours §e("+ (i+1)+"§c/§e"+ getTeams().size()+")");
+                      }
                       cancel();
                   }
               }

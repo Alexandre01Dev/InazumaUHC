@@ -18,6 +18,9 @@ public class StateEvent implements Listener {
     @EventHandler
     public void onPlaying(PlayingEvent event){
         System.out.println("PLAYING SCENARIO");
+        if(Preset.instance.p.getPlatform() != null){
+            Preset.instance.p.getPlatform().despawn();
+        }
         if(!Preset.instance.pData.getScenarios().isEmpty()){
             for(Class<?> c : Preset.instance.pData.getScenarios()){
                 if(Scenario.getScenarios().containsKey(c)){

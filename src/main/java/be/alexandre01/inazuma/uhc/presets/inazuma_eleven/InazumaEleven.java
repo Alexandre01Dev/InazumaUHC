@@ -99,6 +99,7 @@ public class InazumaEleven extends PresetData implements IPreset{
     public ArrayList<Timer> getTimers() {
         if(timers.isEmpty()){
             timers.add(new WaitingTimer());
+            timers.add(new StabilizationTimer());
             timers.add(new StartingTimer());
             timers.add(new PVPTimer());
             timers.add(new NetherTimer());

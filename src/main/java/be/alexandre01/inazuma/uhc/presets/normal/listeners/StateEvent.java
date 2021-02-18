@@ -21,6 +21,8 @@ import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
 public class StateEvent implements Listener {
@@ -58,17 +60,16 @@ public class StateEvent implements Listener {
             player.setAllowFlight(true);
             player.setFlying(true);
             player.setFlySpeed(0);
+            player.setWalkSpeed(0);
+            player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, Integer.MAX_VALUE, 0,false,false), true);
         }
-        if(p.getPlatform() != null){
-            p.getPlatform().despawn();
-        }
+
 
 
         i.teamManager.distributeTeamToPlayer();
         i.teamManager.safeTeamTeleport(0);
-        GameScoreboard gameScoreboard = new GameScoreboard(n);
+         GameScoreboard gameScoreboard = new GameScoreboard(n);
         gameScoreboard.setScoreboard();
-       // n.gameScoreboard();
         i.getScoreboardManager().refreshPlayers();
     }
     @EventHandler

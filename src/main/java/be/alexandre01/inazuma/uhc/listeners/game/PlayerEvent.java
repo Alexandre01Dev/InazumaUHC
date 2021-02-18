@@ -77,6 +77,10 @@ public class PlayerEvent implements Listener {
         player.setExp(0);
         player.setTotalExperience(0);
 
+
+        //WALK AND FLY SPEED
+        player.setWalkSpeed(0.2f);
+        player.setFlySpeed(0.2f);
         //EFFECT
         for(PotionEffect potionEffect : player.getActivePotionEffects()){
             player.removePotionEffect(potionEffect.getType());
@@ -93,7 +97,7 @@ public class PlayerEvent implements Listener {
             if(Preset.instance.p.autoJoinWorld()){
                 world = Bukkit.getWorld(Options.to("worldsTemp").get("defaultUUID").getString());
             }else {
-                world = Bukkit.getWorlds().get(0);
+                world = Bukkit.getWorld("world");
             }
         }else{
             player.sendMessage("§cLa partie a déjà commencé, vous êtes un spéctateur de celle-ci.");
