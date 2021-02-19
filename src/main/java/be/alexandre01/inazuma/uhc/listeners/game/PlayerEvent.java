@@ -12,10 +12,11 @@ import be.alexandre01.inazuma.uhc.state.State;
 import be.alexandre01.inazuma.uhc.teams.Team;
 import be.alexandre01.inazuma.uhc.teams.TeamManager;
 import be.alexandre01.inazuma.uhc.utils.ExperienceManager;
-import net.minecraft.server.v1_8_R3.EntityPlayer;
-import net.minecraft.server.v1_8_R3.PacketPlayInArmAnimation;
-import net.minecraft.server.v1_8_R3.PacketPlayOutAnimation;
+import net.minecraft.server.v1_8_R3.*;
 import org.bukkit.*;
+import org.bukkit.Material;
+import org.bukkit.World;
+import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.ExperienceOrb;
@@ -59,6 +60,7 @@ public class PlayerEvent implements Listener {
         World world = null;
 
         //CLEAR INVENTORY
+
         player.getInventory().clear();
         player.getInventory().setHelmet(null);
         player.getInventory().setChestplate(null);
@@ -77,6 +79,23 @@ public class PlayerEvent implements Listener {
         player.setLevel(0);
         player.setExp(0);
         player.setTotalExperience(0);
+
+        //PATCH DAMAGE NBT
+        EntityPlayer nmsPlayer =((CraftPlayer)player).getHandle();
+
+
+       for(Object o : nmsPlayer.getAttributeMap().a()){
+           if(o instanceof AttributeModifiable){
+               AttributeModifiable a = (AttributeModifiable) o;
+               if(a.getAttribute().getName().equalsIgnoreCase("generic.maxHealth")){
+                   a.setValue(20);
+               }
+
+               if(a.getAttribute().getName().equalsIgnoreCase("generic.attackDamage")){
+                   a.setValue(1);
+               }
+           }
+       }
 
 
         //WALK AND FLY SPEED
