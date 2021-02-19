@@ -24,6 +24,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
@@ -110,7 +111,7 @@ public class PlayerEvent implements Listener {
 
 
 
-        //System.out.println(Options.to("worldsTemp").get("defaultUUID").getString());
+
         player.teleport(world.getSpawnLocation());
     }
 
@@ -170,28 +171,6 @@ public class PlayerEvent implements Listener {
         }
     }
 
-   /* @EventHandler(priority = EventPriority.HIGHEST)
-    public void onFirstDamage(EntityDamageEvent event){
-        if(GameState.get().contains(State.PLAYING)){
-            if(players == null){
-                players = new ArrayList<>(Bukkit.getOnlinePlayers());
-            }
-            if(players.isEmpty()){
-                return;
-            }
-            if(event.getEntity() instanceof Player){
-                Player player = (Player) event.getEntity();
-                if(players.contains(player)){
-                    if(event.getCause().equals(EntityDamageEvent.DamageCause.FALL)){
-                        event.setCancelled(true);
-                        players.remove(player);
-                    }
-
-                }
-            }
-
-        }
-    }*/
 
     @EventHandler
     public void onKill(EntityDamageEvent event){
@@ -203,17 +182,13 @@ public class PlayerEvent implements Listener {
                 if(i.spectatorManager.getPlayers().contains(player)){
                     return;
                 }
-
-                    System.out.println("FINALKILL > DETECTED PL");
-                    System.out.println(player.getHealth()-event.getFinalDamage()+"< FINALKILL");
-                    System.out.println(player.getHealth()+"< FINALKILLhEALTH");
-                    System.out.println(event.getFinalDamage()+"< FINALKILLhEALTH");
                 if(!Preset.instance.pData.isInvisible){
                     if(player.getHealth()-event.getFinalDamage() <= 0){
                         List<ItemStack> l = new ArrayList<>();
                         l.addAll(Arrays.asList(player.getInventory().getArmorContents()));
                         l.addAll(Arrays.asList(player.getInventory().getContents()));
-                        PlayerInstantDeathEvent playerInstantDeathEvent = new PlayerInstantDeathEvent(player,l, ExperienceManager.getTotalExperience(player));
+                        System.out.println("KILLER >> "+i.dm.getKiller(player));
+                        PlayerInstantDeathEvent playerInstantDeathEvent = new PlayerInstantDeathEvent(player,l, ExperienceManager.getTotalExperience(player),i.dm.getKiller(player));
                         Bukkit.getPluginManager().callEvent(playerInstantDeathEvent);
                         if(!playerInstantDeathEvent.isCancelled()){
                             for(ItemStack it : playerInstantDeathEvent.getDrops()){
@@ -271,6 +246,14 @@ public class PlayerEvent implements Listener {
             }
 
         }
+    }
+
+    @EventHandler
+    public void onDamageEntityByEntity(EntityDamageByEntityEvent event){
+        if(event.getEntity() instanceof  Player && event.getDamager() instanceof Player){
+            i.dm.addPlayerDamage((Player) event.getDamager(), (Player) event.getEntity());
+        }
+
     }
     @EventHandler(priority = EventPriority.LOWEST)
     public void onDrop(PlayerDropItemEvent event){
