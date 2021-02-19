@@ -17,7 +17,7 @@ public class DamageManager {
     }
 
     public void addPlayerDamage(Player player,Player target){
-        playersDamager.put(target,new Tuple<>(target,new Date().getTime()));
+        playersDamager.put(target,new Tuple<>(player,new Date().getTime()));
         damagersPlayer.put(player,target);
     }
 
