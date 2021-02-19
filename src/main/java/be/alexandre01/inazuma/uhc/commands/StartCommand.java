@@ -35,7 +35,7 @@ public class StartCommand implements CommandExecutor{
                 if(cmd.getName().equalsIgnoreCase("start")){
                     if(GameState.get().contains(State.PREPARING)){
                         if(InazumaUHC.get.worldGen.isGenerating()){
-                            player.sendMessage("§7La §cprégénération §7est entrain de s'effectué.");
+                            player.sendMessage("§7La §cprégénération §7est entrain de s'effectuer.");
                             return true;
                         }
                         InazumaUHC.get.lm.removeListener(InventoryClick.class);
