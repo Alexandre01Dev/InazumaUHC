@@ -13,6 +13,7 @@ import be.alexandre01.inazuma.uhc.teams.Team;
 import be.alexandre01.inazuma.uhc.teams.TeamManager;
 import be.alexandre01.inazuma.uhc.utils.ExperienceManager;
 import net.minecraft.server.v1_8_R3.*;
+import net.minecraft.server.v1_8_R3.Achievement;
 import org.bukkit.*;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -32,6 +33,7 @@ import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.player.*;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -47,7 +49,23 @@ public class PlayerEvent implements Listener {
     public void onJoin(PlayerJoinEvent event){
         InazumaUHC inazumaUHC = InazumaUHC.get;
         Player player = event.getPlayer();
+        World world = null;
 
+        if(!GameState.get().contains(State.PLAYING)){
+            if(Preset.instance.p.autoJoinWorld()){
+                world = Bukkit.getWorld(Options.to("worldsTemp").get("defaultUUID").getString());
+            }else {
+                world = Bukkit.getWorld("world");
+            }
+        }else{
+            player.sendMessage("§cLa partie a déjà commencé, vous êtes un spéctateur de celle-ci.");
+            SpectatorPlayer spectatorPlayer = new SpectatorPlayer(player);
+            inazumaUHC.spectatorManager.addPlayer(player);
+            spectatorPlayer.setSpectator();
+            world = Bukkit.getWorld(Options.to("worldsTemp").get("defaultUUID").getString());
+        }
+
+        player.teleport(world.getSpawnLocation());
         if(player.getScoreboard().getTeams() != null){
             for(org.bukkit.scoreboard.Team team : player.getScoreboard().getTeams()){
                 team.removePlayer(player);
@@ -57,7 +75,7 @@ public class PlayerEvent implements Listener {
         }
         player.setFlySpeed(0.2f);
         player.setFlying(false);
-        World world = null;
+
 
         //CLEAR INVENTORY
 
@@ -66,7 +84,6 @@ public class PlayerEvent implements Listener {
         player.getInventory().setChestplate(null);
         player.getInventory().setLeggings(null);
         player.getInventory().setBoots(null);
-        player.getInventory().setArmorContents(new ItemStack[0]);
         player.updateInventory();
 
         //GAMEMODE
@@ -88,14 +105,25 @@ public class PlayerEvent implements Listener {
            if(o instanceof AttributeModifiable){
                AttributeModifiable a = (AttributeModifiable) o;
                if(a.getAttribute().getName().equalsIgnoreCase("generic.maxHealth")){
-                   a.setValue(20);
+                   a.setValue(21);
                }
-
                if(a.getAttribute().getName().equalsIgnoreCase("generic.attackDamage")){
-                   a.setValue(1);
+                   System.out.println(nmsPlayer.getName()+" WOW >>" + a.getValue());
+                   a.setValue(1.0D);
+                   System.out.println(  nmsPlayer.getAttributeMap().a("generic.attackDamage"));
+                   for(AttributeModifier m : a.c()){
+                       nmsPlayer.getAttributeMap().a("generic.attackDamage").c().remove(m);
+                       System.out.println(m.b());
+                       System.out.println(m.d());
+                       nmsPlayer.getAttributeMap().a();
+                       nmsPlayer.getAttributeMap().a("generic.attackDamage").c(new AttributeModifier(m.a(),m.b(),0,m.c()));
+
+                   }
+                   System.out.println(nmsPlayer.getName()+" WOW >>" + a.getValue());
                }
            }
        }
+
 
 
         //WALK AND FLY SPEED
@@ -113,25 +141,13 @@ public class PlayerEvent implements Listener {
             p.getArrows().put(player.getUniqueId(),"§l~");
         }
 
-        if(!GameState.get().contains(State.PLAYING)){
-            if(Preset.instance.p.autoJoinWorld()){
-                world = Bukkit.getWorld(Options.to("worldsTemp").get("defaultUUID").getString());
-            }else {
-                world = Bukkit.getWorld("world");
-            }
-        }else{
-            player.sendMessage("§cLa partie a déjà commencé, vous êtes un spéctateur de celle-ci.");
-            SpectatorPlayer spectatorPlayer = new SpectatorPlayer(player);
-            inazumaUHC.spectatorManager.addPlayer(player);
-            spectatorPlayer.setSpectator();
-            world = Bukkit.getWorld(Options.to("worldsTemp").get("defaultUUID").getString());
-        }
 
 
 
 
 
-        player.teleport(world.getSpawnLocation());
+
+
     }
 
     @EventHandler
