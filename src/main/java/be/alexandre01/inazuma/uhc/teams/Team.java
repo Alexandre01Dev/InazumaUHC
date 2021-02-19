@@ -6,6 +6,7 @@ import be.alexandre01.inazuma.uhc.generations.Plateform;
 import be.alexandre01.inazuma.uhc.generations.chunks.ChunkCoord;
 import be.alexandre01.inazuma.uhc.presets.IPreset;
 import be.alexandre01.inazuma.uhc.presets.Preset;
+import be.alexandre01.inazuma.uhc.spectators.BukkitTeamInitializer;
 import be.alexandre01.inazuma.uhc.utils.ScoreboardUtil;
 import net.minecraft.server.v1_8_R3.Entity;
 import net.minecraft.server.v1_8_R3.EntityPlayer;
@@ -106,12 +107,8 @@ public class Team {
         Scoreboard score = Bukkit.getScoreboardManager().getMainScoreboard();
         for(Player player : players.values()){
 
-            org.bukkit.scoreboard.Team t = null;
 
-            t = score.getTeam("0VIVANT");
-
-            t.setDisplayName(player.getName());
-            t.addPlayer(player);
+            org.bukkit.scoreboard.Team t = BukkitTeamInitializer.setAlive(player);
             ScoreboardUtil.get.addPlayer(score,t,player);
 
         }
