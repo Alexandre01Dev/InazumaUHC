@@ -6,17 +6,30 @@ import be.alexandre01.inazuma.uhc.roles.Role;
 import be.alexandre01.inazuma.uhc.timers.ITimer;
 import be.alexandre01.inazuma.uhc.timers.Timer;
 import be.alexandre01.inazuma.uhc.utils.PlayerUtils;
+import net.minecraft.server.v1_8_R3.PacketPlayOutScoreboardTeam;
+import net.minecraft.server.v1_8_R3.PlayerConnection;
+import net.minecraft.server.v1_8_R3.ScoreboardTeam;
+import net.minecraft.server.v1_8_R3.ScoreboardTeamBase;
+import org.bukkit.Bukkit;
+import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_8_R3.scoreboard.CraftScoreboard;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.event.player.PlayerToggleSneakEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.scoreboard.NameTagVisibility;
+import org.bukkit.scoreboard.Team;
+
+import java.util.ArrayList;
 
 public class Jack extends Role implements Listener {
 
     private boolean isSneakTimer = false;
+    private boolean invisible = false;
     public Jack() {
         super("Jack Wallside");
         setRoleCategory(Raimon.class);
@@ -48,6 +61,16 @@ public class Jack extends Role implements Listener {
             }
         }
     }
+
+    @EventHandler
+    public void onChangeItemSlot(PlayerItemHeldEvent event){
+        if(invisible){
+            Player player = event.getPlayer();
+            if(getPlayers().contains(player)){
+                inazumaUHC.invisibilityInventory.setInventoryInvisibleToOther(player,0);
+            }
+        }
+    }
     @EventHandler
     public void onSneak(PlayerToggleSneakEvent event){
         event.setAsync(true);
@@ -76,8 +99,12 @@ public class Jack extends Role implements Listener {
                     @Override
                     public void run() {
                         if(!player.isSneaking()){
+                            invisible = false;
                             player.removePotionEffect(PotionEffectType.INVISIBILITY);
+                            inazumaUHC.invisibilityInventory.setInventoryToInitialToOther(player);
                             isSneakTimer = false;
+                            Team t = Bukkit.getScoreboardManager().getMainScoreboard().getTeam(player.getName());
+                            t.setNameTagVisibility(NameTagVisibility.ALWAYS);
                             timer.cancel();
                         }
                         if(!PlayerUtils.getNearbyPlayersFromPlayer(player,30,30,30).isEmpty() && i < 10){
@@ -86,8 +113,13 @@ public class Jack extends Role implements Listener {
                             timer.cancel();
                         }
                         if(i == 10){
+                            invisible = true;
                             player.sendMessage(Preset.instance.p.prefixName()+" Vous êtes camouflé.");
+                            inazumaUHC.invisibilityInventory.setInventoryInvisibleToOther(player);
                             player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, Integer.MAX_VALUE, 0,false,false), true);
+                            Player p = event.getPlayer(); //Player to hide name
+                            Team t = Bukkit.getScoreboardManager().getMainScoreboard().getTeam(player.getName());
+                            t.setNameTagVisibility(NameTagVisibility.NEVER);
                         }
                         i++;
 

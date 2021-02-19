@@ -12,6 +12,7 @@ import be.alexandre01.inazuma.uhc.host.Host;
 import be.alexandre01.inazuma.uhc.listeners.ListenersManager;
 import be.alexandre01.inazuma.uhc.listeners.game.*;
 import be.alexandre01.inazuma.uhc.managers.DamageManager;
+import be.alexandre01.inazuma.uhc.managers.InvisibilityInventory;
 import be.alexandre01.inazuma.uhc.presets.Preset;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.InazumaEleven;
 import be.alexandre01.inazuma.uhc.presets.jujutsu_kaisen.Jujutsu_Kaisen;
@@ -59,6 +60,7 @@ public final class InazumaUHC extends JavaPlugin {
     public TeamManager teamManager;
     public SpectatorManager spectatorManager;
 
+    public InvisibilityInventory invisibilityInventory = new InvisibilityInventory();
 
     public Preset p;
 
