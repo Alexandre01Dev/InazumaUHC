@@ -26,7 +26,7 @@ public class PlayerInstantDeathEvent extends Event implements Cancellable {
         return HANDLERS;
     }
 
-    public PlayerInstantDeathEvent(Player player, List<ItemStack> drops,int xp){
+    public PlayerInstantDeathEvent(Player player, List<ItemStack> drops,int xp,Player killer){
         this.player = player;
         this.drops = drops;
         this.xp = xp;

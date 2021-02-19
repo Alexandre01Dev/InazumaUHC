@@ -11,6 +11,7 @@ import be.alexandre01.inazuma.uhc.generations.NetherPortalsManager;
 import be.alexandre01.inazuma.uhc.host.Host;
 import be.alexandre01.inazuma.uhc.listeners.ListenersManager;
 import be.alexandre01.inazuma.uhc.listeners.game.*;
+import be.alexandre01.inazuma.uhc.managers.DamageManager;
 import be.alexandre01.inazuma.uhc.presets.Preset;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.InazumaEleven;
 import be.alexandre01.inazuma.uhc.presets.jujutsu_kaisen.Jujutsu_Kaisen;
@@ -49,12 +50,16 @@ public final class InazumaUHC extends JavaPlugin {
     private ScoreboardManager scoreboardManager;
     private ScheduledExecutorService executorMonoThread;
     private ScheduledExecutorService scheduledExecutorService;
+
+    //MANAGER
     public ListenersManager lm;
     public TimersManager tm;
     public RoleManager rm;
-
+    public DamageManager dm;
     public TeamManager teamManager;
     public SpectatorManager spectatorManager;
+
+
     public Preset p;
 
     public ArrowToCenter arrowToCenter;
@@ -132,6 +137,8 @@ public final class InazumaUHC extends JavaPlugin {
 
          spectatorManager = new SpectatorManager();
 
+         dm = new DamageManager();
+
         GameState gameState = new GameState();
 
         if(isHosted){
@@ -141,6 +148,8 @@ public final class InazumaUHC extends JavaPlugin {
         if(p.p.hasRoles() && rm == null){
             rm = new RoleManager();
         }
+
+
         //lm.automaticFindListener();
 
     }
