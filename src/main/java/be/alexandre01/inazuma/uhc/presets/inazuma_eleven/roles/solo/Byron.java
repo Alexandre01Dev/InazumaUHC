@@ -4,11 +4,13 @@ import be.alexandre01.inazuma.uhc.InazumaUHC;
 import be.alexandre01.inazuma.uhc.custom_events.player.PlayerInstantDeathEvent;
 import be.alexandre01.inazuma.uhc.presets.Preset;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.categories.Solo;
+import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.objects.Episode;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.roles.solo.listeners.FreezePlayerListener;
 import be.alexandre01.inazuma.uhc.roles.Role;
 import be.alexandre01.inazuma.uhc.roles.RoleItem;
 import be.alexandre01.inazuma.uhc.utils.Freeze;
 import be.alexandre01.inazuma.uhc.utils.ItemBuilder;
+import be.alexandre01.inazuma.uhc.utils.PlayerUtils;
 import be.alexandre01.inazuma.uhc.utils.TitleUtils;
 import net.minecraft.server.v1_8_R3.Tuple;
 import org.bukkit.Material;
@@ -16,6 +18,7 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.PotionMeta;
@@ -61,6 +64,9 @@ public class Byron extends Role implements Listener {
         potion.setItemstack(pot1);
         this.potion = pot1;
         addRoleItem(potion);
+
+
+
         RoleItem timeStop = new RoleItem();
         ItemBuilder t = new ItemBuilder(Material.WATCH).setName("§7§lInstant Céleste");
         timeStop.setItemstack(t.toItemStack());
@@ -92,9 +98,8 @@ public class Byron extends Role implements Listener {
                 FreezePlayerListener f = new FreezePlayerListener();
                 Freeze freeze = new Freeze(10);
                 ArrayList<Player> p = new ArrayList<>();
-                for(Entity entity : player.getWorld().getNearbyEntities(player.getLocation(),25,25,25)){
-                    if(entity instanceof Player){
-                        Player target = (Player) entity;
+                for(Player target : PlayerUtils.getNearbyPlayersFromPlayer(player,25,25,25)){
+
                         if(target == player){
                             continue;
                         }
@@ -105,7 +110,6 @@ public class Byron extends Role implements Listener {
                         freeze.freezePlayer(target);
                         p.add(target);
                         TitleUtils.sendActionBar(target,"§7§lINSTANT CELESTE§7");
-                    }
                 }
                 f.setP(p);
                 InazumaUHC.get.lm.addListener(f);
@@ -130,6 +134,7 @@ public class Byron extends Role implements Listener {
         }
     }
 
+
     @EventHandler
     public void onDrinkPotion(PlayerItemConsumeEvent e){
         ItemStack consumed = e.getItem();
@@ -140,3 +145,4 @@ public class Byron extends Role implements Listener {
         }
     }
 }
+

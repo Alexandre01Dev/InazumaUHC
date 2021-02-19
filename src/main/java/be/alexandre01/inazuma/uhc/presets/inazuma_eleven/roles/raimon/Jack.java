@@ -24,9 +24,9 @@ public class Jack extends Role implements Listener {
             @Override
             public void a() {
                 for(Player player : getPlayers()){
-                    player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, Integer.MAX_VALUE, 0,false,false), true);
-                    player.setMaxHealth(24);
-                    player.setHealth(24);
+                        player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, Integer.MAX_VALUE, 0,false,false), true);
+                        player.setMaxHealth(24);
+                        player.setHealth(24);
                 }
             }
         });

@@ -60,7 +60,9 @@ public class William extends Role implements Listener {
         }
         Collections.shuffle(raimon);
 
-
+        if(raimon.isEmpty()){
+            return;
+        }
         for(Role role : raimon){
             if(role.getClass().equals(this.getClass())){
                 raimon.remove(this);
@@ -84,7 +86,6 @@ public class William extends Role implements Listener {
                     for(Player target : raimon.get(0).getPlayers()){
                         player.sendMessage(Preset.instance.p.prefixName()+" Vous savez désormais que"+ target.getName()+" fait partie de l' "+ raimon.get(0).getRoleCategory().getPrefixColor()+raimon.get(0).getRoleCategory().getName());
                     }
-
                 }
                 usedRole.add(raimon.get(0));
             }
