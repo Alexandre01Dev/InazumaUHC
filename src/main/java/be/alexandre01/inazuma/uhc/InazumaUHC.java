@@ -62,6 +62,10 @@ public final class InazumaUHC extends JavaPlugin {
 
     public InvisibilityInventory invisibilityInventory = new InvisibilityInventory();
 
+
+    //OPEN LISTENER
+    public  PotionEvent potionEvent;
+
     public Preset p;
 
     public ArrowToCenter arrowToCenter;
@@ -102,6 +106,8 @@ public final class InazumaUHC extends JavaPlugin {
         }
         lm.addListener(new ProtectionEvent());
         lm.addListener(new StateEvent());
+        potionEvent = new PotionEvent();
+        lm.addListener(potionEvent);
         lm.addListener(new TeamsEvent());
         WorldUtils.patchBiomes();
         this.worldGen = new WorldGen(this);

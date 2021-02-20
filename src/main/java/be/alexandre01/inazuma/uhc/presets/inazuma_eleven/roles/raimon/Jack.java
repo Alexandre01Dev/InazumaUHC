@@ -1,5 +1,6 @@
 package be.alexandre01.inazuma.uhc.presets.inazuma_eleven.roles.raimon;
 
+import be.alexandre01.inazuma.uhc.InazumaUHC;
 import be.alexandre01.inazuma.uhc.presets.Preset;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.categories.Raimon;
 import be.alexandre01.inazuma.uhc.roles.Role;
@@ -21,6 +22,7 @@ import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.event.player.PlayerToggleSneakEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.NameTagVisibility;
 import org.bukkit.scoreboard.Team;
 
@@ -67,7 +69,13 @@ public class Jack extends Role implements Listener {
         if(invisible){
             Player player = event.getPlayer();
             if(getPlayers().contains(player)){
-                inazumaUHC.invisibilityInventory.setInventoryInvisibleToOther(player,0);
+                new BukkitRunnable() {
+                    @Override
+                    public void run() {
+                        inazumaUHC.invisibilityInventory.setInventoryInvisibleToOther(player,0);
+                    }
+                }.runTaskLaterAsynchronously(InazumaUHC.get,1);
+
             }
         }
     }

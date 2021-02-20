@@ -105,21 +105,13 @@ public class PlayerEvent implements Listener {
            if(o instanceof AttributeModifiable){
                AttributeModifiable a = (AttributeModifiable) o;
                if(a.getAttribute().getName().equalsIgnoreCase("generic.maxHealth")){
-                   a.setValue(21);
+                   a.setValue(20);
                }
                if(a.getAttribute().getName().equalsIgnoreCase("generic.attackDamage")){
-                   System.out.println(nmsPlayer.getName()+" WOW >>" + a.getValue());
                    a.setValue(1.0D);
-                   System.out.println(  nmsPlayer.getAttributeMap().a("generic.attackDamage"));
                    for(AttributeModifier m : a.c()){
-                       nmsPlayer.getAttributeMap().a("generic.attackDamage").c().remove(m);
-                       System.out.println(m.b());
-                       System.out.println(m.d());
-                       nmsPlayer.getAttributeMap().a();
                        nmsPlayer.getAttributeMap().a("generic.attackDamage").c(new AttributeModifier(m.a(),m.b(),0,m.c()));
-
                    }
-                   System.out.println(nmsPlayer.getName()+" WOW >>" + a.getValue());
                }
            }
        }
@@ -207,12 +199,11 @@ public class PlayerEvent implements Listener {
     }
 
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGHEST)
     public void onKill(EntityDamageEvent event){
         if(GameState.get().contains(State.PLAYING)){
 
             if(event.getEntity() instanceof Player){
-
                 Player player = (Player) event.getEntity();
                 if(i.spectatorManager.getPlayers().contains(player)){
                     return;
