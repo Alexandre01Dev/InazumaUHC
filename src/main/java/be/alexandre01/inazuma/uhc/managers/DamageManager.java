@@ -2,13 +2,13 @@ package be.alexandre01.inazuma.uhc.managers;
 
 import be.alexandre01.inazuma.uhc.timers.utils.DateBuilderTimer;
 import be.alexandre01.inazuma.uhc.timers.utils.MSToSec;
-import net.minecraft.server.v1_8_R3.AttributeModifiable;
-import net.minecraft.server.v1_8_R3.AttributeModifier;
-import net.minecraft.server.v1_8_R3.EntityPlayer;
-import net.minecraft.server.v1_8_R3.Tuple;
+import be.alexandre01.inazuma.uhc.utils.WeaponItem;
+import net.minecraft.server.v1_8_R3.*;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.UUID;
@@ -22,6 +22,8 @@ public class DamageManager {
     private final HashMap<Player, Integer> increased_damage_level;
     private final HashMap<Player, Double> resistance;
     private final HashMap<Player, Integer> resistance_level;
+
+    private final HashMap<ItemStack,WeaponItem> weaponsItems;
     public DamageManager(){
         increased_damage = new HashMap<>();
         increased_damage_level = new HashMap<>();
@@ -29,6 +31,7 @@ public class DamageManager {
         resistance_level = new HashMap<>();
         playersDamager = new HashMap<>();
         damagersPlayer = new HashMap<>();
+        weaponsItems = new HashMap<>();
     }
 
     public void addPlayerDamage(Player player,Player target){
@@ -49,13 +52,31 @@ public class DamageManager {
         }
     }
 
-    public double getEffectPourcentage(Player player,EffectType effectType){
+    public HashMap<ItemStack,WeaponItem> getWeaponsItems() {
+        return weaponsItems;
+    }
+
+    public WeaponItem getOrCreate(ItemStack it){
+        if(!weaponsItems.containsKey(it)){
+            return create(it);
+        }
+
+        return weaponsItems.get(it);
+    }
+
+    public WeaponItem create(ItemStack it){
+        WeaponItem weaponItem = new WeaponItem(it);
+        weaponsItems.put(it,weaponItem);
+        return weaponItem;
+    }
+
+    public double getEffectPourcentage(Player player, EffectType effectType){
         switch (effectType){
             case RESISTANCE:
                 if(resistance.containsKey(player)){
                     return resistance.get(player);
                 }
-                return 0.1d;
+                return 0.15d;
             case INCREASE_DAMAGE:
                 if(increased_damage.containsKey(player)){
                     return increased_damage.get(player);

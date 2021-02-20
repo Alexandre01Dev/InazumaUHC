@@ -43,11 +43,13 @@ public class WorldGen {
             player.setAllowFlight(false);
             player.setFlying(false);
         }
+
         if(!InazumaUHC.get.loadWorldBefore){
             isGenerating = true;
         }
 
         ImanityWorldConfig iwc =  iSpigot.INSTANCE.getWorldConfigByName("default");
+
         /*
         iwc.set("generateRate",700);
         iwc.set("caveMinAltitude", 50);
