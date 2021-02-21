@@ -37,6 +37,12 @@ public class Byron extends Role implements Listener {
     private ItemStack potion;
     public Byron() {
         super("Byron Love");
+        getDescription().add("§8.Voici Votre rôle: §c§lByron Love ");
+        getDescription().add("§8.Vous devez gagner tout §c§lseul");
+        getDescription().add("§8Vous avez obtenu une potion nommée §f§lNectar §7§lDivin§8 qui n'a q'une seul utilisation qui donne  §d§lRégénération 1§8 et §b§lSpeed 1§8 durant 20 secondes");
+        getDescription().add("§8.Vous possédez l’effet §4§lForce 1 et §c§l2 cœurs supplémentaires");
+        getDescription().add("§8.Vous avez aussi obtenu une §7Horloge§8 nommée §7§lInstant Céleste§8 qui figera tous les joueurs autour de vous dans un rayon de 25 blocks pendant 10 secondes.");
+        getDescription().add("§8.A chaque §4§lkill§8, vous gagnerez §c§l0.5 cœur supplémentaires");
 
         setRoleCategory(Solo.class);
         onLoad(new load() {
