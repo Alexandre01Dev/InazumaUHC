@@ -38,16 +38,33 @@ public class Byron extends Role implements Listener {
         CustomComponentBuilder c = new CustomComponentBuilder("");
         c.append("§8- §7Vous avez une potion nommée ");
 
-        BaseComponent baseComponent = new TextComponent("➤§f§lNectar §7§lDivin§8");
+        BaseComponent nectarButton = new TextComponent("➤§f§lNectar §7§lDivin§8");
+
         BaseComponent nectarDesc = new TextComponent();
         nectarDesc.addExtra("§e- §9Utilisation unique\n");
         nectarDesc.addExtra("§e- §9Donne §d§lRégénération 2§7 pendant §a10 secondes\n");
         nectarDesc.addExtra("§e- §9Donne §b§lSpeed 1§7 pendant §a20 secondes");
-        baseComponent.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,nectarDesc.getExtra().toArray(new BaseComponent[0])));
-        c.append(baseComponent);
+        nectarButton.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,nectarDesc.getExtra().toArray(new BaseComponent[0])));
+        c.append(nectarButton);
         addDescription(c);
         addDescription("§8- §7Vous possédez l’effet §4§lForce 1 et §c§l2 §4❤§7§c supplémentaires\n");
-        addDescription("§8- §7Vous disposez également d'une §f§l⟳Horloge⟳§7 nommée §7§lInstant Céleste§7 qui figera tous les joueurs autour de vous dans un rayon de 25 blocks pendant §a10 secondes.");
+
+        CustomComponentBuilder celest = new CustomComponentBuilder("");
+        celest.append("§8- §7Vous disposez également d'une §f§l⟳Horloge⟳§7 nommée \n");
+        BaseComponent celestButton = new TextComponent("§7§lInstant Céleste");
+        BaseComponent celestDesc = new TextComponent();
+
+        celestDesc.addExtra("§e- §9Utilisation par §eEpisode\n");
+        celestDesc.addExtra("§e- §9Fige tous les joueurs autour\n");
+        celestDesc.addExtra("§e- §9de vous §9[§525 blocks §9- §a10 sec§9]");
+
+
+        celestButton.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, celestDesc.getExtra().toArray(new BaseComponent[0])));
+
+        celest.append(celestButton);
+        celest.append("§7.\n");
+        addDescription(celest);
+
         addDescription("§8- §7A chaque §4§lkill§7, vous gagnerez §c§l0.5 §4❤§c supplémentaires");
 
         setRoleCategory(Solo.class);
