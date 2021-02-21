@@ -203,7 +203,9 @@ public class Role {
     public ArrayList<String> getDescription() {
         return description;
     }
+    public void addDescription(){
 
+    }
     public void setDescription(int line,String description) {
        this.description.add(line,description);
     }
