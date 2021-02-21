@@ -42,9 +42,9 @@ public class GameScoreboard {
                     objectiveSign.setDisplayName("§8»§3§lInazuma§8§l-§3§lEleven§8«");
 
                     objectiveSign.setLine(4, "§r§l§8»§8§m------------§l§8«");
-                    objectiveSign.setLine(5, "§7Joueurs §l» §e" + Bukkit.getOnlinePlayers().size() + "§7/§e"+inazuma.getPlayerSize());
-                    objectiveSign.setLine(6, "§r§l§8»§8§m------------§l§8«§f");
-                    objectiveSign.setLine(7,"§cEpisode §l» §e"+ Episode.getEpisode());
+                    objectiveSign.setLine(5,"§7Episode §l» §e"+ Episode.getEpisode());
+                    objectiveSign.setLine(6, "§7Temps §l» §e" + Bukkit.getOnlinePlayers().size() + "§7/§e"+inazuma.getPlayerSize());
+                    objectiveSign.setLine(7, "§r§l§8»§8§m------------§l§8«§f");
                     objectiveSign.setLine(8, "§7"+ InazumaEleven.timerText+" §l» §e" + InazumaEleven.timerValue);
                     if(inazuma.hasNether()){
                         objectiveSign.setLine(9,"§7"+InazumaEleven.netherText+" §l» §e" + InazumaEleven.netherValue);
