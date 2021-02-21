@@ -49,8 +49,8 @@ public class NetherTimer extends Timer {
                     time = (p.getNetherTime()* 1000L)+now;
                 }
 
-                Normal.netherText = "§cDésac. Nether: ";
-                Normal.netherValue = "§e"+modifier+"s";
+                InazumaEleven.netherText = "§cDésac. Nether: ";
+                InazumaEleven.netherValue = "§e"+modifier+"s";
                 Date date = new Date(time-now);
                 int hour =  (int) ((date.getTime() / (1000*60*60)) % 24);
                 String minute = m.format(date);

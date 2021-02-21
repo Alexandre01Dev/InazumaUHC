@@ -3,9 +3,11 @@ package be.alexandre01.inazuma.uhc.roles;
 import be.alexandre01.inazuma.uhc.InazumaUHC;
 import be.alexandre01.inazuma.uhc.presets.Preset;
 import be.alexandre01.inazuma.uhc.roles.commands.CommandRole;
-import org.bukkit.Bukkit;
-import org.bukkit.command.Command;
-import org.bukkit.entity.Item;
+
+import be.alexandre01.inazuma.uhc.utils.CustomComponentBuilder;
+import net.md_5.bungee.api.chat.BaseComponent;
+import net.md_5.bungee.api.chat.TextComponent;
+
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.Inventory;
@@ -20,7 +22,7 @@ public class Role {
     private load load;
     private command command;
 
-    private ArrayList<String> description;
+    private ArrayList<BaseComponent[]> description;
     protected InazumaUHC inazumaUHC;
     public ArrayList<Listener> listeners = new ArrayList<>();
     private HashMap<String,CommandRole> commands;
@@ -41,25 +43,34 @@ public class Role {
         roleToSpoil.addAll(Arrays.asList(c));
     }
     private void sendDescription(Player player){
-        player.sendMessage("");
+
         if(description.isEmpty()){
             player.sendMessage("§7Le role n'a pas de description par défaut.");
             return;
         }
-        for(String d : description){
-            player.sendMessage(d);
+        for(net.md_5.bungee.api.chat.BaseComponent[] d : description){
+            player.spigot().sendMessage(d);
         }
     }
     public void spoilRole(){
         RoleManager roleManager = InazumaUHC.get.rm;
         for(Player player : getPlayers()){
             if(getRoleCategory() != null){
-                player.sendMessage(Preset.instance.p.prefixName()+ "§8.Voici Votre rôle:"+ getRoleCategory().getPrefixColor()+getName());
+                player.sendMessage("§8§m*------§7§m------§7§m-§b§m-----------§7§m-§7§m------§8§m------*");
+                BaseComponent b = new TextComponent(Preset.instance.p.prefixName()+ "§7§lVoici votre rôle: "+ getRoleCategory().getPrefixColor()+"§l"+getName());
+
+
+                player.spigot().sendMessage(b);
                 sendDescription(player);
+                player.sendMessage("§8§m*------§7§m------§7§m-§b§m-----------§7§m-§7§m------§8§m------*");
                 continue;
             }
-            player.sendMessage(Preset.instance.p.prefixName()+" §8.Voici Votre rôle:§a"+getName());
+            player.sendMessage("§8§m*------§7§m------§7§m-§b§m-----------§7§m-§7§m------§8§m------*");
+            BaseComponent b = new TextComponent(Preset.instance.p.prefixName()+" §7§lVoici votre rôle: §a§l"+getName()+"\n");
+
+            player.spigot().sendMessage(b);
             sendDescription(player);
+            player.sendMessage("§8§m*------§7§m------§7§m-§b§m-----------§7§m-§7§m------§8§m------*");
         }
 
 
@@ -206,11 +217,25 @@ public class Role {
         return commands;
     }
 
-    public ArrayList<String> getDescription() {
+    public void addDescription(String s){
+        CustomComponentBuilder c = new CustomComponentBuilder("");
+        c.append(TextComponent.fromLegacyText(s));
+        description.add(c.create());
+    }
+
+    public void addDescription(BaseComponent... baseComponents){
+        description.add(baseComponents);
+    }
+
+    public void addDescription(CustomComponentBuilder componentBuilder){
+
+        description.add(componentBuilder.create());
+    }
+    public ArrayList<BaseComponent[]> getDescription() {
         return description;
     }
 
-    public void setDescription(int line,String description) {
+    public void setDescription(int line, BaseComponent[] description) {
        this.description.add(line,description);
     }
 }

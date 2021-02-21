@@ -84,7 +84,7 @@ public class MoveBordureTimer extends Timer {
                   }
 
               }
-                Normal.bordureValue = "§e"+sb.toString()+"s";
+                InazumaEleven.bordureValue = "§e"+sb.toString()+"s";
 
 
 

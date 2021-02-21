@@ -39,14 +39,14 @@ public class WaitingTimer extends Timer {
                     }
                     if(modifier > 10 && size >= p.getMinPlayerToStart()){
                         modifier = 10;
-                        Normal.lastModifier = modifier;
+                        InazumaEleven.lastModifier = modifier;
                     }
                     if(size == 0){
                         modifier= p.getWaitingTime();
-                        Normal.lastModifier = modifier;
+                        InazumaEleven.lastModifier = modifier;
                     }else {
 
-                        Normal.lastModifier = modifier;
+                        InazumaEleven.lastModifier = modifier;
                         modifier--;
                     }
                 }
