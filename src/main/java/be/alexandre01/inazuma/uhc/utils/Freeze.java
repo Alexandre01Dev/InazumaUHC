@@ -65,7 +65,7 @@ public class Freeze {
                 }
             }
         }
-        player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, Integer.MAX_VALUE, 0,false,false), true);
+
         player.teleport(cl);
 
         Bukkit.getScheduler().scheduleSyncDelayedTask(InazumaUHC.get,() -> {
@@ -105,6 +105,8 @@ public class Freeze {
             if(player.hasPotionEffect(PotionEffectType.INVISIBILITY)){
                 invisiblePlayers.add(player);
                 npc.setInvisible();
+            }else {
+                player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, Integer.MAX_VALUE, 0,false,false), true);
             }
         });
 
@@ -117,9 +119,9 @@ public class Freeze {
         for(Player player : Bukkit.getOnlinePlayers()){
             for(Player opposant : freezedPlayers.keySet()){
                 if(player != opposant){
-                    if(!opposant.hasPotionEffect(PotionEffectType.INVISIBILITY)){
+                    if(!invisiblePlayers.contains(opposant)){
 
-                    //player.hidePlayer(opposant);
+                    player.hidePlayer(opposant);
                     EntityPlayer playerNMS = ((CraftPlayer) opposant).getHandle();
                     GameProfile profile = playerNMS.getProfile();
                     Property property = profile.getProperties().get("textures").iterator().next();

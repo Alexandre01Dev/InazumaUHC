@@ -123,7 +123,7 @@ public class Byron extends Role implements Listener {
         Player killer = event.getPlayer().getKiller();
         if(killer != null){
             if (inazumaUHC.rm.getRole(killer.getUniqueId()).getClass().equals(Byron.class)){
-                killer.setMaxHealth(killer.getMaxHealth()+1);
+                killer.setMaxHealth(killer.getMaxHealth()+0.5);
             }
         }
     }
