@@ -20,7 +20,7 @@ public class Role {
     private load load;
     private command command;
 
-    private String description;
+    private ArrayList<String> description;
     protected InazumaUHC inazumaUHC;
     public ArrayList<Listener> listeners = new ArrayList<>();
     private HashMap<String,CommandRole> commands;
@@ -33,7 +33,8 @@ public class Role {
         this.inazumaUHC = InazumaUHC.get;
         this.name = name;
         rolesByInstance.add(this);
-        description = "§7Le role n'a pas de description par défaut.";
+        description = new ArrayList<>();
+        description.add("§7Le role n'a pas de description par défaut.");
     }
 
 
@@ -50,7 +51,9 @@ public class Role {
             }
             player.sendMessage(Preset.instance.p.prefixName()+"Tu es §a"+getName());
             player.sendMessage("§eDescription du role:");
-            player.sendMessage(description);
+            for(String d : description){
+                player.sendMessage(d);
+            }
         }
 
 
@@ -197,11 +200,11 @@ public class Role {
         return commands;
     }
 
-    public String getDescription() {
+    public ArrayList<String> getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setDescription(int line,String description) {
+       this.description.add(line,description);
     }
 }
