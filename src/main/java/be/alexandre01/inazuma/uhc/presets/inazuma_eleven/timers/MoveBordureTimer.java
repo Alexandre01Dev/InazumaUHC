@@ -45,8 +45,8 @@ public class MoveBordureTimer extends Timer {
                     time = (p.getEndBordureTime()* 1000L)+now;
                 }
 
-                Normal.bordureText = "§cBordure: ";
-                Normal.bordureValue= "§e"+modifier+"s";
+                InazumaEleven.bordureText = "§cBordure ";
+                InazumaEleven.bordureValue= "§e"+modifier+"s";
                 Date date = new Date(time-now);
                 int hour =  (int) ((date.getTime() / (1000*60*60)) % 24);
                 String minute = m.format(date);
@@ -61,8 +61,8 @@ public class MoveBordureTimer extends Timer {
 
 
                 if(date.getTime() <= 0){
-                    Normal.bordureText = "§cBordure: ";
-                    Normal.bordureValue= "§cFermé";
+                    InazumaEleven.bordureText = "§cBordure: ";
+                    InazumaEleven.bordureValue= "§c§l✖";
                     cancel();
                     return;
                 }

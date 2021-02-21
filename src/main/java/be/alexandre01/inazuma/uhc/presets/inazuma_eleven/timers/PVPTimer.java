@@ -45,8 +45,8 @@ public class PVPTimer extends Timer {
                     pvpTime = (p.getPVPTime()* 1000L)+now;
                 }
 
-                Normal.timerText = "§cPVP: ";
-                Normal.timerValue = "§e"+modifier+"s";
+                InazumaEleven.timerText = "§cPVP ";
+                InazumaEleven.timerValue = "§e"+modifier+"s";
                 Date date = new Date(pvpTime-now);
                 int hour =  (int) ((date.getTime() / (1000*60*60)) % 24);
                 String minute = m.format(date);
@@ -60,8 +60,8 @@ public class PVPTimer extends Timer {
 
                 if(date.getTime() <= 0){
                     i.worldGen.defaultWorld.setPVP(true);
-                    Normal.timerText="§cPVP: ";
-                    Normal.timerValue="§a§lON";
+                    InazumaEleven.timerText="§cPVP ";
+                    InazumaEleven.timerValue="§a§l✔";
                     cancel();
                     return;
                 }

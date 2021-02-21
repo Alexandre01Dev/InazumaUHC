@@ -45,8 +45,8 @@ public class BordureTimer extends Timer {
                     time = (p.getBordureTime()* 1000L)+now;
                 }
 
-                Normal.bordureText = "§cBordure: ";
-                Normal.bordureValue= "§e"+modifier+"s";
+                InazumaEleven.bordureText = "§cBordure ";
+                InazumaEleven.bordureValue= "§e"+modifier+"s";
                 Date date = new Date(time-now);
                 int hour =  (int) ((date.getTime() / (1000*60*60)) % 24);
                 String minute = m.format(date);
@@ -61,7 +61,7 @@ public class BordureTimer extends Timer {
 
 
                 if(date.getTime() <= 0){
-
+                    InazumaEleven.bordureValue = "§a§l✔";
                    Timer timer = i.tm.getTimer(MoveBordureTimer.class);
                     timer.runTaskTimerAsynchronously(be.alexandre01.inazuma.uhc.InazumaUHC.get,0,10);
                     cancel();
@@ -85,7 +85,7 @@ public class BordureTimer extends Timer {
                   }
 
               }
-                Normal.bordureValue = "§e"+sb.toString()+"s";
+                InazumaEleven.bordureValue = "§e"+sb.toString()+"s";
                 }
         });
     }
