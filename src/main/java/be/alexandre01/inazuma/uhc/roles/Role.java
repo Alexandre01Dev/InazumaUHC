@@ -34,26 +34,32 @@ public class Role {
         this.name = name;
         rolesByInstance.add(this);
         description = new ArrayList<>();
-        description.add("§7Le role n'a pas de description par défaut.");
     }
 
 
     public void setRoleToSpoil(Class<?>... c){
         roleToSpoil.addAll(Arrays.asList(c));
     }
-
+    private void sendDescription(Player player){
+        player.sendMessage("");
+        if(description.isEmpty()){
+            player.sendMessage("§7Le role n'a pas de description par défaut.");
+            return;
+        }
+        for(String d : description){
+            player.sendMessage(d);
+        }
+    }
     public void spoilRole(){
         RoleManager roleManager = InazumaUHC.get.rm;
         for(Player player : getPlayers()){
             if(getRoleCategory() != null){
-                player.sendMessage(Preset.instance.p.prefixName()+"Tu es "+ getRoleCategory().getPrefixColor()+getName());
+                player.sendMessage(Preset.instance.p.prefixName()+ "§8.Voici Votre rôle:"+ getRoleCategory().getPrefixColor()+getName());
+                sendDescription(player);
                 continue;
             }
-            player.sendMessage(Preset.instance.p.prefixName()+"Tu es §a"+getName());
-            player.sendMessage("§eDescription du role:");
-            for(String d : description){
-                player.sendMessage(d);
-            }
+            player.sendMessage(Preset.instance.p.prefixName()+" §8.Voici Votre rôle:§a"+getName());
+            sendDescription(player);
         }
 
 
@@ -203,6 +209,7 @@ public class Role {
     public ArrayList<String> getDescription() {
         return description;
     }
+
     public void setDescription(int line,String description) {
        this.description.add(line,description);
     }
