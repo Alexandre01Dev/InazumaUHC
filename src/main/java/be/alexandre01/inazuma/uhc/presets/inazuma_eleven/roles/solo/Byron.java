@@ -38,12 +38,11 @@ public class Byron extends Role implements Listener {
     private ItemStack potion;
     public Byron() {
         super("Byron Love");
-        getDescription().add("§8.Vous devez gagner tout §c§lseul");
-        getDescription().add("§8Vous avez obtenu une potion nommée §f§lNectar §7§lDivin§8 qui n'a q'une seul utilisation qui donne  §d§lRégénération 1§8 et §b§lSpeed 1§8 durant 20 secondes");
-        getDescription().add("§8.Vous possédez l’effet §4§lForce 1 et §c§l2 cœurs supplémentaires");
-        getDescription().add("§8.Vous avez aussi obtenu une §7Horloge§8 nommée §7§lInstant Céleste§8 qui figera tous les joueurs autour de vous dans un rayon de 25 blocks pendant 10 secondes.");
-        getDescription().add("§8.A chaque §4§lkill§8, vous gagnerez §c§l0.5 cœur supplémentaires");
-        getDescription().add("§r§l§8»§0§m---------------------------------------------------------------------------------------------------------------------------------------------------------§l§8«");
+        getDescription().add("§7.Vous objectif est de gagner §c§lSeul");
+        getDescription().add("§7.Vous possédez l’effet §4§lForce 1 et §c§l2 coeurs supplémentaires");
+        getDescription().add("§7.Vous avez une potion nommée §f§lNectar §7§lDivin§8 qui n'a q'une seul utilisation qui donne §d§lRégénération 2§7 pendant §a10 secondes§7 et §b§lSpeed 1§7 pendant §a20 secondes");
+        getDescription().add("§7.Vous disposez également d'une §8§lHorloge§7 nommée §7§lInstant Céleste§7 qui figera tous les joueurs autour de vous dans un rayon de 25 blocks pendant §a10 secondes.");
+        getDescription().add("§7.A chaque §4§lkill§7, vous gagnerez §c§l0.5 coeurs supplémentaires");
 
         setRoleCategory(Solo.class);
         onLoad(new load() {
