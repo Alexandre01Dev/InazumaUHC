@@ -7,10 +7,13 @@ import net.minecraft.server.v1_8_R3.EntityPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftItem;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.craftbukkit.v1_8_R3.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
@@ -20,6 +23,7 @@ public class Freeze {
     int i;
     public Freeze(int i){
         this.npcs = new ArrayList<>();
+        this.invisiblePlayers = new ArrayList<>();
         this.freezedPlayers = new HashMap<>();
         this.playerNPC = new HashMap<>();
         this.i = i;
@@ -28,7 +32,7 @@ public class Freeze {
     private HashMap<Player,Location> freezedPlayers;
     private ArrayList<NPC> npcs;
     private onStop onStop;
-
+    private ArrayList<Player> invisiblePlayers;
     public Freeze.onStop getOnStop() {
         return onStop;
     }
@@ -39,14 +43,29 @@ public class Freeze {
     }
 
     public void freezePlayer(Player player){
-      //  player.setGameMode(GameMode.SPECTATOR);
+        player.setGameMode(GameMode.SPECTATOR);
         Location loc = player.getLocation().clone();
 
 
         freezedPlayers.put(player,loc);
         Location cl = loc.clone();
-        cl = cl.getDirection().normalize().toLocation(loc.getWorld());
+        cl.setPitch(0);
+        cl.add(cl.getDirection().normalize().multiply(-4));
 
+        if(cl.clone().add(0,1,0).getBlock().getType() != Material.AIR){
+            cl = loc.clone();
+            cl.setPitch(0);
+            cl.add(cl.getDirection().normalize().multiply(4));
+
+            if(cl.clone().add(0,1,0).getBlock().getType() != Material.AIR){
+                cl = loc.clone();
+                cl.add(0,4,0);
+                while (!cl.getBlock().getType().equals(Material.AIR)){
+                    cl.add(0,1,0);
+                }
+            }
+        }
+        player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, Integer.MAX_VALUE, 0,false,false), true);
         player.teleport(cl);
 
         Bukkit.getScheduler().scheduleSyncDelayedTask(InazumaUHC.get,() -> {
@@ -82,6 +101,11 @@ public class Freeze {
             if(playerNMS.isBurning()){
                 npc.setOnFire();
             }
+
+            if(player.hasPotionEffect(PotionEffectType.INVISIBILITY)){
+                invisiblePlayers.add(player);
+                npc.setInvisible();
+            }
         });
 
 
@@ -93,7 +117,9 @@ public class Freeze {
         for(Player player : Bukkit.getOnlinePlayers()){
             for(Player opposant : freezedPlayers.keySet()){
                 if(player != opposant){
-                    player.hidePlayer(opposant);
+                    if(!opposant.hasPotionEffect(PotionEffectType.INVISIBILITY)){
+
+                    //player.hidePlayer(opposant);
                     EntityPlayer playerNMS = ((CraftPlayer) opposant).getHandle();
                     GameProfile profile = playerNMS.getProfile();
                     Property property = profile.getProperties().get("textures").iterator().next();
@@ -123,6 +149,7 @@ public class Freeze {
                     }
                     npcs.add(npc);
 
+                    }
                 }
             }
         }
@@ -151,6 +178,9 @@ public class Freeze {
                         player.setFlying(false);
                         player.setAllowFlight(false);
                         player.setFlySpeed(0.2f);
+                        if(!invisiblePlayers.contains(player)){
+                            player.removePotionEffect(PotionEffectType.INVISIBILITY);
+                        }
                 }
                 });
             }

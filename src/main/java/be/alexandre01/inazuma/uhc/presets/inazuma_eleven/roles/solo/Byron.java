@@ -93,22 +93,14 @@ public class Byron extends Role implements Listener {
             int i = 0;
             @Override
             public void execute(Player player) {
-                if(i > 100){
-                    player.sendMessage(Preset.instance.p.prefixName()+" Tu ne peux pas utiliser l'§7§lInstant Céleste§7 plus de 2x");
-                    return;
-                }
+                System.out.println("1");
                 FreezePlayerListener f = new FreezePlayerListener();
                 Freeze freeze = new Freeze(10);
                 ArrayList<Player> p = new ArrayList<>();
+                System.out.println("target");
+                player.sendMessage(Preset.instance.p.prefixName()+" Vous venez d'utiliser l'§7§lInstant Céleste§7.");
                 for(Player target : PlayerUtils.getNearbyPlayersFromPlayer(player,25,25,25)){
-
-                        if(target == player){
-                            continue;
-                        }
-                        if(InazumaUHC.get.spectatorManager.getPlayers().contains(player)){
-                            continue;
-                        }
-                        player.sendMessage(Preset.instance.p.prefixName()+" Vous venez d'utiliser l'§7§lInstant Céleste§7.");
+                    System.out.println("INSTANT");
                         freeze.freezePlayer(target);
                         p.add(target);
                         TitleUtils.sendActionBar(target,"§7§lINSTANT CELESTE§7");
