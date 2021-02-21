@@ -24,10 +24,7 @@ public class EpisodeTimer extends Timer {
 
             @Override
             public void run() {
-
                 builderTimer.loadDate();
-
-
                 if(builderTimer.getDate().getTime() <= 0){
                     cancel();
                 }

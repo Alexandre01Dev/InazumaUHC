@@ -19,6 +19,7 @@ public class Role {
     private ArrayList<Player> players;
     private load load;
     private command command;
+
     private String description;
     protected InazumaUHC inazumaUHC;
     public ArrayList<Listener> listeners = new ArrayList<>();
@@ -32,7 +33,10 @@ public class Role {
         this.inazumaUHC = InazumaUHC.get;
         this.name = name;
         rolesByInstance.add(this);
+        description = "§7Le role n'a pas de description par défaut.";
     }
+
+
     public void setRoleToSpoil(Class<?>... c){
         roleToSpoil.addAll(Arrays.asList(c));
     }
@@ -45,7 +49,11 @@ public class Role {
                 continue;
             }
             player.sendMessage(Preset.instance.p.prefixName()+"Tu es §a"+getName());
+            player.sendMessage("§eDescription du role:");
+            player.sendMessage(description);
         }
+
+
 
             if(!roleToSpoil.isEmpty()){
                 for(Class<?> r : roleToSpoil){
