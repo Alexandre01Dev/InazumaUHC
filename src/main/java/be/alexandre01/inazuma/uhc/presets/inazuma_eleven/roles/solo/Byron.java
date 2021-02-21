@@ -4,23 +4,19 @@ import be.alexandre01.inazuma.uhc.InazumaUHC;
 import be.alexandre01.inazuma.uhc.custom_events.player.PlayerInstantDeathEvent;
 import be.alexandre01.inazuma.uhc.managers.DamageManager;
 import be.alexandre01.inazuma.uhc.presets.Preset;
-import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.InazumaEleven;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.categories.Solo;
-import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.objects.Episode;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.roles.solo.listeners.FreezePlayerListener;
 import be.alexandre01.inazuma.uhc.roles.Role;
 import be.alexandre01.inazuma.uhc.roles.RoleItem;
-import be.alexandre01.inazuma.uhc.utils.Freeze;
-import be.alexandre01.inazuma.uhc.utils.ItemBuilder;
-import be.alexandre01.inazuma.uhc.utils.PlayerUtils;
-import be.alexandre01.inazuma.uhc.utils.TitleUtils;
+import be.alexandre01.inazuma.uhc.utils.*;
+import net.md_5.bungee.api.chat.BaseComponent;
+import net.md_5.bungee.api.chat.HoverEvent;
+import net.md_5.bungee.api.chat.TextComponent;
 import net.minecraft.server.v1_8_R3.Tuple;
 import org.bukkit.Material;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.PotionMeta;
@@ -38,11 +34,21 @@ public class Byron extends Role implements Listener {
     private ItemStack potion;
     public Byron() {
         super("Byron Love");
-        getDescription().add("§7.Vous objectif est de gagner §c§lSeul");
-        getDescription().add("§7.Vous possédez l’effet §4§lForce 1 et §c§l2 coeurs supplémentaires");
-        getDescription().add("§7.Vous avez une potion nommée §f§lNectar §7§lDivin§8 qui n'a q'une seul utilisation qui donne §d§lRégénération 2§7 pendant §a10 secondes§7 et §b§lSpeed 1§7 pendant §a20 secondes");
-        getDescription().add("§7.Vous disposez également d'une §8§lHorloge§7 nommée §7§lInstant Céleste§7 qui figera tous les joueurs autour de vous dans un rayon de 25 blocks pendant §a10 secondes.");
-        getDescription().add("§7.A chaque §4§lkill§7, vous gagnerez §c§l0.5 coeurs supplémentaires");
+        addDescription("§8- §7Votre objectif est de gagner §c§lSeul");
+        CustomComponentBuilder c = new CustomComponentBuilder("");
+        c.append("§8- §7Vous avez une potion nommée ");
+
+        BaseComponent baseComponent = new TextComponent("➤§f§lNectar §7§lDivin§8");
+        BaseComponent nectarDesc = new TextComponent();
+        nectarDesc.addExtra("§e- §9Utilisation unique\n");
+        nectarDesc.addExtra("§e- §9Donne §d§lRégénération 2§7 pendant §a10 secondes\n");
+        nectarDesc.addExtra("§e- §9Donne §b§lSpeed 1§7 pendant §a20 secondes");
+        baseComponent.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,nectarDesc.getExtra().toArray(new BaseComponent[0])));
+        c.append(baseComponent);
+        addDescription(c);
+        addDescription("§8- §7Vous possédez l’effet §4§lForce 1 et §c§l2 §4❤§7§c supplémentaires\n");
+        addDescription("§8- §7Vous disposez également d'une §f§l⟳Horloge⟳§7 nommée §7§lInstant Céleste§7 qui figera tous les joueurs autour de vous dans un rayon de 25 blocks pendant §a10 secondes.");
+        addDescription("§8- §7A chaque §4§lkill§7, vous gagnerez §c§l0.5 §4❤§c supplémentaires");
 
         setRoleCategory(Solo.class);
         onLoad(new load() {
