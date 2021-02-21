@@ -70,11 +70,13 @@ public class PlayerUtils {
         for (Entity entity : player.getWorld().getNearbyEntities(player.getLocation(),x,y,z)){
             if(entity instanceof Player){
                 Player opposant = (Player) entity;
-                if(opposant == player)
+                if(opposant == player){
                     continue;
+                }
+
 
                 if(!i.spectatorManager.getPlayers().contains(opposant)){
-                    p.add(player);
+                    p.add(opposant);
                 }
             }
         }
