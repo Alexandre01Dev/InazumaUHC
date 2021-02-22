@@ -23,7 +23,7 @@ public class StartingTimer extends Timer {
 
         super.setTimer(new ITimer() {
 
-            int modifier = 10;
+            int modifier = 5;
             float lenght = 0.8f;
 
             @Override
