@@ -7,7 +7,11 @@ import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.categories.Raimon;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.roles.solo.Byron;
 import be.alexandre01.inazuma.uhc.roles.Role;
 import be.alexandre01.inazuma.uhc.roles.RoleItem;
+import be.alexandre01.inazuma.uhc.utils.CustomComponentBuilder;
 import be.alexandre01.inazuma.uhc.utils.ItemBuilder;
+import net.md_5.bungee.api.chat.BaseComponent;
+import net.md_5.bungee.api.chat.HoverEvent;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -19,6 +23,22 @@ public class Axel extends Role {
     public Axel() {
         super("Axel Blaze");
         setRoleCategory(Raimon.class);
+
+        addDescription("§8- §7Votre objectif est de gagner avec §6§lRaimon");
+        addDescription("§8- §7Vous possédez l’effet §6§l§4§lForce 1 §7ainsi que §6§lFire Résistance§7.");
+        CustomComponentBuilder c = new CustomComponentBuilder("");
+        c.append("§8- §7Vous possédez également la ");
+
+        BaseComponent tornadeButton = new TextComponent("§4§lTornade §c§lDe §4§lFeu§7 §7*§8Curseur§7*");
+
+        BaseComponent tornadeDesc = new TextComponent();
+        tornadeDesc.addExtra("§e- §9Utilisation par §eEpisode\n");
+        tornadeDesc.addExtra("§e- §9Donne §b§lSpeed 2§7 pendant §a1 minute 30");
+        tornadeButton.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,tornadeDesc.getExtra().toArray(new BaseComponent[0])));
+        c.append(tornadeButton);
+        addDescription(c);
+        addDescription("§8- §7A chaque §4§lkill§7, vous gagnerez §e1 gapple §7suplémentaire.");
+
         onLoad(new load() {
             @Override
             public void a() {

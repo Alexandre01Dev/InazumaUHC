@@ -38,7 +38,7 @@ public class Byron extends Role implements Listener {
         CustomComponentBuilder c = new CustomComponentBuilder("");
         c.append("§8- §7Vous avez une potion nommée ");
 
-        BaseComponent nectarButton = new TextComponent("➤§f§lNectar §7§lDivin§8");
+        BaseComponent nectarButton = new TextComponent("§f§lNectar §7§lDivin§8 §7*§8Curseur§7*");
 
         BaseComponent nectarDesc = new TextComponent();
         nectarDesc.addExtra("§e- §9Utilisation unique\n");
@@ -51,12 +51,11 @@ public class Byron extends Role implements Listener {
 
         CustomComponentBuilder celest = new CustomComponentBuilder("");
         celest.append("§8- §7Vous disposez également d'une §f§l⟳Horloge⟳§7 nommée \n");
-        BaseComponent celestButton = new TextComponent("§7§lInstant Céleste");
+        BaseComponent celestButton = new TextComponent("§7§lInstant Céleste §7*§8Curseur§7*");
         BaseComponent celestDesc = new TextComponent();
 
         celestDesc.addExtra("§e- §9Utilisation par §eEpisode\n");
-        celestDesc.addExtra("§e- §9Fige tous les joueurs autour\n");
-        celestDesc.addExtra("§e- §9de vous §9[§525 blocks §9- §a10 sec§9]");
+        celestDesc.addExtra("§e- §9Fige tous les joueurs autour 9de vous §9[§525 blocks §9- §a10 sec§9]");
 
 
         celestButton.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, celestDesc.getExtra().toArray(new BaseComponent[0])));

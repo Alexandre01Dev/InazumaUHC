@@ -3,8 +3,12 @@ package be.alexandre01.inazuma.uhc.presets.inazuma_eleven.roles.raimon;
 import be.alexandre01.inazuma.uhc.InazumaUHC;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.categories.Raimon;
 import be.alexandre01.inazuma.uhc.roles.Role;
+import be.alexandre01.inazuma.uhc.utils.CustomComponentBuilder;
 import be.alexandre01.inazuma.uhc.utils.ScoreboardSign;
 import be.alexandre01.inazuma.uhc.utils.ScoreboardUtil;
+import net.md_5.bungee.api.chat.BaseComponent;
+import net.md_5.bungee.api.chat.HoverEvent;
+import net.md_5.bungee.api.chat.TextComponent;
 import net.minecraft.server.v1_8_R3.*;
 import org.bukkit.Bukkit;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
@@ -27,6 +31,13 @@ public class Jude extends Role implements Listener {
         super("Jude Sharp");
         setRoleCategory(Raimon.class);
         addListener(this);
+
+        addDescription("§8- §7Votre objectif est de gagner avec §6§lRaimon");
+        addDescription("§8- §7Vous possédez l’effet §b§lSpeed 1§7.");
+        addDescription("§8- §7Vous voyez également la §4vie§7 des joueurs au dessus de leurs têtes.");
+        addDescription("§8- §7Vous recevrez les coordonnées approximatives à chaque utilisation d'un §d§lCollier§7§l-§5§lAlius§7.");
+
+
         onLoad(new load() {
             @Override
             public void a() {

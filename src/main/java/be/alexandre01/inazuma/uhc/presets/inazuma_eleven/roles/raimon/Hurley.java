@@ -4,7 +4,11 @@ import be.alexandre01.inazuma.uhc.presets.Preset;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.categories.Raimon;
 import be.alexandre01.inazuma.uhc.roles.Role;
 import be.alexandre01.inazuma.uhc.roles.RoleItem;
+import be.alexandre01.inazuma.uhc.utils.CustomComponentBuilder;
 import be.alexandre01.inazuma.uhc.utils.ItemBuilder;
+import net.md_5.bungee.api.chat.BaseComponent;
+import net.md_5.bungee.api.chat.HoverEvent;
+import net.md_5.bungee.api.chat.TextComponent;
 import net.minecraft.server.v1_8_R3.Tuple;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -21,6 +25,22 @@ public class Hurley extends Role {
     public Hurley() {
         super("Hurley Kane");
         setRoleCategory(Raimon.class);
+
+        addDescription("§8- §7Votre objectif est de gagner avec §6§lRaimon");
+        addDescription("§8- §7Vous possédez l’effet §b§lSpeed 1 §7ainsi qu'un livre §3Depth Strider II§7.");
+        CustomComponentBuilder c = new CustomComponentBuilder("");
+        c.append("§8- §7Vous possédez également l' ");
+
+        BaseComponent seaeffectButton = new TextComponent("§3§lAqua §3§lSea §7*§8Curseur§7*");
+
+        BaseComponent seaeffectDesc = new TextComponent();
+        seaeffectDesc.addExtra("§e- §9Utilisation 2 fois uniquement\n");
+        seaeffectDesc.addExtra("§e- §9Permet de voir les §deffets§9 d'un joueur §9[§525 blocks§9]");
+        seaeffectButton.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,seaeffectDesc.getExtra().toArray(new BaseComponent[0])));
+        c.append(seaeffectButton);
+        addDescription(c);
+        addDescription("§8- §7Toute les attaques de §4feu§7 ne vous atteignent pas.");
+
         onLoad(new load() {
             @Override
             public void a() {
