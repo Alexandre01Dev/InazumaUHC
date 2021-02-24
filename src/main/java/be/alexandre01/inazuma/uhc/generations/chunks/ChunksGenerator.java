@@ -54,7 +54,7 @@ public class ChunksGenerator {
             if(forcedChunkLoadingEvent.isCancelled()){
                 return;
             }
-
+            InazumaUHC.get.worldGen.defaultWorld.getChunkAt(0,0);
             this.world = origin.getWorld();
             this.chunksCord = around(origin, radius);
             this.totalChunk = this.chunksCord.size();
@@ -65,11 +65,14 @@ public class ChunksGenerator {
 
         }
         Instant before = Instant.now();
-        for (int i = this.actualChunk; i < this.chunksCord.size(); i++) {
+        for (int i = this.
+                actualChunk; i < this.chunksCord.size(); i++) {
             ChunkCoord cc = this.chunksCord.get(i);
             this.chunksCord.remove(cc);
             calculateChunks++;
+
             Chunk c = this.world.getChunkAt(cc.getX(), cc.getZ());
+            c.load(true);
             c.load(false);
             c = null;
             if (Duration.between(before, Instant.now()).toMillis() >= 400) {
@@ -82,7 +85,7 @@ public class ChunksGenerator {
                         ChunksGenerator.this.generate(origin, radius, false);
                     }
 
-                }.runTaskLater(inazumaUHC, 5);
+                }.runTaskLaterAsynchronously(inazumaUHC, 5);
                 return;
             }
         }

@@ -17,6 +17,7 @@ import java.util.*;
 
 public class Role {
     private String name;
+    public static boolean isDistributed = false;
     private ArrayList<Class<?>> roleToSpoil = new ArrayList<>();
     private ArrayList<Player> players;
     private load load;

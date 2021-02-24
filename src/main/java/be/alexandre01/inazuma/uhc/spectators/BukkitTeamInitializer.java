@@ -11,10 +11,10 @@ public class BukkitTeamInitializer {
     public static Team setAlive(Player player){
         Scoreboard score = Bukkit.getScoreboardManager().getMainScoreboard();
 
-        if(score.getTeam(player.getName())==null){
-            score.registerNewTeam(player.getName());
+        if(score.getTeam(0+player.getName())==null){
+            score.registerNewTeam(0+player.getName());
         }
-        Team tV = score.getTeam(player.getName());
+        Team tV = score.getTeam(0+player.getName());
         tV.setPrefix("§7");
         tV.setCanSeeFriendlyInvisibles(false);
         tV.setNameTagVisibility(NameTagVisibility.ALWAYS);

@@ -30,7 +30,6 @@ public class PotionEvent implements Listener {
 
     @EventHandler(priority = EventPriority.LOWEST)
     public void onDamage(EntityDamageByEntityEvent event){
-
         System.out.println("DEFAULT base >>" + event.getDamage(EntityDamageEvent.DamageModifier.BASE));
         if(event.getDamager() instanceof Player){
             Player damager = (Player) event.getDamager();

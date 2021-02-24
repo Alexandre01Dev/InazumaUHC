@@ -123,5 +123,6 @@ public class StateEvent implements Listener {
                 role.spoilRole();
                 role.giveItem();
             }
+        Role.isDistributed = true;
     }
 }

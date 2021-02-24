@@ -38,6 +38,10 @@ public class PlayerInstantDeath implements Listener {
                 Bukkit.broadcastMessage("§e"+player.getName()+"§7 vient de §cmourir§7 à l'instant, c'était §a"+ role.getName());
             }
             Bukkit.broadcastMessage("§r§l§8»§8§m-----------------------------------------------§l§8«");
+            return;
         }
+        Bukkit.broadcastMessage("§r§l§8»§8§m-----------------------------------------------§l§8«");
+            Bukkit.broadcastMessage("§e"+player.getName()+"§7 vient de §cmourir§7 à l'instant.");
+        Bukkit.broadcastMessage("§r§l§8»§8§m-----------------------------------------------§l§8«");
     }
 }

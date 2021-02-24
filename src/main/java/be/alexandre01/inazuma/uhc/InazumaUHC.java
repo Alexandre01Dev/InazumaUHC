@@ -28,6 +28,8 @@ import be.alexandre01.inazuma.uhc.utils.ScoreboardUtil;
 import be.alexandre01.inazuma.uhc.worlds.WorldGen;
 import be.alexandre01.inazuma.uhc.worlds.utils.WorldUtils;
 import be.alexandre01.inazuma.uhc.worlds.executors.ArrowToCenter;
+import lombok.Getter;
+import lombok.Setter;
 import net.minecraft.server.v1_8_R3.Scoreboard;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
@@ -44,7 +46,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 
 public final class InazumaUHC extends JavaPlugin {
-    public static InazumaUHC get;
+    @Getter @Setter public static InazumaUHC get;
     public WorldGen worldGen;
     public Host host = null;
     public NetherPortalsManager npm;

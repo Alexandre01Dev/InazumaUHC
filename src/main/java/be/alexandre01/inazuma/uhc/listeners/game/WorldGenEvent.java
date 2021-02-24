@@ -58,6 +58,7 @@ public class WorldGenEvent implements Listener {
                 //ChunkCommand.around(event.getWorld().getChunkAt(0,0),(p.getBorderSize(event.getWorld().getEnvironment())/16)+InazumaUHC.get.getServer().getViewDistance());
                 if(!InazumaUHC.get.loadWorldBefore){
                     ChunksGenerator c = new ChunksGenerator();
+
                     c.generate(event.getWorld().getChunkAt(0,0),(p.getBorderSize(event.getWorld().getEnvironment())/16)+InazumaUHC.get.getServer().getViewDistance()+5,true);
                 }
 
