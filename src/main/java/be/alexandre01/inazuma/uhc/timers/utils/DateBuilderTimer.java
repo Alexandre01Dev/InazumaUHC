@@ -25,7 +25,7 @@ public class DateBuilderTimer {
          loadDate();
     }
 
-    public void loadDate(){
+    public DateBuilderTimer loadDate(){
             long now = new Date().getTime();
 
             Date date = new Date(time-now);
@@ -41,8 +41,10 @@ public class DateBuilderTimer {
             sb.append(second);
             this.date = date;
             this.build = sb.toString();
+
+            return this;
         }
-    public void loadComplexDate(){
+    public DateBuilderTimer loadComplexDate(){
         long now = new Date().getTime();
 
         Date date = new Date(time-now);
@@ -54,20 +56,20 @@ public class DateBuilderTimer {
         if(hour > 0){
             sb.append("0"+hour+":");
             lsb.append(hour+" heure(s)");
+            lsb.append(" et ");
         }
         if(Integer.parseInt(minute) != 0){
-            lsb.append(" et ");
             lsb.append(minute+" minute(s)");
-        }
-        sb.append(minute+":");
-        if(Integer.parseInt(second) != 0){
             lsb.append(" et ");
-            lsb.append(second+" seconde(s)");
         }
+
+            lsb.append(second+" seconde(s)");
             sb.append(second);
         this.date = date;
         this.build = sb.toString();
         this.longBuild = lsb.toString();
+
+        return this;
     }
     public Date getDate() {
         return date;
