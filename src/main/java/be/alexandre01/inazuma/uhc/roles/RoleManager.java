@@ -10,6 +10,9 @@ import org.bukkit.entity.Player;
 import java.util.*;
 
 public class RoleManager {
+    private int i = 0;
+
+    private ArrayList<Role> totalRole;
     private HashMap<UUID,Role> roles;
     private HashMap<Role,List<UUID>> uuids;
     private HashMap<Class<?>,Role> classes;
@@ -40,6 +43,13 @@ public class RoleManager {
         return uuids.get(role);
     }
 
+    public void addRole(UUID uuid){
+        if(totalRole.size() < i+1){
+            i = 0;
+        }
+        addRole(uuid,totalRole.get(i));
+        i++;
+    }
     public void addRole(UUID uuid, Role role){
         roles.put(uuid,role);
         classes.put(role.getClass(),role);
@@ -67,19 +77,17 @@ public class RoleManager {
 
 
     }
-    public void distributeRole(ArrayList<Player> players){
+    public void distributeRoles(ArrayList<Player> players){
         System.out.println("distribute role");
         ArrayList<Player> p = new ArrayList<>(players);
         Collections.shuffle(p);
 
-        int i = 0;
         System.out.println(p.size());
-        ArrayList<Role> totalRole = new ArrayList<>(Role.getRoles());
+        totalRole = new ArrayList<>(Role.getRoles());
         Collections.shuffle(totalRole);
         System.out.println(totalRole.size());
         for(Player player: p){
             if(totalRole.size() < i+1){
-                System.out.println("wow");
                 i = 0;
             }
             addRole(player.getUniqueId(),totalRole.get(i));

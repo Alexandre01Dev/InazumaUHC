@@ -8,7 +8,7 @@ import org.bukkit.Material;
 
 public class Cutclean extends Scenario {
     public Cutclean() {
-        super("Cutclean", "Ceci est la déscription du plugin *test");
+        super("Cutclean", "Cuits les drops de minerais/mobs automatiquement.");
         addListener(new EntityKill(), new OreBreak());
 
         ItemBuilder itemBuilder = new ItemBuilder(Material.FURNACE);
