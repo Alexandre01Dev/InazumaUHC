@@ -37,15 +37,18 @@ public class ArrowToCenter {
                  l2.setY(0);
                  Vector loc = l2.subtract(l1).toVector();
 
-                 double angleDir = (Math.atan2(loc.getZ(),loc.getX()) / 2 / Math.PI * 360 + 360) % 360;
 
-                 double angleLook = (Math.atan2(direction.getZ(),direction.getX()) / 2 / Math.PI * 360 + 360) % 360;
 
-                 double angle = (angleDir - angleLook + 360) % 360;
                  StringBuilder sb = new StringBuilder();
-                 double distance = l1.distance(l2);
+                 double doubleDistance = l1.distance(l2);
+                 int distance = (int) Math.round(doubleDistance/2);
                  String c = "§l•";
                  if(distance > 100){
+                     double angleLook = (Math.atan2(direction.getZ(),direction.getX()) / 2 / Math.PI * 360 + 360) % 360;
+                     double angleDir = (Math.atan2(loc.getZ(),loc.getX()) / 2 / Math.PI * 360 + 360) % 360;
+
+                     double angle = (angleDir - angleLook + 360) % 360;
+
                      if(angle >= 337.5 && angle <= 360 || angle >= 0 && angle < 22.5){
                          c = "⬆";
                      }else {
@@ -78,7 +81,7 @@ public class ArrowToCenter {
                              }
                          }
                      }
-                     sb.append(c+" (§c"+Math.round(distance/2)+"§e)");
+                     sb.append(c+" (§c"+distance+"§e)");
                      p.getArrows().put(player.getUniqueId(),sb.toString());
                      return;
                  }

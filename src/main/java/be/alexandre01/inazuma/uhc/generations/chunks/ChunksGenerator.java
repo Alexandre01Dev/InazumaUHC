@@ -9,6 +9,7 @@ import org.bukkit.Chunk;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scheduler.BukkitTask;
 
 import java.time.Duration;
 import java.time.Instant;
@@ -65,27 +66,27 @@ public class ChunksGenerator {
 
         }
         Instant before = Instant.now();
-        for (int i = this.
-                actualChunk; i < this.chunksCord.size(); i++) {
+        for (int i = this.actualChunk; i < this.chunksCord.size(); i++) {
             ChunkCoord cc = this.chunksCord.get(i);
             this.chunksCord.remove(cc);
             calculateChunks++;
-
             Chunk c = this.world.getChunkAt(cc.getX(), cc.getZ());
             c.load(true);
             c.load(false);
             c = null;
-            if (Duration.between(before, Instant.now()).toMillis() >= 400) {
+
+            if (Duration.between(before, Instant.now()).toMillis() >= 450) {
                 int r = this.totalChunk - this.chunksCord.size();
                 int pourcentage = r * 100 / this.totalChunk;
                 System.out.println("La map (" + (this.totalChunk / 16) + "/" + (this.totalChunk / 16) + ") est gen à " + pourcentage + "%");
 
                 new BukkitRunnable() {
                     public void run() {
+
                         ChunksGenerator.this.generate(origin, radius, false);
                     }
 
-                }.runTaskLaterAsynchronously(inazumaUHC, 5);
+                }.runTaskLater(inazumaUHC, 7);
                 return;
             }
         }
@@ -100,7 +101,7 @@ public class ChunksGenerator {
         System.out.println("finish");
         ForcedChunkFinishedEvent forcedChunkFinishedEvent = new ForcedChunkFinishedEvent(this);
         Bukkit.getPluginManager().callEvent(forcedChunkFinishedEvent);
-        System.gc();
+     //   System.gc(); A VOIR
     }
 
     public ArrayList<ChunkCoord> getChunksCord() {
