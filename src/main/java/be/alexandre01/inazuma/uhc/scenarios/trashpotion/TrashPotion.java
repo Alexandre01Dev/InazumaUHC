@@ -1,5 +1,6 @@
 package be.alexandre01.inazuma.uhc.scenarios.trashpotion;
 
+import be.alexandre01.inazuma.uhc.InazumaUHC;
 import be.alexandre01.inazuma.uhc.scenarios.Scenario;
 import be.alexandre01.inazuma.uhc.utils.ItemBuilder;
 import org.bukkit.Bukkit;
@@ -23,7 +24,7 @@ public class TrashPotion extends Scenario implements Listener {
         final Player player = e.getPlayer();
 
         if (e.getItem().getTypeId() == 373) {
-            Bukkit.getServer().getScheduler().runTaskLaterAsynchronously((Plugin) this, new Runnable() {
+            Bukkit.getServer().getScheduler().runTaskLaterAsynchronously(InazumaUHC.get, new Runnable() {
                 public void run() {
                     player.setItemInHand(new ItemStack(Material.AIR));
                 }
