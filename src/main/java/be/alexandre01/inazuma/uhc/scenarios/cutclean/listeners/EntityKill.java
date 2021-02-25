@@ -20,8 +20,10 @@ public class EntityKill implements Listener {
         if(entity.getLastDamageCause() != null){
             if(entity.getLastDamageCause().getCause().equals(EntityDamageEvent.DamageCause.ENTITY_ATTACK)){
                 Player player = event.getEntity().getKiller();
-                player.giveExp(event.getDroppedExp());
-                event.setDroppedExp(0);
+                if(player != null){
+                    player.giveExp(event.getDroppedExp());
+                    event.setDroppedExp(0);
+                }
             }
         }
 
