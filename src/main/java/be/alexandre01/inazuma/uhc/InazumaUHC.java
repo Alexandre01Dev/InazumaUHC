@@ -13,6 +13,7 @@ import be.alexandre01.inazuma.uhc.listeners.ListenersManager;
 import be.alexandre01.inazuma.uhc.listeners.game.*;
 import be.alexandre01.inazuma.uhc.managers.DamageManager;
 import be.alexandre01.inazuma.uhc.managers.InvisibilityInventory;
+import be.alexandre01.inazuma.uhc.managers.RejoinManager;
 import be.alexandre01.inazuma.uhc.presets.Preset;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.InazumaEleven;
 import be.alexandre01.inazuma.uhc.presets.jujutsu_kaisen.Jujutsu_Kaisen;
@@ -61,7 +62,7 @@ public final class InazumaUHC extends JavaPlugin {
     public DamageManager dm;
     public TeamManager teamManager;
     public SpectatorManager spectatorManager;
-
+    @Getter private RejoinManager rejoinManager;
     public InvisibilityInventory invisibilityInventory = new InvisibilityInventory();
 
 
@@ -111,6 +112,7 @@ public final class InazumaUHC extends JavaPlugin {
         potionEvent = new PotionEvent();
         lm.addListener(potionEvent);
         lm.addListener(new TeamsEvent());
+
         WorldUtils.patchBiomes();
         this.worldGen = new WorldGen(this);
 
@@ -149,6 +151,8 @@ public final class InazumaUHC extends JavaPlugin {
 
          dm = new DamageManager();
 
+        this.rejoinManager = new RejoinManager();
+        lm.addListener(rejoinManager);
         GameState gameState = new GameState();
 
         if(isHosted){

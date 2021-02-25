@@ -6,6 +6,7 @@ import be.alexandre01.inazuma.uhc.custom_events.player.PlayerInstantDeathEvent;
 import be.alexandre01.inazuma.uhc.custom_events.teams.TeamDeathEvent;
 import be.alexandre01.inazuma.uhc.presets.IPreset;
 import be.alexandre01.inazuma.uhc.presets.Preset;
+import be.alexandre01.inazuma.uhc.roles.Role;
 import be.alexandre01.inazuma.uhc.spectators.SpectatorPlayer;
 import be.alexandre01.inazuma.uhc.state.GameState;
 import be.alexandre01.inazuma.uhc.state.State;
@@ -58,11 +59,18 @@ public class PlayerEvent implements Listener {
                 world = Bukkit.getWorld("world");
             }
         }else{
+            world = Bukkit.getWorld(Options.to("worldsTemp").get("defaultUUID").getString());
+
+            if(InazumaUHC.get.getRejoinManager().isValidPlayer(player)){
+                InazumaUHC.get.getRejoinManager().revivePlayer(player);
+                player.sendMessage(Preset.instance.p.prefixName()+" §aVous venez de revenir à la vie !");
+                return;
+            }
             player.sendMessage("§cLa partie a déjà commencé, vous êtes un spéctateur de celle-ci.");
             SpectatorPlayer spectatorPlayer = new SpectatorPlayer(player);
             inazumaUHC.spectatorManager.addPlayer(player);
             spectatorPlayer.setSpectator();
-            world = Bukkit.getWorld(Options.to("worldsTemp").get("defaultUUID").getString());
+
         }
 
         player.teleport(world.getSpawnLocation());
@@ -155,6 +163,13 @@ public class PlayerEvent implements Listener {
         if(inazumaUHC.teamManager.hasTeam(player)){
             inazumaUHC.teamManager.getTeam(player).rmvPlayer(player);
         }
+        Role r = inazumaUHC.rm.getRole(player);
+        if(r != null){
+            if(r.getPlayers().contains(player)){
+                Bukkit.broadcastMessage(Preset.instance.p.prefixName()+" §c§l"+player.getName()+"§7 vient de quitter la partie. Il a 10 minutes pour se reconnecter.");
+                inazumaUHC.getRejoinManager().onDisconnect(player);
+            }
+        }
         InazumaUHC.get.getRemainingPlayers().remove(player);
     }
 
@@ -235,6 +250,11 @@ public class PlayerEvent implements Listener {
                             player.setMaxHealth(2);
                             player.setFoodLevel(20);
                             player.getInventory().clear();
+
+                            player.getInventory().setHelmet(null);
+                            player.getInventory().setChestplate(null);
+                            player.getInventory().setLeggings(null);
+                            player.getInventory().setBoots(null);
                             player.updateInventory();
                             System.out.println("FINALKILL > DETECTED PL");
                             //KILLED
@@ -258,7 +278,11 @@ public class PlayerEvent implements Listener {
                                     Bukkit.getPluginManager().callEvent(teamDeath);
                                 }
                             }
-
+                            //ROLE REMOVE LISTENERS AND COMMANDS
+                            Role r = InazumaUHC.get.rm.getRole(player);
+                            if(r != null){
+                                r.getPlayers().remove(player);
+                            }
                             SpectatorPlayer spectatorPlayer = new SpectatorPlayer(player);
                             spectatorPlayer.setSpectator();
                             i.spectatorManager.addPlayer(player);
