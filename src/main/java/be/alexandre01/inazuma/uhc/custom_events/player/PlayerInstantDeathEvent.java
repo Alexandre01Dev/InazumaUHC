@@ -64,7 +64,11 @@ public class PlayerInstantDeathEvent extends Event implements Cancellable {
         return player;
     }
 
-    public void setPlayer(Player player) {
-        this.player = player;
+    public Player getKiller() {
+        return killer;
+    }
+
+    public int getXp() {
+        return xp;
     }
 }
