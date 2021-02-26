@@ -13,6 +13,7 @@ import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.minecraft.server.v1_8_R3.Tuple;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -149,22 +150,28 @@ public class Byron extends Role implements Listener {
     @EventHandler
     public void onKillEvent(PlayerInstantDeathEvent event){
         Player killer = event.getPlayer().getKiller();
+        Player killed = event.getPlayer();
         if(killer != null){
             if (inazumaUHC.rm.getRole(killer.getUniqueId()).getClass().equals(Byron.class)){
-                killer.setMaxHealth(killer.getMaxHealth()+0.5);
+                killer.sendMessage("§7Vous venez de tuer §4§l" + killed.getName() + " §7vous avez donc gagné §c§l0.5 §4❤§7." );
+                killer.setMaxHealth(killer.getMaxHealth()+0.25D);
             }
         }
     }
 
-
     @EventHandler
-    public void onDrinkPotion(PlayerItemConsumeEvent e){
-        ItemStack consumed = e.getItem();
-        Player p = e.getPlayer();
-        if (consumed == potion){
-            p.sendMessage(Preset.instance.p.prefixName()+" Vous venez de boire votre §f§lNectar §7§lDivin.");
-            potion.setType(Material.AIR);
+    public void onConsume(PlayerItemConsumeEvent e) {
+        final Player player = e.getPlayer();
+
+        if (e.getItem().getTypeId() == 373) {
+            Bukkit.getServer().getScheduler().runTaskLaterAsynchronously(InazumaUHC.get, new Runnable() {
+                public void run() {
+                    player.sendMessage(Preset.instance.p.prefixName()+" Vous venez de boire votre §f§lNectar §7§lDivin.");
+                    player.setItemInHand(new ItemStack(Material.AIR));
+                }
+            }, 1L);
         }
     }
+
 }
 
