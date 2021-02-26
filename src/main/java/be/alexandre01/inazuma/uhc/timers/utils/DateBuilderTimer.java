@@ -14,21 +14,45 @@ public class DateBuilderTimer {
     private Date date;
     private String build;
     private String longBuild;
+    private int multiplier = 1;
     Format h;
     Format m;
     Format s;
+
+    public DateBuilderTimer(){
+        this(0,true);
+    }
     public DateBuilderTimer(long time){
+        this(time,false);
+    }
+    public DateBuilderTimer(long time,boolean reversed){
+
         this.time = time+new Date().getTime();
+        System.out.println("Temps ! "+time);
+        System.out.println("Temps ! "+new Date().getTime());
+        System.out.println("Temps ! "+this.time);
          h = new SimpleDateFormat("hh");
          m = new SimpleDateFormat("mm");
          s = new SimpleDateFormat("ss");
+
+         if(reversed){
+             setReversed(true);
+         }
          loadDate();
     }
 
-    public DateBuilderTimer loadDate(){
-            long now = new Date().getTime();
+    public void setReversed(boolean b){
+        if(b){
+            multiplier = multiplier*-1;
+        }
+    }
 
-            Date date = new Date(time-now);
+    private long now(){
+        long now = new Date().getTime();
+        return (time-now)*multiplier;
+    }
+    public DateBuilderTimer loadDate(){
+            Date date = new Date(now());
             int hour =  (int) ((date.getTime() / (1000*60*60)) % 24);
             String minute = m.format(date);
             String second = s.format(date);
@@ -47,7 +71,7 @@ public class DateBuilderTimer {
     public DateBuilderTimer loadComplexDate(){
         long now = new Date().getTime();
 
-        Date date = new Date(time-now);
+        Date date = new Date(now());
         int hour =  (int) ((date.getTime() / (1000*60*60)) % 24);
         String minute = m.format(date);
         String second = s.format(date);

@@ -1,34 +1,31 @@
 package be.alexandre01.inazuma.uhc.presets.inazuma_eleven.timers;
 
-import be.alexandre01.inazuma.uhc.InazumaUHC;
+import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.InazumaEleven;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.objects.Episode;
-import be.alexandre01.inazuma.uhc.scoreboard.Reflection.PacketType;
 import be.alexandre01.inazuma.uhc.timers.ITimer;
 import be.alexandre01.inazuma.uhc.timers.Timer;
 import be.alexandre01.inazuma.uhc.timers.utils.DateBuilderTimer;
-import be.alexandre01.inazuma.uhc.timers.utils.MSToSec;
-import be.alexandre01.inazuma.uhc.utils.TitleUtils;
-import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
 
-public class EpisodeTimer extends Timer {
-    public EpisodeTimer() {
-        super("episodeTimer");
+public class EpisodeTimeTimer extends Timer {
+    public static boolean cancel = false;
+    public EpisodeTimeTimer() {
+        super("episodeTimeTimer");
 
         setTimer(new ITimer() {
             DateBuilderTimer builderTimer;
 
             @Override
             public void preRun() {
-                builderTimer = new DateBuilderTimer(20*60*1000L);
-                Episode.addEpisode();
+                cancel = false;
+                builderTimer = new DateBuilderTimer();
             }
 
             @Override
             public void run() {
                 builderTimer.loadDate();
-                if(builderTimer.getDate().getTime() <= 0){
-                    EpisodeTimeTimer.cancel = true;
+
+                InazumaEleven.totalTimeValue = builderTimer.getBuild()+"s";
+                if(cancel){
                     cancel();
                 }
             }

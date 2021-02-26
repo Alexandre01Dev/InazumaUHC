@@ -35,7 +35,6 @@ public class GameScoreboard {
         inazuma.i = player -> {
             PersonalScoreboard ps = new PersonalScoreboard(player);
             ps.setIScore(new IScoreBoard() {
-                Potion potion= new Potion(PotionType.STRENGTH,1,true);
 
                 @Override
                 public void lines(String ip, ObjectiveSign objectiveSign) {
@@ -44,7 +43,7 @@ public class GameScoreboard {
                     objectiveSign.setLine(4, "§r§l§8»§8§m------------§l§8«");
                     objectiveSign.setLine(5, "§7Joueurs §l» §e" + Bukkit.getOnlinePlayers().size());
                     objectiveSign.setLine(6,"§7Episode §l» §e"+ Episode.getEpisode());
-                    objectiveSign.setLine(7, "§7Temps §l» §e" + "A dev");
+                    objectiveSign.setLine(7, "§7Temps §l» §e" + InazumaEleven.totalTimeValue);
                     objectiveSign.setLine(8, "§r§l§8»§8§m------------§l§8«§f");
                     objectiveSign.setLine(9, "§7"+ InazumaEleven.timerText+" §l» §e" + InazumaEleven.timerValue);
                     if(inazuma.hasNether()){

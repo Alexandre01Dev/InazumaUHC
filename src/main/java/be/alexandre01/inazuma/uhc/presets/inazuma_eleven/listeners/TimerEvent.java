@@ -5,6 +5,7 @@ import be.alexandre01.inazuma.uhc.InazumaUHC;
 import be.alexandre01.inazuma.uhc.custom_events.timers.TimerCancelEvent;
 import be.alexandre01.inazuma.uhc.custom_events.timers.TimerCreateEvent;
 import be.alexandre01.inazuma.uhc.presets.Preset;
+import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.timers.EpisodeTimeTimer;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.timers.StabilizationTimer;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.timers.StartingTimer;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.timers.WaitingTimer;
@@ -42,6 +43,9 @@ public class TimerEvent implements Listener {
         }
         if(event.getTimerName().equals("episodeTimer")){
             event.getTimer().runTaskTimerAsynchronously(InazumaUHC.get,0,20*10);
+            EpisodeTimeTimer.cancel = true;
+            InazumaUHC.get.tm.getTimer(EpisodeTimeTimer.class).runTaskTimerAsynchronously(InazumaUHC.get,0,7);
+
         }
        /* if(event.getTimerName().equals("delayedTimeChangeTimer")){
             DelayedTimeChangeTimer t = (DelayedTimeChangeTimer) InazumaUHC.get.tm.getTimer(DelayedTimeChangeTimer.class);

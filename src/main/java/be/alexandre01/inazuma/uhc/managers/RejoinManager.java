@@ -147,4 +147,14 @@ public class RejoinManager implements Listener {
             event.setCancelled(true);
         }
     }
+
+
+    @EventHandler
+    public void onInstantKill(PlayerInstantDeathEvent event){
+        Player killed = event.getPlayer();
+        Player killer = event.getKiller();
+        if(killer != null){
+            //TON CODE
+        }
+    }
 }

@@ -30,7 +30,7 @@ import java.util.HashMap;
 import java.util.UUID;
 
 public class InazumaEleven extends PresetData implements IPreset{
-
+    public static String totalTimeValue ="";
 
     public InazumaEleven(){
         //DefaultSettings Value
@@ -107,6 +107,7 @@ public class InazumaEleven extends PresetData implements IPreset{
             timers.add(new MoveBordureTimer());
             timers.add(new InvincibilityTimer());
             timers.add(new EpisodeTimer());
+            timers.add(new EpisodeTimeTimer());
         }
         return timers;
     }

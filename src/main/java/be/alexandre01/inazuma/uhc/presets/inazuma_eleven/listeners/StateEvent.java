@@ -110,6 +110,9 @@ public class StateEvent implements Listener {
 
                             timer = i.tm.getTimer(EpisodeTimer.class);
                             timer.runTaskTimerAsynchronously(be.alexandre01.inazuma.uhc.InazumaUHC.get,0,20*10);
+
+                            timer = i.tm.getTimer(EpisodeTimeTimer.class);
+                            timer.runTaskTimerAsynchronously(be.alexandre01.inazuma.uhc.InazumaUHC.get,0,7);
                         }
                     });
 

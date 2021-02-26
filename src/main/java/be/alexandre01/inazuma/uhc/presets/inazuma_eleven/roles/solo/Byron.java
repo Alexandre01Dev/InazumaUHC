@@ -149,7 +149,7 @@ public class Byron extends Role implements Listener {
     }
     @EventHandler
     public void onKillEvent(PlayerInstantDeathEvent event){
-        Player killer = event.getPlayer().getKiller();
+        Player killer = event.getKiller();
         Player killed = event.getPlayer();
         if(killer != null){
             if (inazumaUHC.rm.getRole(killer.getUniqueId()).getClass().equals(Byron.class)){
