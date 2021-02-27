@@ -22,11 +22,9 @@ public class Darren extends Role implements Listener {
         setRoleCategory(Raimon.class);
         onLoad(new load() {
             @Override
-            public void a() {
-                for(Player player : getPlayers()){
+            public void a(Player player) {
                     player.setMaxHealth(24);
                     player.setHealth(24);
-                }
             }
         });
 

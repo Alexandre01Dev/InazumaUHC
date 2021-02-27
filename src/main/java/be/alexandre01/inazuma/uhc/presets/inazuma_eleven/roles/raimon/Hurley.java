@@ -43,15 +43,13 @@ public class Hurley extends Role {
 
         onLoad(new load() {
             @Override
-            public void a() {
-                for(Player player : getPlayers()){
+            public void a(Player player) {
                     player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 0,false,false), true);
                     ItemStack it = new ItemStack(Material.ENCHANTED_BOOK);
                     EnchantmentStorageMeta meta = (EnchantmentStorageMeta) it.getItemMeta();
                     meta.addStoredEnchant(Enchantment.DEPTH_STRIDER,2,true);
                     it.setItemMeta(meta);
                     player.getInventory().addItem(it);
-                }
             }
         });
 

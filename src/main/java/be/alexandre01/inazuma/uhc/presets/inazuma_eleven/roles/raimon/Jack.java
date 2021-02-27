@@ -19,6 +19,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerItemHeldEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerToggleSneakEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -37,12 +38,10 @@ public class Jack extends Role implements Listener {
         setRoleCategory(Raimon.class);
         onLoad(new load() {
             @Override
-            public void a() {
-                for(Player player : getPlayers()){
+            public void a(Player player) {
                         player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, Integer.MAX_VALUE, 0,false,false), true);
                         player.setMaxHealth(24);
                         player.setHealth(24);
-                }
             }
         });
 

@@ -34,11 +34,9 @@ public class William extends Role implements Listener {
 
         onLoad(new load() {
             @Override
-            public void a() {
+            public void a(Player player) {
                 William.w = w;
-                for(Player player : getPlayers()){
                     player.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, Integer.MAX_VALUE, 0,false,false), true);
-                }
             }
 
         });

@@ -21,10 +21,8 @@ public class Shawn extends Role {
         setRoleCategory(Raimon.class);
         onLoad(new load() {
             @Override
-            public void a() {
-                for(Player player : getPlayers()){
+            public void a(Player player) {
                     player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, Integer.MAX_VALUE, 0,false,false), true);
-                }
             }
 
         });
