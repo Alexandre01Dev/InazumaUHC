@@ -13,10 +13,8 @@ public class Scotty extends Role {
         setRoleCategory(Raimon.class);
         onLoad(new load() {
             @Override
-            public void a() {
-                for(Player player : getPlayers()){
+            public void a(Player player) {
                     player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 0,false,false), true);
-                }
             }
         });
     }

@@ -20,10 +20,8 @@ public class Raimon_Simple extends Role {
 
         onLoad(new load() {
             @Override
-            public void a() {
-                for(Player player : getPlayers()){
+            public void a(Player player) {
                     player.getInventory().addItem(new ItemStack(Material.GOLDEN_APPLE,2));
-                }
             }
         });
     }

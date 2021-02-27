@@ -40,7 +40,7 @@ public class Jude extends Role implements Listener {
 
         onLoad(new load() {
             @Override
-            public void a() {
+            public void a(Player player) {
                 Bukkit.getScheduler().scheduleSyncDelayedTask(InazumaUHC.get, new Runnable() {
                     @Override
                 public void run() {
@@ -52,7 +52,6 @@ public class Jude extends Role implements Listener {
                             o.setDisplayName("%§c❤");
                             o.setDisplaySlot(DisplaySlot.BELOW_NAME);
                         }
-                  for(Player player : getPlayers()){
                     player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 0,false,false), true);
                       player.setScoreboard(score);
                       setHealth(player);
@@ -61,7 +60,6 @@ public class Jude extends Role implements Listener {
                         setHealth(opposants);
 
                     }
-                  }
 
                     }
 
