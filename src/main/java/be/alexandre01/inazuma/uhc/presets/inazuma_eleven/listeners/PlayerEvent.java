@@ -1,5 +1,9 @@
 package be.alexandre01.inazuma.uhc.presets.inazuma_eleven.listeners;
 
+import be.alexandre01.inazuma.uhc.InazumaUHC;
+import be.alexandre01.inazuma.uhc.custom_events.player.PlayerInstantDeathEvent;
+import be.alexandre01.inazuma.uhc.presets.Preset;
+import be.alexandre01.inazuma.uhc.roles.Role;
 import be.alexandre01.inazuma.uhc.state.GameState;
 import be.alexandre01.inazuma.uhc.state.State;
 import be.alexandre01.inazuma.uhc.utils.TitleUtils;
@@ -44,5 +48,15 @@ public class PlayerEvent implements Listener {
             });
         }
 
+    }
+
+    @EventHandler
+    public void onPlayerInstantDeath(PlayerInstantDeathEvent event){
+        Player player = event.getPlayer();
+
+        if(!Role.isDistributed){
+            Bukkit.broadcastMessage(Preset.instance.p.prefixName()+" §c§l"+player.getName()+"§7 vient de mourir (PVE).");
+            InazumaUHC.get.getRejoinManager().onKilled(player);
+        }
     }
 }

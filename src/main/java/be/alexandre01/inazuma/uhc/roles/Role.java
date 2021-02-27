@@ -17,6 +17,7 @@ import java.util.*;
 
 public class Role {
     private String name;
+    public boolean isListenerDeployed = false;
     public static boolean isDistributed = false;
     private ArrayList<Class<?>> roleToSpoil = new ArrayList<>();
     private ArrayList<Player> players;
@@ -106,8 +107,7 @@ public class Role {
         return players;
     }
 
-    public void giveItem(){
-        for(Player player : players){
+    public void giveItem(Player player){
             if(!roleItems.isEmpty()){
                 for(RoleItem roleItem : roleItems.values()){
                     if(hasAvaliableSlot(player)){
@@ -127,7 +127,6 @@ public class Role {
                     player.sendMessage("§cUn de vos items vient d'être jeter au sol.");
                 }
                 player.updateInventory();
-            }
         }
     }
 
@@ -140,13 +139,13 @@ public class Role {
     }
     public void addListener(Listener listener){
         listeners.add(listener);
-
     }
 
     public void deployListeners(){
         for(Listener listener : listeners){
             InazumaUHC.get.lm.addListener(listener);
         }
+        isListenerDeployed = true;
     }
     public String getName() {
         return name;
@@ -161,7 +160,7 @@ public class Role {
     }
 
     public interface load{
-        public void a();
+        public void a(Player player);
     }
 
     public interface command{

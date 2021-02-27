@@ -13,6 +13,7 @@ import be.alexandre01.inazuma.uhc.roles.Role;
 import be.alexandre01.inazuma.uhc.state.GameState;
 import be.alexandre01.inazuma.uhc.state.State;
 import be.alexandre01.inazuma.uhc.timers.Timer;
+import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
@@ -40,12 +41,17 @@ public class TimerEvent implements Listener {
        }
         if(event.getTimerName().equals("invicibilityTimer")){
             Preset.instance.pData.isInvisible = false;
-            InazumaUHC.get.rm.distributeRoles( InazumaUHC.get.getRemainingPlayers());
-            for(Role role : Role.getRoles()){
-                role.spoilRole();
-                role.giveItem();
-            }
-            Role.isDistributed = true;
+            Bukkit.getScheduler().runTaskLaterAsynchronously(InazumaUHC.get, new Runnable() {
+                @Override
+                public void run() {
+                    InazumaUHC.get.rm.distributeRoles( InazumaUHC.get.getRemainingPlayers());
+                    for(Role role : Role.getRoles()){
+                        role.spoilRole();
+                        role.giveItem();
+                    }
+                    Role.isDistributed = true;
+                }
+            },20*5);
             return;
         }
         if(event.getTimerName().equals("episodeTimer")){

@@ -5,6 +5,7 @@ import be.alexandre01.inazuma.uhc.custom_events.player.PlayerInstantDeathEvent;
 import be.alexandre01.inazuma.uhc.generations.Plateform;
 import be.alexandre01.inazuma.uhc.presets.Preset;
 import be.alexandre01.inazuma.uhc.roles.Role;
+import be.alexandre01.inazuma.uhc.spectators.BukkitTeamInitializer;
 import be.alexandre01.inazuma.uhc.timers.utils.DateBuilderTimer;
 import be.alexandre01.inazuma.uhc.utils.InventoryContainer;
 import lombok.Setter;
@@ -73,7 +74,6 @@ public class RejoinManager implements Listener {
        return false;
     }
     public void onKilled(Player p){
-        if(!Role.isDistributed){
             Block b = p.getLocation().getBlock();
             b.setType(Material.CHEST);
             chests.put(b,p.getUniqueId());
@@ -83,18 +83,21 @@ public class RejoinManager implements Listener {
 
             Inventory inventory = Bukkit.createInventory(null, 9*4);
             for(ItemStack i : p.getInventory().getContents()){
-                inventory.addItem(i);
+                if(i != null){
+                    inventory.addItem(i);
+                }
             }
             for(ItemStack a : p.getInventory().getArmorContents()){
-                inventory.addItem(a);
+                if(a != null){
+                    inventory.addItem(a);
+                }
             }
 
             chestInv.put(b,inventory);
-        }
     }
     public void teleportRandom(Player player){
         Random rand1 = new Random();
-        int size = p.getBorderSize(World.Environment.NORMAL);
+        int size = Preset.instance.p.getBorderSize(World.Environment.NORMAL);
         int x = rand1.nextInt(size - ((-size) + 1)) + (-size);
         Random rand2 = new Random();
         int z = rand2.nextInt(size - ((-size) + 1)) + (-size);
@@ -148,6 +151,17 @@ public class RejoinManager implements Listener {
             InazumaUHC.get.getRemainingPlayers().add(p);
         }
         p.setGameMode(GameMode.SURVIVAL);
+
+        if(InazumaUHC.get.spectatorManager.getPlayers().contains(p)){
+            InazumaUHC.get.spectatorManager.getPlayers().remove(p);
+            InazumaUHC.get.teamManager.getTeam(p).setBukkitTeam();
+        }
+
+        for(Player player : Bukkit.getOnlinePlayers()){
+            if(p != player){
+                player.showPlayer(p);
+            }
+        }
     }
     public void rejoinKilledPlayer(Player p){
 
