@@ -12,11 +12,9 @@ public class Torch  extends Role {
         setRoleCategory(Alius.class);
         onLoad(new load() {
             @Override
-            public void a() {
-                for(Player player : getPlayers()){
+            public void a(Player player) {
                     player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, Integer.MAX_VALUE, 0,false,false), true);
                     player.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, Integer.MAX_VALUE, 0,false,false), true);
-                }
             }
         });
     }

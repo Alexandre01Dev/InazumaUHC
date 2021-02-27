@@ -21,10 +21,8 @@ public class ItadoriYuji extends Role {
 
 
         addRoleItem(eclairNoir);
-        onLoad(() -> {
-        for(Player player : getPlayers()){
+        onLoad((Player player) -> {
             player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, Integer.MAX_VALUE, 0,false,false), true);
-        }
         });
     }
 }

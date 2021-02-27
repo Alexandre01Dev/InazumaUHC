@@ -23,11 +23,9 @@ public class SatoruGojo extends Role implements Listener {
 
         addRoleItem(territory);
         setRoleToSpoil(ItadoriYuji.class);
-        onLoad(() -> {
-            for(Player player : getPlayers()){
+        onLoad((Player player) -> {
                 addHearth(player,2);
                 player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, Integer.MAX_VALUE, 1,false,false), true);
-            }
         });
     }
 }

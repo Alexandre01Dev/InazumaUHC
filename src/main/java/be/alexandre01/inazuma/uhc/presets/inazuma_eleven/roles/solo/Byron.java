@@ -70,13 +70,11 @@ public class Byron extends Role implements Listener {
         setRoleCategory(Solo.class);
         onLoad(new load() {
             @Override
-            public void a() {
-                for(Player player : getPlayers()){
+            public void a(Player player) {
                     player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, Integer.MAX_VALUE, 0,false,false), true);
                     inazumaUHC.dm.addEffectPourcentage(player, DamageManager.EffectType.INCREASE_DAMAGE,1,110);
                     player.setMaxHealth(24);
                     player.setHealth(24);
-                }
             }
         });
 
