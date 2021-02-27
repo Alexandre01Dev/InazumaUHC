@@ -9,6 +9,7 @@ import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.timers.EpisodeTimeTimer
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.timers.StabilizationTimer;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.timers.StartingTimer;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.timers.WaitingTimer;
+import be.alexandre01.inazuma.uhc.roles.Role;
 import be.alexandre01.inazuma.uhc.state.GameState;
 import be.alexandre01.inazuma.uhc.state.State;
 import be.alexandre01.inazuma.uhc.timers.Timer;
@@ -39,14 +40,24 @@ public class TimerEvent implements Listener {
        }
         if(event.getTimerName().equals("invicibilityTimer")){
             Preset.instance.pData.isInvisible = false;
+            InazumaUHC.get.rm.distributeRoles( InazumaUHC.get.getRemainingPlayers());
+            for(Role role : Role.getRoles()){
+                role.spoilRole();
+                role.giveItem();
+            }
+            Role.isDistributed = true;
             return;
         }
         if(event.getTimerName().equals("episodeTimer")){
             event.getTimer().runTaskTimerAsynchronously(InazumaUHC.get,0,20*10);
+            InazumaUHC.get.tm.getTimer(EpisodeTimeTimer.class).cancel();
             EpisodeTimeTimer.cancel = true;
-            InazumaUHC.get.tm.getTimer(EpisodeTimeTimer.class).runTaskTimerAsynchronously(InazumaUHC.get,0,7);
-
         }
+        if(event.getTimerName().equals("episodeTimeTimer")){
+            InazumaUHC.get.tm.getTimer(EpisodeTimeTimer.class).runTaskTimerAsynchronously(InazumaUHC.get,0,7);
+        }
+
+
        /* if(event.getTimerName().equals("delayedTimeChangeTimer")){
             DelayedTimeChangeTimer t = (DelayedTimeChangeTimer) InazumaUHC.get.tm.getTimer(DelayedTimeChangeTimer.class);
             if(t.getState().equals(DelayedTimeChangeTimer.State.DAY)){

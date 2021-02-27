@@ -52,6 +52,43 @@ public class PlayerEvent implements Listener {
         Player player = event.getPlayer();
         World world = null;
 
+        //PATCH DAMAGE NBT
+        EntityPlayer nmsPlayer =((CraftPlayer)player).getHandle();
+
+
+        for(Object o : nmsPlayer.getAttributeMap().a()){
+            if(o instanceof AttributeModifiable){
+                AttributeModifiable a = (AttributeModifiable) o;
+                if(a.getAttribute().getName().equalsIgnoreCase("generic.maxHealth")){
+                    a.setValue(20);
+                }
+                if(a.getAttribute().getName().equalsIgnoreCase("generic.attackDamage")){
+                    a.setValue(1.0D);
+                    for(AttributeModifier m : a.c()){
+                        nmsPlayer.getAttributeMap().a("generic.attackDamage").c(new AttributeModifier(m.a(),m.b(),0,m.c()));
+                    }
+                }
+            }
+        }
+
+        //GAMEMODE
+        player.setGameMode(GameMode.ADVENTURE);
+
+        //WALK AND FLY SPEED
+        player.setFlySpeed(0.2f);
+        player.setFlying(false);
+
+        player.setWalkSpeed(0.2f);
+        player.setFlySpeed(0.2f);
+
+        inazumaUHC.getScoreboardManager().onLogin(player);
+        IPreset p = Preset.instance.p;
+
+        if(p.isArrowCalculated()){
+            p.getArrows().put(player.getUniqueId(),"§l~");
+        }
+
+
         if(!GameState.get().contains(State.PLAYING)){
             if(Preset.instance.p.autoJoinWorld()){
                 world = Bukkit.getWorld(Options.to("worldsTemp").get("defaultUUID").getString());
@@ -81,8 +118,7 @@ public class PlayerEvent implements Listener {
 
 
         }
-        player.setFlySpeed(0.2f);
-        player.setFlying(false);
+
 
 
         //CLEAR INVENTORY
@@ -94,8 +130,7 @@ public class PlayerEvent implements Listener {
         player.getInventory().setBoots(null);
         player.updateInventory();
 
-        //GAMEMODE
-        player.setGameMode(GameMode.ADVENTURE);
+
 
         //HEALTH & FOOD & EXP
         player.setMaxHealth(20);
@@ -105,49 +140,11 @@ public class PlayerEvent implements Listener {
         player.setExp(0);
         player.setTotalExperience(0);
 
-        //PATCH DAMAGE NBT
-        EntityPlayer nmsPlayer =((CraftPlayer)player).getHandle();
 
-
-       for(Object o : nmsPlayer.getAttributeMap().a()){
-           if(o instanceof AttributeModifiable){
-               AttributeModifiable a = (AttributeModifiable) o;
-               if(a.getAttribute().getName().equalsIgnoreCase("generic.maxHealth")){
-                   a.setValue(20);
-               }
-               if(a.getAttribute().getName().equalsIgnoreCase("generic.attackDamage")){
-                   a.setValue(1.0D);
-                   for(AttributeModifier m : a.c()){
-                       nmsPlayer.getAttributeMap().a("generic.attackDamage").c(new AttributeModifier(m.a(),m.b(),0,m.c()));
-                   }
-               }
-           }
-       }
-
-
-
-        //WALK AND FLY SPEED
-        player.setWalkSpeed(0.2f);
-        player.setFlySpeed(0.2f);
         //EFFECT
         for(PotionEffect potionEffect : player.getActivePotionEffects()){
             player.removePotionEffect(potionEffect.getType());
         }
-
-
-        inazumaUHC.getScoreboardManager().onLogin(player);
-        IPreset p = Preset.instance.p;
-        if(p.isArrowCalculated()){
-            p.getArrows().put(player.getUniqueId(),"§l~");
-        }
-
-
-
-
-
-
-
-
     }
 
     @EventHandler
@@ -163,13 +160,14 @@ public class PlayerEvent implements Listener {
         if(inazumaUHC.teamManager.hasTeam(player)){
             inazumaUHC.teamManager.getTeam(player).rmvPlayer(player);
         }
-        Role r = inazumaUHC.rm.getRole(player);
-        if(r != null){
-            if(r.getPlayers().contains(player)){
-                Bukkit.broadcastMessage(Preset.instance.p.prefixName()+" §c§l"+player.getName()+"§7 vient de quitter la partie. Il a 10 minutes pour se reconnecter.");
-                inazumaUHC.getRejoinManager().onDisconnect(player);
-            }
-        }
+
+       if(!InazumaUHC.get.spectatorManager.getPlayers().contains(player)){
+           Bukkit.broadcastMessage(Preset.instance.p.prefixName()+" §c§l"+player.getName()+"§7 vient de quitter la partie. Il a 10 minutes pour se reconnecter.");
+           inazumaUHC.getRejoinManager().onDisconnect(player);
+       }
+
+
+
         InazumaUHC.get.getRemainingPlayers().remove(player);
     }
 

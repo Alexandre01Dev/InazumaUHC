@@ -43,12 +43,15 @@ public class RoleManager {
         return uuids.get(role);
     }
 
-    public void addRole(UUID uuid){
+    public Role addRole(UUID uuid){
         if(totalRole.size() < i+1){
             i = 0;
         }
-        addRole(uuid,totalRole.get(i));
+        Role role = totalRole.get(i);
+        addRole(uuid,role);
         i++;
+
+        return role;
     }
     public void addRole(UUID uuid, Role role){
         roles.put(uuid,role);

@@ -2,14 +2,13 @@ package be.alexandre01.inazuma.uhc.managers;
 
 import be.alexandre01.inazuma.uhc.InazumaUHC;
 import be.alexandre01.inazuma.uhc.custom_events.player.PlayerInstantDeathEvent;
+import be.alexandre01.inazuma.uhc.generations.Plateform;
 import be.alexandre01.inazuma.uhc.presets.Preset;
 import be.alexandre01.inazuma.uhc.roles.Role;
 import be.alexandre01.inazuma.uhc.timers.utils.DateBuilderTimer;
 import be.alexandre01.inazuma.uhc.utils.InventoryContainer;
 import lombok.Setter;
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.Material;
+import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.Chest;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -40,6 +39,7 @@ public class RejoinManager implements Listener {
         
         Inventory inventory = Bukkit.createInventory(null, 9*4);
         Role r = InazumaUHC.get.rm.getRole(p.getUniqueId());
+
         for(ItemStack i : p.getInventory().getContents()){
             if(i != null){
                 if(r!= null){
@@ -65,6 +65,7 @@ public class RejoinManager implements Listener {
     public boolean isValidPlayer(Player player){
         System.out.println("TIMES >> "+times.containsKey(player.getUniqueId())+" "+ player.getName());
         if(times.containsKey(player.getUniqueId())){
+            times.get(player.getUniqueId()).loadDate();
             if(times.get(player.getUniqueId()).getDate().getTime() > 0){
                 return true;
             }
@@ -91,6 +92,18 @@ public class RejoinManager implements Listener {
             chestInv.put(b,inventory);
         }
     }
+    public void teleportRandom(Player player){
+        Random rand1 = new Random();
+        int size = p.getBorderSize(World.Environment.NORMAL);
+        int x = rand1.nextInt(size - ((-size) + 1)) + (-size);
+        Random rand2 = new Random();
+        int z = rand2.nextInt(size - ((-size) + 1)) + (-size);
+
+        World w = InazumaUHC.get.worldGen.defaultWorld;
+        Location l = new Location(w,x,121.001,z);
+    }
+
+
     public void revivePlayer(Player p){
         playerInventory.get(p.getUniqueId()).restitutionToPlayer(p);
 
@@ -112,7 +125,9 @@ public class RejoinManager implements Listener {
 
         Role role = InazumaUHC.get.rm.getRole(p.getUniqueId());
         if(role == null){
-            InazumaUHC.get.rm.addRole(p.getUniqueId());
+            Role nRole = InazumaUHC.get.rm.addRole(p.getUniqueId());
+            nRole.spoilRole();
+            nRole.giveItem();
         }else {
             role.getPlayers().add(p);
 
@@ -127,9 +142,14 @@ public class RejoinManager implements Listener {
             if(!role.getCommands().isEmpty()){
                 role.loadCommands();
             }
+
         }
+        if(!InazumaUHC.get.getRemainingPlayers().contains(p)){
+            InazumaUHC.get.getRemainingPlayers().add(p);
+        }
+        p.setGameMode(GameMode.SURVIVAL);
     }
-    public void rejoinDisconnectedPlayer(Player p){
+    public void rejoinKilledPlayer(Player p){
 
     }
 
@@ -148,13 +168,4 @@ public class RejoinManager implements Listener {
         }
     }
 
-
-    @EventHandler
-    public void onInstantKill(PlayerInstantDeathEvent event){
-        Player killed = event.getPlayer();
-        Player killer = event.getKiller();
-        if(killer != null){
-            //TON CODE
-        }
-    }
 }

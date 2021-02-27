@@ -117,11 +117,11 @@ public class StateEvent implements Listener {
                     });
 
 
-            i.rm.distributeRoles(i.getRemainingPlayers());
+          /*  i.rm.distributeRoles(i.getRemainingPlayers());
             for(Role role : Role.getRoles()){
                 role.spoilRole();
                 role.giveItem();
             }
-            Role.isDistributed = true;
+            Role.isDistributed = true;*/
     }
 }

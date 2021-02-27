@@ -12,6 +12,7 @@ import be.alexandre01.inazuma.uhc.host.Host;
 import be.alexandre01.inazuma.uhc.listeners.ListenersManager;
 import be.alexandre01.inazuma.uhc.listeners.game.*;
 import be.alexandre01.inazuma.uhc.managers.DamageManager;
+import be.alexandre01.inazuma.uhc.managers.InvincibilityDamager;
 import be.alexandre01.inazuma.uhc.managers.InvisibilityInventory;
 import be.alexandre01.inazuma.uhc.managers.RejoinManager;
 import be.alexandre01.inazuma.uhc.presets.Preset;
@@ -61,6 +62,7 @@ public final class InazumaUHC extends JavaPlugin {
     public RoleManager rm;
     public DamageManager dm;
     public TeamManager teamManager;
+    @Getter  public InvincibilityDamager invincibilityDamager;
     public SpectatorManager spectatorManager;
     @Getter private RejoinManager rejoinManager;
     public InvisibilityInventory invisibilityInventory = new InvisibilityInventory();
@@ -159,11 +161,11 @@ public final class InazumaUHC extends JavaPlugin {
             host = new Host();
             this.getCommand("host").setExecutor(new HostCommand());
         }
-        if(p.p.hasRoles() && rm == null){
+        //if(p.p.hasRoles() && rm == null){
             rm = new RoleManager();
-        }
+        //}
 
-
+            invincibilityDamager = new InvincibilityDamager();
         //lm.automaticFindListener();
 
     }

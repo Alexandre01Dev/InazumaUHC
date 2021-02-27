@@ -4,6 +4,7 @@ import be.alexandre01.inazuma.uhc.InazumaUHC;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.*;
 import org.bukkit.event.player.*;
@@ -17,14 +18,14 @@ public class SpectatorListeners implements Listener {
          this.i = InazumaUHC.get;
          this.blockedInEntity = new ArrayList<>();
     }
-    @EventHandler
+    @EventHandler(priority = EventPriority.LOW)
     public void onInteract(PlayerInteractEvent event){
         if(i.spectatorManager.getPlayers().contains(event.getPlayer())){
             event.setCancelled(true);
         }
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.LOW)
     public void onDamage(EntityDamageByEntityEvent event){
     if(event.getDamager() instanceof Player){
         Player player = (Player) event.getDamager();
@@ -34,7 +35,7 @@ public class SpectatorListeners implements Listener {
     }
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.LOW)
     public void onDamage(EntityDamageEvent event){
         if(event.getEntity() instanceof Player){
             Player player = (Player) event.getEntity();
@@ -43,7 +44,7 @@ public class SpectatorListeners implements Listener {
             }
         }
     }
-    @EventHandler
+    @EventHandler(priority = EventPriority.LOW)
     public void onFood(FoodLevelChangeEvent event){
         if(event.getEntity() instanceof Player){
             Player player = (Player) event.getEntity();
