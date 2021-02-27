@@ -1,8 +1,8 @@
-package be.alexandre01.inazuma.uhc.presets.jujutsu_kaisen.timers;
+package be.alexandre01.inazuma.uhc.timers.game;
 
-import be.alexandre01.inazuma.uhc.InazumaUHC;
 import be.alexandre01.inazuma.uhc.presets.Preset;
-import be.alexandre01.inazuma.uhc.presets.jujutsu_kaisen.Jujutsu_Kaisen;
+import be.alexandre01.inazuma.uhc.presets.PresetData;
+import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.InazumaEleven;
 import be.alexandre01.inazuma.uhc.presets.normal.Normal;
 import be.alexandre01.inazuma.uhc.timers.ITimer;
 import be.alexandre01.inazuma.uhc.timers.Timer;
@@ -17,20 +17,20 @@ import java.util.ArrayList;
 public class StartingTimer extends Timer {
     public StartingTimer() {
         super("startingTimer");
-        Jujutsu_Kaisen p = (Jujutsu_Kaisen) Preset.instance.p;
-        InazumaUHC i = InazumaUHC.get;
+        PresetData p = Preset.instance.pData;
+        be.alexandre01.inazuma.uhc.InazumaUHC i = be.alexandre01.inazuma.uhc.InazumaUHC.get;
         iSpigot iSpigot = spg.lgdev.iSpigot.INSTANCE;
         ArrayList<Player> players = new ArrayList<>(Bukkit.getOnlinePlayers());
 
         super.setTimer(new ITimer() {
 
-            int modifier = 10;
+            int modifier = 5;
             float lenght = 0.8f;
 
             @Override
             public void preRun() {
-                Normal.timerText = "§cLancement dans:";
-                Normal.timerValue = "§e"+modifier+"s";
+                p.pvpText = "§cLancement dans:";
+                p.pvpValue = "§e"+modifier+"s";
             }
 
             @Override
@@ -39,7 +39,7 @@ public class StartingTimer extends Timer {
                    TitleUtils.sendTitle(player,0,15,5,"§e"+modifier," ");
                    player.playSound(player.getLocation(), Sound.NOTE_PLING,1,lenght);
                }
-                Normal.timerValue = "§e"+modifier+"s";
+                p.pvpValue = "§e"+modifier+"s";
 
                    lenght = lenght + 0.05f;
 

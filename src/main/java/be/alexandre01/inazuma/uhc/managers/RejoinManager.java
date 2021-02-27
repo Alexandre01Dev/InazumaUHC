@@ -19,6 +19,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.potion.PotionEffectType;
 
 import java.io.BufferedReader;
 import java.util.*;
@@ -104,6 +105,8 @@ public class RejoinManager implements Listener {
 
         World w = InazumaUHC.get.worldGen.defaultWorld;
         Location l = new Location(w,x,121.001,z);
+
+        player.teleport(l);
     }
 
 
@@ -129,17 +132,20 @@ public class RejoinManager implements Listener {
         Role role = InazumaUHC.get.rm.getRole(p.getUniqueId());
         if(role == null){
             Role nRole = InazumaUHC.get.rm.addRole(p.getUniqueId());
-            nRole.spoilRole();
-            nRole.giveItem();
+            nRole.spoilRole(p);
+            nRole.giveItem(p);
         }else {
             role.getPlayers().add(p);
 
             if(role.getLoad() != null){
-                role.getLoad().a();
+                role.getLoad().a(p);
             }
 
             if(!role.listeners.isEmpty()){
-                role.deployListeners();
+                if(!role.isListenerDeployed){
+                    role.deployListeners();
+                }
+
             }
 
             if(!role.getCommands().isEmpty()){
@@ -153,8 +159,11 @@ public class RejoinManager implements Listener {
         p.setGameMode(GameMode.SURVIVAL);
 
         if(InazumaUHC.get.spectatorManager.getPlayers().contains(p)){
-            InazumaUHC.get.spectatorManager.getPlayers().remove(p);
+            InazumaUHC.get.spectatorManager.remPlayer(p);
             InazumaUHC.get.teamManager.getTeam(p).setBukkitTeam();
+            p.removePotionEffect(PotionEffectType.INVISIBILITY);
+            p.setAllowFlight(false);
+            p.setFlying(false);
         }
 
         for(Player player : Bukkit.getOnlinePlayers()){

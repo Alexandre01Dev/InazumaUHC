@@ -17,6 +17,7 @@ public class PresetData {
     public int minPlayerToStart = 10;
     public int playerSize = 20;
     public int totalTime = 60*60;
+    public int waitingTime = 120;
     public int pvpTime = 1*30;
     public int invisibilityTime = 1;
     public int netherTime = 55*60;
@@ -34,12 +35,12 @@ public class PresetData {
     protected Plateform plateform;
     protected String[] generatorSettings = {"",""};
     public static int lastModifier = 0;
-    public static String timerText = "";
-    public static String timerValue = "";
-    public static String bordureValue ="";
-    public static String bordureText ="";
-    public static String netherText ="";
-    public static String netherValue ="";
+    public String pvpText = "";
+    public String pvpValue = "";
+    public String bordureValue ="";
+    public String bordureText ="";
+    public String netherText ="";
+    public String netherValue ="";
     public IPersonalScoreBoard i;
 
 
@@ -107,52 +108,52 @@ public class PresetData {
         PresetData.lastModifier = lastModifier;
     }
 
-    public static String getTimerText() {
-        return timerText;
+    public  String getTimerText() {
+        return this.pvpText;
     }
 
-    public static void setTimerText(String timerText) {
-        PresetData.timerText = timerText;
+    public  void setTimerText(String timerText) {
+        this.pvpText = timerText;
     }
 
-    public static String getTimerValue() {
-        return timerValue;
+    public  String getTimerValue() {
+        return this.pvpValue;
     }
 
-    public static void setTimerValue(String timerValue) {
-        PresetData.timerValue = timerValue;
+    public void setTimerValue(String timerValue) {
+        this.pvpValue = timerValue;
     }
 
-    public static String getBordureValue() {
+    public  String getBordureValue() {
         return bordureValue;
     }
 
-    public static void setBordureValue(String bordureValue) {
-        PresetData.bordureValue = bordureValue;
+    public  void setBordureValue(String bordureValue) {
+        this.bordureValue = bordureValue;
     }
 
-    public static String getBordureText() {
+    public  String getBordureText() {
         return bordureText;
     }
 
-    public static void setBordureText(String bordureText) {
-        PresetData.bordureText = bordureText;
+    public  void setBordureText(String bordureText) {
+        this.bordureText = bordureText;
     }
 
-    public static String getNetherText() {
+    public String getNetherText() {
         return netherText;
     }
 
-    public static void setNetherText(String netherText) {
-        PresetData.netherText = netherText;
+    public void setNetherText(String netherText) {
+        this.netherText = netherText;
     }
 
-    public static String getNetherValue() {
+    public String getNetherValue() {
         return netherValue;
     }
 
-    public static void setNetherValue(String netherValue) {
-        PresetData.netherValue = netherValue;
+    public void setNetherValue(String netherValue) {
+        this.netherValue = netherValue;
     }
 
     public IPersonalScoreBoard getI() {

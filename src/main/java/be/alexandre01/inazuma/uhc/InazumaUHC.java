@@ -27,6 +27,7 @@ import be.alexandre01.inazuma.uhc.spectators.SpectatorManager;
 import be.alexandre01.inazuma.uhc.state.GameState;
 import be.alexandre01.inazuma.uhc.teams.TeamManager;
 import be.alexandre01.inazuma.uhc.timers.TimersManager;
+import be.alexandre01.inazuma.uhc.timers.game.*;
 import be.alexandre01.inazuma.uhc.utils.ScoreboardUtil;
 import be.alexandre01.inazuma.uhc.worlds.WorldGen;
 import be.alexandre01.inazuma.uhc.worlds.utils.WorldUtils;
@@ -124,6 +125,19 @@ public final class InazumaUHC extends JavaPlugin {
 
         Scenario.initialize();
          p = new Preset(new InazumaEleven());
+
+
+         //DEFAULT TIMERS LOAD
+        p.pData.getTimers().add(new BordureTimer());
+        p.pData.getTimers().add(new InvincibilityTimer());
+        p.pData.getTimers().add(new MoveBordureTimer());
+        p.pData.getTimers().add(new NetherTimer());
+        p.pData.getTimers().add(new PVPTimer());
+        p.pData.getTimers().add(new StabilizationTimer());
+        p.pData.getTimers().add(new StartingTimer());
+        p.pData.getTimers().add(new WaitingTimer());
+
+        //ARROWS
         if(p.p.isArrowCalculated()){
             arrowToCenter = new ArrowToCenter();
             arrowToCenter.schedule();
@@ -165,9 +179,9 @@ public final class InazumaUHC extends JavaPlugin {
             host = new Host();
             this.getCommand("host").setExecutor(new HostCommand());
         }
-        //if(p.p.hasRoles() && rm == null){
+        if(p.p.hasRoles() && rm == null){
             rm = new RoleManager();
-        //}
+        }
 
 
         //lm.automaticFindListener();

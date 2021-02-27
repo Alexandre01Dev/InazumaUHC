@@ -4,10 +4,10 @@ import be.alexandre01.inazuma.uhc.InazumaUHC;
 import be.alexandre01.inazuma.uhc.custom_events.chunks.ForcedChunkFinishedEvent;
 import be.alexandre01.inazuma.uhc.presets.IPreset;
 import be.alexandre01.inazuma.uhc.presets.Preset;
-import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.timers.WaitingTimer;
 import be.alexandre01.inazuma.uhc.state.GameState;
 import be.alexandre01.inazuma.uhc.state.State;
 import be.alexandre01.inazuma.uhc.timers.Timer;
+import be.alexandre01.inazuma.uhc.timers.game.WaitingTimer;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 

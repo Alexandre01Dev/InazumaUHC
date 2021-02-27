@@ -27,6 +27,7 @@ public class RoleManager {
         rolesByCat = new HashMap<>();
         InazumaUHC.get.lm.addListener(new InteractItemEvent());
         InazumaUHC.get.lm.addListener(new DropRoleItemEvent());
+        System.out.println("ADDLISTEUNEUR");
         InazumaUHC.get.lm.addListener(new PlayerInstantDeath());
     }
 
@@ -54,6 +55,10 @@ public class RoleManager {
         return role;
     }
     public void addRole(UUID uuid, Role role){
+        Player player = Bukkit.getPlayer(uuid);
+        if(player == null)
+            return;
+
         roles.put(uuid,role);
         classes.put(role.getClass(),role);
         List<UUID> p = new ArrayList<>();
@@ -67,11 +72,13 @@ public class RoleManager {
         }
         role.addPlayer(Bukkit.getPlayer(uuid));
         if(role.getLoad() != null){
-            role.getLoad().a();
+            role.getLoad().a(player);
         }
 
         if(!role.listeners.isEmpty()){
-            role.deployListeners();
+            if(!role.isListenerDeployed){
+                role.deployListeners();
+            }
         }
 
         if(!role.getCommands().isEmpty()){

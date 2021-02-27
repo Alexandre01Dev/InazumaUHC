@@ -34,7 +34,7 @@ public class ReviveCommand extends Command {
                     player.setExp(player.getExp()/2);
                     player.setLevel(player.getLevel()/2);
                 }else {
-                    player.sendMessage(Preset.instance.p.prefixName()+" §cLe joueur ne peut pas se faire réssuciter.");
+                    sender.sendMessage(Preset.instance.p.prefixName()+" §cLe joueur ne peut pas se faire réssuciter.");
                 }
             }else {
                 player.sendMessage(Preset.instance.p.prefixName()+" §cLe joueur en question n'est pas connecté");

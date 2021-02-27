@@ -41,11 +41,11 @@ public class GameScoreboard {
                     objectiveSign.setLine(5, "§7Joueurs §l» §e" + Bukkit.getOnlinePlayers().size() + "§7/§e"+jujutsu_kaizen.getPlayerSize());
                     objectiveSign.setLine(6, "§r§l§8»§8§m------------§l§8«§f");
                     objectiveSign.setLine(7,"§cEpisode §l» §e"+ Episode.getEpisode());
-                    objectiveSign.setLine(8, "§7"+ Normal.timerText+" §l» §e" + Normal.timerValue);
+                    objectiveSign.setLine(8, "§7"+ jujutsu_kaizen.pvpText+" §l» §e" + jujutsu_kaizen.pvpValue);
                     if(jujutsu_kaizen.hasNether()){
-                        objectiveSign.setLine(9,"§7"+Normal.netherText+" §l» §e" + Normal.netherValue);
+                        objectiveSign.setLine(9,"§7"+jujutsu_kaizen.netherText+" §l» §e" + jujutsu_kaizen.netherValue);
                     }
-                    objectiveSign.setLine(10,"§7"+Normal.bordureText+" §l» §e" + Normal.bordureValue);
+                    objectiveSign.setLine(10,"§7"+jujutsu_kaizen.bordureText+" §l» §e" + jujutsu_kaizen.bordureValue);
                     objectiveSign.setLine(16, "§r§l§8»§8§m------------§l§8«§r");
                     World world = player.getWorld();
                     int borderSize = (int) world.getWorldBorder().getSize() /2;

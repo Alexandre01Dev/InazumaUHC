@@ -47,11 +47,11 @@ public class GameScoreboard {
                     objectiveSign.setLine(4, "§r§l§8»§8§m------------§l§8«");
                     objectiveSign.setLine(6, "§7Joueurs §l» §e" + Bukkit.getOnlinePlayers().size() + "§7/§e"+normal.getPlayerSize());
                     objectiveSign.setLine(7, "§r§l§8»§8§m------------§l§8«§f");
-                    objectiveSign.setLine(8, "§7"+ Normal.timerText+" §l» §e" + Normal.timerValue);
+                    objectiveSign.setLine(8, "§7"+ normal.pvpText+" §l» §e" + normal.pvpValue);
                     if(normal.hasNether()){
-                        objectiveSign.setLine(9,"§7"+Normal.netherText+" §l» §e" + Normal.netherValue);
+                        objectiveSign.setLine(9,"§7"+normal.netherText+" §l» §e" + normal.netherValue);
                     }
-                    objectiveSign.setLine(10,"§7"+Normal.bordureText+" §l» §e" + Normal.bordureValue);
+                    objectiveSign.setLine(10,"§7"+normal.bordureText+" §l» §e" + normal.bordureValue);
                     objectiveSign.setLine(16, "§r§l§8»§8§m------------§l§8«§r");
                     World world = player.getWorld();
                     int borderSize = (int) world.getWorldBorder().getSize() /2;

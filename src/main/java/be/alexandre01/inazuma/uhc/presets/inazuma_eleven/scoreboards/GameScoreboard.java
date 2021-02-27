@@ -1,5 +1,6 @@
 package be.alexandre01.inazuma.uhc.presets.inazuma_eleven.scoreboards;
 
+import be.alexandre01.inazuma.uhc.InazumaUHC;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.InazumaEleven;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.objects.Episode;
 import be.alexandre01.inazuma.uhc.presets.normal.Normal;
@@ -41,15 +42,15 @@ public class GameScoreboard {
                     objectiveSign.setDisplayName("§8»§3§lInazuma§8§l-§3§lEleven§8«");
 
                     objectiveSign.setLine(4, "§r§l§8»§8§m------------§l§8«");
-                    objectiveSign.setLine(5, "§7Joueurs §l» §e" + Bukkit.getOnlinePlayers().size());
+                    objectiveSign.setLine(5, "§7Joueurs §l» §e" + InazumaUHC.get.getRemainingPlayers().size());
                     objectiveSign.setLine(6,"§7Episode §l» §e"+ Episode.getEpisode());
                     objectiveSign.setLine(7, "§7Temps §l» §e" + InazumaEleven.totalTimeValue);
                     objectiveSign.setLine(8,    "§r§8§m*----§7§m--§7§m--§8§m----*");
-                    objectiveSign.setLine(9, "§7"+ InazumaEleven.timerText+" §l» §e" + InazumaEleven.timerValue);
+                    objectiveSign.setLine(9, "§7"+ inazuma.pvpText+" §l» §e" + inazuma.pvpTime);
                     if(inazuma.hasNether()){
-                        objectiveSign.setLine(10,"§7"+InazumaEleven.netherText+" §l» §e" + InazumaEleven.netherValue);
+                        objectiveSign.setLine(10,"§7"+inazuma.netherText+" §l» §e" + inazuma.netherValue);
                     }
-                    objectiveSign.setLine(11,"§7"+InazumaEleven.bordureText+" §l» §e" + InazumaEleven.bordureValue);
+                    objectiveSign.setLine(11,"§7"+inazuma.bordureText+" §l» §e" + inazuma.bordureValue);
                     objectiveSign.setLine(17,    "§8§m*----§7§m--§7§m--§8§m----*");
                     World world = player.getWorld();
                     int borderSize = (int) world.getWorldBorder().getSize() /2;

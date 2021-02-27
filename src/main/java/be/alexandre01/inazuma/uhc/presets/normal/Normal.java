@@ -4,7 +4,6 @@ import be.alexandre01.inazuma.uhc.generations.Plateform;
 import be.alexandre01.inazuma.uhc.presets.IPreset;
 import be.alexandre01.inazuma.uhc.presets.PresetData;
 import be.alexandre01.inazuma.uhc.presets.normal.listeners.*;
-import be.alexandre01.inazuma.uhc.presets.normal.timers.*;
 import be.alexandre01.inazuma.uhc.scenarios.Scenario;
 import be.alexandre01.inazuma.uhc.scenarios.cateyes.CatEyes;
 import be.alexandre01.inazuma.uhc.scenarios.cutclean.Cutclean;
@@ -82,13 +81,6 @@ public class Normal extends PresetData implements IPreset {
     @Override
     public ArrayList<Timer> getTimers() {
         if(timers.isEmpty()){
-            timers.add(new WaitingTimer());
-            timers.add(new StartingTimer());
-            timers.add(new PVPTimer());
-            timers.add(new NetherTimer());
-            timers.add(new BordureTimer());
-            timers.add(new MoveBordureTimer());
-            timers.add(new InvincibilityTimer());
         }
         return timers;
     }

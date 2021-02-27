@@ -1,8 +1,5 @@
-package be.alexandre01.inazuma.uhc.presets.inazuma_eleven.cusom_events;
+package be.alexandre01.inazuma.uhc.presets.inazuma_eleven.custom_events;
 
-import be.alexandre01.inazuma.uhc.roles.Role;
-import be.alexandre01.inazuma.uhc.roles.RoleItem;
-import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 

@@ -35,6 +35,8 @@ public class SpectatorListeners implements Listener {
     }
     }
 
+
+
     @EventHandler(priority = EventPriority.LOW)
     public void onDamage(EntityDamageEvent event){
         if(event.getEntity() instanceof Player){
@@ -68,7 +70,6 @@ public class SpectatorListeners implements Listener {
 
     @EventHandler
     public void onShift(PlayerToggleSneakEvent event){
-
         Player spectator = event.getPlayer();
         if(blockedInEntity.contains(spectator)){
             spectator.setAllowFlight(true);

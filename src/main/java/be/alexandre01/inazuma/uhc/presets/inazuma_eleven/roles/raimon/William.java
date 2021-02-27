@@ -4,7 +4,7 @@ import be.alexandre01.inazuma.uhc.InazumaUHC;
 import be.alexandre01.inazuma.uhc.custom_events.roles.RoleItemUseEvent;
 import be.alexandre01.inazuma.uhc.presets.Preset;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.categories.Raimon;
-import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.cusom_events.EpisodeChangeEvent;
+import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.custom_events.EpisodeChangeEvent;
 import be.alexandre01.inazuma.uhc.roles.Role;
 import be.alexandre01.inazuma.uhc.roles.RoleCategory;
 import org.bukkit.entity.Player;

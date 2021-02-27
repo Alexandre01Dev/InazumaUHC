@@ -1,27 +1,31 @@
-package be.alexandre01.inazuma.uhc.presets.normal.timers;
+package be.alexandre01.inazuma.uhc.timers.game;
 
-import be.alexandre01.inazuma.uhc.InazumaUHC;
 import be.alexandre01.inazuma.uhc.presets.Preset;
+import be.alexandre01.inazuma.uhc.presets.PresetData;
+import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.InazumaEleven;
 import be.alexandre01.inazuma.uhc.presets.normal.Normal;
 import be.alexandre01.inazuma.uhc.timers.ITimer;
 import be.alexandre01.inazuma.uhc.timers.Timer;
 import be.alexandre01.inazuma.uhc.utils.TitleUtils;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.Sound;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitRunnable;
 import spg.lgdev.iSpigot;
 
 import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.concurrent.TimeUnit;
+import java.util.HashMap;
 
-public class PVPTimer extends Timer {
-    public PVPTimer() {
-        super("pvpTimer");
-        Normal p = (Normal) Preset.instance.p;
-        InazumaUHC i = InazumaUHC.get;
+public class NetherTimer extends Timer {
+    public NetherTimer() {
+        super("nether");
+        PresetData p =  Preset.instance.pData;
+        be.alexandre01.inazuma.uhc.InazumaUHC i = be.alexandre01.inazuma.uhc.InazumaUHC.get;
         iSpigot iSpigot = spg.lgdev.iSpigot.INSTANCE;
         ArrayList<Player> players = new ArrayList<>(Bukkit.getOnlinePlayers());
         super.setTimer(new ITimer() {
@@ -31,7 +35,7 @@ public class PVPTimer extends Timer {
 
             int modifier = 20;
             float lenght = 0.8f;;
-            long pvpTime = 0;
+            long time = 0;
             int t = 0;
 
             @Override
@@ -42,13 +46,13 @@ public class PVPTimer extends Timer {
             @Override
             public void run() {
                 long now = new Date().getTime();
-                if(this.pvpTime == 0){
-                    pvpTime = (p.getPVPTime()* 1000L)+now;
+                if(this.time == 0){
+                    time = (p.netherTime* 1000L)+now;
                 }
 
-                Normal.timerText = "§cPVP: ";
-                Normal.timerValue = "§e"+modifier+"s";
-                Date date = new Date(pvpTime-now);
+                p.netherText = "§cDésac. Nether: ";
+                p.netherValue = "§e"+modifier+"s";
+                Date date = new Date(time-now);
                 int hour =  (int) ((date.getTime() / (1000*60*60)) % 24);
                 String minute = m.format(date);
                 String second = s.format(date);
@@ -59,16 +63,33 @@ public class PVPTimer extends Timer {
                 sb.append(minute+":");
                 sb.append(second);
 
+
+
                 if(date.getTime() <= 0){
-                    i.worldGen.defaultWorld.setPVP(true);
-                    Normal.timerText="§cPVP: ";
-                    Normal.timerValue="§a§lON";
+                    HashMap<Player, Location> hashMap = i.npm.portalUsedByPlayer;
+                    i.npm.active = false;
+                    if(!hashMap.isEmpty()){
+                        Bukkit.getScheduler().scheduleSyncDelayedTask(i, new BukkitRunnable() {
+                            @Override
+                            public void run() {
+                                for(Player player : hashMap.keySet()){
+                                    if(player.getWorld().getEnvironment().equals(World.Environment.NETHER)){
+                                        player.teleport(hashMap.get(player));
+                                    }
+                                }
+                            }
+                        });
+
+                    }
+
+                    p.netherText="§cNether: ";
+                    p.netherValue="§c§lOFF";
                     cancel();
                     return;
                 }
               if(date.getTime() < 10000) {
                   for(Player player : Bukkit.getOnlinePlayers()){
-                      TitleUtils.sendActionBar(player,"§eLe §c§lPVP§e sera actif dans "+second+" seconde(s)");
+                      TitleUtils.sendActionBar(player,"§eLe §c§lNETHER§e sera désactivé dans "+second+" seconde(s)");
                   }
                   lenght = lenght + 0.05f;
               }
@@ -84,7 +105,7 @@ public class PVPTimer extends Timer {
                   }
 
               }
-                Normal.timerValue = "§e"+sb.toString()+"s";
+                p.netherValue = "§e"+sb.toString()+"s";
 
 
 

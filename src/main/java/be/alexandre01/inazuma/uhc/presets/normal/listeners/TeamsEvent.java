@@ -1,12 +1,9 @@
 package be.alexandre01.inazuma.uhc.presets.normal.listeners;
 
 import be.alexandre01.inazuma.uhc.InazumaUHC;
-import be.alexandre01.inazuma.uhc.custom_events.teams.TeamDeathEvent;
 import be.alexandre01.inazuma.uhc.custom_events.teams.TeamSafeTeleportEvent;
-import be.alexandre01.inazuma.uhc.presets.normal.timers.StartingTimer;
-import be.alexandre01.inazuma.uhc.presets.normal.timers.WaitingTimer;
-import be.alexandre01.inazuma.uhc.teams.TeamManager;
 import be.alexandre01.inazuma.uhc.timers.Timer;
+import be.alexandre01.inazuma.uhc.timers.game.StartingTimer;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 

@@ -98,14 +98,6 @@ public class InazumaEleven extends PresetData implements IPreset{
     @Override
     public ArrayList<Timer> getTimers() {
         if(timers.isEmpty()){
-            timers.add(new WaitingTimer());
-            timers.add(new StabilizationTimer());
-            timers.add(new StartingTimer());
-            timers.add(new PVPTimer());
-            timers.add(new NetherTimer());
-            timers.add(new BordureTimer());
-            timers.add(new MoveBordureTimer());
-            timers.add(new InvincibilityTimer());
             timers.add(new EpisodeTimer());
             timers.add(new EpisodeTimeTimer());
         }
@@ -151,7 +143,7 @@ public class InazumaEleven extends PresetData implements IPreset{
 
     @Override
     public int getWaitingTime() {
-        return 120;
+        return waitingTime;
     }
 
     @Override

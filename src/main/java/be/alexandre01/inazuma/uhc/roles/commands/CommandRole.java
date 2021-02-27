@@ -27,7 +27,9 @@ public class CommandRole extends Command {
     }
 
     public void addRole(Role role){
-        roles.add(role);
+        if(!roles.contains(role)){
+            roles.add(role);
+        }
     }
 
     public void addCommand(Role role, Role.command command){

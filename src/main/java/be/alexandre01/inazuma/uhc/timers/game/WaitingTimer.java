@@ -1,9 +1,8 @@
-package be.alexandre01.inazuma.uhc.presets.jujutsu_kaisen.timers;
+package be.alexandre01.inazuma.uhc.timers.game;
 
-import be.alexandre01.inazuma.uhc.InazumaUHC;
 import be.alexandre01.inazuma.uhc.presets.Preset;
-import be.alexandre01.inazuma.uhc.presets.jujutsu_kaisen.Jujutsu_Kaisen;
-import be.alexandre01.inazuma.uhc.presets.normal.Normal;
+import be.alexandre01.inazuma.uhc.presets.PresetData;
+import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.InazumaEleven;
 import be.alexandre01.inazuma.uhc.timers.ITimer;
 import be.alexandre01.inazuma.uhc.timers.Timer;
 import org.bukkit.Bukkit;
@@ -15,13 +14,13 @@ import java.util.ArrayList;
 public class WaitingTimer extends Timer {
     public WaitingTimer() {
         super("waitingTimer");
-        Jujutsu_Kaisen p = (Jujutsu_Kaisen) Preset.instance.p;
-        InazumaUHC i = InazumaUHC.get;
+        PresetData p = Preset.instance.pData;
+        be.alexandre01.inazuma.uhc.InazumaUHC i = be.alexandre01.inazuma.uhc.InazumaUHC.get;
         iSpigot iSpigot = spg.lgdev.iSpigot.INSTANCE;
         ArrayList<Player> players = new ArrayList<>(Bukkit.getOnlinePlayers());
 
         super.setTimer(new ITimer() {
-            int modifier = p.getWaitingTime();
+            int modifier = p.waitingTime;
 
             @Override
             public void preRun() {
@@ -40,14 +39,13 @@ public class WaitingTimer extends Timer {
                     }
                     if(modifier > 10 && size >= p.getMinPlayerToStart()){
                         modifier = 10;
-                        Normal.lastModifier = modifier;
+                        InazumaEleven.lastModifier = modifier;
                     }
                     if(size == 0){
-                        modifier= p.getWaitingTime();
-                        Normal.lastModifier = modifier;
+                        modifier= p.waitingTime;
+                        InazumaEleven.lastModifier = modifier;
                     }else {
-
-                        Normal.lastModifier = modifier;
+                        InazumaEleven.lastModifier = modifier;
                         modifier--;
                     }
                 }

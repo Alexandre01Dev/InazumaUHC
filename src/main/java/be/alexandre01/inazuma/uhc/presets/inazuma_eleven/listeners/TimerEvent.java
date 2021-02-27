@@ -6,14 +6,13 @@ import be.alexandre01.inazuma.uhc.custom_events.timers.TimerCancelEvent;
 import be.alexandre01.inazuma.uhc.custom_events.timers.TimerCreateEvent;
 import be.alexandre01.inazuma.uhc.presets.Preset;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.timers.EpisodeTimeTimer;
-import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.timers.StabilizationTimer;
-import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.timers.StartingTimer;
-import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.timers.WaitingTimer;
 import be.alexandre01.inazuma.uhc.roles.Role;
 import be.alexandre01.inazuma.uhc.state.GameState;
 import be.alexandre01.inazuma.uhc.state.State;
 import be.alexandre01.inazuma.uhc.timers.Timer;
+import be.alexandre01.inazuma.uhc.timers.game.StartingTimer;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
@@ -46,8 +45,12 @@ public class TimerEvent implements Listener {
                 public void run() {
                     InazumaUHC.get.rm.distributeRoles( InazumaUHC.get.getRemainingPlayers());
                     for(Role role : Role.getRoles()){
-                        role.spoilRole();
-                        role.giveItem();
+                        for(Player player : role.getPlayers()){
+                            if(player.isOnline()){
+                                role.spoilRole(player);
+                                role.giveItem(player);
+                            }
+                        }
                     }
                     Role.isDistributed = true;
                 }

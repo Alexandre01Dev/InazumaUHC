@@ -1,4 +1,4 @@
-package be.alexandre01.inazuma.uhc.presets.inazuma_eleven.timers;
+package be.alexandre01.inazuma.uhc.timers.game;
 
 import be.alexandre01.inazuma.uhc.presets.Preset;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.InazumaEleven;
@@ -7,7 +7,6 @@ import be.alexandre01.inazuma.uhc.timers.Timer;
 import be.alexandre01.inazuma.uhc.timers.utils.DateBuilderTimer;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import spg.lgdev.iSpigot;
 
 import java.util.ArrayList;
 
@@ -35,7 +34,7 @@ public class StabilizationTimer extends Timer {
 
 
                     if(tps < 20.5 && tps >= 20|| tps > 19.5 && tps <= 20){
-                        System.out.println("STAB...");
+                        System.out.println("Stabilisation du serveur...");
                         if(!activate){
                             dateBuilderTimer = new DateBuilderTimer(3*1000);
                             activate = true;
@@ -44,7 +43,6 @@ public class StabilizationTimer extends Timer {
 
 
                         if(dateBuilderTimer.getDate().getTime() <= 0){
-                            System.out.println("CANCEL :'( ...");
                             cancel();
                         }
                         return;

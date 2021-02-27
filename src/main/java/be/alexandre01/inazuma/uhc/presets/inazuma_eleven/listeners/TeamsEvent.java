@@ -2,9 +2,8 @@ package be.alexandre01.inazuma.uhc.presets.inazuma_eleven.listeners;
 
 import be.alexandre01.inazuma.uhc.InazumaUHC;
 import be.alexandre01.inazuma.uhc.custom_events.teams.TeamSafeTeleportEvent;
-import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.timers.StabilizationTimer;
-import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.timers.StartingTimer;
 import be.alexandre01.inazuma.uhc.timers.Timer;
+import be.alexandre01.inazuma.uhc.timers.game.StabilizationTimer;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 

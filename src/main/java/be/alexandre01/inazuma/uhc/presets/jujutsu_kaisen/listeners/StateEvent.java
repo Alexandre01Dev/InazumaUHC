@@ -18,6 +18,10 @@ import be.alexandre01.inazuma.uhc.presets.jujutsu_kaisen.timers.*;
 import be.alexandre01.inazuma.uhc.roles.Role;
 import be.alexandre01.inazuma.uhc.teams.Team;
 import be.alexandre01.inazuma.uhc.timers.Timer;
+import be.alexandre01.inazuma.uhc.timers.game.BordureTimer;
+import be.alexandre01.inazuma.uhc.timers.game.InvincibilityTimer;
+import be.alexandre01.inazuma.uhc.timers.game.NetherTimer;
+import be.alexandre01.inazuma.uhc.timers.game.PVPTimer;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
@@ -119,10 +123,14 @@ public class StateEvent implements Listener {
 
 
             i.rm.distributeRoles(i.getRemainingPlayers());
-            for(Role role : Role.getRoles()){
-                role.spoilRole();
-                role.giveItem();
+        for(Role role : Role.getRoles()){
+            for(Player player : role.getPlayers()){
+                if(player.isOnline()){
+                    role.spoilRole(player);
+                    role.giveItem(player);
+                }
             }
+        }
         Role.isDistributed = true;
     }
 }

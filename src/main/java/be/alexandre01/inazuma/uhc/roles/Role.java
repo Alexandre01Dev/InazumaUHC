@@ -54,9 +54,9 @@ public class Role {
             player.spigot().sendMessage(d);
         }
     }
-    public void spoilRole(){
+    public void spoilRole(Player player){
         RoleManager roleManager = InazumaUHC.get.rm;
-        for(Player player : getPlayers()){
+
             if(getRoleCategory() != null){
                 player.sendMessage("§8§m*------§7§m------§7§m-§b§m-----------§7§m-§7§m------§8§m------*");
                 BaseComponent b = new TextComponent(Preset.instance.p.prefixName()+ "§7§lVoici votre rôle: "+ getRoleCategory().getPrefixColor()+"§l"+getName());
@@ -65,17 +65,15 @@ public class Role {
                 player.spigot().sendMessage(b);
                 sendDescription(player);
                 player.sendMessage("§8§m*------§7§m------§7§m-§b§m-----------§7§m-§7§m------§8§m------*");
-                continue;
+
+            }else {
+                player.sendMessage("§8§m*------§7§m------§7§m-§b§m-----------§7§m-§7§m------§8§m------*");
+                BaseComponent b = new TextComponent(Preset.instance.p.prefixName()+" §7§lVoici votre rôle: §a§l"+getName()+"\n");
+
+                player.spigot().sendMessage(b);
+                sendDescription(player);
+                player.sendMessage("§8§m*------§7§m------§7§m-§b§m-----------§7§m-§7§m------§8§m------*");
             }
-            player.sendMessage("§8§m*------§7§m------§7§m-§b§m-----------§7§m-§7§m------§8§m------*");
-            BaseComponent b = new TextComponent(Preset.instance.p.prefixName()+" §7§lVoici votre rôle: §a§l"+getName()+"\n");
-
-            player.spigot().sendMessage(b);
-            sendDescription(player);
-            player.sendMessage("§8§m*------§7§m------§7§m-§b§m-----------§7§m-§7§m------§8§m------*");
-        }
-
-
 
             if(!roleToSpoil.isEmpty()){
                 for(Class<?> r : roleToSpoil){
@@ -89,9 +87,7 @@ public class Role {
                         return;
                     }
                     for(Player spoiledP : role.getPlayers()){
-                        for(Player player : getPlayers()){
                         player.sendMessage(Preset.instance.p.prefixName()+"§a"+spoiledP.getName()+" est §a"+role.getName());
-                    }
                 }
             }
 

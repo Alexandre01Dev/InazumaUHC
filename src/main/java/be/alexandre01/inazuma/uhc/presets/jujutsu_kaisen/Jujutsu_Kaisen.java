@@ -89,13 +89,6 @@ public class Jujutsu_Kaisen extends PresetData implements IPreset{
     @Override
     public ArrayList<Timer> getTimers() {
         if(timers.isEmpty()){
-            timers.add(new WaitingTimer());
-            timers.add(new StartingTimer());
-            timers.add(new PVPTimer());
-            timers.add(new NetherTimer());
-            timers.add(new BordureTimer());
-            timers.add(new MoveBordureTimer());
-            timers.add(new InvincibilityTimer());
             timers.add(new DelayedTimeChangeTimer(DelayedTimeChangeTimer.State.DAY,1,20*13));
             timers.add(new EpisodeTimer());
         }

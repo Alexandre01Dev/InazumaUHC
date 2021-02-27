@@ -1,8 +1,7 @@
-package be.alexandre01.inazuma.uhc.presets.normal.timers;
+package be.alexandre01.inazuma.uhc.timers.game;
 
-import be.alexandre01.inazuma.uhc.InazumaUHC;
 import be.alexandre01.inazuma.uhc.presets.Preset;
-import be.alexandre01.inazuma.uhc.presets.normal.Normal;
+import be.alexandre01.inazuma.uhc.presets.PresetData;
 import be.alexandre01.inazuma.uhc.timers.ITimer;
 import be.alexandre01.inazuma.uhc.timers.Timer;
 import be.alexandre01.inazuma.uhc.utils.TitleUtils;
@@ -16,11 +15,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class MoveBordureTimer extends Timer {
-    public MoveBordureTimer() {
-        super("moveBordureTimer");
-        Normal p = (Normal) Preset.instance.p;
-        InazumaUHC i = InazumaUHC.get;
+public class BordureTimer extends Timer {
+    public BordureTimer() {
+        super("bordureTimer");
+        PresetData p = Preset.instance.pData;
+        be.alexandre01.inazuma.uhc.InazumaUHC i = be.alexandre01.inazuma.uhc.InazumaUHC.get;
         iSpigot iSpigot = spg.lgdev.iSpigot.INSTANCE;
         ArrayList<Player> players = new ArrayList<>(Bukkit.getOnlinePlayers());
         super.setTimer(new ITimer() {
@@ -35,18 +34,18 @@ public class MoveBordureTimer extends Timer {
 
             @Override
             public void preRun() {
-                InazumaUHC.get.worldGen.defaultWorld.getWorldBorder().setSize(p.getEndBordure(),p.getEndBordureTime());
+
             }
 
             @Override
             public void run() {
                 long now = new Date().getTime();
                 if(this.time == 0){
-                    time = (p.getEndBordureTime()* 1000L)+now;
+                    time = (p.bordureTime* 1000L)+now;
                 }
 
-                Normal.bordureText = "§cBordure: ";
-                Normal.bordureValue= "§e"+modifier+"s";
+                p.bordureText = "§cBordure ";
+                p.bordureValue= "§e"+modifier+"s";
                 Date date = new Date(time-now);
                 int hour =  (int) ((date.getTime() / (1000*60*60)) % 24);
                 String minute = m.format(date);
@@ -61,14 +60,15 @@ public class MoveBordureTimer extends Timer {
 
 
                 if(date.getTime() <= 0){
-                    Normal.bordureText = "§cBordure: ";
-                    Normal.bordureValue= "§cFermé";
+                    p.bordureValue = "§a§l✔";
+                   Timer timer = i.tm.getTimer(MoveBordureTimer.class);
+                    timer.runTaskTimerAsynchronously(be.alexandre01.inazuma.uhc.InazumaUHC.get,0,10);
                     cancel();
                     return;
                 }
               if(date.getTime() < 10000) {
                   for(Player player : Bukkit.getOnlinePlayers()){
-                      TitleUtils.sendActionBar(player,"§eLa §c§lBordure§e se stoppera dans \"+second+\" seconde(s)");
+                      TitleUtils.sendActionBar(player,"§eLa §c§lBordure§e se déplacera dans "+second+" seconde(s)");
                   }
                   lenght = lenght + 0.05f;
               }
@@ -84,15 +84,7 @@ public class MoveBordureTimer extends Timer {
                   }
 
               }
-                Normal.bordureValue = "§e"+sb.toString()+"s";
-
-
-
-
-
-
-
-
+                p.bordureValue = "§e"+sb.toString()+"s";
                 }
         });
     }

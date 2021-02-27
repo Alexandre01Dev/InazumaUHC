@@ -12,6 +12,7 @@ import be.alexandre01.inazuma.uhc.state.GameState;
 import be.alexandre01.inazuma.uhc.state.State;
 import be.alexandre01.inazuma.uhc.teams.Team;
 import be.alexandre01.inazuma.uhc.teams.TeamManager;
+import be.alexandre01.inazuma.uhc.utils.CustomExp;
 import be.alexandre01.inazuma.uhc.utils.ExperienceManager;
 import net.minecraft.server.v1_8_R3.*;
 import net.minecraft.server.v1_8_R3.Achievement;
@@ -214,8 +215,9 @@ public class PlayerEvent implements Listener {
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onKill(EntityDamageEvent event){
-        if(GameState.get().contains(State.PLAYING)){
 
+        if(GameState.get().contains(State.PLAYING)){
+            System.out.println("DAMAGE PLAYER EVENT");
             if(event.getEntity() instanceof Player){
                 Player player = (Player) event.getEntity();
                 if(i.spectatorManager.getPlayers().contains(player)){
@@ -237,7 +239,8 @@ public class PlayerEvent implements Listener {
                                 }
 
                             }
-                            ((ExperienceOrb)player.getWorld().spawn(player.getLocation(),ExperienceOrb.class)).setExperience(ExperienceManager.getTotalExperience(playerInstantDeathEvent.getDroppedExp()));
+
+                           ((ExperienceOrb)CustomExp.spawn(i,player.getLocation()).getBukkitEntity()).setExperience(ExperienceManager.getTotalExperience(playerInstantDeathEvent.getDroppedExp()));
                         }
 
                             event.setCancelled(true);
