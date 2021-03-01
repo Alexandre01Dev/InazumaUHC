@@ -129,30 +129,32 @@ public class RejoinManager implements Listener {
 
         playerChest.remove(p.getUniqueId());
 
-        Role role = InazumaUHC.get.rm.getRole(p.getUniqueId());
-        if(role == null){
-            Role nRole = InazumaUHC.get.rm.addRole(p.getUniqueId());
-            nRole.spoilRole(p);
-            nRole.giveItem(p);
-        }else {
-            role.getPlayers().add(p);
+        if(Role.isDistributed){
+            Role role = InazumaUHC.get.rm.getRole(p.getUniqueId());
+            if(role == null){
+                Role nRole = InazumaUHC.get.rm.addRole(p.getUniqueId());
+                nRole.spoilRole(p);
+                nRole.giveItem(p);
+            }else {
+                role.getPlayers().add(p);
 
-            if(role.getLoad() != null){
-                role.getLoad().a(p);
-            }
-
-            if(!role.listeners.isEmpty()){
-                if(!role.isListenerDeployed){
-                    role.deployListeners();
+                if(role.getLoad() != null){
+                    role.getLoad().a(p);
                 }
 
-            }
+                if(!role.listeners.isEmpty()){
+                    if(!role.isListenerDeployed){
+                        role.deployListeners();
+                    }
 
-            if(!role.getCommands().isEmpty()){
-                role.loadCommands();
-            }
+                }
 
+                if(!role.getCommands().isEmpty()){
+                    role.loadCommands();
+                }
+            }
         }
+
         if(!InazumaUHC.get.getRemainingPlayers().contains(p)){
             InazumaUHC.get.getRemainingPlayers().add(p);
         }

@@ -18,7 +18,7 @@ public class PresetData {
     public int playerSize = 20;
     public int totalTime = 60*60;
     public int waitingTime = 120;
-    public int pvpTime = 1*30;
+    public int pvpTime = 30;
     public int invisibilityTime = 1;
     public int netherTime = 55*60;
     public int bordureTime = 60*60;
@@ -116,11 +116,11 @@ public class PresetData {
         this.pvpText = timerText;
     }
 
-    public  String getTimerValue() {
+    public  String getPVPValue() {
         return this.pvpValue;
     }
 
-    public void setTimerValue(String timerValue) {
+    public void setPVPValue(String timerValue) {
         this.pvpValue = timerValue;
     }
 
