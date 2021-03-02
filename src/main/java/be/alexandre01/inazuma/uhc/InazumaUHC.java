@@ -84,9 +84,6 @@ public final class InazumaUHC extends JavaPlugin {
     public boolean loadWorldBefore = true;
     public boolean unloadWorlds = false;
 
-    public static void main(String[] args){
-
-    }
     @Override
     public void onEnable() {
         //Instance
