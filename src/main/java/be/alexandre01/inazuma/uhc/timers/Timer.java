@@ -32,6 +32,7 @@ public class Timer extends BukkitRunnable{
     public InazumaUHC i;
     public IPreset p;
     ITimer run = null;
+    tempLaunch tempLaunch;
     public Timer(String timerName){
         this.timerName = timerName;
         this.i = InazumaUHC.get;
@@ -54,7 +55,6 @@ public class Timer extends BukkitRunnable{
 
     @Override
     public void run() {
-
         if(optimisation){
             double tps = iSpigot.getTPS()[0];
 
@@ -83,6 +83,10 @@ public class Timer extends BukkitRunnable{
 
     @Override
     public synchronized BukkitTask runTask(Plugin plugin) throws IllegalArgumentException, IllegalStateException {
+        tempLaunch = () -> {
+            runTask(plugin);
+            return this;
+        };
         if(run == null){
             try {
                 throw new NullTimerException("No timer run found, check if the run value is set.");
@@ -106,7 +110,10 @@ public class Timer extends BukkitRunnable{
 
     @Override
     public synchronized BukkitTask runTaskAsynchronously(Plugin plugin) throws IllegalArgumentException, IllegalStateException {
-
+        tempLaunch = () -> {
+            runTaskAsynchronously(plugin);
+            return this;
+        };
         if(run == null){
             try {
                 throw new NullTimerException("No timer run found, check if the run value is set.");
@@ -128,6 +135,10 @@ public class Timer extends BukkitRunnable{
 
     @Override
     public synchronized BukkitTask runTaskLater(Plugin plugin, long delay) throws IllegalArgumentException, IllegalStateException {
+        tempLaunch = () -> {
+            runTaskLater(plugin,delay);
+            return this;
+        };
         if(run == null){
             try {
                 throw new NullTimerException("No timer run found, check if the run value is set.");
@@ -149,6 +160,10 @@ public class Timer extends BukkitRunnable{
 
     @Override
     public synchronized BukkitTask runTaskLaterAsynchronously(Plugin plugin, long delay) throws IllegalArgumentException, IllegalStateException {
+        tempLaunch = () -> {
+            runTaskLaterAsynchronously(plugin,delay);
+            return this;
+        };
         if(run == null){
             try {
                 throw new NullTimerException("No timer run found, check if the run value is set.");
@@ -170,6 +185,10 @@ public class Timer extends BukkitRunnable{
 
     @Override
     public synchronized BukkitTask runTaskTimer(Plugin plugin, long delay, long period) throws IllegalArgumentException, IllegalStateException {
+        tempLaunch = () -> {
+            runTaskTimer(plugin,delay,period);
+            return this;
+        };
         if(run == null){
             try {
                 throw new NullTimerException("No timer run found, check if the run value is set.");
@@ -192,6 +211,10 @@ public class Timer extends BukkitRunnable{
 
     @Override
     public synchronized BukkitTask runTaskTimerAsynchronously(Plugin plugin, long delay, long period) throws IllegalArgumentException, IllegalStateException {
+        tempLaunch = () -> {
+            runTaskTimerAsynchronously(plugin,delay,period);
+            return this;
+        };
         if(run == null){
             try {
                 throw new NullTimerException("No timer run found, check if the run value is set.");
@@ -244,6 +267,13 @@ public class Timer extends BukkitRunnable{
         }
     }
 
+    public Timer reset(){
+        cancel();
+        if(tempLaunch != null){
+            return tempLaunch.a();
+        }
+        return null;
+    }
     public String getTimerName() {
         return timerName;
     }
@@ -262,5 +292,9 @@ public class Timer extends BukkitRunnable{
 
     public interface setup{
         public Timer setInstance();
+    }
+
+    public interface tempLaunch{
+        public Timer a();
     }
 }
