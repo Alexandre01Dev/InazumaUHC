@@ -19,6 +19,7 @@ public class Timer extends BukkitRunnable{
     boolean b = false;
     boolean c = false;
     double d = 0;
+    boolean r = false;
     boolean isAlreadyLaunched = false;
     Instant now = Instant.now();
     Instant sec = Instant.now();
@@ -243,6 +244,8 @@ public class Timer extends BukkitRunnable{
         TimerCancelEvent cancelTimerEvent = new TimerCancelEvent(this);
 
         Class c = this.getClass();
+        if(r){
+        Bukkit.getPluginManager().callEvent(cancelTimerEvent);
         if(!cancelTimerEvent.isCancelled()){
             if(setup == null){
                 setSetup(new setup(){
@@ -259,15 +262,19 @@ public class Timer extends BukkitRunnable{
                     };
                 });
             }
+        }
+        }
+            r = false;
             Timer timer = newInstance();
             cancelTimerEvent.setTimer(timer);
             bukkitTask.cancel();
             InazumaUHC.get.tm.timers.put(this.getClass(),timer);
-            Bukkit.getPluginManager().callEvent(cancelTimerEvent);
-        }
+
+
     }
 
     public Timer reset(){
+        r = true;
         cancel();
         if(tempLaunch != null){
             return tempLaunch.a();

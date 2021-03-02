@@ -15,6 +15,7 @@ public class SpectatorManager {
     }
 
     public void addPlayer(Player player){
+        SpectatorPlayer.builder().player(player).build();
         players.put(player,new SpectatorPlayer(player));
     }
 

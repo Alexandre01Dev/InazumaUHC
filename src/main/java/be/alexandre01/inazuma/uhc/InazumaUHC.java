@@ -116,7 +116,7 @@ public final class InazumaUHC extends JavaPlugin {
         lm.addListener(invincibilityDamager);
         registerCommand("revive", new ReviveCommand("revive"));
         registerCommand("heal", new HealCommand("heal"));
-        registerCommand("force", new ForceCommand("force"));
+
         potionEvent = new PotionEvent();
         lm.addListener(potionEvent);
         lm.addListener(new TeamsEvent());
@@ -187,6 +187,7 @@ public final class InazumaUHC extends JavaPlugin {
             rm = new RoleManager();
         }
 
+        registerCommand("force", new ForceCommand("force"));
 
         //lm.automaticFindListener();
 

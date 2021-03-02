@@ -3,6 +3,7 @@ package be.alexandre01.inazuma.uhc.spectators;
 import be.alexandre01.inazuma.uhc.InazumaUHC;
 import be.alexandre01.inazuma.uhc.utils.ScoreboardUtil;
 import be.alexandre01.inazuma.uhc.utils.TitleUtils;
+import lombok.Builder;
 import net.minecraft.server.v1_8_R3.PacketPlayOutCamera;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
@@ -14,7 +15,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
-
+@Builder
 public class SpectatorPlayer{
 
     private Player player;
