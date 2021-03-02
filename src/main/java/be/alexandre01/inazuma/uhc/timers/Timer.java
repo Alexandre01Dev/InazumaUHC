@@ -244,9 +244,8 @@ public class Timer extends BukkitRunnable{
         TimerCancelEvent cancelTimerEvent = new TimerCancelEvent(this);
 
         Class c = this.getClass();
-        if(r){
-        Bukkit.getPluginManager().callEvent(cancelTimerEvent);
-        if(!cancelTimerEvent.isCancelled()){
+
+
             if(setup == null){
                 setSetup(new setup(){
                     @Override
@@ -262,15 +261,23 @@ public class Timer extends BukkitRunnable{
                     };
                 });
             }
-        }
-        }
-            r = false;
-            Timer timer = newInstance();
-            cancelTimerEvent.setTimer(timer);
-            bukkitTask.cancel();
-            InazumaUHC.get.tm.timers.put(this.getClass(),timer);
 
+            if(r){
+                r = false;
+                Timer timer = newInstance();
+                bukkitTask.cancel();
+                InazumaUHC.get.tm.timers.put(this.getClass(),timer);
+                return;
+            }
 
+        if(cancelTimerEvent.isCancelled())
+            return;
+
+        Bukkit.getPluginManager().callEvent(cancelTimerEvent);
+        Timer timer = newInstance();
+        cancelTimerEvent.setTimer(timer);
+        bukkitTask.cancel();
+        InazumaUHC.get.tm.timers.put(this.getClass(),timer);
     }
 
     public Timer reset(){
