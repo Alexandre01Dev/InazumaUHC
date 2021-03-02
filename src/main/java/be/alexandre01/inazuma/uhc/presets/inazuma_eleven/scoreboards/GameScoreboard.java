@@ -46,7 +46,7 @@ public class GameScoreboard {
                     objectiveSign.setLine(6,"§7Episode §l» §e"+ Episode.getEpisode());
                     objectiveSign.setLine(7, "§7Temps §l» §e" + InazumaEleven.totalTimeValue);
                     objectiveSign.setLine(8,    "§r§8§m*----§7§m--§7§m--§8§m----*");
-                    objectiveSign.setLine(9, "§7"+ inazuma.pvpText+" §l» §e" + inazuma.pvpTime);
+                    objectiveSign.setLine(9, "§7"+ inazuma.pvpText+" §l» §e" + inazuma.pvpValue);
                     if(inazuma.hasNether()){
                         objectiveSign.setLine(10,"§7"+inazuma.netherText+" §l» §e" + inazuma.netherValue);
                     }
