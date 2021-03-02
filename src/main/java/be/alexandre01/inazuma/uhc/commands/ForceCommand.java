@@ -4,6 +4,7 @@ import be.alexandre01.inazuma.uhc.presets.IPreset;
 import be.alexandre01.inazuma.uhc.presets.Preset;
 import be.alexandre01.inazuma.uhc.presets.PresetData;
 import be.alexandre01.inazuma.uhc.timers.Timer;
+import lombok.Getter;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 
@@ -15,13 +16,16 @@ import java.util.HashMap;
 
 public class ForceCommand extends Command {
     IPreset preset;
+    @Getter private static ForceCommand instance;
     private HashMap<String,String> varNames;
     private HashMap<String, Timer> timers;
-    protected ForceCommand(String s) {
+    public ForceCommand(String s) {
         super(s);
+        super.setPermission("uhc.force");
         this.preset = Preset.instance.p;
         this.varNames = new HashMap<>();
         this.timers = new HashMap<>();
+        instance = this;
     }
 
     public void addValue(String varName,String link,Timer timer){
@@ -68,8 +72,13 @@ public class ForceCommand extends Command {
             setValue(varNames.get(args[0].toLowerCase()),5);
             Timer t = timers.get(args[0].toLowerCase());
             t = t.reset();
-
+            return true;
         }
+        sender.sendMessage(preset.prefixName()+" §cModule non trouvé");
+        for(String varName : varNames.keySet()){
+            sender.sendMessage("§e- §c/force "+ varName);
+        }
+
         return false;
     }
 

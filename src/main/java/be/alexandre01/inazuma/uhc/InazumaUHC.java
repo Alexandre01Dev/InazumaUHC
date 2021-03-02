@@ -1,9 +1,6 @@
 package be.alexandre01.inazuma.uhc;
 
-import be.alexandre01.inazuma.uhc.commands.HostCommand;
-import be.alexandre01.inazuma.uhc.commands.ReviveCommand;
-import be.alexandre01.inazuma.uhc.commands.ScenarioCommand;
-import be.alexandre01.inazuma.uhc.commands.StartCommand;
+import be.alexandre01.inazuma.uhc.commands.*;
 import be.alexandre01.inazuma.uhc.commands.test.ChunkCommand;
 import be.alexandre01.inazuma.uhc.config.Config;
 import be.alexandre01.inazuma.uhc.config.Messages;
@@ -118,6 +115,8 @@ public final class InazumaUHC extends JavaPlugin {
         invincibilityDamager = new InvincibilityDamager();
         lm.addListener(invincibilityDamager);
         registerCommand("revive", new ReviveCommand("revive"));
+        registerCommand("heal", new HealCommand("heal"));
+        registerCommand("force", new ForceCommand("force"));
         potionEvent = new PotionEvent();
         lm.addListener(potionEvent);
         lm.addListener(new TeamsEvent());

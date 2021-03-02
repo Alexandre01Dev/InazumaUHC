@@ -14,6 +14,7 @@ public class TeamsEvent implements Listener {
     }
     @EventHandler
     public void onTeamTeleport(TeamSafeTeleportEvent event){
+
         Timer timer = i.tm.getTimer(StabilizationTimer.class);
         timer.runTaskTimerAsynchronously(i,0,5);
     }

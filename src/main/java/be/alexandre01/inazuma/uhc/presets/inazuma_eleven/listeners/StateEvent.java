@@ -1,5 +1,6 @@
 package be.alexandre01.inazuma.uhc.presets.inazuma_eleven.listeners;
 
+import be.alexandre01.inazuma.uhc.commands.ForceCommand;
 import be.alexandre01.inazuma.uhc.custom_events.state.PlayingEvent;
 import be.alexandre01.inazuma.uhc.custom_events.state.PreparingEvent;
 import be.alexandre01.inazuma.uhc.custom_events.state.StartingEvent;
@@ -102,12 +103,14 @@ public class StateEvent implements Listener {
                         public void run() {
                             Timer timer = i.tm.getTimer(PVPTimer.class);
                             timer.runTaskTimerAsynchronously(be.alexandre01.inazuma.uhc.InazumaUHC.get,0,10);
+                            ForceCommand.getInstance().addValue("pvpTime","pvp",timer);
                             if(p.getNether()){
                                 timer = i.tm.getTimer(NetherTimer.class);
                                 timer.runTaskTimerAsynchronously(be.alexandre01.inazuma.uhc.InazumaUHC.get,0,10);
                             }
                             timer = i.tm.getTimer(BordureTimer.class);
                             timer.runTaskTimerAsynchronously(be.alexandre01.inazuma.uhc.InazumaUHC.get,0,10);
+                            ForceCommand.getInstance().addValue("bordureTime","bordure",timer);
 
                             timer = i.tm.getTimer(InvincibilityTimer.class);
                             timer.runTaskTimerAsynchronously(be.alexandre01.inazuma.uhc.InazumaUHC.get,0,10);
