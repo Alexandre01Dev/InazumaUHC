@@ -24,6 +24,7 @@ public class HealCommand extends Command {
                 player.setHealth(player.getMaxHealth());
             }
             sender.sendMessage(Preset.instance.p.prefixName()+ " §aVous avez heal tout les joueurs connectés.");
+            Bukkit.broadcastMessage(Preset.instance.p.prefixName()+ " §aTous les joueurs de la partie ont été heal.");
             return false;
         }
         Player player = Bukkit.getPlayer(args[0]);
@@ -32,6 +33,7 @@ public class HealCommand extends Command {
             return false;
         }
         sender.sendMessage(Preset.instance.p.prefixName()+ " §aVous avez heal "+ player.getName()+".");
+        player.sendMessage(Preset.instance.p.prefixName()+ " §aVous avez été heal.");
         player.setHealth(player.getMaxHealth());
         return false;
     }
