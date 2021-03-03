@@ -8,6 +8,7 @@ import be.alexandre01.inazuma.uhc.utils.ItemBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.ExperienceOrb;
+import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -44,7 +45,8 @@ public class DiamondLimit extends Scenario implements Listener {
                 e.setCancelled(true);
                 e.getBlock().setType(Material.AIR);
                 ((ExperienceOrb)CustomExp.spawn(InazumaUHC.getGet(),player.getLocation()).getBukkitEntity()).setExperience(e.getExpToDrop());
-                e.getBlock().getWorld().dropItemNaturally(ItemStack(Material.GOLD_INGOT);
+                Item item = (Item)e.getBlock().getWorld().spawn(e.getBlock().getLocation(),Item.class);
+                item.setItemStack(new ItemStack(Material.GOLD_ORE));
             }
         }
 
