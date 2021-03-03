@@ -23,7 +23,6 @@ public class HealCommand extends Command {
             for(Player player : InazumaUHC.get.getRemainingPlayers()){
                 player.setHealth(player.getMaxHealth());
             }
-            sender.sendMessage(Preset.instance.p.prefixName()+ " §aVous avez heal tout les joueurs connectés.");
             Bukkit.broadcastMessage(Preset.instance.p.prefixName()+ " §aTous les joueurs de la partie ont été heal.");
             return false;
         }

@@ -152,7 +152,7 @@ public class Byron extends Role implements Listener {
         if(killer != null){
             if (inazumaUHC.rm.getRole(killer.getUniqueId()).getClass().equals(Byron.class)){
                 killer.sendMessage("§7Vous venez de tuer §4§l" + killed.getName() + " §7vous avez donc gagné §c§l0.5 §4❤§7." );
-                killer.setMaxHealth(killer.getMaxHealth()+0.25D);
+                killer.setMaxHealth(killer.getMaxHealth()+1);
             }
         }
     }
