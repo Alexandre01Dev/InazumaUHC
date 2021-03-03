@@ -84,6 +84,7 @@ public class Mark extends Role implements Listener {
             for(Player player : inazumaUHC.rm.getRole(event.getPlayer().getUniqueId()).getPlayers()){
                 if(player.getMaxHealth() > 10){
                     player.setMaxHealth(player.getMaxHealth()-1);
+                    player.sendMessage(Preset.instance.p.prefixName()+" Un joueur de &6Raimon&7 vient de mourir, vous perdez donc §4❤§7 permanent.");
                 }
             }
         }
