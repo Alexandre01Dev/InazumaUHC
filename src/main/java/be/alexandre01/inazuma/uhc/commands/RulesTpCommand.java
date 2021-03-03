@@ -45,28 +45,33 @@ public class RulesTpCommand extends Command {
             pls.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 120, 100,true,false));
 
 
+            }
+
 
             Bukkit.getScheduler().runTaskLater(InazumaUHC.get, new Runnable() { // cooldown pour être tp au spawn
                 @Override
                 public void run() {
+                    for(Player pls : Bukkit.getOnlinePlayers()){
 
                     pls.playSound(player.getLocation(), Sound.NOTE_PLING,5,1);
                     TitleUtils.sendTitle(pls, 20, 30, 20,"§6Merci d'écouter","");
                     pls.setLevel(3);
 
+                    }
                 }
             }, 20 * 1); // 5 secondes
 
             Bukkit.getScheduler().runTaskLater(InazumaUHC.get, new Runnable() { // cooldown pour être tp au spawn
                         @Override
                         public void run() {
+                            for(Player pls : Bukkit.getOnlinePlayers()){
 
                             pls.playSound(player.getLocation(), Sound.NOTE_PLING,5,1);
 
                             pls.setLevel(2);
 
                             TitleUtils.sendTitle(pls, 20, 30, 20,"§6Attentivement","");
-
+                            }
                         }
                     }
                     , 20 * 2);
@@ -74,13 +79,13 @@ public class RulesTpCommand extends Command {
             Bukkit.getScheduler().runTaskLater(InazumaUHC.get, new Runnable() { // cooldown pour être tp au spawn
                         @Override
                         public void run() {
-
+                            for(Player pls : Bukkit.getOnlinePlayers()){
                             pls.playSound(player.getLocation(), Sound.NOTE_PLING,5,1);
 
                             pls.setLevel(1);
 
                             TitleUtils.sendTitle(pls, 20, 30, 20,"§6Les §cREGLES !","");
-
+                            }
                         }
                     }
                     , 20 * 3);
@@ -88,20 +93,21 @@ public class RulesTpCommand extends Command {
             Bukkit.getScheduler().runTaskLater(InazumaUHC.get, new Runnable() { // cooldown pour être tp au spawn
                         @Override
                         public void run() {
-
                             Location loc = new Location(Bukkit.getWorld("world"), 792.5, 94, 873.5);
-                            pls.teleport(loc);
-                            pls.setBedSpawnLocation(loc);
-
-
                             Location loc1 = new Location(Bukkit.getWorld("world"), 825.5, 91, 873.5,90, 0);
+                            loc.getWorld().setSpawnLocation(loc.getBlockX(),loc.getBlockY(),loc.getBlockZ());
+                            for(Player pls : Bukkit.getOnlinePlayers()){
+
+                            pls.teleport(loc);
+
+
+
                             player.teleport(loc1);
-                            player.setBedSpawnLocation(loc1);
 
                             TitleUtils.sendTitle(pls, 20, 30, 20,"§6Sinon je te perma !","§6Signée§9 " + player.getName());
                             pls.playSound(player.getLocation(), Sound.LEVEL_UP,5,1);
                             pls.setLevel(0);
-
+                            }
                         }
                     }
                     , 20 * 4); // 5 secondes
@@ -109,12 +115,12 @@ public class RulesTpCommand extends Command {
             Bukkit.getScheduler().runTaskLater(InazumaUHC.get, new Runnable() { // cooldown pour être tp au spawn
                 @Override
                 public void run() {
-
+                    for(Player pls : Bukkit.getOnlinePlayers()){
                     pls.sendMessage(Preset.instance.p.prefixName() + " Merci de tous attendre devant une chaise, le cours de §l§3" + player.getName()+ " §cva débuter.");
-
+                    }
                     }
                 }, 20 * 5); // 5 secondes
-            }
+
         }
         else{
             player.sendMessage(Preset.instance.p.prefixName() + " Vous ne pouvez utiliser cette commande en cours de partie.");

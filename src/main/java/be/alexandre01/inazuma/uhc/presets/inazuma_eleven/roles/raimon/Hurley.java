@@ -79,9 +79,9 @@ public class Hurley extends Role {
                         char ch = afterLetter.charAt(j);
                         if(Character.isUpperCase(ch)){
                             StringBuilder sb = new StringBuilder();
-                            sb.append(afterLetter.substring(0,j-1));
+                            sb.append(afterLetter, 0, j);
                             sb.append(" "+Character.toLowerCase(ch));
-                            sb.append(afterLetter.substring(0,j+1));
+                            sb.append(afterLetter.substring(j));
                             afterLetter = sb.toString();
                             j++;
                         }

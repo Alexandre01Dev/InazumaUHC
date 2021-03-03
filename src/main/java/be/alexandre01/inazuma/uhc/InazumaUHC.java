@@ -167,7 +167,7 @@ public final class InazumaUHC extends JavaPlugin {
 
         tm.searchPresetTimer();
 
-
+        Bukkit.getWorld("world").setSpawnLocation(-176,90,-211);
         lm.searchPresetListener();
 
          teamManager = new TeamManager();
