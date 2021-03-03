@@ -120,7 +120,7 @@ public class StateEvent implements Listener {
                     });
 
         //START ITEM
-        ItemStack books = new ItemStack(Material.BOOK,16);
+        ItemStack books = new ItemStack(Material.BOOK,8);
         ItemStack steaks = new ItemStack(Material.COOKED_BEEF,64);
         for(Player player : i.getRemainingPlayers()){
             player.getInventory().addItem(books);
