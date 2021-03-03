@@ -103,6 +103,7 @@ public class RoleItem {
                     if(!(v.verification(player)))
                         return false;
                 }
+                System.out.println("true true");
                 return true;
             }
         };
@@ -122,13 +123,14 @@ public class RoleItem {
 
     public void deployVerificationsOnRightClickOnPlayer(ArrayList<VerificationGeneration> verificationGenerations) {
         verificationOnRightClickOnPlayer = new VerificationOnRightClickOnPlayer() {
+
             @Override
             public boolean verification(Player player,Player target) {
                 for(VerificationGeneration v : verificationGenerations){
                     if(!(v.verification(player)))
                         return false;
                 }
-                return false;
+                return true;
             }
         };
     }

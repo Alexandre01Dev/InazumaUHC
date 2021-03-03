@@ -4,14 +4,18 @@ import be.alexandre01.inazuma.uhc.presets.Preset;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.categories.Raimon;
 import be.alexandre01.inazuma.uhc.roles.Role;
 import be.alexandre01.inazuma.uhc.roles.RoleItem;
+import be.alexandre01.inazuma.uhc.roles.RoleItem.VerificationGeneration;
 import be.alexandre01.inazuma.uhc.utils.CustomComponentBuilder;
 import be.alexandre01.inazuma.uhc.utils.ItemBuilder;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
+import net.minecraft.server.v1_8_R3.MobEffectList;
 import net.minecraft.server.v1_8_R3.Tuple;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.craftbukkit.v1_8_R3.CraftEffect;
+import org.bukkit.craftbukkit.v1_8_R3.potion.CraftPotionEffectType;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -19,6 +23,9 @@ import org.bukkit.inventory.meta.EnchantmentStorageMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
+
+import java.util.ArrayList;
+import java.util.Locale;
 
 public class Hurley extends Role {
 
@@ -57,11 +64,31 @@ public class Hurley extends Role {
         ItemBuilder itemBuilder = new ItemBuilder(Material.BLAZE_ROD);
         itemBuilder.setName("§3§lAqua §3§lSea");
         roleItem.setItemstack(itemBuilder.toItemStack());
+
+
         roleItem.deployVerificationsOnRightClickOnPlayer(roleItem.generateMultipleVerification(new Tuple<>(RoleItem.VerificationType.COOLDOWN,3),new Tuple<>(RoleItem.VerificationType.USAGES,2)));
         roleItem.setRightClickOnPlayer(25,(player, rightClicked) -> {
             player.sendMessage(Preset.instance.p.prefixName()+" Voici les effets de §e"+rightClicked.getName()+"§7:");
             for(PotionEffect potionEffect : rightClicked.getActivePotionEffects()){
-               player.sendMessage("§e-§9"+potionEffect.getType().getName());
+                MobEffectList m = ((CraftPotionEffectType)potionEffect.getType()).getHandle();
+                String e = m.a().replace("potion.","");
+                String firstLetter = e.substring(0,1).toUpperCase();
+                String afterLetter = e.substring(1);
+
+                    for (int j = 0; j < afterLetter.length(); j++) {
+                        char ch = afterLetter.charAt(j);
+                        if(Character.isUpperCase(ch)){
+                            StringBuilder sb = new StringBuilder();
+                            sb.append(afterLetter.substring(0,j-1));
+                            sb.append(" "+Character.toLowerCase(ch));
+                            sb.append(afterLetter.substring(0,j+1));
+                            afterLetter = sb.toString();
+                            j++;
+                        }
+
+                    }
+
+               player.sendMessage("§e-§9 "+  firstLetter+afterLetter);
             }
 
             player.sendMessage(Preset.instance.p.prefixName()+" §cAttention§7, celui-ci sera prévenu dans 1 minute et 30 secondes que ton rôle à regarder ses effets.");

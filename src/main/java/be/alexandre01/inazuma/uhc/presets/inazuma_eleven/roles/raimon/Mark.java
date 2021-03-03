@@ -11,11 +11,9 @@ import be.alexandre01.inazuma.uhc.utils.PlayerUtils;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
@@ -87,6 +85,7 @@ public class Mark extends Role implements Listener {
             for(Player player : inazumaUHC.rm.getRole(Mark.class).getPlayers()){
                 if(player.getMaxHealth() > 10){
                     player.setMaxHealth(player.getMaxHealth()-1);
+
                     player.sendMessage(Preset.instance.p.prefixName()+" Un joueur de "+roleCategory.getPrefixColor()+roleCategory.getName()+"§7 vient de mourir, vous perdez donc §4❤§7 permanent.");
                 }
             }

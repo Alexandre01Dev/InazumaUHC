@@ -43,6 +43,8 @@ public class InteractItemEvent implements Listener {
                         }
 
                         if(roleItem.getRightClickOnPlayerFarTuple() != null){
+
+
                             Entity entity = PlayerUtils.getNearestPlayerInSight(player,roleItem.getRightClickOnPlayerFarTuple().a());
                             if(entity == null){
                                 player.sendMessage(Preset.instance.p.prefixName()+" Vous n'avez séléctionné aucun joueur.");
@@ -57,12 +59,14 @@ public class InteractItemEvent implements Listener {
 
 
                             Player target = (Player) entity;
+                                System.out.println("SNIF1");
                             if(roleItem.getVerificationOnRightClickOnPlayer().verification(player,target)){
+                                System.out.println("SNIF2");
                                 RoleItemTargetEvent roleItemTargetEvent = new RoleItemTargetEvent(player,target, roleItem.getLinkedRole(), roleItem);
                                 Bukkit.getPluginManager().callEvent(roleItemTargetEvent);
                                 if(roleItemTargetEvent.isCancelled())
                                     return;
-
+                                System.out.println(roleItem.getRightClickOnPlayerFarTuple().b() +"executed ?");
                                 roleItem.getRightClickOnPlayerFarTuple().b().execute(player,target);
                             }
                             return;

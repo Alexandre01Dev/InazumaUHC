@@ -4,6 +4,7 @@ import be.alexandre01.inazuma.uhc.InazumaUHC;
 import be.alexandre01.inazuma.uhc.config.Options;
 import be.alexandre01.inazuma.uhc.custom_events.player.PlayerInstantDeathEvent;
 import be.alexandre01.inazuma.uhc.custom_events.teams.TeamDeathEvent;
+import be.alexandre01.inazuma.uhc.managers.DamageManager.EffectType;
 import be.alexandre01.inazuma.uhc.presets.IPreset;
 import be.alexandre01.inazuma.uhc.presets.Preset;
 import be.alexandre01.inazuma.uhc.roles.Role;
@@ -23,6 +24,7 @@ import org.bukkit.craftbukkit.v1_8_R3.CraftWorld;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.ExperienceOrb;
+import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -35,6 +37,7 @@ import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.player.*;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
@@ -241,6 +244,7 @@ public class PlayerEvent implements Listener {
                             }
 
                            ((ExperienceOrb)CustomExp.spawn(i,player.getLocation()).getBukkitEntity()).setExperience(ExperienceManager.getTotalExperience(playerInstantDeathEvent.getDroppedExp()));
+
                         }
 
                             event.setCancelled(true);

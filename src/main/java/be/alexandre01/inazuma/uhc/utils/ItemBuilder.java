@@ -1,5 +1,7 @@
 package be.alexandre01.inazuma.uhc.utils;
 
+import lombok.SneakyThrows;
+import lombok.var;
 import org.bukkit.Color;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
