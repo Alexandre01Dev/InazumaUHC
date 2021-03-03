@@ -47,13 +47,13 @@ public class Plateform {
             for (int i = -depth/2; i <(depth/2)+1; i++) {
                 for (int j = -width/2; j < (width/2)+1; j++) {
                     System.out.println("x > "+i +" | y > "+(int) y+" | z > "+j);
-                    Block b = w.getBlockAt(i, (int) y,j);
+                    Block b = w.getBlockAt((int) (i+x), (int) y,(int) (j+z));
                     b.setType(Material.GLASS);
                     bs.add(b);
 
                     if(i == -depth/2 || i == depth/2 || j == -width/2 || j == width/2){
-                        for (int k = (int) y; k < y+(height/2)+1; k++) {
-                            Block b2 = w.getBlockAt(i,k,j);
+                        for (int k = (int) y; k < (int) y+height/2+1; k++) {
+                            Block b2 = w.getBlockAt((int) (x+i), k, (int) (z+j));
                             b2.setType(Material.GLASS);
                             bs.add(b2);
 
@@ -64,9 +64,9 @@ public class Plateform {
             }
             for (int i = -this.depth/2; i < this.depth/2; i++) {
                 for (int j = -width/2; j < width/2; j++) {
-                    Block b =  w.getBlockAt(i, (int) (y+height/2),j);
-                   b.setType(Material.GLASS);
-                   bs.add(b);
+                    Block b =  w.getBlockAt((int) (i+x),(int) (y+height/2)+1,(int) (j+z));
+                    b.setType(Material.GLASS);
+                    bs.add(b);
                 }
             }
             System.out.println(bs.size());

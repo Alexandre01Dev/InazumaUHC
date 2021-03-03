@@ -24,10 +24,11 @@ public class HealCommand extends Command {
                 player.setHealth(player.getMaxHealth());
             }
             sender.sendMessage(Preset.instance.p.prefixName()+ " §aVous avez heal tout les joueurs connectés.");
+            return false;
         }
         Player player = Bukkit.getPlayer(args[0]);
         if(player == null || !player.isOnline()){
-            sender.sendMessage(Preset.instance.p.prefixName()+ " §cLe joueur n'est pas connecté ");
+            sender.sendMessage(Preset.instance.p.prefixName()+ " §cLe joueur n'est pas connecté.");
             return false;
         }
         sender.sendMessage(Preset.instance.p.prefixName()+ " §aVous avez heal "+ player.getName()+".");

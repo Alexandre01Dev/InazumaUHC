@@ -21,6 +21,7 @@ public class Timer extends BukkitRunnable{
     double d = 0;
     boolean r = false;
     boolean isAlreadyLaunched = false;
+    private Timer timer;
     Instant now = Instant.now();
     Instant sec = Instant.now();
     iSpigot iSpigot = spg.lgdev.iSpigot.INSTANCE;
@@ -85,7 +86,7 @@ public class Timer extends BukkitRunnable{
     @Override
     public synchronized BukkitTask runTask(Plugin plugin) throws IllegalArgumentException, IllegalStateException {
         tempLaunch = () -> {
-            runTask(plugin);
+            timer.runTask(plugin);
             return this;
         };
         if(run == null){
@@ -112,7 +113,7 @@ public class Timer extends BukkitRunnable{
     @Override
     public synchronized BukkitTask runTaskAsynchronously(Plugin plugin) throws IllegalArgumentException, IllegalStateException {
         tempLaunch = () -> {
-            runTaskAsynchronously(plugin);
+            timer.runTaskAsynchronously(plugin);
             return this;
         };
         if(run == null){
@@ -137,7 +138,7 @@ public class Timer extends BukkitRunnable{
     @Override
     public synchronized BukkitTask runTaskLater(Plugin plugin, long delay) throws IllegalArgumentException, IllegalStateException {
         tempLaunch = () -> {
-            runTaskLater(plugin,delay);
+            timer.runTaskLater(plugin,delay);
             return this;
         };
         if(run == null){
@@ -162,7 +163,7 @@ public class Timer extends BukkitRunnable{
     @Override
     public synchronized BukkitTask runTaskLaterAsynchronously(Plugin plugin, long delay) throws IllegalArgumentException, IllegalStateException {
         tempLaunch = () -> {
-            runTaskLaterAsynchronously(plugin,delay);
+            timer.runTaskLaterAsynchronously(plugin,delay);
             return this;
         };
         if(run == null){
@@ -187,7 +188,7 @@ public class Timer extends BukkitRunnable{
     @Override
     public synchronized BukkitTask runTaskTimer(Plugin plugin, long delay, long period) throws IllegalArgumentException, IllegalStateException {
         tempLaunch = () -> {
-            runTaskTimer(plugin,delay,period);
+            timer.runTaskTimer(plugin,delay,period);
             return this;
         };
         if(run == null){
@@ -213,7 +214,7 @@ public class Timer extends BukkitRunnable{
     @Override
     public synchronized BukkitTask runTaskTimerAsynchronously(Plugin plugin, long delay, long period) throws IllegalArgumentException, IllegalStateException {
         tempLaunch = () -> {
-            runTaskTimerAsynchronously(plugin,delay,period);
+            timer.runTaskTimerAsynchronously(plugin,delay,period);
             return this;
         };
         if(run == null){
@@ -264,7 +265,7 @@ public class Timer extends BukkitRunnable{
 
             if(r){
                 r = false;
-                Timer timer = newInstance();
+                timer = newInstance();
                 bukkitTask.cancel();
                 InazumaUHC.get.tm.timers.put(this.getClass(),timer);
                 return;

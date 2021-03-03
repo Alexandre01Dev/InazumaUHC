@@ -23,6 +23,7 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scoreboard.Scoreboard;
 import sun.util.resources.cldr.ro.CalendarData_ro_RO;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
@@ -36,6 +37,7 @@ public class Team {
     private Plateform plateform;
     private IPreset p;
     private Location l;
+
     public Team(){
         players =  new HashMap<>();
         p = Preset.instance.p;
@@ -72,12 +74,12 @@ public class Team {
         Random rand2 = new Random();
         int z = rand2.nextInt(size - ((-size) + 1)) + (-size);
         plateform = new Plateform(Plateform.PlateformType.CUBE,x,120,z);
-        plateform.setCube(3,3,3);
+        plateform.setCube(5,6,6);
         plateform.addRegisterPlateform();
         plateform.spawn();
 
         World w = InazumaUHC.get.worldGen.defaultWorld;
-        this.l = new Location(w,x,121.001,z);
+        this.l = new Location(w,x,120,z);
 
         ArrayList<ChunkCoord> chunkCoords = around(l.getChunk(),Bukkit.getViewDistance());
 
