@@ -14,6 +14,7 @@ import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.timers.*;
 import be.alexandre01.inazuma.uhc.scenarios.betazombie.BetaZombie;
 import be.alexandre01.inazuma.uhc.scenarios.cateyes.CatEyes;
 import be.alexandre01.inazuma.uhc.scenarios.cutclean.Cutclean;
+import be.alexandre01.inazuma.uhc.scenarios.diamondlimit.DiamondLimit;
 import be.alexandre01.inazuma.uhc.scenarios.hasteyboys.HasteyBoys;
 import be.alexandre01.inazuma.uhc.scenarios.rodless.RodLess;
 import be.alexandre01.inazuma.uhc.scenarios.timber.Timber;
@@ -57,6 +58,8 @@ public class InazumaEleven extends PresetData implements IPreset{
       //  new Xavier();
         new Mark();
         new Hurley();
+        new Byron();
+        new Xavier();
     }
 
     @Override
@@ -117,6 +120,7 @@ public class InazumaEleven extends PresetData implements IPreset{
             scenarios.add(RodLess.class);
             scenarios.add(BetaZombie.class);
             scenarios.add(TrashPotion.class);
+            scenarios.add(DiamondLimit.class);
         }
         System.out.println("SCENARIO RETURN!");
         return scenarios;
