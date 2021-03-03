@@ -5,6 +5,7 @@ import be.alexandre01.inazuma.uhc.presets.Preset;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.categories.Alius;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.categories.Raimon;
 import be.alexandre01.inazuma.uhc.roles.Role;
+import be.alexandre01.inazuma.uhc.roles.RoleCategory;
 import be.alexandre01.inazuma.uhc.utils.CustomComponentBuilder;
 import be.alexandre01.inazuma.uhc.utils.PlayerUtils;
 import net.md_5.bungee.api.chat.BaseComponent;
@@ -14,6 +15,7 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
@@ -80,11 +82,12 @@ public class Mark extends Role implements Listener {
     }
     @EventHandler
     public void onPlayerDeath(PlayerInstantDeathEvent event){
-        if(inazumaUHC.rm.getRole(event.getPlayer()).getRoleCategory().getClass().equals(Raimon.class)){
-            for(Player player : inazumaUHC.rm.getRole(event.getPlayer().getUniqueId()).getPlayers()){
+        RoleCategory roleCategory = inazumaUHC.rm.getRole(event.getPlayer()).getRoleCategory();
+        if(roleCategory.getClass().equals(Raimon.class)){
+            for(Player player : inazumaUHC.rm.getRole(Mark.class).getPlayers()){
                 if(player.getMaxHealth() > 10){
                     player.setMaxHealth(player.getMaxHealth()-1);
-                    player.sendMessage(Preset.instance.p.prefixName()+" Un joueur de &6Raimon&7 vient de mourir, vous perdez donc §4❤§7 permanent.");
+                    player.sendMessage(Preset.instance.p.prefixName()+" Un joueur de "+roleCategory.getPrefixColor()+roleCategory.getName()+"§7 vient de mourir, vous perdez donc §4❤§7 permanent.");
                 }
             }
         }

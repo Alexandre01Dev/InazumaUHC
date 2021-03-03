@@ -83,10 +83,9 @@ public class PotionEvent implements Listener {
                 if(a == null){
                     return 1;
                 }
-                    System.out.println("MODIFIER SIZE >>"+a.c().size());
+
                     for(AttributeModifier m : a.c()){
                         if(m.b().equalsIgnoreCase("Weapon modifier")){
-                            System.out.println("WEAPON !!!");
                             return m.d()+1D;
                         }
                     return 1D;
@@ -109,10 +108,8 @@ public class PotionEvent implements Listener {
 
     private double critCalc(Player damager){
         if(damager.getFallDistance() > 0.0F && !damager.isOnGround() && !damager.hasPotionEffect(PotionEffectType.BLINDNESS) && damager.getVehicle() == null){
-            System.out.println("YES !");
             return 0.5D;
         }
-        System.out.println("NO !");
         return 0;
     }
 

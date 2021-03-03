@@ -55,8 +55,8 @@ public class Hurley extends Role {
 
         RoleItem roleItem = new RoleItem();
         ItemBuilder itemBuilder = new ItemBuilder(Material.BLAZE_ROD);
-        itemBuilder.setName("?");
-
+        itemBuilder.setName("§3§lAqua §3§lSea");
+        roleItem.setItemstack(itemBuilder.toItemStack());
         roleItem.deployVerificationsOnRightClickOnPlayer(roleItem.generateMultipleVerification(new Tuple<>(RoleItem.VerificationType.COOLDOWN,3),new Tuple<>(RoleItem.VerificationType.USAGES,2)));
         roleItem.setRightClickOnPlayer(25,(player, rightClicked) -> {
             player.sendMessage(Preset.instance.p.prefixName()+" Voici les effets de §e"+rightClicked.getName()+"§7:");
