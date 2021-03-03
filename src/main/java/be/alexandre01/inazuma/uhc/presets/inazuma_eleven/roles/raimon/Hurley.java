@@ -72,5 +72,8 @@ public class Hurley extends Role {
                 }
             }, 20 * 90);
         });
+        addRoleItem(roleItem);
     }
+
+
 }

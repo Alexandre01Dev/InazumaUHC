@@ -40,22 +40,19 @@ public class TimerEvent implements Listener {
        }
         if(event.getTimerName().equals("invicibilityTimer")){
             Preset.instance.pData.isInvisible = false;
-            Bukkit.getScheduler().runTaskLaterAsynchronously(InazumaUHC.get, new Runnable() {
-                @Override
-                public void run() {
-                    InazumaUHC.get.rm.distributeRoles( InazumaUHC.get.getRemainingPlayers());
-                    for(Role role : Role.getRoles()){
-                        for(Player player : role.getPlayers()){
-                            if(player.isOnline()){
-                                role.spoilRole(player);
-                                role.giveItem(player);
-                            }
-                        }
-                    }
-                    Role.isDistributed = true;
-                }
-            },20*5);
             return;
+        }
+        if(event.getTimerName().equals("pvpTimer")){
+            InazumaUHC.get.rm.distributeRoles( InazumaUHC.get.getRemainingPlayers());
+            for(Role role : Role.getRoles()){
+                for(Player player : role.getPlayers()){
+                    if(player.isOnline()){
+                        role.spoilRole(player);
+                        role.giveItem(player);
+                    }
+                }
+            }
+            Role.isDistributed = true;
         }
         if(event.getTimerName().equals("episodeTimer")){
             event.getTimer().runTaskTimerAsynchronously(InazumaUHC.get,0,20*10);

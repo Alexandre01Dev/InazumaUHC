@@ -19,13 +19,11 @@ import be.alexandre01.inazuma.uhc.timers.game.BordureTimer;
 import be.alexandre01.inazuma.uhc.timers.game.InvincibilityTimer;
 import be.alexandre01.inazuma.uhc.timers.game.NetherTimer;
 import be.alexandre01.inazuma.uhc.timers.game.PVPTimer;
-import org.bukkit.Bukkit;
-import org.bukkit.GameMode;
-import org.bukkit.Location;
-import org.bukkit.World;
+import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -62,15 +60,12 @@ public class StateEvent implements Listener {
             Location t = player.getLocation();
             t.add(0,0.1,0);
             player.teleport(t);
-            player.setAllowFlight(true);
-            player.setFlying(true);
+            player.setAllowFlight(false);
+            player.setFlying(false);
             player.setFlySpeed(0);
             player.setWalkSpeed(0);
             player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, Integer.MAX_VALUE, 0,false,false), true);
         }
-
-
-
         i.teamManager.distributeTeamToPlayer();
         i.teamManager.safeTeamTeleport(0);
         GameScoreboard gameScoreboard = new GameScoreboard(n);
@@ -90,6 +85,7 @@ public class StateEvent implements Listener {
                 player.setGameMode(GameMode.SURVIVAL);
                 player.setAllowFlight(false);
                 player.setFlySpeed(0.2f);
+                player.teleport(team.getLocation());
             }
             Bukkit.getScheduler().scheduleSyncDelayedTask(i, new BukkitRunnable() {
                 @Override
@@ -123,6 +119,14 @@ public class StateEvent implements Listener {
                         }
                     });
 
+        //START ITEM
+        ItemStack books = new ItemStack(Material.BOOK,16);
+        ItemStack steaks = new ItemStack(Material.COOKED_BEEF,64);
+        for(Player player : i.getRemainingPlayers()){
+            player.getInventory().addItem(books);
+            player.getInventory().addItem(steaks);
+            player.updateInventory();
+        }
 
           /*  i.rm.distributeRoles(i.getRemainingPlayers());
             for(Role role : Role.getRoles()){

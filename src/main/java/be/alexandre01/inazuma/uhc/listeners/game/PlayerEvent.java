@@ -162,7 +162,7 @@ public class PlayerEvent implements Listener {
             inazumaUHC.teamManager.getTeam(player).rmvPlayer(player);
         }
 
-       if(!InazumaUHC.get.spectatorManager.getPlayers().contains(player) || GameState.get().contains(State.PLAYING)){
+       if(!InazumaUHC.get.spectatorManager.getPlayers().contains(player) && GameState.get().contains(State.PLAYING)){
            Bukkit.broadcastMessage(Preset.instance.p.prefixName()+" §c§l"+player.getName()+"§7 vient de quitter la partie. Il a 10 minutes pour se reconnecter.");
            inazumaUHC.getRejoinManager().onDisconnect(player);
        }
@@ -244,7 +244,7 @@ public class PlayerEvent implements Listener {
                         }
 
                             event.setCancelled(true);
-                            player.setHealth(20);
+                            player.setHealth(player.getMaxHealth());
                             player.resetPlayerTime();
                             player.resetMaxHealth();
 

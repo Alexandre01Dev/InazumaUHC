@@ -108,13 +108,9 @@ public class Team {
     public void setBukkitTeam(){
         Scoreboard score = Bukkit.getScoreboardManager().getMainScoreboard();
         for(Player player : players.values()){
-
-
             org.bukkit.scoreboard.Team t = BukkitTeamInitializer.setAlive(player);
             ScoreboardUtil.get.addPlayer(score,t,player);
-
         }
-
         for(Player players : Bukkit.getOnlinePlayers()){
             players.setScoreboard(score);
         }

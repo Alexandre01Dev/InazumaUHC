@@ -8,11 +8,13 @@ import be.alexandre01.inazuma.uhc.state.GameState;
 import be.alexandre01.inazuma.uhc.state.State;
 import be.alexandre01.inazuma.uhc.utils.TitleUtils;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.inventory.ItemStack;
 
 public class PlayerEvent implements Listener {
     private GameState gameState;
@@ -53,7 +55,7 @@ public class PlayerEvent implements Listener {
     @EventHandler
     public void onPlayerInstantDeath(PlayerInstantDeathEvent event){
         Player player = event.getPlayer();
-
+        event.getDrops().add(new ItemStack(Material.GOLDEN_APPLE));
         if(!Role.isDistributed){
             Bukkit.broadcastMessage(Preset.instance.p.prefixName()+" §c§l"+player.getName()+"§7 vient de mourir (PVE).");
             InazumaUHC.get.getRejoinManager().onKilled(player);

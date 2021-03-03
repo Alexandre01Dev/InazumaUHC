@@ -39,7 +39,7 @@ public class RejoinManager implements Listener {
         chests.put(b,p.getUniqueId());
         playerChest.put(p.getUniqueId(),b);
         
-        Inventory inventory = Bukkit.createInventory(null, 9*4);
+        Inventory inventory = Bukkit.createInventory(null, 9*5);
         Role r = InazumaUHC.get.rm.getRole(p.getUniqueId());
 
         for(ItemStack i : p.getInventory().getContents()){
