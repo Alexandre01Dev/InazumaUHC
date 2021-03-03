@@ -73,7 +73,7 @@ public class Team {
         int x = rand1.nextInt(size - ((-size) + 1)) + (-size);
         Random rand2 = new Random();
         int z = rand2.nextInt(size - ((-size) + 1)) + (-size);
-        plateform = new Plateform(Plateform.PlateformType.CUBE,x,121,z);
+        plateform = new Plateform(Plateform.PlateformType.CUBE,x,120,z);
         plateform.setCube(5,6,6);
         plateform.addRegisterPlateform();
         plateform.spawn();

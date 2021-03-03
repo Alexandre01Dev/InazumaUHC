@@ -4,6 +4,7 @@ import be.alexandre01.inazuma.uhc.InazumaUHC;
 import be.alexandre01.inazuma.uhc.scenarios.betazombie.BetaZombie;
 import be.alexandre01.inazuma.uhc.scenarios.cateyes.CatEyes;
 import be.alexandre01.inazuma.uhc.scenarios.cutclean.Cutclean;
+import be.alexandre01.inazuma.uhc.scenarios.diamondlimit.DiamondLimit;
 import be.alexandre01.inazuma.uhc.scenarios.hasteyboys.HasteyBoys;
 import be.alexandre01.inazuma.uhc.scenarios.rodless.RodLess;
 import be.alexandre01.inazuma.uhc.scenarios.timber.Timber;
@@ -36,6 +37,7 @@ public class Scenario {
         scenarios.put(Timber.class,new Timber());
         scenarios.put(RodLess.class,new RodLess());
         scenarios.put(TrashPotion.class,new TrashPotion());
+        scenarios.put(DiamondLimit.class,new DiamondLimit());
     }
     public Scenario(String name, String description) {
         this.name = name;
