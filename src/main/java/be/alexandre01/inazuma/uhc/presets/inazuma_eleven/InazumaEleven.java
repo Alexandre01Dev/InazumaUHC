@@ -58,8 +58,6 @@ public class InazumaEleven extends PresetData implements IPreset{
       //  new Xavier();
         new Mark();
         new Hurley();
-        new Byron();
-        new Xavier();
     }
 
     @Override

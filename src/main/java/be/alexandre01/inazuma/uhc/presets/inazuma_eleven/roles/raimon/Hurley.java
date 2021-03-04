@@ -74,28 +74,25 @@ public class Hurley extends Role {
                 String e = m.a().replace("potion.","");
                 String firstLetter = e.substring(0,1).toUpperCase();
                 String afterLetter = e.substring(1);
-
+                StringBuilder sb = new StringBuilder();
                     for (int j = 0; j < afterLetter.length(); j++) {
                         char ch = afterLetter.charAt(j);
                         if(Character.isUpperCase(ch)){
-                            StringBuilder sb = new StringBuilder();
-                            sb.append(afterLetter, 0, j);
-                            sb.append(" "+Character.toLowerCase(ch));
-                            sb.append(afterLetter.substring(j));
-                            afterLetter = sb.toString();
-                            j++;
+                            sb.append(" "+ Character.toLowerCase(ch));
+                            continue;
                         }
+                        sb.append(ch);
 
                     }
 
-               player.sendMessage("§e-§9 "+  firstLetter+afterLetter);
+               player.sendMessage("§e-§9 "+  firstLetter+sb.toString());
             }
 
             player.sendMessage(Preset.instance.p.prefixName()+" §cAttention§7, celui-ci sera prévenu dans 1 minute et 30 secondes que ton rôle à regarder ses effets.");
             Bukkit.getScheduler().runTaskLaterAsynchronously(inazumaUHC, new BukkitRunnable() {
                 @Override
                 public void run() {
-                    rightClicked.sendMessage(Preset.instance.p.prefixName() +" Tu viens d'apprendre qu' "+getRoleCategory().getPrefixColor()+getName()+" connait désormais tes effets.");
+                    rightClicked.sendMessage(Preset.instance.p.prefixName() +" Tu viens d'apprendre qu'"+getRoleCategory().getPrefixColor()+getName()+"§7 connait désormais tes effets.");
                 }
             }, 20 * 90);
         });

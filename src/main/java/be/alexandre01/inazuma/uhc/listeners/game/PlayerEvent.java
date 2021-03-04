@@ -56,10 +56,16 @@ public class PlayerEvent implements Listener {
         Player player = event.getPlayer();
         World world = null;
 
-        //PATCH DAMAGE NBT
+        //PATCH PLAYER VIEW
         EntityPlayer nmsPlayer =((CraftPlayer)player).getHandle();
 
+        PacketPlayOutNamedEntitySpawn packet = new PacketPlayOutNamedEntitySpawn(nmsPlayer);
 
+        for(Player players : Bukkit.getOnlinePlayers()){
+            ((CraftPlayer)players).getHandle().playerConnection.sendPacket(packet);
+        }
+
+        //PATCH DAMAGE NBT
         for(Object o : nmsPlayer.getAttributeMap().a()){
             if(o instanceof AttributeModifiable){
                 AttributeModifiable a = (AttributeModifiable) o;
