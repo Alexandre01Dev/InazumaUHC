@@ -27,6 +27,7 @@ import be.alexandre01.inazuma.uhc.timers.TimersManager;
 import be.alexandre01.inazuma.uhc.timers.game.*;
 import be.alexandre01.inazuma.uhc.utils.CustomExp;
 import be.alexandre01.inazuma.uhc.utils.ScoreboardUtil;
+import be.alexandre01.inazuma.uhc.utils.Tracker;
 import be.alexandre01.inazuma.uhc.worlds.WorldGen;
 import be.alexandre01.inazuma.uhc.worlds.utils.WorldUtils;
 import be.alexandre01.inazuma.uhc.worlds.executors.ArrowToCenter;
@@ -187,7 +188,7 @@ public final class InazumaUHC extends JavaPlugin {
         if(p.p.hasRoles() && rm == null){
             rm = new RoleManager();
         }
-
+        Tracker.initialize();
         registerCommand("force", new ForceCommand("force"));
 
         //lm.automaticFindListener();
