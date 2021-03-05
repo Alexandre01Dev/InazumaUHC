@@ -1,5 +1,6 @@
 package be.alexandre01.inazuma.uhc.presets.inazuma_eleven.roles.raimon;
 
+import be.alexandre01.inazuma.uhc.InazumaUHC;
 import be.alexandre01.inazuma.uhc.custom_events.player.PlayerInstantDeathEvent;
 import be.alexandre01.inazuma.uhc.presets.Preset;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.categories.Raimon;
@@ -18,6 +19,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.inventory.meta.FireworkMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import javax.sound.midi.Track;
 import java.util.List;
@@ -26,6 +28,7 @@ public class Darren extends Role implements Listener {
     private boolean markDead = false;
     private Player tracked = null;
     private boolean revenge = false;
+    private boolean hasChoose = false;
 
     public Darren(String name) {
         super("Darren LaChance");
@@ -44,7 +47,7 @@ public class Darren extends Role implements Listener {
         addCommand("mark", new command() {
             @Override
             public void a(String[] args, Player player) {
-                if(!markDead){
+                if(!markDead || hasChoose){
                     player.sendMessage(Preset.instance.p.prefixName()+" Vous ne pouvez pas utiliser cette commande pour le moment");
                     return;
                 }
@@ -55,43 +58,52 @@ public class Darren extends Role implements Listener {
                 }
 
                 if(args[0].equalsIgnoreCase("accept")){
-
+                    hasChoose = true;
+                    accept();
                     return;
                 }
                 if (args[0].equalsIgnoreCase("refuse")) {
-
-                    Tracker tracker = Tracker.getOrCreate();
-                    if(tracker.equals(player)){
-                        player.sendMessage(Preset.instance.p.prefixName()+" Tu ne vas pas te tracker toi même là ... C'est pas un peu chaud là ? Tu es juste un assasin de coéquipier. ");
-                        player.sendMessage(Preset.instance.p.prefixName()+" Fêtons ça avec un feu d'artifice !");
-                        Firework fw = (Firework) player.getWorld().spawnEntity(player.getLocation(), EntityType.FIREWORK);
-                        FireworkMeta fwm = fw.getFireworkMeta();
-
-                        fwm.setPower(2);
-                        fwm.addEffect(FireworkEffect.builder().withColor(Color.LIME).flicker(true).build());
-
-                        fw.setFireworkMeta(fwm);
-                        fw.detonate();
-                    }
-                    if(tracked != null){
-                        tracker.setTargetToPlayer(player,tracked);
-                        player.setMaxHealth(player.getMaxHealth()-4);
-                        tracked.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 60*5*20, 0,false,false), true);
-                        player.sendMessage(Preset.instance.p.prefixName()+" Tu as perdu 2 §ccoeurs§7... Mais en echange son assasin est devenu plus faible, bat-le pour devenir plus fort. ");
-                        revenge = true;
-                    }else {
-                        player.sendMessage(Preset.instance.p+" Coups dûr ! Tu viens d'apprendre que Mark est mort tout seul...");
-                    }
-
+                    hasChoose = true;
+                    refuse(player);
                     return;
                 }
-
                 player.sendMessage(Preset.instance.p.prefixName()+" Veuillez mettre §a/mark accept §7ou §a/mark refuse");
-            }
+                }
         });
 
 
     }
+    private void refuse(Player player){
+        Tracker tracker = Tracker.getOrCreate();
+        if(tracker.equals(player)){
+            player.sendMessage(Preset.instance.p.prefixName()+" Tu ne vas pas te tracker toi même là ... C'est pas un peu chaud là ? Tu es juste un assasin de coéquipier. ");
+            player.sendMessage(Preset.instance.p.prefixName()+" Fêtons ça avec un feu d'artifice !");
+            Firework fw = (Firework) player.getWorld().spawnEntity(player.getLocation(), EntityType.FIREWORK);
+            FireworkMeta fwm = fw.getFireworkMeta();
+
+            fwm.setPower(2);
+            fwm.addEffect(FireworkEffect.builder().withColor(Color.LIME).flicker(true).build());
+
+            fw.setFireworkMeta(fwm);
+            fw.detonate();
+        }
+        if(tracked != null){
+            tracker.setTargetToPlayer(player,tracked);
+            player.setMaxHealth(player.getMaxHealth()-4);
+            tracked.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 60*5*20, 0,false,false), true);
+            player.sendMessage(Preset.instance.p.prefixName()+" Tu as perdu 2 §ccoeurs§7... Mais en echange son assasin est devenu plus faible, bat-le pour devenir plus fort. ");
+            revenge = true;
+        }else {
+            player.sendMessage(Preset.instance.p+" Coups dûr ! Tu viens d'apprendre que Mark est mort tout seul...");
+        }
+
+        return;
+    }
+
+    private void accept(){
+
+    }
+
 
     @EventHandler
     public void onDeath(PlayerInstantDeathEvent event){
@@ -116,6 +128,17 @@ public class Darren extends Role implements Listener {
                 b.addExtra(no);
 
                 players.spigot().sendMessage(b);
+                new BukkitRunnable() {
+                    @Override
+                    public void run() {
+                        if(!hasChoose){
+                            refuse(player);
+                            hasChoose = true;
+                        }
+
+
+                    }
+                }.runTaskLaterAsynchronously(inazumaUHC,20*60);
             }
         }
         //REVENGE
