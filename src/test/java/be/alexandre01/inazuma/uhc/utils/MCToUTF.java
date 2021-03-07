@@ -10,6 +10,7 @@ public class MCToUTF {
     public static void main(String[] args) throws IOException {
 
         c.put("§4","u00a74");
+        c.put("§l","u00a7l");
         c.put("§c","u00a7c");
         c.put("§6","u00a76");
         c.put("§e","u00a7e");
