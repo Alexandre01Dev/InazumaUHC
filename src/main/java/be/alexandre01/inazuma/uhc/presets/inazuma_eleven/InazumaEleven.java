@@ -56,9 +56,7 @@ public class InazumaEleven extends PresetData implements IPreset{
         new Solo("Solo","§c");
         //INITIALIZE ROLES
       //  new Xavier();
-        new Mark();
-        new Darren();
-        new Xavier();
+        new Shawn();
     }
 
     @Override
@@ -94,6 +92,7 @@ public class InazumaEleven extends PresetData implements IPreset{
             listeners.add(new ChunkEvent());
             listeners.add(new TimerEvent());
             listeners.add(new TeamsEvent());
+            listeners.add(new EpisodeEvent());
         }
         return listeners;
     }

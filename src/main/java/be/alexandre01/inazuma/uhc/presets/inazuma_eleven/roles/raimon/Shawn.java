@@ -5,7 +5,11 @@ import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.categories.Raimon;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.objects.Episode;
 import be.alexandre01.inazuma.uhc.roles.Role;
 import be.alexandre01.inazuma.uhc.roles.RoleItem;
+import be.alexandre01.inazuma.uhc.utils.CustomComponentBuilder;
 import be.alexandre01.inazuma.uhc.utils.ItemBuilder;
+import net.md_5.bungee.api.chat.BaseComponent;
+import net.md_5.bungee.api.chat.HoverEvent;
+import net.md_5.bungee.api.chat.TextComponent;
 import net.minecraft.server.v1_8_R3.Tuple;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -17,6 +21,21 @@ import java.util.ArrayList;
 public class Shawn extends Role {
     public Shawn() {
         super("Shawn Frost");
+
+        addDescription("§8- §7Votre objectif est de gagner avec §6§lRaimon");
+        addDescription("§8- §7Vous possédez l’effet §6§lRésistance 1§7.");
+        CustomComponentBuilder c = new CustomComponentBuilder("");
+        c.append("§8- §7Vous possédez également le ");
+
+        BaseComponent blizzardButton = new TextComponent("§3Blizzard Eternel §7*§8Curseur§7*");
+
+        BaseComponent blizzardDesc = new TextComponent();
+        blizzardDesc.addExtra("§e- §9Utilisation par §eEpisode\n");
+        blizzardDesc.addExtra("§e- §9Donne au joueur §7ciblé, §8Slowness 2§9 pendant §a7 secondes");
+        blizzardButton.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,blizzardDesc.getExtra().toArray(new BaseComponent[0])));
+        c.append(blizzardButton);
+        addDescription(c);
+
         setRoleToSpoil(Axel.class);
         setRoleCategory(Raimon.class);
         onLoad(new load() {

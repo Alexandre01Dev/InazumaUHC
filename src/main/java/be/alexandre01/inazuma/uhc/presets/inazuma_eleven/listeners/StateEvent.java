@@ -8,6 +8,7 @@ import be.alexandre01.inazuma.uhc.custom_events.state.WaitingEvent;
 import be.alexandre01.inazuma.uhc.presets.IPreset;
 import be.alexandre01.inazuma.uhc.presets.Preset;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.InazumaEleven;
+import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.objects.Episode;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.scoreboards.GameScoreboard;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.scoreboards.PreparingScoreboard;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.scoreboards.WaitingScoreboard;
@@ -19,6 +20,7 @@ import be.alexandre01.inazuma.uhc.timers.game.BordureTimer;
 import be.alexandre01.inazuma.uhc.timers.game.InvincibilityTimer;
 import be.alexandre01.inazuma.uhc.timers.game.NetherTimer;
 import be.alexandre01.inazuma.uhc.timers.game.PVPTimer;
+import be.alexandre01.inazuma.uhc.utils.TitleUtils;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -74,6 +76,12 @@ public class StateEvent implements Listener {
     }
     @EventHandler
     public void onPlaying(PlayingEvent event){
+
+        for (Player player : Bukkit.getOnlinePlayers()){
+            player.playSound(player.getLocation(), "episode1", 100, 1);
+            TitleUtils.sendTitle(player,20,100,20,"§9Début de l'§eEpisode 1","§9Les §5extraterrestres §9débarquent !");
+
+        }
 
         if(isLaunched){
             System.out.println("already launched");

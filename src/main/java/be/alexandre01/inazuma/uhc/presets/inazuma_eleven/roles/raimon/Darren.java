@@ -37,14 +37,15 @@ public class Darren extends Role implements Listener {
         super("Darren LaChance");
         addDescription("§8- §7Votre objectif est de gagner avec §6§lRaimon");
         addDescription("§8- §7Vous disposez de §c§l2 §4❤§7 en plus.");
-        addDescription("§8- §7Lors de la mort de §6Mark§7, 2 choix s'offres à vous, qui sont de remplace ou pas §6Mark§7.");
-        addDescription("§8- §7Si vous §aacceptez§7 de le remplacer, vous pourrez 2 fois dans la partie /corrupt et également récupérer les infos du corrupt de Mark.");
-        addDescription("§8- §7Egalement, vous enleverez la Faiblesse de Raimon lors de la mort de §6Mark§7.");
+        addDescription(" ");
+        addDescription("§8- §7Lors de la mort de §6Mark§7, 2 choix s'offrent à vous, qui sont de le remplacer ou non.");
+        addDescription("§8- §7Si vous §aacceptez§7 de le remplacer, vous pourrez 2 fois dans la partie §5/corrupt§7 et également récupérer les infos du §5/corrupt§7 de Mark.");
+        addDescription("§8- §7Egalement, vous enleverez la §8Faiblesse 1§7 de §6§lRaimon§7 suite à la mort de §6Mark§7.");
         addDescription("§8- §7Cependant si vous §aacceptez§7, le capitaine de l'équipe §5§lAlius§7 obtiendra une boussole afin de vous traquer.");
         addDescription(" ");
         addDescription("§8- §7Vous pouvez également §crefuser§7 cette demande.");
-        addDescription("§8- §7Si vous §crefusez§7 de le remplacer, vous obtiendrez un item pour traquer son assassin. Egalement vous perdrez 2 coeurs permanents mais l'assassin aura Faiblesse pendant 5 minutes.");
-        addDescription("§8- §7Si vous tuez son assassin, vous récupérerez vos §c§l2 §4❤§7 mais également la §6§lRésistance de §6Mark§7.");
+        addDescription("§8- §7Si vous §crefusez§7 de le remplacer, vous obtiendrez un item pour traquer son assassin. Egalement vous perdrez 2 coeurs permanents mais l'assassin aura §8Faiblesse 1§7 pendant §a5 minutes§7.");
+        addDescription("§8- §7Si vous tuez son assassin, vous récupérerez vos §c§l2 §4❤§7 mais également la §6§lRésistance§7 de §6Mark§7.");
 
         setRoleToSpoil(Mark.class);
         setRoleCategory(Raimon.class);
