@@ -28,7 +28,7 @@ public class Xavier extends Role {
         roleItem.setItemstack(itemBuilder.toItemStack());
         roleItem.deployVerificationsOnRightClick(roleItem.generateVerification(new Tuple<>(RoleItem.VerificationType.EPISODES,1)));
         roleItem.setRightClick(player -> {
-            player.sendMessage(Preset.instance.p.prefixName()+" Vous venez d'utiliser votre §d§lCollier§7§l-§5§lAlius§7.");
+            player.sendMessage(Preset.instance.p.prefixName()+" Vous rentrez en résonance avec la §8§lpierre§7§l-§5§lalius.");
             player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 60*2*20, 0,false,false), true);
             player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 60*2*20, 0,false,false), true);
         });
