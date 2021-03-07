@@ -57,7 +57,8 @@ public class InazumaEleven extends PresetData implements IPreset{
         //INITIALIZE ROLES
       //  new Xavier();
         new Mark();
-        new Hurley();
+        new Darren();
+        new Xavier();
     }
 
     @Override

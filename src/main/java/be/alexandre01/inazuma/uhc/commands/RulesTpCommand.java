@@ -28,7 +28,7 @@ public class RulesTpCommand extends Command {
         Player player = (Player) commandSender;
 
 
-        if (GameState.get().contains(State.PREPARING)){
+        if (GameState.get().contains(State.PREPARING) || GameState.get().contains(State.WAITING)){
 
 
             for(Player pls : Bukkit.getOnlinePlayers()){

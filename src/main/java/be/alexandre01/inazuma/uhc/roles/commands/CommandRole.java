@@ -46,6 +46,7 @@ public class CommandRole extends Command {
             }
             if(!roles.contains(roleManager.getRole(player.getUniqueId()))){
                 player.sendMessage(Preset.instance.p.prefixName()+"§cLa commande n'est pas accessible depuis votre rôle.");
+                return false;
             }
 
             commands.get(role).a(args,player);

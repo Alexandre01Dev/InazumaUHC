@@ -3,8 +3,11 @@ package be.alexandre01.inazuma.uhc.presets.inazuma_eleven.roles.raimon;
 import be.alexandre01.inazuma.uhc.InazumaUHC;
 import be.alexandre01.inazuma.uhc.custom_events.player.PlayerInstantDeathEvent;
 import be.alexandre01.inazuma.uhc.presets.Preset;
+import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.categories.Alius;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.categories.Raimon;
+import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.roles.alius.Xavier;
 import be.alexandre01.inazuma.uhc.roles.Role;
+import be.alexandre01.inazuma.uhc.utils.PlayerUtils;
 import be.alexandre01.inazuma.uhc.utils.Tracker;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ClickEvent;
@@ -30,7 +33,7 @@ public class Darren extends Role implements Listener {
     private boolean revenge = false;
     private boolean hasChoose = false;
 
-    public Darren(String name) {
+    public Darren() {
         super("Darren LaChance");
         setRoleToSpoil(Mark.class);
         setRoleCategory(Raimon.class);
@@ -75,32 +78,71 @@ public class Darren extends Role implements Listener {
     }
     private void refuse(Player player){
         Tracker tracker = Tracker.getOrCreate();
-        if(tracker.equals(player)){
-            player.sendMessage(Preset.instance.p.prefixName()+" Tu ne vas pas te tracker toi même là ... C'est pas un peu chaud là ? Tu es juste un assasin de coéquipier. ");
+        if(tracked == null){
+            player.sendMessage(Preset.instance.p+" Coups dûr ! Tu viens d'apprendre que Mark est mort tout seul...");
+        return;
+        }
+
+        if(tracked.equals(player)){
+            player.sendMessage(Preset.instance.p.prefixName()+" Tu ne vas pas te tracker toi même  ... C'est pas un peu chaud là ? Tu es juste un assasin de coéquipier. ");
             player.sendMessage(Preset.instance.p.prefixName()+" Fêtons ça avec un feu d'artifice !");
             Firework fw = (Firework) player.getWorld().spawnEntity(player.getLocation(), EntityType.FIREWORK);
             FireworkMeta fwm = fw.getFireworkMeta();
 
-            fwm.setPower(2);
-            fwm.addEffect(FireworkEffect.builder().withColor(Color.LIME).flicker(true).build());
+            fwm.setPower(1);
+            fwm.addEffect(FireworkEffect.builder().flicker(true).trail(true).withColor(Color.LIME).build());
 
             fw.setFireworkMeta(fwm);
             fw.detonate();
+            return;
         }
-        if(tracked != null){
+
             tracker.setTargetToPlayer(player,tracked);
             player.setMaxHealth(player.getMaxHealth()-4);
             tracked.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, 60*5*20, 0,false,false), true);
             player.sendMessage(Preset.instance.p.prefixName()+" Tu as perdu 2 §ccoeurs§7... Mais en echange son assasin est devenu plus faible, bat-le pour devenir plus fort. ");
             revenge = true;
-        }else {
-            player.sendMessage(Preset.instance.p+" Coups dûr ! Tu viens d'apprendre que Mark est mort tout seul...");
-        }
 
-        return;
     }
 
     private void accept(){
+        addCommand("corrupt", new command() {
+            public int i = 0;
+            @Override
+            public void a(String[] args, Player player) {
+                if(i > 2){
+                    player.sendMessage(Preset.instance.p.prefixName()+" Vous avez dépassé le nombre d'utilisation de cette commande");
+                    return;
+                }
+                int a = 0;
+                for(Player p : PlayerUtils.getNearbyPlayersFromPlayer(player,25,25,25)){
+                    if(inazumaUHC.rm.getRole(p).getRoleCategory() == null){
+                        System.out.println(inazumaUHC.rm.getRole(p).getName());
+                        continue;
+                    }
+                    if(inazumaUHC.rm.getRole(p).getRoleCategory().getClass().equals(Alius.class)){
+                        a++;
+                    }
+                }
+                if( a == 0){
+                    player.sendMessage(Preset.instance.p.prefixName()+"Il n'y a aucun joueur(s) de l'Académie-Alius autour de vous.");
+                }
+                if( a > 0){
+                    player.sendMessage(Preset.instance.p.prefixName()+"Il y a "+a+" joueur(s) de l'Académie-Alius proche de vous.");
+                }
+                i++;
+            }
+        });
+        loadCommands();
+
+        Tracker tracker = Tracker.getOrCreate();
+        for(Player player : inazumaUHC.rm.getRole(Xavier.class).getPlayers()){
+            for(Player d : getPlayers()){
+                tracker.setTargetToPlayer(player,d);
+            }
+
+        }
+
 
     }
 
@@ -122,7 +164,7 @@ public class Darren extends Role implements Listener {
                 yes.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND,"/mark accept"));
                 b.addExtra(yes);
                 b.addExtra(" §7ou ");
-                BaseComponent no = new TextComponent("§a[OUI]");
+                BaseComponent no = new TextComponent("§a[NON]");
                 no.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND,"/mark refuse"));
 
                 b.addExtra(no);
@@ -132,8 +174,8 @@ public class Darren extends Role implements Listener {
                     @Override
                     public void run() {
                         if(!hasChoose){
-                            refuse(player);
                             hasChoose = true;
+                            refuse(player);
                         }
 
 
