@@ -10,10 +10,7 @@ import be.alexandre01.inazuma.uhc.generations.NetherPortalsManager;
 import be.alexandre01.inazuma.uhc.host.Host;
 import be.alexandre01.inazuma.uhc.listeners.ListenersManager;
 import be.alexandre01.inazuma.uhc.listeners.game.*;
-import be.alexandre01.inazuma.uhc.managers.DamageManager;
-import be.alexandre01.inazuma.uhc.managers.InvincibilityDamager;
-import be.alexandre01.inazuma.uhc.managers.InvisibilityInventory;
-import be.alexandre01.inazuma.uhc.managers.RejoinManager;
+import be.alexandre01.inazuma.uhc.managers.*;
 import be.alexandre01.inazuma.uhc.presets.Preset;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.InazumaEleven;
 import be.alexandre01.inazuma.uhc.presets.jujutsu_kaisen.Jujutsu_Kaisen;
@@ -82,6 +79,7 @@ public final class InazumaUHC extends JavaPlugin {
     public boolean autoStart = false;
     public boolean loadWorldBefore = true;
     public boolean unloadWorlds = false;
+    public PlayerMovementManager playerMovementManager = new PlayerMovementManager();
 
     @Override
     public void onEnable() {

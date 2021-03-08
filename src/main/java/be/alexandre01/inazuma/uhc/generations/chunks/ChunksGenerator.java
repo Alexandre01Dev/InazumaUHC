@@ -16,6 +16,7 @@ import java.time.Instant;
 import java.util.*;
 
 public class ChunksGenerator {
+    public static HashMap<World.Environment,ArrayList<ChunkCoord>> chunksCalcHash = new HashMap<>();
     private ChunksExecutor chunksExecutor;
     private  ArrayList<ChunkCoord> chunksCord;
     private int totalChunk;
@@ -44,6 +45,7 @@ public class ChunksGenerator {
                 chunks.add(new ChunkCoord(cX + x, cZ + z));
             }
         }
+        chunksCalcHash.put(origin.getWorld().getEnvironment(),new ArrayList<>(chunks));
         return chunks;
 
     }
