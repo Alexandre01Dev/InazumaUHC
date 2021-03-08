@@ -48,8 +48,6 @@ public class PVPTimer extends Timer {
 
                 p.pvpText = "§cPVP ";
                 p.pvpValue = "§e"+modifier+"s";
-                System.out.println(modifier +" !");
-                System.out.println(p.pvpValue);
                 Date date = new Date(pvpTime-now);
                 int hour =  (int) ((date.getTime() / (1000*60*60)) % 24);
                 String minute = m.format(date);

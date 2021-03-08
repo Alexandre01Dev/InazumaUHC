@@ -44,7 +44,6 @@ public class InvincibilityTimer extends Timer {
                 if(this.time == 0){
                     time = (30 * 1000L)+now;
                 }
-                System.out.println("SOUT !");
                 Date date = new Date(time-now);
                 int hour =  (int) ((date.getTime() / (1000*60*60)) % 24);
                 String minute = m.format(date);
