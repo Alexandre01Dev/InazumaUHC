@@ -1,5 +1,6 @@
 package be.alexandre01.inazuma.uhc.presets.inazuma_eleven.roles.raimon;
 
+import be.alexandre01.inazuma.uhc.managers.DamageManager;
 import be.alexandre01.inazuma.uhc.presets.Preset;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.categories.Raimon;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.objects.Episode;
@@ -41,6 +42,7 @@ public class Shawn extends Role {
         onLoad(new load() {
             @Override
             public void a(Player player) {
+                    inazumaUHC.dm.addEffectPourcentage(player, DamageManager.EffectType.RESISTANCE,1,115);
                     player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, Integer.MAX_VALUE, 0,false,false), true);
             }
 
