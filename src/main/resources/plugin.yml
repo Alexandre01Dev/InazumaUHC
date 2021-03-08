@@ -10,5 +10,6 @@ commands:
     aliases:
       - scenarios
   start:
+    permission: uhc.start
   host:
-
+    permission: uhc.host

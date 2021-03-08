@@ -48,7 +48,7 @@ public class WaitingScoreboard {
                     objectiveSign.setLine(9, "§r§l§8»§8§m------------§l§8«§r");
                     World world = player.getWorld();
                     int borderSize = Preset.instance.p.getBorderSize(world.getEnvironment());
-                    objectiveSign.setLine(10,"§7Bordure §l» §e-"+ borderSize+"§7/§e"+borderSize);
+                    objectiveSign.setLine(10,"§7Meetup §l» §e-"+ borderSize+"§7/§e"+borderSize);
                     objectiveSign.setLine(11, "§l§8»§8§m------------§l§8«");
 
 

@@ -2,6 +2,7 @@ package be.alexandre01.inazuma.uhc;
 
 import be.alexandre01.inazuma.uhc.commands.*;
 import be.alexandre01.inazuma.uhc.commands.test.ChunkCommand;
+import be.alexandre01.inazuma.uhc.commands.test.ForceEpisodeCommand;
 import be.alexandre01.inazuma.uhc.config.Config;
 import be.alexandre01.inazuma.uhc.config.Messages;
 import be.alexandre01.inazuma.uhc.config.yaml.YamlUtils;
@@ -118,6 +119,7 @@ public final class InazumaUHC extends JavaPlugin {
         registerCommand("revive", new ReviveCommand("revive"));
         registerCommand("heal", new HealCommand("heal"));
         registerCommand("rulestp", new RulesTpCommand("rulestp"));
+        registerCommand("addEpisode", new ForceEpisodeCommand("addEpisode"));
 
         potionEvent = new PotionEvent();
         lm.addListener(potionEvent);

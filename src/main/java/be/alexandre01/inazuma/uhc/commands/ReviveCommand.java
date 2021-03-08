@@ -11,6 +11,7 @@ import org.bukkit.entity.Player;
 public class ReviveCommand extends Command {
     public ReviveCommand(String s) {
         super(s);
+        super.setPermission("uhc.revive");
         super.setUsage("§cUtilisez /revive [player]");
     }
 
