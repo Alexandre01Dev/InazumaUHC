@@ -4,8 +4,11 @@ import be.alexandre01.inazuma.uhc.presets.Preset;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.objects.Episode;
 import be.alexandre01.inazuma.uhc.timers.utils.DateBuilderTimer;
 import be.alexandre01.inazuma.uhc.timers.utils.MSToSec;
+import lombok.Getter;
+import lombok.Setter;
 import net.minecraft.server.v1_8_R3.Tuple;
 import org.bukkit.entity.Player;
+import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.inventory.ItemStack;
 import org.omg.CORBA.PUBLIC_MEMBER;
 
@@ -14,15 +17,19 @@ import java.util.Date;
 
 public class RoleItem {
     private ItemStack itemStack;
-    private RightClick rightClick;
+    @Getter boolean isPlaceableItem = false;
+    @Getter @Setter private RightClick rightClick;
     private Role LinkedRole;
-    private RightClickOnPlayer rightClickOnPlayer = null;
-    private Tuple<Integer,RightClickOnPlayer> rightClickOnPlayerFarTuple = null;
-    private LeftClick leftClick;
-    private VerificationOnRightClick verificationOnRightClick = null;
-    private VerificationOnLeftClick verificationOnLeftClick = null;
-    private VerificationOnRightClickOnPlayer verificationOnRightClickOnPlayer = null;
+    @Getter @Setter private RightClickOnPlayer rightClickOnPlayer = null;
+    @Getter @Setter private PlaceBlock placeBlock = null;
+    @Getter @Setter private Tuple<Integer,RightClickOnPlayer> rightClickOnPlayerFarTuple = null;
+    @Getter @Setter private LeftClick leftClick;
+    @Getter @Setter private VerificationOnRightClick verificationOnRightClick = null;
+    @Getter @Setter private VerificationOnLeftClick verificationOnLeftClick = null;
+    @Getter @Setter private VerificationOnRightClickOnPlayer verificationOnRightClickOnPlayer = null;
+    @Getter @Setter private VerificationOnPlaceBlock verificationOnPlaceBlock = null;
     private int slot = 8;
+
 
 
     public RoleItem(){
@@ -77,6 +84,9 @@ public class RoleItem {
             verificationGenerations.add(initAutoVerification((VerificationType) t.a(),(Integer) t.b()));
         }
         return verificationGenerations;
+    }
+    public void setRightClickOnPlayer(int reach,RightClickOnPlayer rightClickOnPlayerFar) {
+        this.rightClickOnPlayerFarTuple = new Tuple<>(reach,rightClickOnPlayerFar);
     }
 
     public ArrayList<VerificationGeneration> generateVerification(Tuple<VerificationType,Integer> verificationTypes){
@@ -134,21 +144,22 @@ public class RoleItem {
             }
         };
     }
-    public VerificationOnLeftClick getVerificationOnLeftClick() {
-        return verificationOnLeftClick;
+
+    public void deployVerificationsOnPlaceBlock(ArrayList<VerificationGeneration> verificationGenerations) {
+        verificationOnPlaceBlock = new VerificationOnPlaceBlock() {
+
+            @Override
+            public boolean verification(Player player) {
+                for(VerificationGeneration v : verificationGenerations){
+                    if(!(v.verification(player)))
+                        return false;
+                }
+                return true;
+            }
+        };
     }
 
-    public void setVerificationOnLeftClick(VerificationOnLeftClick verificationOnLeftClick) {
-        this.verificationOnLeftClick = verificationOnLeftClick;
-    }
 
-    public VerificationOnRightClickOnPlayer getVerificationOnRightClickOnPlayer() {
-        return verificationOnRightClickOnPlayer;
-    }
-
-    public void setVerificationOnRightClickOnPlayer(VerificationOnRightClickOnPlayer verificationOnRightClickOnPlayer) {
-        this.verificationOnRightClickOnPlayer = verificationOnRightClickOnPlayer;
-    }
 
     public void setSlot(int slot) {
         this.slot = slot;
@@ -162,36 +173,8 @@ public class RoleItem {
         return itemStack;
     }
 
-    public RightClick getRightClick() {
-        return rightClick;
-    }
 
-    public void setRightClick(RightClick rightClick) {
-        this.rightClick = rightClick;
-    }
 
-    public LeftClick getLeftClick() {
-        return leftClick;
-    }
-
-    public Tuple<Integer, RightClickOnPlayer> getRightClickOnPlayerFarTuple() {
-        return rightClickOnPlayerFarTuple;
-    }
-
-    public RightClickOnPlayer getRightClickOnPlayer() {
-        return rightClickOnPlayer;
-    }
-
-    public void setLeftClick(LeftClick leftClick) {
-        this.leftClick = leftClick;
-    }
-
-    public void setRightClickOnPlayer(RightClickOnPlayer rightClickOnPlayer) {
-        this.rightClickOnPlayer = rightClickOnPlayer;
-    }
-    public void setRightClickOnPlayer(int reach,RightClickOnPlayer rightClickOnPlayerFar) {
-        this.rightClickOnPlayerFarTuple = new Tuple<>(reach,rightClickOnPlayerFar);
-    }
 
     private VerificationGeneration initAutoVerification(VerificationType type, int value){
         VerificationGeneration v = null;
@@ -249,6 +232,12 @@ public class RoleItem {
         }
         return v;
     }
+
+    public void setPlaceableItem(boolean placeableItem) {
+        isPlaceableItem = placeableItem;
+    }
+
+
     public interface VerificationGeneration{
         boolean verification(Player player);
     }
@@ -274,6 +263,13 @@ public class RoleItem {
 
     public interface LeftClick{
          void execute(Player player);
+    }
+
+    public interface VerificationOnPlaceBlock{
+        boolean verification(Player player);
+    }
+    public interface PlaceBlock{
+        void execute(Player player, BlockPlaceEvent e);
     }
 
     public enum VerificationType{
