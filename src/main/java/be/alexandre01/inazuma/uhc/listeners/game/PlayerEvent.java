@@ -130,7 +130,7 @@ public class PlayerEvent implements Listener {
 
 
 
-        PlayerUtils.sendViewPacket(player,world.getSpawnLocation());
+        PlayerUtils.sendViewPacket(player,world.getSpawnLocation(),10);
 
 
 
