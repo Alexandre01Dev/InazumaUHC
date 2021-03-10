@@ -24,7 +24,7 @@ public class ChunkEvent implements Listener {
 
             if(p.getNether() && world == 1){
                 GameState.get().setTo(State.WAITING);
-                InazumaUHC.get.playerMovementManager.init();
+               // InazumaUHC.get.playerMovementManager.init();
                 if(InazumaUHC.get.autoStart){
                 Timer timer = i.tm.getTimer(WaitingTimer.class);
                 timer.runTaskTimer(i,0,20);
@@ -32,7 +32,7 @@ public class ChunkEvent implements Listener {
             }
             if(!p.getNether() && world == 0){
                 GameState.get().setTo(State.WAITING);
-                InazumaUHC.get.playerMovementManager.init();
+               // InazumaUHC.get.playerMovementManager.init();
                 if(InazumaUHC.get.autoStart){
                     Timer timer = i.tm.getTimer(WaitingTimer.class);
                     timer.runTaskTimer(i,0,20);
