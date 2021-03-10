@@ -36,11 +36,12 @@ public class PotionEvent implements Listener {
             WeaponItem weaponItemstack = new WeaponItem(damager.getItemInHand());
             double resetDamage = getNewDamagePoint(damager);
             double damageIncreased = (resetDamage+sharpnessCalc(damager.getItemInHand())+critCalc(damager)) * (inazumaUHC.dm.getEffectPourcentage(damager, DamageManager.EffectType.INCREASE_DAMAGE));
+            event.setDamage(damageIncreased);
 
             System.out.println("NEW base >>" + damageIncreased);
             try {
                 System.out.println("DEFAULT ARMOR >>" + event.getDamage(EntityDamageEvent.DamageModifier.ARMOR));
-                event.setDamage(EntityDamageEvent.DamageModifier.ARMOR,(event.getDamage(EntityDamageEvent.DamageModifier.ARMOR)/event.getDamage(EntityDamageEvent.DamageModifier.BASE)));
+              //  event.setDamage(EntityDamageEvent.DamageModifier.ARMOR,(event.getDamage(EntityDamageEvent.DamageModifier.ARMOR)/event.getDamage(EntityDamageEvent.DamageModifier.BASE))*damageIncreased);
                 System.out.println("COEF ARMOR >>"+(event.getDamage(EntityDamageEvent.DamageModifier.ARMOR)/event.getDamage(EntityDamageEvent.DamageModifier.BASE)));
                 System.out.println("MOD ARMOR >>"+(event.getDamage(EntityDamageEvent.DamageModifier.ARMOR)/event.getDamage(EntityDamageEvent.DamageModifier.BASE))*damageIncreased);
             }catch (Exception e){
@@ -57,7 +58,7 @@ public class PotionEvent implements Listener {
                     System.out.println(-damageIncreased*inazumaUHC.dm.getEffectPourcentage(player, DamageManager.EffectType.RESISTANCE));
                 }
             }catch (Exception e){}
-            event.setDamage(EntityDamageEvent.DamageModifier.BASE,damageIncreased);
+
         }
     }
 

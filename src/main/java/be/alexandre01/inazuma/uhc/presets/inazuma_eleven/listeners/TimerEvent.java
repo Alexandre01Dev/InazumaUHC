@@ -55,12 +55,8 @@ public class TimerEvent implements Listener {
             Role.isDistributed = true;
         }
         if(event.getTimerName().equals("episodeTimer")){
+            System.out.println("episodeTimer !");
             event.getTimer().runTaskTimerAsynchronously(InazumaUHC.get,0,20*10);
-            InazumaUHC.get.tm.getTimer(EpisodeTimeTimer.class).cancel();
-            EpisodeTimeTimer.cancel = true;
-        }
-        if(event.getTimerName().equals("episodeTimeTimer")){
-            InazumaUHC.get.tm.getTimer(EpisodeTimeTimer.class).runTaskTimerAsynchronously(InazumaUHC.get,0,7);
         }
 
 

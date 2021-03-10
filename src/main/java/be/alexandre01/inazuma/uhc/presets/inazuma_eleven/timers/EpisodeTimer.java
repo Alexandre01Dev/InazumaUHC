@@ -20,16 +20,18 @@ public class EpisodeTimer extends Timer {
 
             @Override
             public void preRun() {
-                builderTimer = new DateBuilderTimer(20*60*1000L);
+                builderTimer = new DateBuilderTimer(5*1000L);
                 Episode.addEpisode();
             }
 
             @Override
             public void run() {
                 builderTimer.loadDate();
+                System.out.println(builderTimer.getDate().getTime()+" temps timer");
                 if(builderTimer.getDate().getTime() <= 0){
-                    EpisodeTimeTimer.cancel = true;
-                    cancel();
+                    System.out.println("timeurrr");
+                    InazumaUHC.get.tm.getTimer(EpisodeTimeTimer.class).reset();
+                    reset();
                 }
             }
         });
