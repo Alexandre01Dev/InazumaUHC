@@ -37,11 +37,11 @@ public class TrashPotion extends Scenario implements Listener {
                 public void run() {
                     player.sendMessage(Preset.instance.p.prefixName()+ "Tu n'essayerais pas de tricher un peu là ?") ;
                     player.setItemInHand(new ItemStack(Material.BUCKET));
-                    player.getWorld().spigot().strikeLightningEffect(player.getLocation(), true);
+                    player.getWorld().spigot().strikeLightningEffect(player.getLocation(), false);
                     player.setFireTicks(60);
                     player.setHealth(player.getHealth()-2);
                     Bukkit.broadcastMessage(Preset.instance.p.prefixName() + "§7 Félicitation à §c"+ player.getName() + " §7qui a essayé de tricher, mais en vain...");
-                    player.sendMessage("§7Viens discord juste après ta mort sous peine d'une §csanction§7.");
+                    player.sendMessage(Preset.instance.p.prefixName()+ "§7Viens discord juste après ta mort sous peine d'une §csanction§7.");
                 }
             }, 1L);
         }
