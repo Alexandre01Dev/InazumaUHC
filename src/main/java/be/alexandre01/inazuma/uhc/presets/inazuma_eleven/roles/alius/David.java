@@ -66,6 +66,9 @@ public class David extends Role {
                         }
                     });
 
+                    giveItem(player);
+
+                    player.sendMessage(Preset.instance.p.prefixName()+" Tu viens de recevoir §bManchot Empereur N°1 dans ton inventaire");
                     return;
                 }
                 if (args[0].equalsIgnoreCase("refuse")) {
