@@ -44,7 +44,7 @@ public class BordureTimer extends Timer {
                     time = (p.bordureTime* 1000L)+now;
                 }
 
-                p.bordureText = "§cBordure ";
+                p.bordureText = "§cMeetup ";
                 p.bordureValue= "§e"+modifier+"s";
                 Date date = new Date(time-now);
                 int hour =  (int) ((date.getTime() / (1000*60*60)) % 24);

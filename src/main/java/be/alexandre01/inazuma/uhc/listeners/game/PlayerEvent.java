@@ -269,8 +269,8 @@ public class PlayerEvent implements Listener {
 
                             player.getInventory().setHelmet(null);
                             player.getInventory().setChestplate(null);
-                            player.getInventory().setLeggings(null);
-                            player.getInventory().setBoots(null);
+                        player.getInventory().setLeggings(null);
+                        player.getInventory().setBoots(null);
                             player.updateInventory();
                             System.out.println("FINALKILL > DETECTED PL");
                             //KILLED

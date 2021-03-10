@@ -33,15 +33,17 @@ public class PlayerInstantDeath implements Listener {
         if(role != null){
             Bukkit.broadcastMessage("§r§l§8»§8§m-----------------------------------------------§l§8«");
             if(role.getRoleCategory() != null){
-                Bukkit.broadcastMessage("§e"+player.getName()+"§7 vient de §cmourir§7 à l'instant, c'était "+role.getRoleCategory().getPrefixColor()+ role.getName());
+                Bukkit.broadcastMessage("§e"+player.getName()+"§7 est §cmort(e)§7");
+                Bukkit.broadcastMessage("§e"+player.getName()+"§7 Son rôle était §f: "+role.getRoleCategory().getPrefixColor()+ role.getName());
             }else {
-                Bukkit.broadcastMessage("§e"+player.getName()+"§7 vient de §cmourir§7 à l'instant, c'était §a"+ role.getName());
+                Bukkit.broadcastMessage("§e"+player.getName()+"§7 vient de §cmourir");
+                Bukkit.broadcastMessage("§e"+player.getName()+"§7 Son rôle était §f:§a "+ role.getName());
             }
             Bukkit.broadcastMessage("§r§l§8»§8§m-----------------------------------------------§l§8«");
             return;
         }
         Bukkit.broadcastMessage("§r§l§8»§8§m-----------------------------------------------§l§8«");
-            Bukkit.broadcastMessage("§e"+player.getName()+"§7 vient de §cmourir§7 à l'instant.");
+            Bukkit.broadcastMessage("§e"+player.getName()+"§7 vient de §cmourir§7.");
         Bukkit.broadcastMessage("§r§l§8»§8§m-----------------------------------------------§l§8«");
     }
 }

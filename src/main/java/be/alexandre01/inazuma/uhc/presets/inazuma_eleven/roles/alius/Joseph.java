@@ -66,7 +66,7 @@ public class Joseph extends Role {
                         return;
                 }
                 lastEpisode = Episode.getEpisode();
-                player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 2*60*20, 0,false,false), true);
+                player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 2*60*20, 1,false,false), true);
                 inazumaUHC.dm.addEffectPourcentage(player, DamageManager.EffectType.RESISTANCE,2,120);
                 player.sendMessage(Preset.instance.p.prefixName()+" Tu viens d'utiliser la commande et de recevoir l'effet");
             }

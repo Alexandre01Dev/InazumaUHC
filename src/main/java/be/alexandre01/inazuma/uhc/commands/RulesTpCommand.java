@@ -4,10 +4,12 @@ import be.alexandre01.inazuma.uhc.InazumaUHC;
 import be.alexandre01.inazuma.uhc.presets.Preset;
 import be.alexandre01.inazuma.uhc.state.GameState;
 import be.alexandre01.inazuma.uhc.state.State;
+import be.alexandre01.inazuma.uhc.utils.ItemBuilder;
 import be.alexandre01.inazuma.uhc.utils.PlayerUtils;
 import be.alexandre01.inazuma.uhc.utils.TitleUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -110,6 +112,13 @@ public class RulesTpCommand extends Command {
                             }
                             player.teleport(loc1);
                             PlayerUtils.sendViewPacket(player,loc1);
+                            ItemBuilder helmet = new ItemBuilder(Material.CHAINMAIL_HELMET).setName("Prof");
+                            player.getInventory().setHelmet(helmet.toItemStack());
+                            ItemBuilder chestplate = new ItemBuilder(Material.CHAINMAIL_CHESTPLATE).setName("Prof");
+                            player.getInventory().setHelmet(chestplate.toItemStack());
+                            ItemBuilder leggings = new ItemBuilder(Material.CHAINMAIL_LEGGINGS).setName("Prof");
+                            player.getInventory().setHelmet(leggings.toItemStack());
+                            player.updateInventory();
                         }
                     }
                     , 20 * 4); // 5 secondes

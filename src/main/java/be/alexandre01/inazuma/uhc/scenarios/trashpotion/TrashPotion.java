@@ -1,6 +1,7 @@
 package be.alexandre01.inazuma.uhc.scenarios.trashpotion;
 
 import be.alexandre01.inazuma.uhc.InazumaUHC;
+import be.alexandre01.inazuma.uhc.presets.Preset;
 import be.alexandre01.inazuma.uhc.scenarios.Scenario;
 import be.alexandre01.inazuma.uhc.utils.ItemBuilder;
 import org.bukkit.Bukkit;
@@ -27,6 +28,18 @@ public class TrashPotion extends Scenario implements Listener {
             Bukkit.getServer().getScheduler().runTaskLaterAsynchronously(InazumaUHC.get, new Runnable() {
                 public void run() {
                     player.setItemInHand(new ItemStack(Material.AIR));
+                }
+            }, 1L);
+        }
+        if (e.getItem().getTypeId() == 335) {
+            e.setCancelled(true);
+            Bukkit.getServer().getScheduler().runTaskLaterAsynchronously(InazumaUHC.get, new Runnable() {
+                public void run() {
+                    player.sendMessage(Preset.instance.p.prefixName()+ "Tu n'essayerais pas de tricher un peu là ?") ;
+                    player.setItemInHand(new ItemStack(Material.BUCKET));
+                    player.setHealth(player.getHealth()-2);
+                    Bukkit.broadcastMessage(Preset.instance.p.prefixName() + "§7 Félicitation à §c"+ player.getName() + " §7qui a essayé de tricher, mais en vain...");
+                    player.sendMessage("§7Viens discord juste après ta mort sous peine d'une §csanction§7.");
                 }
             }, 1L);
         }

@@ -1,6 +1,7 @@
 package be.alexandre01.inazuma.uhc.presets.inazuma_eleven.roles.raimon;
 
 import be.alexandre01.inazuma.uhc.custom_events.player.PlayerInstantDeathEvent;
+import be.alexandre01.inazuma.uhc.managers.DamageManager;
 import be.alexandre01.inazuma.uhc.presets.Preset;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.categories.Alius;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.categories.Raimon;
@@ -44,7 +45,8 @@ public class Mark extends Role implements Listener {
         onLoad(new load() {
             @Override
             public void a(Player player) {
-                    player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, Integer.MAX_VALUE, 0,false,false), true);
+                inazumaUHC.dm.addEffectPourcentage(player, DamageManager.EffectType.RESISTANCE,1,110);
+                player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, Integer.MAX_VALUE, 0,false,false), true);
             }
         });
 
@@ -57,7 +59,7 @@ public class Mark extends Role implements Listener {
                     return;
                 }
                 int a = 0;
-                for(Player p : PlayerUtils.getNearbyPlayersFromPlayer(player,25,25,25)){
+                for(Player p : PlayerUtils.getNearbyPlayersFromPlayer(player,20,20,20)){
                         if(inazumaUHC.rm.getRole(p).getRoleCategory() == null){
                             System.out.println(inazumaUHC.rm.getRole(p).getName());
                             continue;
