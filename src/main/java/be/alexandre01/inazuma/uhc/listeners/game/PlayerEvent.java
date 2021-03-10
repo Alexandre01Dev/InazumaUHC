@@ -15,6 +15,7 @@ import be.alexandre01.inazuma.uhc.teams.Team;
 import be.alexandre01.inazuma.uhc.teams.TeamManager;
 import be.alexandre01.inazuma.uhc.utils.CustomExp;
 import be.alexandre01.inazuma.uhc.utils.ExperienceManager;
+import be.alexandre01.inazuma.uhc.utils.PlayerUtils;
 import net.minecraft.server.v1_8_R3.*;
 import net.minecraft.server.v1_8_R3.Achievement;
 import org.bukkit.*;
@@ -59,11 +60,9 @@ public class PlayerEvent implements Listener {
         //PATCH PLAYER VIEW
         EntityPlayer nmsPlayer =((CraftPlayer)player).getHandle();
 
-        PacketPlayOutNamedEntitySpawn packet = new PacketPlayOutNamedEntitySpawn(nmsPlayer);
 
-        for(Player players : Bukkit.getOnlinePlayers()){
-            ((CraftPlayer)players).getHandle().playerConnection.sendPacket(packet);
-        }
+
+
 
         //PATCH DAMAGE NBT
         for(Object o : nmsPlayer.getAttributeMap().a()){
@@ -125,9 +124,15 @@ public class PlayerEvent implements Listener {
             for(org.bukkit.scoreboard.Team team : player.getScoreboard().getTeams()){
                 team.removePlayer(player);
             }
-
-
         }
+
+
+
+
+
+        PlayerUtils.sendViewPacket(player,world.getSpawnLocation());
+
+
 
 
 

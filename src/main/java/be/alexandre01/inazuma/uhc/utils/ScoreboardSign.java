@@ -70,11 +70,6 @@ public class ScoreboardSign {
 			getPlayer().sendPacket(createObjectivePacket(2, name));
 	}
 
-	/**
-	 * Change a scoreboard line and send the packets to the player. Can be called async.
-	 * @param line the number of the line (0 <= line < 15)
-	 * @param value the new value for the scoreboard line
-	 */
 	public void setLine(int line, String value) {
 		VirtualTeam team = getOrCreateTeam(line);
 		String old = team.getCurrentPlayer();
@@ -86,10 +81,7 @@ public class ScoreboardSign {
 		sendLine(line);
 	}
 
-	/**
-	 * Remove a given scoreboard line
-	 * @param line the line to remove
-	 */
+
 	public void removeLine(int line) {
 		VirtualTeam team = getOrCreateTeam(line);
 		String old = team.getCurrentPlayer();
@@ -102,11 +94,7 @@ public class ScoreboardSign {
 		lines[line] = null;
 	}
 
-	/**
-	 * Get the current value for a line
-	 * @param line the line
-	 * @return the content of the line
-	 */
+
 	public String getLine(int line) {
 		if (line > 14)
 			return null;
@@ -115,10 +103,7 @@ public class ScoreboardSign {
 		return getOrCreateTeam(line).getValue();
 	}
 
-	/**
-	 * Get the team assigned to a line
-	 * @return the {@link VirtualTeam} used to display this line
-	 */
+
 	public VirtualTeam getTeam(int line) {
 		if (line > 14)
 			return null;
@@ -198,10 +183,7 @@ public class ScoreboardSign {
 		return new PacketPlayOutScoreboardScore(line);
 	}
 
-	/**
-	 * This class is used to manage the content of a line. Advanced users can use it as they want, but they are encouraged to read and understand the
-	 * code before doing so. Use these methods at your own risk.
-	 */
+
 	public class VirtualTeam {
 		private final String name;
 		private String prefix;

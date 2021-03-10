@@ -8,7 +8,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.scheduler.BukkitRunnable;
-import org.reflections.Reflections;
 
 import java.io.File;
 import java.io.IOException;
@@ -59,51 +58,6 @@ public class ListenersManager {
                         }
                     }
             }
-    }
-    public void automaticFindListener(){
-        IPreset p = Preset.instance.p;
-        String pack = "be.alexandre01.inazuma.uhc.presets."+ p.getPackageName()+".listeners";
-        System.out.println(pack);
-            Reflections reflections = new Reflections(pack);
-
-            Set<Class<? extends Object>> allClasses =
-                    reflections.getSubTypesOf(Object.class);
-
-            ArrayList<String> classes = null;
-            try {
-               classes= getClassNamesFromPackage(pack);
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (URISyntaxException e) {
-                e.printStackTrace();
-            }
-            if(classes == null){
-                System.out.println("classes = null");
-                return;
-            }
-            System.out.println(classes.size());
-            if(!classes.isEmpty()){
-                for(String s : classes){
-
-                    try {
-                        Class c = Class.forName(pack+"."+s);
-                        System.out.println(s);
-                        System.out.println(c.getCanonicalName());
-                        Listener listener = (Listener) c.newInstance();
-                        pluginManager.registerEvents(listener,pl);
-                        listeners.put(c,listener);
-                    } catch (InstantiationException e) {
-                        e.printStackTrace();
-                    } catch (IllegalAccessException e) {
-                        e.printStackTrace();
-                    } catch (ClassNotFoundException e) {
-                        e.printStackTrace();
-                    }
-                }
-                return;
-
-        }
-        System.out.println(p.getName()+" n'a pas de listeners");
     }
 
     private boolean checkPackage(String pack){

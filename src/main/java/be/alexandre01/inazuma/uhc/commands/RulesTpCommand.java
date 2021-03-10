@@ -4,6 +4,7 @@ import be.alexandre01.inazuma.uhc.InazumaUHC;
 import be.alexandre01.inazuma.uhc.presets.Preset;
 import be.alexandre01.inazuma.uhc.state.GameState;
 import be.alexandre01.inazuma.uhc.state.State;
+import be.alexandre01.inazuma.uhc.utils.PlayerUtils;
 import be.alexandre01.inazuma.uhc.utils.TitleUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -98,16 +99,17 @@ public class RulesTpCommand extends Command {
                             loc.getWorld().setSpawnLocation(loc.getBlockX(),loc.getBlockY(),loc.getBlockZ());
                             for(Player pls : Bukkit.getOnlinePlayers()){
 
-                            pls.teleport(loc);
-
-
-
-                            player.teleport(loc1);
+                                if(!pls.equals(player)){
+                                    PlayerUtils.sendViewPacket(pls,loc);
+                                    pls.teleport(loc);
+                                }
 
                             TitleUtils.sendTitle(pls, 20, 30, 20,"§6Sinon je te perma !","§6Signée§9 " + player.getName());
                             pls.playSound(player.getLocation(), Sound.LEVEL_UP,5,1);
                             pls.setLevel(0);
                             }
+                            player.teleport(loc1);
+                            PlayerUtils.sendViewPacket(player,loc1);
                         }
                     }
                     , 20 * 4); // 5 secondes

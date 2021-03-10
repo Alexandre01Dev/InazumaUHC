@@ -3,6 +3,7 @@ package be.alexandre01.inazuma.uhc.presets.inazuma_eleven.roles.alius;
 import be.alexandre01.inazuma.uhc.managers.DamageManager;
 import be.alexandre01.inazuma.uhc.presets.Preset;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.categories.Alius;
+import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.objects.Episode;
 import be.alexandre01.inazuma.uhc.roles.Role;
 import be.alexandre01.inazuma.uhc.roles.RoleItem;
 import be.alexandre01.inazuma.uhc.utils.ItemBuilder;
@@ -15,13 +16,15 @@ import org.bukkit.potion.PotionEffectType;
 import sun.security.mscapi.CPublicKey;
 
 public class Joseph extends Role {
+
+
     public Joseph() {
         super("Joseph King");
         setRoleCategory(Alius.class);
 
         RoleItem collierAllius = new RoleItem();
 
-        collierAllius.deployVerificationsOnRightClick(collierAllius.generateMultipleVerification(new Tuple<>(RoleItem.VerificationType.EPISODES,1)));
+        collierAllius.deployVerificationsOnRightClick(collierAllius.generateVerification(new Tuple<>(RoleItem.VerificationType.EPISODES,1)));
 
         collierAllius.setRightClick(new RoleItem.RightClick() {
             @Override
@@ -40,10 +43,14 @@ public class Joseph extends Role {
 
         addCommand("morsure", new command() {
             int i = 0;
+            int lastEpisode = 0;
             @Override
             public void a(String[] args, Player player) {
                 i++;
-
+                if(lastEpisode == Episode.getEpisode()){
+                    player.sendMessage(Preset.instance.p.prefixName()+" §cTu ne peux utiliser cette commande que tout les épisodes");
+                    return;
+                }
                 switch (i){
                     case 1:
                         addEffectAfter(player,2*20*60,2*60*20,PotionEffectType.WEAKNESS);
@@ -58,7 +65,7 @@ public class Joseph extends Role {
                         player.sendMessage(Preset.instance.p.prefixName()+" Tu as déjà atteint la limite d'utilisation");
                         return;
                 }
-
+                lastEpisode = Episode.getEpisode();
                 player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 2*60*20, 0,false,false), true);
                 inazumaUHC.dm.addEffectPourcentage(player, DamageManager.EffectType.RESISTANCE,2,120);
                 player.sendMessage(Preset.instance.p.prefixName()+" Tu viens d'utiliser la commande et de recevoir l'effet");

@@ -35,7 +35,7 @@ public class PotionEvent implements Listener {
             Player damager = (Player) event.getDamager();
             WeaponItem weaponItemstack = new WeaponItem(damager.getItemInHand());
             double resetDamage = getNewDamagePoint(damager);
-            double damageIncreased = resetDamage* (inazumaUHC.dm.getEffectPourcentage(damager, DamageManager.EffectType.INCREASE_DAMAGE))+sharpnessCalc(damager.getItemInHand())+critCalc(damager);
+            double damageIncreased = (resetDamage+sharpnessCalc(damager.getItemInHand())+critCalc(damager)) * (inazumaUHC.dm.getEffectPourcentage(damager, DamageManager.EffectType.INCREASE_DAMAGE));
 
             System.out.println("NEW base >>" + damageIncreased);
             try {
