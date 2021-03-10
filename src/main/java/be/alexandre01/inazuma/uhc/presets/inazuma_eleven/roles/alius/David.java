@@ -17,16 +17,18 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-public class David extends Role {
+public class David extends Role implements Listener {
     boolean hasChoose = false;
     boolean accepted = false;
     boolean refuse = false;
     public David() {
         super("David Samford");
         setRoleToSpoil(Caleb.class);
+        addListener(this);
         setRoleCategory(Alius.class);
         onLoad(new load() {
             @Override
@@ -42,7 +44,7 @@ public class David extends Role {
                     return;
                 }
                 if(args.length == 0){
-                    player.sendMessage(Preset.instance.p.prefixName()+" Veuillez mettre §a/power accept §7ou §a/mark refuse");
+                    player.sendMessage(Preset.instance.p.prefixName()+" Veuillez mettre §a/manchot accept §7ou §a/manchot refuse");
                     return;
                 }
 
@@ -70,6 +72,7 @@ public class David extends Role {
 
                     giveItem(player);
 
+                    player.setMaxHealth(player.getMaxHealth()-4);
                     player.sendMessage(Preset.instance.p.prefixName()+" Tu viens de recevoir §bManchot Empereur N°1 dans ton inventaire");
                     return;
                 }
