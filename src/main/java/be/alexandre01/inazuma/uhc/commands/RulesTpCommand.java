@@ -115,9 +115,9 @@ public class RulesTpCommand extends Command {
                             ItemBuilder helmet = new ItemBuilder(Material.CHAINMAIL_HELMET).setName("Prof");
                             player.getInventory().setHelmet(helmet.toItemStack());
                             ItemBuilder chestplate = new ItemBuilder(Material.CHAINMAIL_CHESTPLATE).setName("Prof");
-                            player.getInventory().setHelmet(chestplate.toItemStack());
+                            player.getInventory().setChestplate(chestplate.toItemStack());
                             ItemBuilder leggings = new ItemBuilder(Material.CHAINMAIL_LEGGINGS).setName("Prof");
-                            player.getInventory().setHelmet(leggings.toItemStack());
+                            player.getInventory().setLeggings(leggings.toItemStack());
                             player.updateInventory();
                         }
                     }
