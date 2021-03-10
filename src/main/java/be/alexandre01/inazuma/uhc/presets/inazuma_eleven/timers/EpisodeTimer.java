@@ -20,7 +20,7 @@ public class EpisodeTimer extends Timer {
 
             @Override
             public void preRun() {
-                builderTimer = new DateBuilderTimer(5*1000L);
+                builderTimer = new DateBuilderTimer(20*60*1000L);
                 Episode.addEpisode();
             }
 
