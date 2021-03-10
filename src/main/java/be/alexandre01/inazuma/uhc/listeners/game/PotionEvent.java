@@ -40,9 +40,9 @@ public class PotionEvent implements Listener {
             System.out.println("NEW base >>" + damageIncreased);
             try {
                 System.out.println("DEFAULT ARMOR >>" + event.getDamage(EntityDamageEvent.DamageModifier.ARMOR));
-                event.setDamage(EntityDamageEvent.DamageModifier.ARMOR,(event.getDamage(EntityDamageEvent.DamageModifier.ARMOR)/event.getDamage(EntityDamageEvent.DamageModifier.BASE))*damageIncreased);
-                System.out.println((event.getDamage(EntityDamageEvent.DamageModifier.ARMOR)/event.getDamage(EntityDamageEvent.DamageModifier.BASE)));
-                System.out.println((event.getDamage(EntityDamageEvent.DamageModifier.ARMOR)/event.getDamage(EntityDamageEvent.DamageModifier.BASE)));
+                event.setDamage(EntityDamageEvent.DamageModifier.ARMOR,(event.getDamage(EntityDamageEvent.DamageModifier.ARMOR)/event.getDamage(EntityDamageEvent.DamageModifier.BASE)));
+                System.out.println("COEF ARMOR >>"+(event.getDamage(EntityDamageEvent.DamageModifier.ARMOR)/event.getDamage(EntityDamageEvent.DamageModifier.BASE)));
+                System.out.println("MOD ARMOR >>"+(event.getDamage(EntityDamageEvent.DamageModifier.ARMOR)/event.getDamage(EntityDamageEvent.DamageModifier.BASE))*damageIncreased);
             }catch (Exception e){
 
             }
