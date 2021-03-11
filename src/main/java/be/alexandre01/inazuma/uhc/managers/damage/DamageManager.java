@@ -1,4 +1,4 @@
-package be.alexandre01.inazuma.uhc.managers;
+package be.alexandre01.inazuma.uhc.managers.damage;
 
 import be.alexandre01.inazuma.uhc.timers.utils.DateBuilderTimer;
 import be.alexandre01.inazuma.uhc.timers.utils.MSToSec;

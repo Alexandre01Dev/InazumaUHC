@@ -1,4 +1,4 @@
-package be.alexandre01.inazuma.uhc.managers;
+package be.alexandre01.inazuma.uhc.managers.player;
 
 import be.alexandre01.inazuma.uhc.utils.Reflections;
 import net.minecraft.server.v1_8_R3.EntityPlayer;
