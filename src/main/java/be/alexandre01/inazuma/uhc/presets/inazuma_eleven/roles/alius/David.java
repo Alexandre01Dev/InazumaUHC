@@ -8,8 +8,10 @@ import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.custom_events.EpisodeCh
 import be.alexandre01.inazuma.uhc.roles.Role;
 import be.alexandre01.inazuma.uhc.roles.RoleItem;
 import be.alexandre01.inazuma.uhc.utils.ItemBuilder;
+import be.alexandre01.inazuma.uhc.utils.PatchedEntity;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.minecraft.server.v1_8_R3.Tuple;
 import org.bukkit.Bukkit;
@@ -20,6 +22,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitTask;
+
+import javax.xml.soap.Text;
 
 public class David extends Role implements Listener {
     boolean hasChoose = false;
@@ -45,7 +49,7 @@ public class David extends Role implements Listener {
                     return;
                 }
                 if(args.length == 0){
-                    player.sendMessage(Preset.instance.p.prefixName()+" Veuillez mettre /manchot §2accept §7ou §a/manchot §4refuse");
+                    player.sendMessage(Preset.instance.p.prefixName()+" Veuillez mettre /manchot §aaccept §7ou §a/manchot §crefuse");
                     return;
                 }
 
@@ -64,6 +68,8 @@ public class David extends Role implements Listener {
                     roleItem.setRightClick(new RoleItem.RightClick() {
                         @Override
                         public void execute(Player player) {
+
+                            player.sendMessage(Preset.instance.p.prefixName()+" Vous venez d'utiliser §c§lManchot §c§lEmpereur §4§lN°1");
                             player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 2*20*60, 0,false,false), true);
                             player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 2*20*60, 0,false,false), true);
                         }
@@ -73,8 +79,8 @@ public class David extends Role implements Listener {
 
                     giveItem(player);
 
-                    player.setMaxHealth(player.getMaxHealth()-4);
-                    player.sendMessage(Preset.instance.p.prefixName()+" Tu viens de recevoir §c§lManchot §c§lEmpereur §4§lN°1§7 dans ton inventaire");
+                    PatchedEntity.setMaxHealthInSilent(player, player.getMaxHealth()-4);
+                    player.sendMessage(Preset.instance.p.prefixName()+" Vous venez de recevoir le §c§lManchot §c§lEmpereur §4§lN°1§7");
                     return;
                 }
                 if (args[0].equalsIgnoreCase("refuse")) {
@@ -82,7 +88,7 @@ public class David extends Role implements Listener {
                     bukkitTask.cancel();
                     return;
                 }
-                player.sendMessage(Preset.instance.p.prefixName()+" Veuillez mettre /manchot §2accept §7ou §a/manchot §4refuse");
+                player.sendMessage(Preset.instance.p.prefixName()+" Veuillez mettre /manchot §aaccept §7ou §a/manchot §crefuse");
             }
         });
     }
@@ -92,12 +98,21 @@ public class David extends Role implements Listener {
 
     private void sendRequest(){
 
-        BaseComponent b = new TextComponent(Preset.instance.p.prefixName()+" Voulez-vous recevoir votre §c§lManchot §c§lEmpereur §4§lN°1§7 ? ");
-        BaseComponent yes = new TextComponent("§2[Accepter]");
+        BaseComponent b = new TextComponent(Preset.instance.p.prefixName()+" Voulez-vous recevoir votre ");
+
+        BaseComponent manchot = new TextComponent("§7[§c§lManchot §c§lEmpereur §4§lN°1§7] ? §7*§8Curseur§7*");
+        BaseComponent manchotDesc = new TextComponent();
+        manchotDesc.addExtra("§e- §9Utilisation par §eEpisode\n");
+        manchotDesc.addExtra("§e- §9Perdre immédiatement §c§l3 §4❤§7 permanent\n");
+        manchotDesc.addExtra("§e- §9Perdre §c§l0.5 §4❤§7 permanent tous les §eEpisode");
+        manchot.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,manchotDesc.getExtra().toArray(new BaseComponent[0])));
+        b.addExtra(manchot);
+
+        BaseComponent yes = new TextComponent("§a[Accepter]");
         yes.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND,"/manchot accept"));
         b.addExtra(yes);
         b.addExtra(" §7ou ");
-        BaseComponent no = new TextComponent("§4[Refuser]");
+        BaseComponent no = new TextComponent("§c[Refuser]");
         no.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND,"/manchot refuse"));
 
         b.addExtra(no);
@@ -115,7 +130,7 @@ public class David extends Role implements Listener {
             getPlayers().forEach(player -> {
                 if (player.getMaxHealth()>8){
                     player.sendMessage(Preset.instance.p.prefixName()+" Vous avez perdu §c§l0.5 §4❤§7 permanent suite à avoir accepté le §c§lManchot §c§lEmpereur §4§lN°1§7.");
-                    player.setMaxHealth(player.getMaxHealth()-1);
+                    PatchedEntity.setMaxHealthInSilent(player, player.getMaxHealth()-1);
                 }
             });
             return;
