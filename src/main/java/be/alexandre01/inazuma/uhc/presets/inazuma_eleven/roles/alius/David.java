@@ -92,11 +92,11 @@ public class David extends Role implements Listener {
     private void sendRequest(){
 
         BaseComponent b = new TextComponent(Preset.instance.p.prefixName()+" Voulez-vous recevoir votre §c§lManchot §c§lEmpereur §4§lN°1§7 ?");
-        BaseComponent yes = new TextComponent("§2[OUI]");
+        BaseComponent yes = new TextComponent("§2[Accepter]");
         yes.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND,"/manchot accept"));
         b.addExtra(yes);
         b.addExtra(" §7ou ");
-        BaseComponent no = new TextComponent("§4[NON]");
+        BaseComponent no = new TextComponent("§4[Refuser]");
         no.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND,"/manchot refuse"));
 
         b.addExtra(no);
