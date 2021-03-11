@@ -12,11 +12,13 @@ import org.bukkit.event.Listener;
 public class StateEvent implements Listener {
     @EventHandler
     public void onStarting(StartingEvent event){
-        InazumaUHC.get.lm.removeListener(ProtectionEvent.class);
+
     }
 
     @EventHandler
     public void onPlaying(PlayingEvent event){
+
+        InazumaUHC.get.lm.removeListener(ProtectionEvent.class);
         System.out.println("PLAYING SCENARIO");
         if(Preset.instance.p.getPlatform() != null){
             Preset.instance.p.getPlatform().despawn();

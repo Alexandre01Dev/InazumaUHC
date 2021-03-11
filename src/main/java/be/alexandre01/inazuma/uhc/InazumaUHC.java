@@ -10,6 +10,7 @@ import be.alexandre01.inazuma.uhc.host.Host;
 import be.alexandre01.inazuma.uhc.listeners.ListenersManager;
 import be.alexandre01.inazuma.uhc.listeners.game.*;
 import be.alexandre01.inazuma.uhc.managers.*;
+import be.alexandre01.inazuma.uhc.managers.chat.ChatManager;
 import be.alexandre01.inazuma.uhc.managers.damage.DamageManager;
 import be.alexandre01.inazuma.uhc.managers.damage.InvincibilityDamager;
 import be.alexandre01.inazuma.uhc.managers.player.InvisibilityInventory;
@@ -58,6 +59,7 @@ public final class InazumaUHC extends JavaPlugin {
 
     //MANAGER
     public ListenersManager lm;
+    public ChatManager cm;
     public TimersManager tm;
     public RoleManager rm;
     public DamageManager dm;
@@ -96,7 +98,7 @@ public final class InazumaUHC extends JavaPlugin {
         System.out.println(Messages.get("error.stopped"));
         this.getCommand("lChunk").setExecutor(new ChunkCommand());
 
-
+        this.cm = new ChatManager();
         this.lm = new ListenersManager();
         lm.addListener(new WorldGenEvent());
         lm.addListener(new NetherEvent());
@@ -167,6 +169,7 @@ public final class InazumaUHC extends JavaPlugin {
         this.tm = new TimersManager();
 
 
+
         tm.searchPresetTimer();
 
         Bukkit.getWorld("world").setSpawnLocation(-176,90,-211);
@@ -189,6 +192,10 @@ public final class InazumaUHC extends JavaPlugin {
         if(p.p.hasRoles() && rm == null){
             rm = new RoleManager();
         }
+
+
+
+
         Tracker.initialize();
         registerCommand("force", new ForceCommand("force"));
 

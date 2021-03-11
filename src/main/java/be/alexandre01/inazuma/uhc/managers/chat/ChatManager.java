@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 public class ChatManager {
     private HashMap<String,Chat> chats = new HashMap<>();
-    private ChatManager(){
+    public ChatManager(){
         chats = new HashMap<>();
     }
     public Chat addChat(String chatName,Chat chat){

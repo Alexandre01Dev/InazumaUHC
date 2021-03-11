@@ -7,6 +7,8 @@ import net.minecraft.server.v1_8_R3.*;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -73,13 +75,17 @@ public class DamageManager {
     public double getEffectPourcentage(Player player, EffectType effectType){
         switch (effectType){
             case RESISTANCE:
-                if(resistance.containsKey(player)){
-                    return resistance.get(player);
+                if(player.hasPotionEffect(PotionEffectType.DAMAGE_RESISTANCE)){
+                    if(resistance.containsKey(player)){
+                        return resistance.get(player);
+                    }
+                    return 1.15d;
                 }
-                return 0.15d;
             case INCREASE_DAMAGE:
-                if(increased_damage.containsKey(player)){
-                    return increased_damage.get(player);
+                if(player.hasPotionEffect(PotionEffectType.INCREASE_DAMAGE)){
+                     if(increased_damage.containsKey(player)){
+                        return increased_damage.get(player);
+                     }
                 }
         }
         return 1;

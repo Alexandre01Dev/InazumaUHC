@@ -1,6 +1,7 @@
 package be.alexandre01.inazuma.uhc.managers.chat;
 
 import be.alexandre01.inazuma.uhc.InazumaUHC;
+import lombok.Builder;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -11,12 +12,21 @@ import java.util.UUID;
 public class Chat {
     private HashMap<UUID,String> interlocuters;
     private ArrayList<Chat> accessors;
-    private String chatName;
-    public void Chat(String chatName){
+    private String chatName = "Chat";
+    private String separator = ">";
+    private String messageColor = "§b";
+    private String prefixColor = "§b";
+
+    @Builder
+    public  Chat(String chatName,String separator, String prefixColor){
         interlocuters = new HashMap<>();
         accessors = new ArrayList<>();
         this.chatName = chatName;
+        this.separator = separator;
+        this.prefixColor = prefixColor;
     }
+
+
 
     public void add(UUID uuid, String nickname){
         interlocuters.put(uuid,nickname);
@@ -33,7 +43,7 @@ public class Chat {
             if(p == null)
                 continue;
 
-            p.sendMessage("§b["+chatName+"] | "+interlocuters.get(uuid)+" >" + message);
+            p.sendMessage("§b["+chatName+"] | "+interlocuters.get(uuid)+" > " + message);
         }
 
         for(Chat chat : accessors){
@@ -43,12 +53,12 @@ public class Chat {
                 if(p == null)
                     continue;
 
-                p.sendMessage("§b["+chatName+"] | "+interlocuters.get(uuid)+" >" + message);
+                p.sendMessage("§b["+chatName+"] §e| "+interlocuters.get(uuid)+" >" + message);
             }
         }
 
         for(Player player : InazumaUHC.get.spectatorManager.getPlayers()){
-            player.sendMessage("§b["+chatName+"] | "+interlocuters.get(uuid)+" >" + message);
+            player.sendMessage(prefixColor+"["+chatName+prefixColor+"] §e| " + prefixColor+interlocuters.get(uuid)+" "+separator + messageColor+ message);
         }
     }
 }

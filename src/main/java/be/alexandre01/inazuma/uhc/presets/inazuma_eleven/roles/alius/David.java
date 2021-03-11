@@ -38,7 +38,7 @@ public class David extends Role implements Listener {
         onLoad(new load() {
             @Override
             public void a(Player player) {
-                InazumaUHC.get.dm.addEffectPourcentage(player, DamageManager.EffectType.INCREASE_DAMAGE,1,110);
+                InazumaUHC.get.dm.addEffectPourcentage(player, DamageManager.EffectType.INCREASE_DAMAGE,2,120);
             }
         });
         addCommand("manchot", new command() {
@@ -71,7 +71,7 @@ public class David extends Role implements Listener {
 
                             player.sendMessage(Preset.instance.p.prefixName()+" Vous venez d'utiliser §c§lManchot §c§lEmpereur §4§lN°1");
                             player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 2*20*60, 0,false,false), true);
-                            player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 2*20*60, 0,false,false), true);
+                            player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 2*20*60, 1,false,false), true);
                         }
                     });
 

@@ -27,13 +27,13 @@ public class Role {
     private ArrayList<BaseComponent[]> description;
     protected InazumaUHC inazumaUHC;
     public ArrayList<Listener> listeners = new ArrayList<>();
-    private HashMap<String,CommandRole> commands;
+    private static final HashMap<String,CommandRole> commands = new HashMap<>();
   private final HashMap<ItemStack,RoleItem> roleItems = new HashMap<>();
     private static ArrayList<Role> rolesByInstance = new ArrayList<>();
     private RoleCategory roleCategory = null;
     public Role(String name){
         this.players = new ArrayList<>();
-        this.commands = new HashMap<>();
+
         this.inazumaUHC = InazumaUHC.get;
         this.name = name;
         rolesByInstance.add(this);
@@ -175,7 +175,12 @@ public class Role {
 
     public void addCommand(String name,command command){
         if(commands.containsKey(name)){
-            commands.get(name).addRole(this);
+            System.out.println("ADDROLE commands");
+            CommandRole commandRole =  commands.get(name);
+            commandRole.addRole(this);
+            commandRole.addCommand(this,command);
+
+            return;
         }
         CommandRole commandRole = new CommandRole(name,command,this);
         commands.put(name,commandRole);

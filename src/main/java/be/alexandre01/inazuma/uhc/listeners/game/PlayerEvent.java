@@ -83,6 +83,8 @@ public class PlayerEvent implements Listener {
         player.setWalkSpeed(0.2f);
         player.setFlySpeed(0.2f);
 
+        player.setFireTicks(0);
+
         inazumaUHC.getScoreboardManager().onLogin(player);
         IPreset p = Preset.instance.p;
 
