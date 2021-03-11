@@ -44,7 +44,7 @@ public class Chat {
             if(p == null)
                 continue;
 
-            p.sendMessage("§b["+chatName+"] | "+interlocuters.get(uuid)+" > " + message);
+            p.sendMessage(prefixColor+"["+chatName+prefixColor+"] §e| " + prefixColor+interlocuters.get(uuid)+" "+separator + messageColor+ message);
         }
 
         for(Chat chat : accessors){
