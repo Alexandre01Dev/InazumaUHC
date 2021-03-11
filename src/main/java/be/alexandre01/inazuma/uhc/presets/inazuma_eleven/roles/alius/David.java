@@ -18,13 +18,16 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.scheduler.BukkitTask;
 
 public class David extends Role implements Listener {
     boolean hasChoose = false;
     boolean accepted = false;
     boolean refuse = false;
+    private BukkitTask bukkitTask;
     public David() {
         super("David Samford");
         setRoleToSpoil(Caleb.class);
@@ -51,7 +54,7 @@ public class David extends Role implements Listener {
                 if(args[0].equalsIgnoreCase("accept")){
                     hasChoose = true;
                     accepted = true;
-
+                    bukkitTask.cancel();
                     RoleItem roleItem = new RoleItem();
                     roleItem.deployVerificationsOnRightClick(roleItem.generateVerification(new Tuple<>(RoleItem.VerificationType.EPISODES,1)));
 
@@ -78,7 +81,7 @@ public class David extends Role implements Listener {
                 }
                 if (args[0].equalsIgnoreCase("refuse")) {
                     hasChoose = true;
-
+                    bukkitTask.cancel();
                     return;
                 }
                 player.sendMessage(Preset.instance.p.prefixName()+" Veuillez mettre /manchot §2accept §7ou §a/manchot §4refuse");
@@ -91,7 +94,7 @@ public class David extends Role implements Listener {
 
     private void sendRequest(){
 
-        BaseComponent b = new TextComponent(Preset.instance.p.prefixName()+" Voulez-vous recevoir votre §c§lManchot §c§lEmpereur §4§lN°1§7 ?");
+        BaseComponent b = new TextComponent(Preset.instance.p.prefixName()+" Voulez-vous recevoir votre §c§lManchot §c§lEmpereur §4§lN°1§7 ? ");
         BaseComponent yes = new TextComponent("§2[Accepter]");
         yes.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND,"/manchot accept"));
         b.addExtra(yes);
@@ -107,6 +110,9 @@ public class David extends Role implements Listener {
     }
     @EventHandler
     public void onEpisode(EpisodeChangeEvent event){
+        if(bukkitTask != null){
+            bukkitTask.cancel();
+        }
         if(accepted){
             getPlayers().forEach(player -> {
                 if (player.getMaxHealth()>8){
@@ -118,6 +124,10 @@ public class David extends Role implements Listener {
         }
 
         sendRequest();
+
+        bukkitTask = Bukkit.getScheduler().runTaskLaterAsynchronously(inazumaUHC, () -> {
+            hasChoose = true;
+            },20*60*5);
         hasChoose = false;
     }
 }
