@@ -1,6 +1,7 @@
 package be.alexandre01.inazuma.uhc.utils;
 
 import net.minecraft.server.v1_8_R3.EntityPlayer;
+import net.minecraft.server.v1_8_R3.PacketPlayOutAnimation;
 import net.minecraft.server.v1_8_R3.PacketPlayOutEntityStatus;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
@@ -27,7 +28,7 @@ public class PatchedEntity {
     public static void damage(LivingEntity entity, double damage, EntityDamageEvent.DamageCause damageCause, boolean isSilent){
      damage(entity,damage,damageCause);
      if(isSilent){
-         PacketPlayOutEntityStatus status = new PacketPlayOutEntityStatus(((CraftEntity)entity).getHandle(),(byte) 1);
+         PacketPlayOutAnimation status = new PacketPlayOutAnimation(((CraftEntity)entity).getHandle(), 1);
          for(Player player : Bukkit.getOnlinePlayers()){
              EntityPlayer entityPlayer = ((CraftPlayer)player).getHandle();
              entityPlayer.playerConnection.sendPacket(status);
@@ -37,7 +38,7 @@ public class PatchedEntity {
     public static void damage(LivingEntity entity, double damage, boolean isSilent){
         damage(entity,damage, EntityDamageEvent.DamageCause.CUSTOM);
         if(isSilent){
-            PacketPlayOutEntityStatus status = new PacketPlayOutEntityStatus(((CraftEntity)entity).getHandle(),(byte) 1);
+            PacketPlayOutAnimation status = new PacketPlayOutAnimation(((CraftEntity)entity).getHandle(), 1);
             for(Player player : Bukkit.getOnlinePlayers()){
                 EntityPlayer entityPlayer = ((CraftPlayer)player).getHandle();
                 entityPlayer.playerConnection.sendPacket(status);
