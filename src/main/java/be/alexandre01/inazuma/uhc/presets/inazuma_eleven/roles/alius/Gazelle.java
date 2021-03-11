@@ -18,9 +18,10 @@ public class Gazelle extends Role {
             for(Role role : Role.getRoles()){
                 if(role.getClass() == Torch.class){
                     InazumaUHC.get.cm.addChat("InaChat", Chat.builder()
-                            .chatName("InaChat")
-                            .prefixColor("§b")
-                            .separator(">")
+                            .chatName("§4INA§7-§3CHAT")
+                            .prefixColor("§b§l")
+                            .message("§7 ")
+                            .separator("§8» ")
                             .build()
                     );
                 }
@@ -35,6 +36,7 @@ public class Gazelle extends Role {
                     return;
                 }
                 StringBuilder s = new StringBuilder();
+                s.append("§b");
                 for (String m : args){
                     s.append(m).append(" ");
                 }
@@ -49,7 +51,7 @@ public class Gazelle extends Role {
                     player.addPotionEffect(new PotionEffect(PotionEffectType.FAST_DIGGING, Integer.MAX_VALUE, 0,false,false), true);
                     Chat chat = inazumaUHC.cm.getChat("InaChat");
                 if(chat != null){
-                    chat.add(player.getUniqueId(),"§bGazelle");
+                    chat.add(player.getUniqueId(),"§b§lGazelle");
                 }
             }
         });

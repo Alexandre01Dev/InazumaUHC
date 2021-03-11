@@ -12,6 +12,7 @@ import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.roles.raimon.*;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.roles.solo.Byron;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.timers.*;
 import be.alexandre01.inazuma.uhc.scenarios.betazombie.BetaZombie;
+import be.alexandre01.inazuma.uhc.scenarios.cancelenchant.CancelEnchant;
 import be.alexandre01.inazuma.uhc.scenarios.cateyes.CatEyes;
 import be.alexandre01.inazuma.uhc.scenarios.cutclean.Cutclean;
 import be.alexandre01.inazuma.uhc.scenarios.diamondlimit.DiamondLimit;
@@ -57,8 +58,8 @@ public class InazumaEleven extends PresetData implements IPreset{
         //INITIALIZE ROLES
       //  new Xavier();
         new Torch();
-        new Gazelle();
         new Mark();
+        new Gazelle();
     }
 
     @Override
@@ -121,6 +122,7 @@ public class InazumaEleven extends PresetData implements IPreset{
             scenarios.add(BetaZombie.class);
             scenarios.add(TrashPotion.class);
             scenarios.add(DiamondLimit.class);
+            scenarios.add(CancelEnchant.class);
         }
         System.out.println("SCENARIO RETURN!");
         return scenarios;

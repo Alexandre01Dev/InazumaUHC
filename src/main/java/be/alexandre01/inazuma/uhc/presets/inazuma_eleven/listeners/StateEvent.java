@@ -66,6 +66,8 @@ public class StateEvent implements Listener {
             player.setFlying(false);
             player.setFlySpeed(0);
             player.setWalkSpeed(0);
+            player.getInventory().clear();
+            player.updateInventory();
             player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, Integer.MAX_VALUE, 0,false,false), true);
         }
         i.teamManager.distributeTeamToPlayer();

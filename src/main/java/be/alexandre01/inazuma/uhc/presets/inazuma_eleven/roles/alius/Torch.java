@@ -17,9 +17,10 @@ public class Torch  extends Role {
             for(Role role : Role.getRoles()){
                 if(role.getClass() == Torch.class){
                     InazumaUHC.get.cm.addChat("InaChat", Chat.builder()
-                            .chatName("InaChat")
-                            .prefixColor("§b")
-                            .separator(">")
+                            .chatName("§4INA§7-§3CHAT")
+                            .prefixColor("§c§l")
+                            .message("§7 ")
+                            .separator("§8» ")
                             .build()
                     );
                 }
@@ -29,12 +30,12 @@ public class Torch  extends Role {
         addCommand("inachat", new command() {
             @Override
             public void a(String[] args, Player player) {
-                StringBuilder s = new StringBuilder();
-
                 if(args.length == 0){
                     player.sendMessage(Preset.instance.p+"§c Veuillez mettre des arguments à votre message.");
                     return;
                 }
+                StringBuilder s = new StringBuilder();
+                s.append("§c");
                 for (String m : args){
                     s.append(m).append(" ");
                 }
@@ -49,7 +50,7 @@ public class Torch  extends Role {
                 player.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, Integer.MAX_VALUE, 0,false,false), true);
                 Chat chat = inazumaUHC.cm.getChat("InaChat");
                 if(chat != null){
-                    chat.add(player.getUniqueId(),"§bTorch");
+                    chat.add(player.getUniqueId(),"§c§lTorch");
                 }
             }
         });

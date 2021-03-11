@@ -2,6 +2,7 @@ package be.alexandre01.inazuma.uhc.scenarios;
 
 import be.alexandre01.inazuma.uhc.InazumaUHC;
 import be.alexandre01.inazuma.uhc.scenarios.betazombie.BetaZombie;
+import be.alexandre01.inazuma.uhc.scenarios.cancelenchant.CancelEnchant;
 import be.alexandre01.inazuma.uhc.scenarios.cateyes.CatEyes;
 import be.alexandre01.inazuma.uhc.scenarios.cutclean.Cutclean;
 import be.alexandre01.inazuma.uhc.scenarios.diamondlimit.DiamondLimit;
@@ -38,6 +39,7 @@ public class Scenario {
         scenarios.put(RodLess.class,new RodLess());
         scenarios.put(TrashPotion.class,new TrashPotion());
         scenarios.put(DiamondLimit.class,new DiamondLimit());
+        scenarios.put(CancelEnchant.class,new CancelEnchant());
     }
     public Scenario(String name, String description) {
         this.name = name;
