@@ -44,7 +44,7 @@ public class David extends Role implements Listener {
                     return;
                 }
                 if(args.length == 0){
-                    player.sendMessage(Preset.instance.p.prefixName()+" Veuillez mettre §a/manchot accept §7ou §a/manchot refuse");
+                    player.sendMessage(Preset.instance.p.prefixName()+" Veuillez mettre /manchot §2accept §7ou §a/manchot §4refuse");
                     return;
                 }
 
@@ -56,7 +56,7 @@ public class David extends Role implements Listener {
                     roleItem.deployVerificationsOnRightClick(roleItem.generateVerification(new Tuple<>(RoleItem.VerificationType.EPISODES,1)));
 
 
-                    ItemBuilder it = new ItemBuilder(Material.NETHER_STAR).setName("§bManchot Empereur N°1");
+                    ItemBuilder it = new ItemBuilder(Material.NETHER_STAR).setName("§c§lManchot §c§lEmpereur §4§lN°1");
 
                     roleItem.setItemstack(it.toItemStack());
 
@@ -73,7 +73,7 @@ public class David extends Role implements Listener {
                     giveItem(player);
 
                     player.setMaxHealth(player.getMaxHealth()-4);
-                    player.sendMessage(Preset.instance.p.prefixName()+" Tu viens de recevoir §bManchot Empereur N°1 dans ton inventaire");
+                    player.sendMessage(Preset.instance.p.prefixName()+" Tu viens de recevoir §c§lManchot §c§lEmpereur §4§lN°1§7 dans ton inventaire");
                     return;
                 }
                 if (args[0].equalsIgnoreCase("refuse")) {
@@ -81,7 +81,7 @@ public class David extends Role implements Listener {
 
                     return;
                 }
-                player.sendMessage(Preset.instance.p.prefixName()+" Veuillez mettre §a/manchot accept §7ou §a/manchot refuse");
+                player.sendMessage(Preset.instance.p.prefixName()+" Veuillez mettre /manchot §2accept §7ou §a/manchot §4refuse");
             }
         });
     }
@@ -91,12 +91,12 @@ public class David extends Role implements Listener {
 
     private void sendRequest(){
 
-        BaseComponent b = new TextComponent(Preset.instance.p.prefixName()+" Voulez-vous recevoir l'item ?");
-        BaseComponent yes = new TextComponent("§a[OUI]");
+        BaseComponent b = new TextComponent(Preset.instance.p.prefixName()+" Voulez-vous recevoir votre §c§lManchot §c§lEmpereur §4§lN°1§7 ?");
+        BaseComponent yes = new TextComponent("§2[OUI]");
         yes.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND,"/manchot accept"));
         b.addExtra(yes);
         b.addExtra(" §7ou ");
-        BaseComponent no = new TextComponent("§a[NON]");
+        BaseComponent no = new TextComponent("§4[NON]");
         no.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND,"/manchot refuse"));
 
         b.addExtra(no);
@@ -109,7 +109,10 @@ public class David extends Role implements Listener {
     public void onEpisode(EpisodeChangeEvent event){
         if(accepted){
             getPlayers().forEach(player -> {
-                player.setMaxHealth(player.getMaxHealth()-1);
+                if (player.getMaxHealth()>8){
+                    player.sendMessage(Preset.instance.p.prefixName()+" Vous avez perdu §c§l0.5 §4❤§7 permanent suite à avoir accepté le §c§lManchot §c§lEmpereur §4§lN°1§7.");
+                    player.setMaxHealth(player.getMaxHealth()-1);
+                }
             });
             return;
         }
