@@ -18,12 +18,13 @@ public class Chat {
     private String prefixColor = "§b";
 
     @Builder
-    public  Chat(String chatName,String separator, String prefixColor){
+    public  Chat(String chatName,String separator,String message, String prefixColor){
         interlocuters = new HashMap<>();
         accessors = new ArrayList<>();
         this.chatName = chatName;
         this.separator = separator;
         this.prefixColor = prefixColor;
+        this.messageColor = message;
     }
 
 
