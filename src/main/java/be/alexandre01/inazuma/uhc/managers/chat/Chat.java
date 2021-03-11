@@ -54,7 +54,7 @@ public class Chat {
                 if(p == null)
                     continue;
 
-                player.sendMessage(prefixColor+"["+chatName+prefixColor+"] §e| " + prefixColor+interlocuters.get(uuid)+" "+separator + messageColor+ message);
+                p.sendMessage(prefixColor+"["+chatName+prefixColor+"] §e| " + prefixColor+interlocuters.get(uuid)+" "+separator + messageColor+ message);
             }
         }
 
