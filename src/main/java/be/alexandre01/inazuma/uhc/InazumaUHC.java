@@ -25,6 +25,7 @@ import be.alexandre01.inazuma.uhc.teams.TeamManager;
 import be.alexandre01.inazuma.uhc.timers.TimersManager;
 import be.alexandre01.inazuma.uhc.timers.game.*;
 import be.alexandre01.inazuma.uhc.utils.CustomExp;
+import be.alexandre01.inazuma.uhc.utils.PatchedEntity;
 import be.alexandre01.inazuma.uhc.utils.ScoreboardUtil;
 import be.alexandre01.inazuma.uhc.utils.Tracker;
 import be.alexandre01.inazuma.uhc.worlds.WorldGen;
@@ -140,7 +141,7 @@ public final class InazumaUHC extends JavaPlugin {
         p.pData.getTimers().add(new StartingTimer());
         p.pData.getTimers().add(new WaitingTimer());
 
-
+        PatchedEntity.init();
         CustomExp.registerEntity();
 
         //ARROWS
