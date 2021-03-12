@@ -30,6 +30,7 @@ public class PlayerMovementManager implements Listener {
     private HashMap<Location, action> actions;
     private HashMap<ChunkCoord, ChunkGrid> in;
     private HashMap<ChunkCoord, ArrayList<ChunkGrid>> nearChunksGrid;
+    private HashMap<Block,action> blockLocations = new HashMap<>();
     private HashMap<Player,ArrayList<Location>> playerLocations = new HashMap<>();
     private final int radiusGrid = 6;
     private final double mouvementRadius = 1.5d;
@@ -44,7 +45,10 @@ public class PlayerMovementManager implements Listener {
 
     public void init(){
         InazumaUHC.get.lm.addListener(this);
-     chunkGrid = new ChunkGrid(radiusGrid);
+    }
+
+    public void setTimer(){
+        chunkGrid = new ChunkGrid(radiusGrid);
         executorService.scheduleAtFixedRate(new Runnable() {
             @Override
             public void run() {
@@ -80,19 +84,29 @@ public class PlayerMovementManager implements Listener {
     public void addBlockLocation(Location loc,action action){
         Location location = new Location(loc.getWorld(), loc.getBlockX(), loc.getBlockY(), loc.getBlockZ());
 
-        Grid grid = chunkGrid.createOrGetGrid(location);
 
-        ArrayList<Location> gs = new ArrayList<>();
+        blockLocations.put(location.getBlock(),action);
+    //   ArrayList<Location> gs = new ArrayList<>();
 
-        if(locations.containsKey(grid)){
-            gs = locations.get(grid);
-        }
-        gs.add(location);
 
-        locations.put(grid, gs);
-        actions.put(location,action);
+      //  gs.add(location);
+
+
+      //  actions.put(location,action);
     }
+    public void remBlockLocation(Location loc){
+        Location location = new Location(loc.getWorld(), loc.getBlockX(), loc.getBlockY(), loc.getBlockZ());
 
+
+        blockLocations.remove(location.getBlock());
+        //   ArrayList<Location> gs = new ArrayList<>();
+
+
+        //  gs.add(location);
+
+
+        //  actions.put(location,action);
+    }
 
 
     @EventHandler
@@ -105,24 +119,16 @@ public class PlayerMovementManager implements Listener {
         }
 
         Block underPlayer = to.getBlock();
-        String blockType = underPlayer.getType().toString();  // why is this a string? You _can_ store the Material as an object...
-        System.out.println("MB 1");
+        String blockType = underPlayer.getType().toString();
 
-        if (!playerLocations.containsKey(event.getPlayer())) {
-            return; // not in list. do nothing.
+
+        if (!blockLocations.containsKey(underPlayer)) {
+            return;
         }
 
         Player player = event.getPlayer();
 
-        ArrayList<Location> locs = playerLocations.get(player);
-
-        for(Location loc : locs){
-            if(loc.getBlock() == underPlayer){
-                System.out.println("FIESTA !");
-                actions.get(loc).a(player);
-            }
-        }
-
+        blockLocations.get(underPlayer).a(player);
     }
 
 

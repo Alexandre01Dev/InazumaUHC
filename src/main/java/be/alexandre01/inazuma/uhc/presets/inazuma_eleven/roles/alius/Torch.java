@@ -4,20 +4,42 @@ import be.alexandre01.inazuma.uhc.InazumaUHC;
 import be.alexandre01.inazuma.uhc.managers.chat.Chat;
 import be.alexandre01.inazuma.uhc.presets.Preset;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.categories.Alius;
+import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.custom_events.EpisodeChangeEvent;
 import be.alexandre01.inazuma.uhc.roles.Role;
+import be.alexandre01.inazuma.uhc.roles.RoleItem;
+import be.alexandre01.inazuma.uhc.utils.ItemBuilder;
 import be.alexandre01.inazuma.uhc.utils.StringUtils;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Torch  extends Role {
+public class Torch  extends Role implements Listener {
+    private int i = 8;
     public Torch() {
         super("Torch");
         setRoleCategory(Alius.class);
+        setRoleToSpoil(Xavier.class);
+        addListener(this);
+
+        RoleItem roleItem = new RoleItem();
+        ItemBuilder itemBuilder = new ItemBuilder(Material.DIAMOND_SWORD);
+
+        itemBuilder.setName("Epee Torche");
+        itemBuilder.addEnchant(Enchantment.DAMAGE_ALL,2);
+        itemBuilder.setUnbreakable();
+        roleItem.setItemstack(itemBuilder.toItemStack());
+        addRoleItem(roleItem);
+
         if(inazumaUHC.cm.getChat("InaChat") == null){
             for(Role role : Role.getRoles()){
                 if(role.getClass() == Torch.class){
@@ -37,7 +59,7 @@ public class Torch  extends Role {
             @Override
             public void a(String[] args, Player player) {
                 if(args.length == 0){
-                    player.sendMessage(Preset.instance.p+"§c Veuillez mettre des arguments à votre message.");
+                    player.sendMessage(Preset.instance.p.prefixName()+"§c Veuillez mettre des arguments à votre message.");
                     return;
                 }
 
@@ -76,6 +98,34 @@ public class Torch  extends Role {
                 }
             }
         });
+    }
+
+    @EventHandler
+    public void onDamage(EntityDamageByEntityEvent event){
+        if(event.getDamager() instanceof Player && event.getEntity() instanceof Player){
+            Player player = (Player) event.getDamager();
+
+            Role role = inazumaUHC.rm.getRole(player);
+
+            if(role.getClass().equals(Torch.class)){
+               if(getRoleItems().containsKey(player.getItemInHand())){
+                   if(i != 0){
+                       event.getEntity().setFireTicks(3*20);
+                       i--;
+                       if(i == 0)
+                           player.sendMessage(Preset.instance.p.prefixName()+" Tu viens d'user ton épée.");
+                   }
+               }
+            }
+        }
+    }
+
+    @EventHandler
+    public void onEpisodeChanged(EpisodeChangeEvent event){
+        for(Player player : getPlayers()){
+            player.sendMessage(Preset.instance.p.prefixName()+" Ton épée c'est réparé comme par magie.");
+        }
+        this.i = 8;
     }
 
 }

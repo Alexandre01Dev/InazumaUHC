@@ -113,6 +113,8 @@ public final class InazumaUHC extends JavaPlugin {
                 }
             }
         }
+
+        playerMovementManager.init();
         lm.addListener(new ProtectionEvent());
         lm.addListener(new StateEvent());
         invincibilityDamager = new InvincibilityDamager();

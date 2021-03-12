@@ -4,20 +4,31 @@ import be.alexandre01.inazuma.uhc.InazumaUHC;
 import be.alexandre01.inazuma.uhc.managers.chat.Chat;
 import be.alexandre01.inazuma.uhc.presets.Preset;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.categories.Alius;
+import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.custom_events.EpisodeChangeEvent;
+import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.roles.raimon.William;
 import be.alexandre01.inazuma.uhc.roles.Role;
+import be.alexandre01.inazuma.uhc.roles.RoleItem;
+import be.alexandre01.inazuma.uhc.utils.ItemBuilder;
 import be.alexandre01.inazuma.uhc.utils.StringUtils;
+import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Gazelle extends Role {
+public class Gazelle extends Role implements Listener {
+    private int i = 6;
     public Gazelle() {
         super("Gazelle");
+        setRoleToSpoil(Xavier.class);
         setRoleCategory(Alius.class);
-
+        addListener(this);
         if(inazumaUHC.cm.getChat("InaChat") == null){
             for(Role role : Role.getRoles()){
                 if(role.getClass() == Torch.class){
@@ -32,12 +43,20 @@ public class Gazelle extends Role {
                 }
             }
         }
+        RoleItem roleItem = new RoleItem();
+        ItemBuilder itemBuilder = new ItemBuilder(Material.DIAMOND_SWORD);
+
+        itemBuilder.setName("Epee Gazelle");
+        itemBuilder.addEnchant(Enchantment.DAMAGE_ALL,2);
+        itemBuilder.setUnbreakable();
+        roleItem.setItemstack(itemBuilder.toItemStack());
+        addRoleItem(roleItem);
 
         addCommand("inachat", new command() {
             @Override
             public void a(String[] args, Player player) {
                 if(args.length == 0){
-                    player.sendMessage(Preset.instance.p+"§c Veuillez mettre des arguments à votre message.");
+                    player.sendMessage(Preset.instance.p.prefixName()+"§c Veuillez mettre des arguments à votre message.");
                     return;
                 }
                 StringBuilder s = new StringBuilder();
@@ -50,7 +69,7 @@ public class Gazelle extends Role {
                         rem.removeAll(inazumaUHC.rm.getRole(Gazelle.class).getPlayers());
                         rem.removeAll(inazumaUHC.rm.getRole(Torch.class).getPlayers());
 
-                        if(!rem.isEmpty()){
+                        if((rem.size() > 10)){
                             m = rem.get( new Random().nextInt( inazumaUHC.getRemainingPlayers().size())).getName();
                         }else {
                             String[] x = {"bizarre","un peu bête","Torch","Gazelle","rien du tout","idiot"};
@@ -75,5 +94,37 @@ public class Gazelle extends Role {
                 }
             }
         });
+    }
+
+    @EventHandler
+    public void onDamage(EntityDamageByEntityEvent event){
+        if(event.getDamager() instanceof Player && event.getEntity() instanceof Player){
+            Player player = (Player) event.getDamager();
+
+            Role role = inazumaUHC.rm.getRole(player);
+
+            if(role.getClass().equals(Gazelle.class)){
+                if(getRoleItems().containsKey(player.getItemInHand())){
+                    if(this.i != 0){
+                        Player p = (Player) event.getEntity();
+                        p.removePotionEffect(PotionEffectType.SLOW);
+                        p.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 20*5, 1,true,false));
+
+                        i--;
+                        if(i == 0){
+                            player.sendMessage(Preset.instance.p.prefixName()+" Tu viens d'user ton épée.");
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @EventHandler
+    public void onEpisodeChanged(EpisodeChangeEvent event){
+        for(Player player : getPlayers()){
+            player.sendMessage(Preset.instance.p.prefixName()+" Ton épée c'est réparé comme par magie.");
+        }
+        this.i = 6;
     }
 }
