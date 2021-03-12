@@ -6,6 +6,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.UUID;
 
@@ -38,9 +39,14 @@ public class Chat {
     }
 
     public void sendMessage(UUID uuid,String message){
+        sendMessageExceptUUID(uuid,message);
+    }
+    public void sendMessageExceptUUID(UUID uuid,String message,UUID... pUuids){
         for(UUID uuids : interlocuters.keySet()){
             Player p = Bukkit.getPlayer(uuids);
-
+            if(Arrays.asList(pUuids).contains(uuids)){
+                continue;
+            }
             if(p == null)
                 continue;
 
@@ -49,6 +55,7 @@ public class Chat {
 
         for(Chat chat : accessors){
             for(UUID uuids : chat.interlocuters.keySet()){
+
                 Player p = Bukkit.getPlayer(uuids);
 
                 if(p == null)
@@ -62,4 +69,8 @@ public class Chat {
             player.sendMessage("§7["+chatName+prefixColor+"§7] §e| " + prefixColor+interlocuters.get(uuid)+" "+separator + messageColor+ message);
         }
     }
+    public String generateMessage(UUID uuid,String message){
+        return   "§7["+chatName+prefixColor+"§7] §e| " + prefixColor+interlocuters.get(uuid)+" "+separator + messageColor+ message;
+    }
+
 }

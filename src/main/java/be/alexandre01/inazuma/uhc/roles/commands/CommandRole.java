@@ -29,8 +29,6 @@ public class CommandRole extends Command {
     public void addRole(Role role){
         if(!roles.contains(role)){
             roles.add(role);
-
-            System.out.println("ADDED ROLE >>"+  role );
         }
     }
 
@@ -45,11 +43,8 @@ public class CommandRole extends Command {
             Role role = roleManager.getRole(player.getUniqueId());
             if(inazumaUHC.spectatorManager.getPlayers().contains(sender)){
                 player.sendMessage(inazumaUHC.p.p.prefixName()+"Désolé, mais tu ne peux plus utiliser la commande, t'es un homme mort.");
+                return false;
             }
-            for(Role r : roles){
-                System.out.println("roles: >>"+ r.getName());
-            }
-            System.out.println("role: >>"+ role.getName());
             if(!roles.contains(role)){
                 player.sendMessage(Preset.instance.p.prefixName()+"§cLa commande n'est pas accessible depuis votre rôle.");
                 return false;

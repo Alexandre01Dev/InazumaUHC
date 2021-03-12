@@ -5,9 +5,13 @@ import be.alexandre01.inazuma.uhc.managers.chat.Chat;
 import be.alexandre01.inazuma.uhc.presets.Preset;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.categories.Alius;
 import be.alexandre01.inazuma.uhc.roles.Role;
+import be.alexandre01.inazuma.uhc.utils.StringUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+
+import java.util.ArrayList;
+import java.util.Random;
 
 public class Gazelle extends Role {
     public Gazelle() {
@@ -23,6 +27,7 @@ public class Gazelle extends Role {
                             .message("§7 ")
                             .separator("§8» ")
                             .build()
+
                     );
                 }
             }
@@ -36,12 +41,27 @@ public class Gazelle extends Role {
                     return;
                 }
                 StringBuilder s = new StringBuilder();
-                s.append("§b");
+                StringBuilder sPlayer = new StringBuilder();
                 for (String m : args){
+                    sPlayer.append(m).append(" ");
+                    String playerName = player.getName().substring(0,player.getName().length()-2);
+                    if(m.toLowerCase().contains(playerName.toLowerCase())){
+                        ArrayList<Player> rem = new ArrayList<>(inazumaUHC.getRemainingPlayers());
+                        rem.removeAll(inazumaUHC.rm.getRole(Gazelle.class).getPlayers());
+                        rem.removeAll(inazumaUHC.rm.getRole(Torch.class).getPlayers());
+
+                        if(!rem.isEmpty()){
+                            m = rem.get( new Random().nextInt( inazumaUHC.getRemainingPlayers().size())).getName();
+                        }else {
+                            String[] x = {"bizarre","un peu bête","Torch","Gazelle","rien du tout","idiot"};
+                            m = x[new Random().nextInt(x.length)];
+                        }
+
+                    }
                     s.append(m).append(" ");
                 }
-
-                inazumaUHC.cm.getChat("InaChat").sendMessage(player.getUniqueId(),s.toString());
+                player.sendMessage(inazumaUHC.cm.getChat("InaChat").generateMessage(player.getUniqueId(),sPlayer.toString()));
+                inazumaUHC.cm.getChat("InaChat").sendMessageExceptUUID(player.getUniqueId(),s.toString(),player.getUniqueId());
             }
         });
         onLoad(new load() {
@@ -51,7 +71,7 @@ public class Gazelle extends Role {
                     player.addPotionEffect(new PotionEffect(PotionEffectType.FAST_DIGGING, Integer.MAX_VALUE, 0,false,false), true);
                     Chat chat = inazumaUHC.cm.getChat("InaChat");
                 if(chat != null){
-                    chat.add(player.getUniqueId(),"§b§lGazelle");
+                    chat.add(player.getUniqueId(),"§bGazelle");
                 }
             }
         });

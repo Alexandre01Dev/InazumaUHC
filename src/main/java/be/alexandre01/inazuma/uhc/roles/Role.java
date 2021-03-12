@@ -175,7 +175,6 @@ public class Role {
 
     public void addCommand(String name,command command){
         if(commands.containsKey(name)){
-            System.out.println("ADDROLE commands");
             CommandRole commandRole =  commands.get(name);
             commandRole.addRole(this);
             commandRole.addCommand(this,command);
