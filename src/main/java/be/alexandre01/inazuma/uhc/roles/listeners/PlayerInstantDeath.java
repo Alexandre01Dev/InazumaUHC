@@ -12,6 +12,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class PlayerInstantDeath implements Listener {
     private final InazumaUHC i;
@@ -24,9 +26,12 @@ public class PlayerInstantDeath implements Listener {
         List<ItemStack> d = event.getDrops();
         if(i.rm.containsRole(player)){
             for(RoleItem r : i.rm.getRole(player).getRoleItems().values()){
-                if(d.contains(r.getItemStack())){
-                    d.remove(r.getItemStack());
-                }
+                    d.removeAll( d.stream()
+                            .filter(itemStack -> itemStack != null)
+                            .filter(itemStack -> itemStack.getItemMeta() != null)
+                            .filter(itemStack -> itemStack.getItemMeta().getDisplayName() != null)
+                            .filter(itemStack -> itemStack.getItemMeta().getDisplayName().equals(r.getItemStack().getItemMeta().getDisplayName()))
+                            .collect(Collectors.toList()));
             }
         }
         Role role = i.rm.getRole(player.getUniqueId());

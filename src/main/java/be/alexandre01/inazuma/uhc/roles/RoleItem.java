@@ -4,6 +4,7 @@ import be.alexandre01.inazuma.uhc.presets.Preset;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.objects.Episode;
 import be.alexandre01.inazuma.uhc.timers.utils.DateBuilderTimer;
 import be.alexandre01.inazuma.uhc.timers.utils.MSToSec;
+import com.google.common.collect.Lists;
 import lombok.Getter;
 import lombok.Setter;
 import net.minecraft.server.v1_8_R3.Tuple;
@@ -13,7 +14,9 @@ import org.bukkit.inventory.ItemStack;
 import org.omg.CORBA.PUBLIC_MEMBER;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 public class RoleItem {
     private ItemStack itemStack;
@@ -275,5 +278,23 @@ public class RoleItem {
     public enum VerificationType{
         USAGES,EPISODES,COOLDOWN;
     }
-    
+
+    public void updateItem(ItemStack newItem){
+        for(Player player : getLinkedRole().getPlayers()){
+
+            List<ItemStack> arrayList =  Arrays.asList(player.getInventory().getContents());
+            for(ItemStack it : arrayList){
+                if(it != null){
+                    System.out.println(player+" >> "+ it.getAmount());
+                }
+
+            }
+            if(arrayList.contains(itemStack)){
+                player.getInventory().setItem( arrayList.indexOf(itemStack),newItem);
+                player.updateInventory();
+                System.out.println(player+" >> "+ newItem.getAmount());
+            }
+            itemStack = newItem;
+        }
+    }
 }

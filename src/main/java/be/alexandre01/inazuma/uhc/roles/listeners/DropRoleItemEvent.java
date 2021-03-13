@@ -29,7 +29,7 @@ public class DropRoleItemEvent implements Listener {
         ItemStack itemStack = event.getItemDrop().getItemStack();
 
         if(i.rm.containsRole(player)){
-            if(i.rm.getRole(player).getRoleItems().containsKey(itemStack)){
+            if(i.rm.getRole(player).getRoleItems().containsKey(itemStack.getItemMeta().getDisplayName())){
                 event.setCancelled(true);
             }
         }
@@ -41,8 +41,8 @@ public class DropRoleItemEvent implements Listener {
         ItemStack itemStack = event.getItemInHand();
 
         if(i.rm.containsRole(player)){
-            if(i.rm.getRole(player).getRoleItems().containsKey(itemStack)){
-                RoleItem roleItem = i.rm.getRole(player).getRoleItems().get(itemStack);
+            if(i.rm.getRole(player).getRoleItems().containsKey(itemStack.getItemMeta().getDisplayName())){
+                RoleItem roleItem = i.rm.getRole(player).getRoleItems().get(itemStack.getItemMeta().getDisplayName());
                 if(!roleItem.isPlaceableItem())
                     event.setCancelled(true);
 

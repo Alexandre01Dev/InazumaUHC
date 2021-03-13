@@ -25,11 +25,18 @@ public class InteractItemEvent implements Listener {
     @EventHandler
     public void onInteract(PlayerInteractEvent event){
         Player player = event.getPlayer();
+        if(event.getItem() == null)
+            return;
         if(i.rm.containsRole(player.getUniqueId())){
             Action action = event.getAction();
-            RoleItem roleItem = i.rm.getRole(player.getUniqueId()).getRoleItems().get(event.getItem());
+            ItemStack itemStack = event.getItem();
+            if(itemStack == null)
+                return;
+            if(itemStack.getItemMeta().getDisplayName() == null)
+                return;
+            RoleItem roleItem = i.rm.getRole(player.getUniqueId()).getRoleItems().get(itemStack.getItemMeta().getDisplayName());
             if(roleItem != null){
-                if(roleItem.getItemStack().equals(event.getItem())){
+
                     if(action.equals(Action.RIGHT_CLICK_AIR) || action.equals(Action.RIGHT_CLICK_BLOCK)){
                         if(roleItem.getRightClick() != null){
                             if((roleItem.getVerificationOnRightClick() != null)){
@@ -95,8 +102,6 @@ public class InteractItemEvent implements Listener {
                     }
                 }
                 }
-        }
-
     }
 
     @EventHandler
@@ -107,9 +112,13 @@ public class InteractItemEvent implements Listener {
         if(e instanceof Player){
             Player rightClick = (Player) e;
             if(i.rm.containsRole(player.getUniqueId())){
-                RoleItem roleItem = i.rm.getRole(player.getUniqueId()).getRoleItems().get(itemStack);
+                if(itemStack == null)
+                    return;
+                if(itemStack.getItemMeta().getDisplayName() == null)
+                    return;
+                RoleItem roleItem = i.rm.getRole(player.getUniqueId()).getRoleItems().get(itemStack.getItemMeta().getDisplayName());
                 if(roleItem != null){
-                    if(roleItem.getItemStack().equals(itemStack)){
+                    if(roleItem.getItemStack().getItemMeta().getDisplayName().equals(itemStack.getItemMeta().getDisplayName())){
                         if(roleItem.getRightClickOnPlayer() != null){
                             if(roleItem.getVerificationOnRightClickOnPlayer().verification(player,rightClick)){
                             RoleItemTargetEvent roleItemTargetEvent = new RoleItemTargetEvent(player,rightClick, roleItem.getLinkedRole(), roleItem);
