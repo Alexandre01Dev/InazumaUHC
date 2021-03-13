@@ -104,7 +104,9 @@ public class Gazelle extends Role implements Listener {
             Role role = inazumaUHC.rm.getRole(player);
 
             if(role.getClass().equals(Gazelle.class)){
-                if(getRoleItems().containsKey(player.getItemInHand())){
+                if(!isValidItem(player.getItemInHand()))
+                    return;
+                if(getRoleItems().containsKey(player.getItemInHand().getItemMeta().getDisplayName())){
                     if(this.i != 0){
                         Player p = (Player) event.getEntity();
                         p.removePotionEffect(PotionEffectType.SLOW);

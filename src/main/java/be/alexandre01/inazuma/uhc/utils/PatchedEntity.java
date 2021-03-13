@@ -3,6 +3,7 @@ package be.alexandre01.inazuma.uhc.utils;
 import be.alexandre01.inazuma.uhc.InazumaUHC;
 import net.minecraft.server.v1_8_R3.*;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.craftbukkit.v1_8_R3.CraftServer;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftEntity;
@@ -17,11 +18,14 @@ import org.inventivetalent.packetlistener.handler.ReceivedPacket;
 import org.inventivetalent.packetlistener.handler.SentPacket;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class PatchedEntity{
     private static ArrayList<Integer> ids = new ArrayList<>();
+    private static ArrayList<Integer> lids = new ArrayList<>();
+    private static ArrayList<Location> locations = new ArrayList<>();
+    private static ArrayList<String> sounds = new ArrayList<>();
     private static PacketHandler packetHandler;
     private static boolean register = false;
     public static void init(){
@@ -41,9 +45,26 @@ public class PatchedEntity{
                             sentPacket.setCancelled(true);
                         }
                     }
+                }
+                if(sentPacket.getPacketName().equalsIgnoreCase("PacketPlayOutNamedSoundEffect")){
+                   if(((String) sentPacket.getPacketValue("a")).equals("")){
+                       for(Location location : locations){
+                           System.out.println((int)sentPacket.getPacketValue("b")/8D);
+                           if(Math.abs(location.getX()-((int)sentPacket.getPacketValue("b")/8D)) > 2){
+                               return;
+                           }
+                           if(Math.abs(location.getY()-((int)sentPacket.getPacketValue("c")/8D)) > 2){
+                               return;
+                           }
 
+                           if(Math.abs(location.getZ()-((int)sentPacket.getPacketValue("d")/8D)) > 2){
+                               return;
+                           }
 
-
+                           if(!lids.contains(sentPacket.getPlayer().getEntityId()))
+                                sentPacket.setCancelled(true);
+                       }
+                   }
                 }
             }
 
@@ -86,16 +107,22 @@ public class PatchedEntity{
                 register = true;
             }
 
-
             int id = ((CraftEntity)entity).getHandle().getId();
             ids.add(id);
+            lids.add(id);
+            sounds.add("game.player.hurt");
+            Location location = entity.getLocation().clone();
+            locations.add(location);
             damage(entity,damage, EntityDamageEvent.DamageCause.CUSTOM);
 
             Bukkit.getScheduler().runTaskLater(InazumaUHC.get, new Runnable() {
                 @Override
                 public void run() {
                     ids.remove(Integer.valueOf(id));
-                    if(ids.isEmpty()){
+                    locations.remove(location);
+                    lids.remove(Integer.valueOf(id));
+                    sounds.remove("game.player.hurt");
+                    if(ids.isEmpty() && lids.isEmpty()){
                         PacketListenerAPI.removePacketHandler(packetHandler);
                         register = false;
                     }
@@ -106,6 +133,32 @@ public class PatchedEntity{
         damage(entity,damage, EntityDamageEvent.DamageCause.CUSTOM);
     }
 
+    public static void cancelSound(String s, Location location, LivingEntity... exceptions){
+        cancelSound(s,location,2,exceptions);
+    }
+    public static void cancelSound(String s, Location location, long t, LivingEntity... exceptions){
+        if(!register){
+            PacketListenerAPI.addPacketHandler(packetHandler);
+            register = true;
+        }
+
+        sounds.add(s);
+        locations.add(location.clone());
+         List<Integer> id = Arrays.stream(exceptions).map(Entity::getEntityId).collect(Collectors.toList());
+        lids.addAll(id);
+        Bukkit.getScheduler().runTaskLater(InazumaUHC.get, new Runnable() {
+            @Override
+            public void run() {
+                locations.remove(location);
+                lids.removeAll(id);
+                sounds.remove(s);
+                if(ids.isEmpty() && lids.isEmpty()){
+                    PacketListenerAPI.removePacketHandler(packetHandler);
+                    register = false;
+                }
+            }
+        },t);
+    }
     public static void setMaxHealthInSilent(LivingEntity entity,double maxHealth){
 
         if(entity.getHealth() > maxHealth){

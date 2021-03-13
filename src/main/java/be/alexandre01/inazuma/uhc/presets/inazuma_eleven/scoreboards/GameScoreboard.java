@@ -55,7 +55,6 @@ public class GameScoreboard {
                     World world = player.getWorld();
                     int borderSize = (int) world.getWorldBorder().getSize() /2;
                     objectiveSign.setLine(18,"§7Bordure §l» §e-"+ borderSize+"§7/§e"+borderSize);
-
                     objectiveSign.setLine(19,"§7Centre §l» §e "+ inazuma.getArrows().get(player.getUniqueId()));
                     objectiveSign.setLine(21, "§l§8»§8§m------------§l§8« ");
 

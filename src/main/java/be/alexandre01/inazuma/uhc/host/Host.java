@@ -100,7 +100,7 @@ public class Host {
         HostOption borderSize = new HostOption(presetData.borderSize,"borderSize");
         borderSize.setModifiable(true);
 
-        borderSize.setMinAndMax(new int[]{1,6000});
+        borderSize.setMinAndMax(new int[]{50,6000});
         borderSize.setVarType(VarType.INTEGER);
         ItemBuilder borderSizeI = new ItemBuilder(Material.SKULL_ITEM);
         borderSizeI.setName("borderSize");

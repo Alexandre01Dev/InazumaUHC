@@ -28,7 +28,7 @@ public class Role {
     protected InazumaUHC inazumaUHC;
     public ArrayList<Listener> listeners = new ArrayList<>();
     private static final HashMap<String,CommandRole> commands = new HashMap<>();
-  private final HashMap<ItemStack,RoleItem> roleItems = new HashMap<>();
+  private final HashMap<String,RoleItem> roleItems = new HashMap<>();
     private static ArrayList<Role> rolesByInstance = new ArrayList<>();
     private RoleCategory roleCategory = null;
     public Role(String name){
@@ -164,12 +164,12 @@ public class Role {
     public interface command{
         public void a(String[] args, Player player);
     }
-    public HashMap<ItemStack, RoleItem> getRoleItems() {
+    public HashMap<String, RoleItem> getRoleItems() {
         return roleItems;
     }
 
     public void addRoleItem(RoleItem roleItem) {
-        roleItems.put(roleItem.getItemStack(),roleItem);
+        roleItems.put(roleItem.getItemStack().getItemMeta().getDisplayName(),roleItem);
         roleItem.setLinkedRole(this);
     }
 
@@ -239,5 +239,14 @@ public class Role {
 
     public void setDescription(int line, BaseComponent[] description) {
        this.description.add(line,description);
+    }
+
+    public boolean isValidItem(ItemStack itemStack){
+        if(itemStack == null)
+            return false;
+        if(itemStack.getItemMeta().getDisplayName() == null)
+            return false;
+
+        return true;
     }
 }

@@ -128,6 +128,9 @@ public class PlayerMovementManager implements Listener {
 
         Player player = event.getPlayer();
 
+        if(InazumaUHC.get.spectatorManager.getPlayers().contains(player))
+            return;
+
         blockLocations.get(underPlayer).a(player);
     }
 

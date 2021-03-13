@@ -45,7 +45,7 @@ public class RejoinManager implements Listener {
         for(ItemStack i : p.getInventory().getContents()){
             if(i != null){
                 if(r!= null){
-                    if(r.getRoleItems().containsKey(i)){
+                    if(r.getRoleItems().containsKey(i.getItemMeta().getDisplayName())){
                         continue;
                     }
                 }

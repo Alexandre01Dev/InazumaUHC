@@ -7,6 +7,7 @@ import be.alexandre01.inazuma.uhc.roles.RoleItem;
 import be.alexandre01.inazuma.uhc.roles.RoleItem.VerificationGeneration;
 import be.alexandre01.inazuma.uhc.utils.CustomComponentBuilder;
 import be.alexandre01.inazuma.uhc.utils.ItemBuilder;
+import javafx.scene.layout.Priority;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -17,7 +18,12 @@ import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_8_R3.CraftEffect;
 import org.bukkit.craftbukkit.v1_8_R3.potion.CraftPotionEffectType;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.EnchantmentStorageMeta;
 import org.bukkit.potion.PotionEffect;
@@ -27,7 +33,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import java.util.ArrayList;
 import java.util.Locale;
 
-public class Hurley extends Role {
+public class Hurley extends Role implements Listener {
 
     public Hurley() {
         super("Hurley Kane");
@@ -98,6 +104,4 @@ public class Hurley extends Role {
         });
         addRoleItem(roleItem);
     }
-
-
 }

@@ -5,6 +5,7 @@ import be.alexandre01.inazuma.uhc.managers.chat.Chat;
 import be.alexandre01.inazuma.uhc.presets.Preset;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.categories.Alius;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.custom_events.EpisodeChangeEvent;
+import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.roles.raimon.Hurley;
 import be.alexandre01.inazuma.uhc.roles.Role;
 import be.alexandre01.inazuma.uhc.roles.RoleItem;
 import be.alexandre01.inazuma.uhc.utils.ItemBuilder;
@@ -104,13 +105,17 @@ public class Torch  extends Role implements Listener {
     public void onDamage(EntityDamageByEntityEvent event){
         if(event.getDamager() instanceof Player && event.getEntity() instanceof Player){
             Player player = (Player) event.getDamager();
-
+            Player p = (Player) event.getEntity();
             Role role = inazumaUHC.rm.getRole(player);
 
             if(role.getClass().equals(Torch.class)){
-               if(getRoleItems().containsKey(player.getItemInHand())){
+                if(!isValidItem(player.getItemInHand()))
+                    return;
+               if(getRoleItems().containsKey(player.getItemInHand().getItemMeta().getDisplayName())){
                    if(i != 0){
-                       event.getEntity().setFireTicks(3*20);
+                       if( !inazumaUHC.rm.getRole(p).getClass().equals(Hurley.class)){
+                           event.getEntity().setFireTicks(3*20);
+                       }
                        i--;
                        if(i == 0)
                            player.sendMessage(Preset.instance.p.prefixName()+" Tu viens d'user ton épée.");
