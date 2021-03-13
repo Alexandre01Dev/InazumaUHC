@@ -83,7 +83,7 @@ public class ArrowToCenter {
                      }
                      sb.append(c+" (§c"+distance+"§e)");
                      p.getArrows().put(player.getUniqueId(),sb.toString());
-                     return;
+                     continue;
                  }
                  sb.append(c);
                  p.getArrows().put(player.getUniqueId(),sb.toString());
