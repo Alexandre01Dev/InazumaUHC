@@ -42,10 +42,10 @@ public class InazumaEleven extends PresetData implements IPreset{
         playerSize = 30;
         totalTime = 60*60;
         teamSize = 1;
-        pvpTime = 1*30;
+        pvpTime = 20*60;
         netherTime = 55*60;
         bordureTime = 60*60;
-        borderSize = 500;
+        borderSize = 50;
         borderSizeNether = 150;
         endBordureTime = 60*15;
         endBordureSize = 250*2;
@@ -58,6 +58,7 @@ public class InazumaEleven extends PresetData implements IPreset{
         //INITIALIZE ROLES
       //  new Xavier();
         new David();
+        new Scotty();
     }
 
     @Override

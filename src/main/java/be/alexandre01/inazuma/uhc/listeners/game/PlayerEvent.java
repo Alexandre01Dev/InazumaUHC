@@ -316,7 +316,7 @@ public class PlayerEvent implements Listener {
         }
 
     }
-    @EventHandler(priority = EventPriority.LOWEST)
+/*    @EventHandler(priority = EventPriority.LOWEST)
     public void onDrop(PlayerDropItemEvent event){
         if(!event.isCancelled()){
             Player player = event.getPlayer();
@@ -329,5 +329,5 @@ public class PlayerEvent implements Listener {
                 }
             }
         }
-    }
+    }*/
 }

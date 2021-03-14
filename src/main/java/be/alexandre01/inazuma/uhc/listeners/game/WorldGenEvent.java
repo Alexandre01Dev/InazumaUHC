@@ -69,6 +69,7 @@ public class WorldGenEvent implements Listener {
                 event.getWorld().setGameRuleValue("randomTickSpeed", p.getRandomTickSpeed(event.getWorld().getEnvironment()));
                 event.getWorld().setGameRuleValue("naturalRegeneration", p.getNaturalRegeneration(event.getWorld().getEnvironment()));
                 event.getWorld().setGameRuleValue("announceAdvancements", "false");
+                event.getWorld().setGameRuleValue("doFireTick", "false");
                 event.getWorld().setTime(1000);
                 event.getWorld().setPVP(false);
                 event.getWorld().setThundering(false);

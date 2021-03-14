@@ -43,7 +43,6 @@ public class DropRoleItemEvent implements Listener {
         if(i.rm.containsRole(player)){
             if(i.rm.getRole(player).getRoleItems().containsKey(itemStack.getItemMeta().getDisplayName())){
                 RoleItem roleItem = i.rm.getRole(player).getRoleItems().get(itemStack.getItemMeta().getDisplayName());
-                if(!roleItem.isPlaceableItem())
                     event.setCancelled(true);
 
                 if(roleItem.getPlaceBlock() != null){
@@ -55,7 +54,7 @@ public class DropRoleItemEvent implements Listener {
                         Bukkit.getPluginManager().callEvent(roleItemUseEvent);
                         if(roleItemUseEvent.isCancelled())
                             return;
-                        roleItem.getPlaceBlock().execute(player,event);
+                        roleItem.getPlaceBlock().execute(player,event.getBlockAgainst());
                     }
 
         }

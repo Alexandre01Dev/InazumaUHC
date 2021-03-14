@@ -8,6 +8,7 @@ import com.google.common.collect.Lists;
 import lombok.Getter;
 import lombok.Setter;
 import net.minecraft.server.v1_8_R3.Tuple;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.inventory.ItemStack;
@@ -272,7 +273,7 @@ public class RoleItem {
         boolean verification(Player player);
     }
     public interface PlaceBlock{
-        void execute(Player player, BlockPlaceEvent e);
+        void execute(Player player, Block b);
     }
 
     public enum VerificationType{

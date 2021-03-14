@@ -47,7 +47,9 @@ public class PatchedEntity{
                     }
                 }
                 if(sentPacket.getPacketName().equalsIgnoreCase("PacketPlayOutNamedSoundEffect")){
-                   if(((String) sentPacket.getPacketValue("a")).equals("")){
+                    System.out.println((String) sentPacket.getPacketValue("a"));
+                   if(sounds.contains(((String) sentPacket.getPacketValue("a")))){
+
                        for(Location location : locations){
                            System.out.println((int)sentPacket.getPacketValue("b")/8D);
                            if(Math.abs(location.getX()-((int)sentPacket.getPacketValue("b")/8D)) > 2){
@@ -60,9 +62,12 @@ public class PatchedEntity{
                            if(Math.abs(location.getZ()-((int)sentPacket.getPacketValue("d")/8D)) > 2){
                                return;
                            }
+                           System.out.println("FUCK");
+                           if(!lids.contains(((CraftPlayer)sentPacket.getPlayer()).getHandle().getId())){
+                               System.out.println("PACKET >>" +sentPacket.getPlayer().getName());
+                               sentPacket.setCancelled(true);
+                           }
 
-                           if(!lids.contains(sentPacket.getPlayer().getEntityId()))
-                                sentPacket.setCancelled(true);
                        }
                    }
                 }

@@ -60,7 +60,7 @@ public class RejoinManager implements Listener {
         }
 
         chestInv.put(b,inventory);
-        times.put(p.getUniqueId(),new DateBuilderTimer(1000*20).loadComplexDate());
+        times.put(p.getUniqueId(),new DateBuilderTimer(1000*60*10).loadComplexDate());
         System.out.println("times put "+ p.getName());
     }
 
@@ -180,6 +180,8 @@ public class RejoinManager implements Listener {
 
     @EventHandler
     public void onChestClick(PlayerInteractEvent event){
+        if(InazumaUHC.get.spectatorManager.getPlayers().contains(event.getPlayer()))
+            return;
         if(chests.containsKey(event.getClickedBlock())){
             DateBuilderTimer d = times.get(chests.get(event.getClickedBlock()));
             d.loadComplexDate();

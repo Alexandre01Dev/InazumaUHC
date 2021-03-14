@@ -36,7 +36,6 @@ public class InteractItemEvent implements Listener {
                 return;
             RoleItem roleItem = i.rm.getRole(player.getUniqueId()).getRoleItems().get(itemStack.getItemMeta().getDisplayName());
             if(roleItem != null){
-
                     if(action.equals(Action.RIGHT_CLICK_AIR) || action.equals(Action.RIGHT_CLICK_BLOCK)){
                         if(roleItem.getRightClick() != null){
                             if((roleItem.getVerificationOnRightClick() != null)){
@@ -82,6 +81,21 @@ public class InteractItemEvent implements Listener {
                                 System.out.println(roleItem.getRightClickOnPlayerFarTuple().b() +"executed ?");
                                 roleItem.getRightClickOnPlayerFarTuple().b().execute(player,target);
                             }
+                            if(!roleItem.isPlaceableItem()){
+                                System.out.println("YES");
+                                if(roleItem.getPlaceBlock() != null){
+                                    if((roleItem.getVerificationOnPlaceBlock() != null)){
+                                        if(!roleItem.getVerificationOnPlaceBlock().verification(player))
+                                            return;
+                                    }
+                                    RoleItemUseEvent roleItemUseEvent = new RoleItemUseEvent(player, roleItem.getLinkedRole(), roleItem);
+                                    Bukkit.getPluginManager().callEvent(roleItemUseEvent);
+                                    if(roleItemUseEvent.isCancelled())
+                                        return;
+                                    roleItem.getPlaceBlock().execute(player,event.getClickedBlock());
+                                }
+                                event.setCancelled(true);
+                            }
                             return;
                     }
 
@@ -114,6 +128,9 @@ public class InteractItemEvent implements Listener {
             if(i.rm.containsRole(player.getUniqueId())){
                 if(itemStack == null)
                     return;
+                if(itemStack.getItemMeta() == null){
+                    return;
+                }
                 if(itemStack.getItemMeta().getDisplayName() == null)
                     return;
                 RoleItem roleItem = i.rm.getRole(player.getUniqueId()).getRoleItems().get(itemStack.getItemMeta().getDisplayName());
