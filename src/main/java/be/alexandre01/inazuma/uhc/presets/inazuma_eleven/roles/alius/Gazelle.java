@@ -33,7 +33,7 @@ public class Gazelle extends Role implements Listener {
             for(Role role : Role.getRoles()){
                 if(role.getClass() == Torch.class){
                     InazumaUHC.get.cm.addChat("InaChat", Chat.builder()
-                            .chatName("§4INA§7-§3CHAT")
+                            .chatName("§4§lINA§7-§3§lCHAT")
                             .prefixColor("§b§l")
                             .message("§7 ")
                             .separator("§8» ")
@@ -46,7 +46,7 @@ public class Gazelle extends Role implements Listener {
         RoleItem roleItem = new RoleItem();
         ItemBuilder itemBuilder = new ItemBuilder(Material.DIAMOND_SWORD);
 
-        itemBuilder.setName("Epee Gazelle");
+        itemBuilder.setName("§b§lImpact§7-§b§lNordique");
         itemBuilder.addEnchant(Enchantment.DAMAGE_ALL,2);
         itemBuilder.setUnbreakable();
         roleItem.setItemstack(itemBuilder.toItemStack());

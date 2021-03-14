@@ -35,7 +35,7 @@ public class Torch  extends Role implements Listener {
         RoleItem roleItem = new RoleItem();
         ItemBuilder itemBuilder = new ItemBuilder(Material.DIAMOND_SWORD);
 
-        itemBuilder.setName("Epee Torche");
+        itemBuilder.setName("§4§lEruption§7-§4§lSolaire");
         itemBuilder.addEnchant(Enchantment.DAMAGE_ALL,2);
         itemBuilder.setUnbreakable();
         roleItem.setItemstack(itemBuilder.toItemStack());
@@ -45,7 +45,7 @@ public class Torch  extends Role implements Listener {
             for(Role role : Role.getRoles()){
                 if(role.getClass() == Torch.class){
                     InazumaUHC.get.cm.addChat("InaChat", Chat.builder()
-                            .chatName("§4INA§7-§3CHAT")
+                            .chatName("§4§lINA§7-§3§lCHAT")
                             .prefixColor("§b§l")
                             .message("§7 ")
                             .separator("§8» ")

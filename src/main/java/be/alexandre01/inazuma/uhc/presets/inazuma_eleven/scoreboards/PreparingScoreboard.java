@@ -48,15 +48,14 @@ public class PreparingScoreboard {
                     objectiveSign.setLine(9, "§r§l§8»§8§m------------§l§8«§r");
                     World world = player.getWorld();
                     int borderSize = Preset.instance.p.getBorderSize(world.getEnvironment());
-                    objectiveSign.setLine(10, "§7"+ inazuma.pvpText+" §l» §e" + inazuma.pvpValue);
-                    objectiveSign.setLine(11,"§7Meetup §l» §e-"+ borderSize+"§7/§e"+borderSize);
-                    objectiveSign.setLine(12, "§l§8»§8§m------------§l§8«");
+                    objectiveSign.setLine(10,"§7Meetup §l» §e-"+ borderSize+"§7/§e"+borderSize);
+                    objectiveSign.setLine(11, "§l§8»§8§m------------§l§8«");
 
-                    objectiveSign.setLine(14, "§7Scénario(s) §l» "+scenario);
+                    objectiveSign.setLine(13, "§7Scénario(s) §l» "+scenario);
 
 
-                    objectiveSign.setLine(15, "§l§8»§8§m------------§l§8« ");
-                    objectiveSign.setLine(16, ip);
+                    objectiveSign.setLine(16, "§l§8»§8§m------------§l§8« ");
+                    objectiveSign.setLine(17, ip);
 
                     objectiveSign.updateLines();
 
