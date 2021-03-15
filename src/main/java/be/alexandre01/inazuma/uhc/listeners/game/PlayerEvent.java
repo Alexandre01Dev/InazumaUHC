@@ -12,6 +12,7 @@ import be.alexandre01.inazuma.uhc.state.GameState;
 import be.alexandre01.inazuma.uhc.state.State;
 import be.alexandre01.inazuma.uhc.teams.Team;
 import be.alexandre01.inazuma.uhc.teams.TeamManager;
+import be.alexandre01.inazuma.uhc.utils.CustomBoat;
 import be.alexandre01.inazuma.uhc.utils.CustomExp;
 import be.alexandre01.inazuma.uhc.utils.ExperienceManager;
 import be.alexandre01.inazuma.uhc.utils.PlayerUtils;
@@ -316,6 +317,13 @@ public class PlayerEvent implements Listener {
         }
 
     }
+
+   /* @EventHandler
+    public void onSneak(PlayerToggleSneakEvent event){
+        if(event.isSneaking()){
+            CustomBoat.spawn(i,event.getPlayer().getLocation());
+        }
+    }*/
 /*    @EventHandler(priority = EventPriority.LOWEST)
     public void onDrop(PlayerDropItemEvent event){
         if(!event.isCancelled()){

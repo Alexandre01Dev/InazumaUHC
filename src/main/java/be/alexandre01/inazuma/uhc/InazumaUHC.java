@@ -25,10 +25,7 @@ import be.alexandre01.inazuma.uhc.state.GameState;
 import be.alexandre01.inazuma.uhc.teams.TeamManager;
 import be.alexandre01.inazuma.uhc.timers.TimersManager;
 import be.alexandre01.inazuma.uhc.timers.game.*;
-import be.alexandre01.inazuma.uhc.utils.CustomExp;
-import be.alexandre01.inazuma.uhc.utils.PatchedEntity;
-import be.alexandre01.inazuma.uhc.utils.ScoreboardUtil;
-import be.alexandre01.inazuma.uhc.utils.Tracker;
+import be.alexandre01.inazuma.uhc.utils.*;
 import be.alexandre01.inazuma.uhc.worlds.WorldGen;
 import be.alexandre01.inazuma.uhc.worlds.utils.WorldUtils;
 import be.alexandre01.inazuma.uhc.worlds.executors.ArrowToCenter;
@@ -103,6 +100,7 @@ public final class InazumaUHC extends JavaPlugin {
         lm.addListener(new WorldGenEvent());
         lm.addListener(new NetherEvent());
         lm.addListener(new PlayerEvent());
+        lm.addListener(new BoatEvent());
         for(World world : Bukkit.getWorlds()){
             for(Entity entity : world.getEntities()){
                 if(entity instanceof LivingEntity){
@@ -147,7 +145,7 @@ public final class InazumaUHC extends JavaPlugin {
 
         PatchedEntity.init();
         CustomExp.registerEntity();
-
+        CustomBoat.registerEntity();
         //ARROWS
         if(p.p.isArrowCalculated()){
             arrowToCenter = new ArrowToCenter();

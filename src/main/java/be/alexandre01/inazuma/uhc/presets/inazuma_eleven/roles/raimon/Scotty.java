@@ -47,7 +47,6 @@ public class Scotty extends Role {
         roleItem.setPlaceBlock(new RoleItem.PlaceBlock() {
             @Override
             public void execute(Player player, Block block) {
-                 block = block.getRelative(BlockFace.UP);
                 ItemStack itemStack = player.getItemInHand();
                 Bukkit.getServer().getScheduler().runTaskLaterAsynchronously(InazumaUHC.get, new Runnable() {
                     public void run() {

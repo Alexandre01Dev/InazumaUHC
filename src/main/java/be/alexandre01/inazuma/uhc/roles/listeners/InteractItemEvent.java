@@ -92,7 +92,8 @@ public class InteractItemEvent implements Listener {
                                     Bukkit.getPluginManager().callEvent(roleItemUseEvent);
                                     if(roleItemUseEvent.isCancelled())
                                         return;
-                                    roleItem.getPlaceBlock().execute(player,event.getClickedBlock());
+                                    roleItem.getPlaceBlock().execute(player,event.getClickedBlock().getRelative(event.getBlockFace()));
+                                    net.minecraft.server.v1_8_R3.Entity
                                 }
                                 event.setCancelled(true);
                             }
