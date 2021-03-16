@@ -1,6 +1,7 @@
 package be.alexandre01.inazuma.uhc.presets.inazuma_eleven.roles.raimon;
 
 import be.alexandre01.inazuma.uhc.InazumaUHC;
+import be.alexandre01.inazuma.uhc.presets.IPreset;
 import be.alexandre01.inazuma.uhc.presets.Preset;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.categories.Raimon;
 import be.alexandre01.inazuma.uhc.roles.Role;
@@ -33,8 +34,8 @@ public class Jack extends Role implements Listener {
 
     private boolean isSneakTimer = false;
     private boolean invisible = false;
-    public Jack() {
-        super("Jack Wallside");
+    public Jack(IPreset preset) {
+        super("Jack Wallside",preset);
         setRoleCategory(Raimon.class);
         onLoad(new load() {
             @Override

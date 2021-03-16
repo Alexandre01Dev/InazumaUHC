@@ -2,6 +2,7 @@ package be.alexandre01.inazuma.uhc.presets.inazuma_eleven.roles.alius;
 
 import be.alexandre01.inazuma.uhc.InazumaUHC;
 import be.alexandre01.inazuma.uhc.managers.damage.DamageManager;
+import be.alexandre01.inazuma.uhc.presets.IPreset;
 import be.alexandre01.inazuma.uhc.presets.Preset;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.categories.Alius;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.custom_events.EpisodeChangeEvent;
@@ -30,8 +31,8 @@ public class David extends Role implements Listener {
     boolean accepted = false;
     boolean refuse = false;
     private BukkitTask bukkitTask;
-    public David() {
-        super("David Samford");
+    public David(IPreset preset) {
+        super("David Samford",preset);
         setRoleToSpoil(Caleb.class);
         addListener(this);
         setRoleCategory(Alius.class);

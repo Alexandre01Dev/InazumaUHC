@@ -2,6 +2,7 @@ package be.alexandre01.inazuma.uhc.presets.inazuma_eleven.roles.raimon;
 
 import be.alexandre01.inazuma.uhc.custom_events.player.PlayerInstantDeathEvent;
 import be.alexandre01.inazuma.uhc.managers.damage.DamageManager;
+import be.alexandre01.inazuma.uhc.presets.IPreset;
 import be.alexandre01.inazuma.uhc.presets.Preset;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.categories.Alius;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.categories.Raimon;
@@ -21,8 +22,8 @@ import org.bukkit.potion.PotionEffectType;
 
 public class Mark extends Role implements Listener {
 
-    public Mark() {
-        super("Mark Evans");
+    public Mark(IPreset preset) {
+        super("Mark Evans",preset);
         setRoleCategory(Raimon.class);
        // setRoleToSpoil(Victoria);
         addListener(this);

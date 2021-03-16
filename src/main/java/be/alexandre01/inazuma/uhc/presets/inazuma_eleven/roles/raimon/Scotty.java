@@ -2,6 +2,7 @@ package be.alexandre01.inazuma.uhc.presets.inazuma_eleven.roles.raimon;
 
 import be.alexandre01.inazuma.uhc.InazumaUHC;
 import be.alexandre01.inazuma.uhc.managers.player.PlayerMovementManager;
+import be.alexandre01.inazuma.uhc.presets.IPreset;
 import be.alexandre01.inazuma.uhc.presets.Preset;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.categories.Raimon;
 import be.alexandre01.inazuma.uhc.roles.Role;
@@ -21,8 +22,8 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 public class Scotty extends Role {
 
-    public Scotty() {
-        super("Scotty Banyan");
+    public Scotty(IPreset preset) {
+        super("Scotty Banyan",preset);
         setRoleCategory(Raimon.class);
         onLoad(new load() {
             @Override

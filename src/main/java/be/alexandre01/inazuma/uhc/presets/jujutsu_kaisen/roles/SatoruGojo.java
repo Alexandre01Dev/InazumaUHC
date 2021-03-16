@@ -1,5 +1,6 @@
 package be.alexandre01.inazuma.uhc.presets.jujutsu_kaisen.roles;
 
+import be.alexandre01.inazuma.uhc.presets.IPreset;
 import be.alexandre01.inazuma.uhc.roles.Role;
 import be.alexandre01.inazuma.uhc.roles.RoleItem;
 import org.bukkit.Material;
@@ -10,8 +11,8 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 public class SatoruGojo extends Role implements Listener {
-    public SatoruGojo() {
-        super("Satoru Gojo");
+    public SatoruGojo(IPreset preset) {
+        super("Satoru Gojo",preset);
         RoleItem territory = new RoleItem();
         territory.setItemstack(new ItemStack(Material.COBBLESTONE));
         territory.setRightClickOnPlayer((player, rightClicked) -> {

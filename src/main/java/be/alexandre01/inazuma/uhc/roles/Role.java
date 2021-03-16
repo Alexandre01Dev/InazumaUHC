@@ -1,6 +1,7 @@
 package be.alexandre01.inazuma.uhc.roles;
 
 import be.alexandre01.inazuma.uhc.InazumaUHC;
+import be.alexandre01.inazuma.uhc.presets.IPreset;
 import be.alexandre01.inazuma.uhc.presets.Preset;
 import be.alexandre01.inazuma.uhc.roles.commands.CommandRole;
 
@@ -16,6 +17,7 @@ import org.bukkit.inventory.ItemStack;
 import java.util.*;
 
 public class Role {
+    private IPreset preset;
     private String name;
     public boolean isListenerDeployed = false;
     public static boolean isDistributed = false;
@@ -31,7 +33,7 @@ public class Role {
   private final HashMap<String,RoleItem> roleItems = new HashMap<>();
     private static ArrayList<Role> rolesByInstance = new ArrayList<>();
     private RoleCategory roleCategory = null;
-    public Role(String name){
+    public Role(String name,IPreset iPreset){
         this.players = new ArrayList<>();
 
         this.inazumaUHC = InazumaUHC.get;
@@ -248,5 +250,9 @@ public class Role {
             return false;
 
         return true;
+    }
+
+    protected IPreset getPreset(){
+        return preset;
     }
 }

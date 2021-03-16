@@ -2,6 +2,7 @@ package be.alexandre01.inazuma.uhc.presets.inazuma_eleven.roles.alius;
 
 import be.alexandre01.inazuma.uhc.InazumaUHC;
 import be.alexandre01.inazuma.uhc.managers.chat.Chat;
+import be.alexandre01.inazuma.uhc.presets.IPreset;
 import be.alexandre01.inazuma.uhc.presets.Preset;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.categories.Alius;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.custom_events.EpisodeChangeEvent;
@@ -26,8 +27,8 @@ import java.util.Random;
 
 public class Torch  extends Role implements Listener {
     private int i = 8;
-    public Torch() {
-        super("Torch");
+    public Torch(IPreset preset) {
+        super("Torch",preset);
         setRoleCategory(Alius.class);
         setRoleToSpoil(Xavier.class);
         addListener(this);

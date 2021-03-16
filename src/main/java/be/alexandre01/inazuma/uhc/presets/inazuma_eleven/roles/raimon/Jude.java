@@ -1,6 +1,7 @@
 package be.alexandre01.inazuma.uhc.presets.inazuma_eleven.roles.raimon;
 
 import be.alexandre01.inazuma.uhc.InazumaUHC;
+import be.alexandre01.inazuma.uhc.presets.IPreset;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.categories.Raimon;
 import be.alexandre01.inazuma.uhc.roles.Role;
 import be.alexandre01.inazuma.uhc.utils.CustomComponentBuilder;
@@ -27,8 +28,8 @@ import org.bukkit.scoreboard.Scoreboard;
 public class Jude extends Role implements Listener {
 
     private Scoreboard score = null;
-    public Jude() {
-        super("Jude Sharp");
+    public Jude(IPreset preset) {
+        super("Jude Sharp",preset);
         setRoleCategory(Raimon.class);
         addListener(this);
 

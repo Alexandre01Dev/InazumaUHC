@@ -1,5 +1,6 @@
 package be.alexandre01.inazuma.uhc.presets.inazuma_eleven.roles.alius;
 
+import be.alexandre01.inazuma.uhc.presets.IPreset;
 import be.alexandre01.inazuma.uhc.presets.Preset;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.categories.Alius;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.custom_events.EpisodeChangeEvent;
@@ -23,8 +24,8 @@ public class Caleb extends Role implements Listener {
     private Player lastPlayer = null;
     boolean b = false;
     BukkitTask s = null;
-    public Caleb() {
-        super("Caleb Stonewall");
+    public Caleb(IPreset preset) {
+        super("Caleb Stonewall",preset);
         setRoleCategory(Alius.class);
         onLoad(new load() {
             @Override

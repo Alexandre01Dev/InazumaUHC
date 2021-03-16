@@ -44,9 +44,9 @@ public class Jujutsu_Kaisen extends PresetData implements IPreset{
         getScenarios();
 
         //INITIALIZE ROLES
-        new SatoruGojo();
+        new SatoruGojo(this);
     //    new ItadoriYuji();
-        new KentoNanami();
+        new KentoNanami(this);
     }
 
     @Override

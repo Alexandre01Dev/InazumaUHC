@@ -1,5 +1,6 @@
 package be.alexandre01.inazuma.uhc.presets.inazuma_eleven.roles.raimon;
 
+import be.alexandre01.inazuma.uhc.presets.IPreset;
 import be.alexandre01.inazuma.uhc.presets.Preset;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.categories.Raimon;
 import be.alexandre01.inazuma.uhc.roles.Role;
@@ -14,8 +15,8 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 public class Kevin extends Role {
-    public Kevin() {
-        super("Kevin Dragonfly");
+    public Kevin(IPreset preset) {
+        super("Kevin Dragonfly",preset);
         setRoleCategory(Raimon.class);
 
         addDescription("§8- §7Votre objectif est de gagner avec §6§lRaimon");

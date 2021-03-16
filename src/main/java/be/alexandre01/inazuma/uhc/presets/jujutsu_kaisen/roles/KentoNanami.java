@@ -1,5 +1,6 @@
 package be.alexandre01.inazuma.uhc.presets.jujutsu_kaisen.roles;
 
+import be.alexandre01.inazuma.uhc.presets.IPreset;
 import be.alexandre01.inazuma.uhc.roles.Role;
 import be.alexandre01.inazuma.uhc.roles.RoleItem;
 import be.alexandre01.inazuma.uhc.utils.PatchedEntity;
@@ -13,8 +14,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 
 public class KentoNanami extends Role {
-    public KentoNanami() {
-        super("Kento Nanami");
+    public KentoNanami(IPreset preset) {
+        super("Kento Nanami",preset);
 
         RoleItem rayonNoir = new RoleItem();
         rayonNoir.setItemstack(new ItemStack(Material.NETHERRACK));

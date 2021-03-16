@@ -1,6 +1,7 @@
 package be.alexandre01.inazuma.uhc.presets.inazuma_eleven.roles.alius;
 
 import be.alexandre01.inazuma.uhc.managers.damage.DamageManager;
+import be.alexandre01.inazuma.uhc.presets.IPreset;
 import be.alexandre01.inazuma.uhc.presets.Preset;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.categories.Alius;
 import be.alexandre01.inazuma.uhc.roles.Role;
@@ -13,8 +14,8 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 public class Xavier extends Role {
-    public Xavier() {
-        super("Xéné");
+    public Xavier(IPreset preset) {
+        super("Xéné",preset);
         setRoleCategory(Alius.class);
         onLoad(new load() {
             @Override

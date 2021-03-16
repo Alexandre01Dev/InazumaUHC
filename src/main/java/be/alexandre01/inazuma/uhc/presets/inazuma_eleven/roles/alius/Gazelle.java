@@ -2,6 +2,7 @@ package be.alexandre01.inazuma.uhc.presets.inazuma_eleven.roles.alius;
 
 import be.alexandre01.inazuma.uhc.InazumaUHC;
 import be.alexandre01.inazuma.uhc.managers.chat.Chat;
+import be.alexandre01.inazuma.uhc.presets.IPreset;
 import be.alexandre01.inazuma.uhc.presets.Preset;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.categories.Alius;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.custom_events.EpisodeChangeEvent;
@@ -24,8 +25,8 @@ import java.util.Random;
 
 public class Gazelle extends Role implements Listener {
     private int i = 6;
-    public Gazelle() {
-        super("Gazelle");
+    public Gazelle(IPreset preset) {
+        super("Gazelle",preset);
         setRoleToSpoil(Xavier.class);
         setRoleCategory(Alius.class);
         addListener(this);

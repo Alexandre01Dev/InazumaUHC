@@ -3,6 +3,7 @@ package be.alexandre01.inazuma.uhc.presets.inazuma_eleven.roles.solo;
 import be.alexandre01.inazuma.uhc.InazumaUHC;
 import be.alexandre01.inazuma.uhc.custom_events.player.PlayerInstantDeathEvent;
 import be.alexandre01.inazuma.uhc.managers.damage.DamageManager;
+import be.alexandre01.inazuma.uhc.presets.IPreset;
 import be.alexandre01.inazuma.uhc.presets.Preset;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.categories.Solo;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.roles.solo.listeners.FreezePlayerListener;
@@ -33,8 +34,8 @@ import java.util.List;
 
 public class Byron extends Role implements Listener {
     private ItemStack potion;
-    public Byron() {
-        super("Byron Love");
+    public Byron(IPreset preset) {
+        super("Byron Love",preset);
         addDescription("§8- §7Votre objectif est de gagner §c§lSeul");
         CustomComponentBuilder c = new CustomComponentBuilder("");
         c.append("§8- §7Vous avez une potion nommée ");

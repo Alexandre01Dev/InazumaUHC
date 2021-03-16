@@ -2,6 +2,7 @@ package be.alexandre01.inazuma.uhc.presets.inazuma_eleven.roles.raimon;
 
 import be.alexandre01.inazuma.uhc.InazumaUHC;
 import be.alexandre01.inazuma.uhc.custom_events.player.PlayerInstantDeathEvent;
+import be.alexandre01.inazuma.uhc.presets.IPreset;
 import be.alexandre01.inazuma.uhc.presets.Preset;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.categories.Alius;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.categories.Raimon;
@@ -33,8 +34,8 @@ public class Darren extends Role implements Listener {
     private boolean revenge = false;
     private boolean hasChoose = false;
 
-    public Darren() {
-        super("Darren LaChance");
+    public Darren(IPreset preset) {
+        super("Darren LaChance",preset);
         addDescription("§8- §7Votre objectif est de gagner avec §6§lRaimon");
         addDescription("§8- §7Vous disposez de §c§l2 §4❤§7 en plus.");
         addDescription(" ");

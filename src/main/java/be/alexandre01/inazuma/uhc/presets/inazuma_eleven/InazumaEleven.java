@@ -7,6 +7,7 @@ import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.categories.Alius;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.categories.Raimon;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.categories.Solo;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.listeners.*;
+import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.objects.BallonInv;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.roles.alius.*;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.roles.raimon.*;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.roles.solo.Byron;
@@ -23,6 +24,7 @@ import be.alexandre01.inazuma.uhc.scenarios.trashpotion.TrashPotion;
 import be.alexandre01.inazuma.uhc.scoreboard.IPersonalScoreBoard;
 import be.alexandre01.inazuma.uhc.scoreboard.PersonalScoreboard;
 import be.alexandre01.inazuma.uhc.timers.Timer;
+import lombok.Getter;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
@@ -33,7 +35,8 @@ import java.util.UUID;
 
 public class InazumaEleven extends PresetData implements IPreset{
     public static String totalTimeValue ="";
-
+    @Getter
+    BallonInv ballonInv;
     public InazumaEleven(){
         //DefaultSettings Value
         generatorSettings = new String[]{"", ""};
@@ -50,14 +53,18 @@ public class InazumaEleven extends PresetData implements IPreset{
         endBordureTime = 60*15;
         endBordureSize = 250*2;
         scenarios = null;
+
         getScenarios();
+
+        //INITIALZE OBJECTS
+        ballonInv = new BallonInv();
         //INITIALIZE ROLESCATEGORIES
         new Raimon("Équipe Raimon","§6");
         new Alius("Académie-Alius","§5");
         new Solo("Solo","§c");
         //INITIALIZE ROLES
       //  new Xavier();
-        new Janus();
+        new Janus("Janus",this);
     }
 
     @Override
@@ -94,6 +101,7 @@ public class InazumaEleven extends PresetData implements IPreset{
             listeners.add(new TimerEvent());
             listeners.add(new TeamsEvent());
             listeners.add(new EpisodeEvent());
+            listeners.add(ballonInv);
         }
         return listeners;
     }

@@ -1,6 +1,7 @@
 package be.alexandre01.inazuma.uhc.presets.inazuma_eleven.roles.alius;
 
 import be.alexandre01.inazuma.uhc.managers.damage.DamageManager;
+import be.alexandre01.inazuma.uhc.presets.IPreset;
 import be.alexandre01.inazuma.uhc.presets.Preset;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.categories.Alius;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.objects.Episode;
@@ -17,8 +18,8 @@ import org.bukkit.potion.PotionEffectType;
 public class Joseph extends Role {
 
 
-    public Joseph() {
-        super("Joseph King");
+    public Joseph(IPreset preset) {
+        super("Joseph King",preset);
         setRoleCategory(Alius.class);
 
         RoleItem collierAllius = new RoleItem();

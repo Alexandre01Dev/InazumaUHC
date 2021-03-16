@@ -1,5 +1,6 @@
 package be.alexandre01.inazuma.uhc.presets.inazuma_eleven.roles.alius;
 
+import be.alexandre01.inazuma.uhc.presets.IPreset;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.categories.Alius;
 import be.alexandre01.inazuma.uhc.roles.Role;
 import org.bukkit.entity.Player;
@@ -7,8 +8,8 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 public class Bellatrix extends Role {
-    public Bellatrix() {
-        super("Bellatrix");
+    public Bellatrix(IPreset preset) {
+        super("Bellatrix",preset);
         setRoleCategory(Alius.class);
         onLoad(new load() {
             @Override

@@ -1,5 +1,6 @@
 package be.alexandre01.inazuma.uhc.presets.inazuma_eleven.roles.raimon;
 
+import be.alexandre01.inazuma.uhc.presets.IPreset;
 import be.alexandre01.inazuma.uhc.presets.Preset;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.categories.Raimon;
 import be.alexandre01.inazuma.uhc.roles.Role;
@@ -35,8 +36,8 @@ import java.util.Locale;
 
 public class Hurley extends Role implements Listener {
 
-    public Hurley() {
-        super("Hurley Kane");
+    public Hurley(IPreset preset) {
+        super("Hurley Kane",preset);
         setRoleCategory(Raimon.class);
 
         addDescription("§8- §7Votre objectif est de gagner avec §6§lRaimon");

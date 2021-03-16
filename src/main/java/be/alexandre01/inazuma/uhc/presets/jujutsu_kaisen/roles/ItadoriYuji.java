@@ -1,5 +1,6 @@
 package be.alexandre01.inazuma.uhc.presets.jujutsu_kaisen.roles;
 
+import be.alexandre01.inazuma.uhc.presets.IPreset;
 import be.alexandre01.inazuma.uhc.roles.Role;
 import be.alexandre01.inazuma.uhc.roles.RoleItem;
 import org.bukkit.Material;
@@ -9,8 +10,8 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 public class ItadoriYuji extends Role {
-    public ItadoriYuji() {
-        super("Itadori Yuji");
+    public ItadoriYuji(IPreset preset) {
+        super("Itadori Yuji",preset);
         RoleItem eclairNoir = new RoleItem();
         eclairNoir.setItemstack(new ItemStack(Material.COBBLESTONE));
 

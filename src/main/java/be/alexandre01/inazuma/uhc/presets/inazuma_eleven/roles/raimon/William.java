@@ -2,6 +2,7 @@ package be.alexandre01.inazuma.uhc.presets.inazuma_eleven.roles.raimon;
 
 import be.alexandre01.inazuma.uhc.InazumaUHC;
 import be.alexandre01.inazuma.uhc.custom_events.roles.RoleItemUseEvent;
+import be.alexandre01.inazuma.uhc.presets.IPreset;
 import be.alexandre01.inazuma.uhc.presets.Preset;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.categories.Raimon;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.custom_events.EpisodeChangeEvent;
@@ -22,8 +23,8 @@ public class William extends Role implements Listener {
     private static William w = null;
     private int episode = 0;
 
-    public William() {
-        super("William Glass");
+    public William(IPreset preset) {
+        super("William Glass",preset);
         William w = this;
         setRoleCategory(Raimon.class);
 
