@@ -10,12 +10,6 @@ public class Timber extends Scenario {
     public Timber() {
         super("Timber", "Casse rapidement les arbres");
         addListener(new TimberListener());
-        onLoad(new load() {
-            @Override
-            public void a() {
-                InazumaUHC.get.worldGen.defaultWorld.setGameRuleValue("randomTickSpeed", String.valueOf(30));
-            }
-        });
         ItemBuilder itemBuilder = new ItemBuilder(Material.LOG);
         setItemStack(itemBuilder.toItemStack());
     }

@@ -50,7 +50,7 @@ public class Chat {
             if(p == null)
                 continue;
 
-            p.sendMessage("§7["+chatName+prefixColor+"§7] §e| " + prefixColor+interlocuters.get(uuid)+" "+separator + messageColor+ message);
+            p.sendMessage("§8["+chatName+prefixColor+"§8] §0| " + prefixColor+interlocuters.get(uuid)+" "+separator + messageColor+ message);
         }
 
         for(Chat chat : accessors){
@@ -61,12 +61,12 @@ public class Chat {
                 if(p == null)
                     continue;
 
-                p.sendMessage("§7["+chatName+prefixColor+"§7] §e| " + prefixColor+interlocuters.get(uuid)+" "+separator + messageColor+ message);
+                p.sendMessage("§8["+chatName+prefixColor+"§8] §0| " + prefixColor+interlocuters.get(uuid)+" "+separator + messageColor+ message);
             }
         }
 
         for(Player player : InazumaUHC.get.spectatorManager.getPlayers()){
-            player.sendMessage("§7["+chatName+prefixColor+"§7] §e| " + prefixColor+interlocuters.get(uuid)+" "+separator + messageColor+ message);
+            player.sendMessage("§8["+chatName+prefixColor+"§8] §0| " + prefixColor+interlocuters.get(uuid)+" "+separator + messageColor+ message);
         }
     }
     public String generateMessage(UUID uuid,String message){

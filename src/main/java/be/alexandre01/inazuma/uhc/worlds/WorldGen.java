@@ -63,8 +63,8 @@ public class WorldGen {
         iwc.orePopulatorRules.put(173,new OrePopulatorRule(173,80,0,60,10,1));
         iwc.biomePlains = false;
         */
-        iwc.sugarCaneHeightMin = 4;
-        iwc.sugarCaneHeightMax = 8;
+        iwc.sugarCaneHeightMin = 1;
+        iwc.sugarCaneHeightMax = 4;
         iwc.sugarCaneRound = 40;
         System.out.println("> GEN1 ");
         if(InazumaUHC.get.unloadWorlds){

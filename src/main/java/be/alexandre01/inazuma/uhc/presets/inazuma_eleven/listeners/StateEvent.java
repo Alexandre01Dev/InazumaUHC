@@ -97,7 +97,7 @@ public class StateEvent implements Listener {
                     team.getPlateform().despawn();
                     for (Player player : Bukkit.getOnlinePlayers()){
                         player.playSound(player.getLocation(), "episode1", Integer.MAX_VALUE, 1);
-                        TitleUtils.sendTitle(player,40,100,10,"§9Début de l'§eEpisode 1","§9Les §5extraterrestres §9débarquent !");
+                        TitleUtils.sendTitle(player,30,90,10,"§9Début de l'§eEpisode 1","§9Les §5extraterrestres §9débarquent !");
 
                     }
                 }

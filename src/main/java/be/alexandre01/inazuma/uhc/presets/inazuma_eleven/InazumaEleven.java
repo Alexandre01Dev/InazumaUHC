@@ -269,7 +269,7 @@ public class InazumaEleven extends PresetData implements IPreset{
         String s = "";
         switch (environment){
             case NORMAL:
-                s = "1";
+                s = "15";
                 break;
             case NETHER:
                 s = "2";
