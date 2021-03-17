@@ -41,8 +41,8 @@ public class  Janus extends Role implements Listener {
     Inventory inventory;
     String texture = "ewogICJ0aW1lc3RhbXAiIDogMTYxNTczMzg1MTExMywKICAicHJvZmlsZUlkIiA6ICJhMjk1ODZmYmU1ZDk0Nzk2OWZjOGQ4ZGE0NzlhNDNlZSIsCiAgInByb2ZpbGVOYW1lIiA6ICJWaWVydGVsdG9hc3RpaWUiLAogICJzaWduYXR1cmVSZXF1aXJlZCIgOiB0cnVlLAogICJ0ZXh0dXJlcyIgOiB7CiAgICAiU0tJTiIgOiB7CiAgICAgICJ1cmwiIDogImh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNjhiMjBmMWNmMWQ2YzRmYWJhN2Q1ZGIzY2RlMjkxMTNkZDIwZDA0MDdmNGY3NzkxNTViZmJlYTY4ZGZhNTM1ZiIKICAgIH0KICB9Cn0";
     String textureXavier = "ewogICJ0aW1lc3RhbXAiIDogMTYxNTc0NzUzMzc0NSwKICAicHJvZmlsZUlkIiA6ICI3MmNiMDYyMWU1MTA0MDdjOWRlMDA1OTRmNjAxNTIyZCIsCiAgInByb2ZpbGVOYW1lIiA6ICJNb3M5OTAiLAogICJzaWduYXR1cmVSZXF1aXJlZCIgOiB0cnVlLAogICJ0ZXh0dXJlcyIgOiB7CiAgICAiU0tJTiIgOiB7CiAgICAgICJ1cmwiIDogImh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvY2MyZGM3Mjk0OTQzNTlhZGVjOTNkMGZkZGFmMGVmMzE2OTNjMDdmMjg3NmFkOWM1NzcyNzQ3NDhkNjZmYjczOCIKICAgIH0KICB9Cn0=";
-    public Janus(String name, IPreset preset) {
-        super(name,preset);
+    public Janus(IPreset preset) {
+        super("Janus",preset);
         setRoleCategory(Alius.class);
         onLoad(new load() {
             @Override
@@ -134,10 +134,10 @@ public class  Janus extends Role implements Listener {
         RoleItem ballonsXavier = new RoleItem();
         CustomHead customHeadXavier = new CustomHead(textureXavier,"§eBallons de Xavier");
         ItemStack itemStackXavier = customHeadXavier.toItemStack();
-        itemStack.setAmount(3);
-        ballons.setItemstack(itemStack);
-        ballons.setSlot(8);
-        ballons.setPlaceBlock(new RoleItem.PlaceBlock() {
+        itemStackXavier.setAmount(1);
+        ballonsXavier.setItemstack(itemStackXavier);
+        ballonsXavier.setSlot(7);
+        ballonsXavier.setPlaceBlock(new RoleItem.PlaceBlock() {
             int i = 0;
             @Override
             public void execute(Player player, Block block) {
@@ -196,7 +196,7 @@ public class  Janus extends Role implements Listener {
                 player.sendMessage(Preset.instance.p.prefixName()+" §aBallon de Xavier posé ! §e| §7X:"+ block.getLocation().getBlockX()+"§8| §7Y:"+block.getLocation().getBlockY()+ "§8| §7Z:"+block.getLocation().getBlockZ() );
             }
         });
-        addRoleItem(ballons);
+        addRoleItem(ballonsXavier);
     }
 
     @EventHandler
@@ -205,6 +205,8 @@ public class  Janus extends Role implements Listener {
             return;
         }
         Player player = (Player) event.getWhoClicked();
+        if(inazumaUHC.rm.getRole(player) instanceof Janus){
+
         if(!event.getClickedInventory().getName().equals(inventory.getName()))
             return;
         switch (event.getSlot()){
@@ -220,6 +222,8 @@ public class  Janus extends Role implements Listener {
             case 16:
                 player.sendMessage(Preset.instance.p.prefixName()+" §cCe ballon est réservé à Xavier.");
                 break;
+        }
+
         }
     }
 

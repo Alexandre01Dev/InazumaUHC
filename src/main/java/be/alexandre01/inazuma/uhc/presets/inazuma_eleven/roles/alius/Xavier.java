@@ -25,6 +25,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 public class Xavier extends Role implements Listener {
+    private int i = 0;
     private Inventory inventory;
     private int episode;
     @Setter
@@ -41,7 +42,7 @@ public class Xavier extends Role implements Listener {
                     player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, Integer.MAX_VALUE, 0,false,false), true);
             }
         });
-        inventory = ((InazumaEleven)getPreset()).getBallonInv().toInventory();
+        inventory = ((InazumaEleven)preset).getBallonInv().toInventory();
         RoleItem roleItem = new RoleItem();
         ItemBuilder itemBuilder = new ItemBuilder(Material.NETHER_STAR).setName("§d§lCollier§7§l-§5§lAlius");
         roleItem.setItemstack(itemBuilder.toItemStack());
@@ -66,6 +67,16 @@ public class Xavier extends Role implements Listener {
                     player.sendMessage(Preset.instance.p.prefixName()+"§c Veuillez mettre /inaballtp [Joueur]");
                     return;
                 }
+                if(i > 2){
+                    player.sendMessage(Preset.instance.p+ " §cTu ne peux téléporter quelqu'un que 2x en total");
+
+                    return;
+                }
+                if(Episode.getEpisode() == episode){
+                    player.sendMessage(Preset.instance.p+ " §cTu ne peux téléporter quelqu'un que 1x tout les épisodes.");
+
+                    return;
+                }
 
                 String arg = args[0];
                 Player p = Bukkit.getPlayer(arg);
@@ -73,8 +84,11 @@ public class Xavier extends Role implements Listener {
                     player.sendMessage(Preset.instance.p.prefixName()+"§c Le joueur n'existe pas");
                 }
 
-                if(!canTeleportPlayer(player)){
+                if(!canTeleportPlayer(p)){
                     player.sendMessage(Preset.instance.p.prefixName()+" §cVous ne pouvez pas téléporter le joueur à votre ballon, car celui-ci est obstrué par plus de 3 blocks.");
+                }else {
+                    episode = Episode.getEpisode();
+                    i++;
                 }
             }
         });
@@ -83,6 +97,8 @@ public class Xavier extends Role implements Listener {
     @EventHandler
     public void onInventoryClick(InventoryClickEvent event){
         Player player = (Player) event.getWhoClicked();
+        if(inazumaUHC.rm.getRole(player) instanceof Xavier){
+
         if(event.getClickedInventory() == null){
             return;
         }
@@ -90,17 +106,14 @@ public class Xavier extends Role implements Listener {
             return;
         switch (event.getSlot()){
             case 10:
-                player.sendMessage(Preset.instance.p.prefixName()+" §cCe ballon est réservé à Janus.");
-                break;
             case 12:
-                player.sendMessage(Preset.instance.p.prefixName()+" §cCe ballon est réservé à Janus.");
-                break;
             case 14:
                 player.sendMessage(Preset.instance.p.prefixName()+" §cCe ballon est réservé à Janus.");
                 break;
             case 16:
                 onClick(player);
                 break;
+        }
         }
     }
     private boolean canTeleportPlayer(Player player){
@@ -121,10 +134,14 @@ public class Xavier extends Role implements Listener {
         if(location != null){
           if(!canTeleportPlayer(player)){
               player.sendMessage(Preset.instance.p.prefixName()+" §cVous ne pouvez pas vous téléportez à votre ballon, car celui-ci est obstrué par plus de 3 blocks.");
+              return;
+          }else {
+              this.episode = Episode.getEpisode();
+              i++;
           }
         }
         player.sendMessage(Preset.instance.p.prefixName()+ " §cLe ballon n'existe pas");
-        this.episode = Episode.getEpisode();
+
     }
 
     private Location getTop(Location location){
