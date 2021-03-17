@@ -155,6 +155,7 @@ public class Darren extends Role implements Listener {
         for(Player player : inazumaUHC.rm.getRole(Xavier.class).getPlayers()){
             for(Player d : getPlayers()){
                 tracker.setTargetToPlayer(player,d);
+                player.sendMessage(Preset.instance.p.prefixName()+" Darren vient de remplacer Mark, C'est "+d.getName());
             }
 
         }
