@@ -33,11 +33,14 @@ import java.util.HashMap;
 
 public class  Janus extends Role implements Listener {
     ArrayList<Location> ballonsLoc = new ArrayList<>();
+    Location xavierBall;
+    Block xavierBlock;
     HashMap<Block,Location> ballonsBlock = new HashMap<>();
     InazumaEleven inazumaEleven;
     int episode =0;
     Inventory inventory;
     String texture = "ewogICJ0aW1lc3RhbXAiIDogMTYxNTczMzg1MTExMywKICAicHJvZmlsZUlkIiA6ICJhMjk1ODZmYmU1ZDk0Nzk2OWZjOGQ4ZGE0NzlhNDNlZSIsCiAgInByb2ZpbGVOYW1lIiA6ICJWaWVydGVsdG9hc3RpaWUiLAogICJzaWduYXR1cmVSZXF1aXJlZCIgOiB0cnVlLAogICJ0ZXh0dXJlcyIgOiB7CiAgICAiU0tJTiIgOiB7CiAgICAgICJ1cmwiIDogImh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNjhiMjBmMWNmMWQ2YzRmYWJhN2Q1ZGIzY2RlMjkxMTNkZDIwZDA0MDdmNGY3NzkxNTViZmJlYTY4ZGZhNTM1ZiIKICAgIH0KICB9Cn0";
+    String textureXavier = "ewogICJ0aW1lc3RhbXAiIDogMTYxNTc0NzUzMzc0NSwKICAicHJvZmlsZUlkIiA6ICI3MmNiMDYyMWU1MTA0MDdjOWRlMDA1OTRmNjAxNTIyZCIsCiAgInByb2ZpbGVOYW1lIiA6ICJNb3M5OTAiLAogICJzaWduYXR1cmVSZXF1aXJlZCIgOiB0cnVlLAogICJ0ZXh0dXJlcyIgOiB7CiAgICAiU0tJTiIgOiB7CiAgICAgICJ1cmwiIDogImh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvY2MyZGM3Mjk0OTQzNTlhZGVjOTNkMGZkZGFmMGVmMzE2OTNjMDdmMjg3NmFkOWM1NzcyNzQ3NDhkNjZmYjczOCIKICAgIH0KICB9Cn0=";
     public Janus(String name, IPreset preset) {
         super(name,preset);
         setRoleCategory(Alius.class);
@@ -61,7 +64,7 @@ public class  Janus extends Role implements Listener {
         ItemStack itemStack = customHead.toItemStack();
         itemStack.setAmount(3);
         ballons.setItemstack(itemStack);
-
+        ballons.setSlot(8);
         ballons.setPlaceBlock(new RoleItem.PlaceBlock() {
             int i = 0;
             @Override
@@ -124,6 +127,73 @@ public class  Janus extends Role implements Listener {
                 }
                 i++;
                 player.sendMessage(Preset.instance.p.prefixName()+" §aBallon posé ! §e| §7X:"+ block.getLocation().getBlockX()+"§8| §7Y:"+block.getLocation().getBlockY()+ "§8| §7Z:"+block.getLocation().getBlockZ() );
+            }
+        });
+        addRoleItem(ballons);
+
+        RoleItem ballonsXavier = new RoleItem();
+        CustomHead customHeadXavier = new CustomHead(textureXavier,"§eBallons de Xavier");
+        ItemStack itemStackXavier = customHeadXavier.toItemStack();
+        itemStack.setAmount(3);
+        ballons.setItemstack(itemStack);
+        ballons.setSlot(8);
+        ballons.setPlaceBlock(new RoleItem.PlaceBlock() {
+            int i = 0;
+            @Override
+            public void execute(Player player, Block block) {
+                if(i >= 3){
+                    player.sendMessage(Preset.instance.p.prefixName()+" §c§lBUG ! La limite de ballons à déjà été atteint.");
+                    return;
+                }
+
+
+                if(block.getLocation().getBlockY() <= 60){
+                    player.sendMessage(Preset.instance.p.prefixName()+" §cVous ne pouvez pas mettre ce block en dessous de la couche 61.");
+                    return;
+                }
+                Location tpLoc = getTop(block.getLocation());
+                if(tpLoc == null){
+                    player.sendMessage(Preset.instance.p.prefixName()+" §cVous ne pouvez pas mettre ce block en dessous de 3 blocks ou plus.");
+                    return;
+                }
+
+                block.setType(Material.SKULL);
+
+                CustomHead.toSkull(block,customHeadXavier.getTexture());
+                ItemStack itemStack = player.getItemInHand();
+                Bukkit.getServer().getScheduler().runTaskLaterAsynchronously(InazumaUHC.get, new Runnable() {
+                    public void run() {
+                        int amount = itemStack.getAmount()-1;
+                        if(amount == 0){
+                            player.setItemInHand(new ItemStack(Material.AIR));
+                            return;
+                        }
+
+                        itemStack.setAmount(itemStack.getAmount()-1);
+                        player.setItemInHand(itemStack);
+                    }
+                }, 1L);
+                xavierBall = tpLoc;
+                xavierBlock = block;
+                ItemStack clone = itemStack.clone();
+                ItemMeta cloneMeta = clone.getItemMeta();
+                switch (i){
+                    case 0:
+                        clone.setAmount(1);
+                        cloneMeta.setDisplayName("Ballon de Xavier");
+                        clone.setItemMeta(cloneMeta);
+                        inventory.setItem(16,clone);
+                        for(Role role : Role.getRoles()){
+                            if(role instanceof Xavier){
+                                Xavier xavier = (Xavier) role;
+                                xavier.setLocation(xavierBall);
+                                xavier.setBlock(xavierBlock);
+                            }
+                        }
+                        break;
+                }
+                i++;
+                player.sendMessage(Preset.instance.p.prefixName()+" §aBallon de Xavier posé ! §e| §7X:"+ block.getLocation().getBlockX()+"§8| §7Y:"+block.getLocation().getBlockY()+ "§8| §7Z:"+block.getLocation().getBlockZ() );
             }
         });
         addRoleItem(ballons);
@@ -193,6 +263,7 @@ public class  Janus extends Role implements Listener {
                 return;
             }
             player.teleport(tpLoc);
+
             return;
         }
             player.sendMessage(Preset.instance.p.prefixName()+ " §cLe ballon n°"+(i+1)+" n'existe pas");
@@ -200,7 +271,7 @@ public class  Janus extends Role implements Listener {
     }
 
 
-    public Location getTop(Location location){
+    private Location getTop(Location location){
         Location cLoc = location.clone();
         int t = 0;
         int b = 0;

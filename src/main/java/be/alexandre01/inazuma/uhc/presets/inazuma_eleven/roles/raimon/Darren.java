@@ -4,6 +4,7 @@ import be.alexandre01.inazuma.uhc.InazumaUHC;
 import be.alexandre01.inazuma.uhc.custom_events.player.PlayerInstantDeathEvent;
 import be.alexandre01.inazuma.uhc.presets.IPreset;
 import be.alexandre01.inazuma.uhc.presets.Preset;
+import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.InazumaEleven;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.categories.Alius;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.categories.Raimon;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.roles.alius.Xavier;
@@ -60,6 +61,8 @@ public class Darren extends Role implements Listener {
         });
 
         addListener(this);
+
+
         addCommand("mark", new command() {
             @Override
             public void a(String[] args, Player player) {
@@ -207,7 +210,4 @@ public class Darren extends Role implements Listener {
             player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, Integer.MAX_VALUE, 0,false,false), true);
         }
     }
-
-
-
 }

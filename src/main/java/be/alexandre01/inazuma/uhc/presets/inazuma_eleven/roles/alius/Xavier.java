@@ -3,17 +3,32 @@ package be.alexandre01.inazuma.uhc.presets.inazuma_eleven.roles.alius;
 import be.alexandre01.inazuma.uhc.managers.damage.DamageManager;
 import be.alexandre01.inazuma.uhc.presets.IPreset;
 import be.alexandre01.inazuma.uhc.presets.Preset;
+import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.InazumaEleven;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.categories.Alius;
+import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.objects.Episode;
 import be.alexandre01.inazuma.uhc.roles.Role;
 import be.alexandre01.inazuma.uhc.roles.RoleItem;
 import be.alexandre01.inazuma.uhc.utils.ItemBuilder;
+import lombok.Setter;
+
 import net.minecraft.server.v1_8_R3.Tuple;
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 public class Xavier extends Role {
+    private Inventory inventory;
+    private int episode;
+    @Setter
+    private Block block = null;
+     @Setter  Location location = null;
     public Xavier(IPreset preset) {
         super("Xéné",preset);
         setRoleCategory(Alius.class);
@@ -24,7 +39,7 @@ public class Xavier extends Role {
                     player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, Integer.MAX_VALUE, 0,false,false), true);
             }
         });
-
+        inventory = ((InazumaEleven)getPreset()).getBallonInv().toInventory();
         RoleItem roleItem = new RoleItem();
         ItemBuilder itemBuilder = new ItemBuilder(Material.NETHER_STAR).setName("§d§lCollier§7§l-§5§lAlius");
         roleItem.setItemstack(itemBuilder.toItemStack());
@@ -36,6 +51,105 @@ public class Xavier extends Role {
         });
         addRoleItem(roleItem);
         setRoleToSpoil(Bellatrix.class, Janus.class, Torch.class, Gazelle.class, Dvalin.class);
+        addCommand("inaball", new command() {
+            @Override
+            public void a(String[] args, Player player) {
+                player.openInventory(inventory);
+            }
+        });
+        addCommand("inaballtp", new command() {
+            @Override
+            public void a(String[] args, Player player) {
+                if(args.length == 0){
+                    player.sendMessage(Preset.instance.p.prefixName()+"§c Veuillez mettre /inaballtp [Joueur]");
+                    return;
+                }
+
+                String arg = args[0];
+                Player p = Bukkit.getPlayer(arg);
+                if(p == null){
+                    player.sendMessage(Preset.instance.p.prefixName()+"§c Le joueur n'existe pas");
+                }
+
+                if(!canTeleportPlayer(player)){
+                    player.sendMessage(Preset.instance.p.prefixName()+" §cVous ne pouvez pas téléporter le joueur à votre ballon, car celui-ci est obstrué par plus de 3 blocks.");
+                }
+            }
+        });
     }
 
+    @EventHandler
+    public void onInventoryClick(InventoryClickEvent event){
+        Player player = (Player) event.getWhoClicked();
+        if(!event.getClickedInventory().getName().equals(inventory.getName()))
+            return;
+        switch (event.getSlot()){
+            case 10:
+                player.sendMessage(Preset.instance.p.prefixName()+" §cCe ballon est réservé à Janus.");
+                break;
+            case 12:
+                player.sendMessage(Preset.instance.p.prefixName()+" §cCe ballon est réservé à Janus.");
+                break;
+            case 14:
+                player.sendMessage(Preset.instance.p.prefixName()+" §cCe ballon est réservé à Janus.");
+                break;
+            case 16:
+                onClick(player);
+                break;
+        }
+    }
+    private boolean canTeleportPlayer(Player player){
+        Location tpLoc = getTop(location);
+        if(tpLoc == null){
+            return false;
+        }
+        player.teleport(tpLoc);
+        return true;
+    }
+    private void onClick(Player player){
+        if(Episode.getEpisode() == this.episode){
+            player.sendMessage(Preset.instance.p+ " §cTu ne peux te téléporter que tout les épisodes.");
+
+            return;
+        }
+
+        if(location != null){
+          if(!canTeleportPlayer(player)){
+              player.sendMessage(Preset.instance.p.prefixName()+" §cVous ne pouvez pas vous téléportez à votre ballon, car celui-ci est obstrué par plus de 3 blocks.");
+          }
+        }
+        player.sendMessage(Preset.instance.p.prefixName()+ " §cLe ballon n'existe pas");
+        this.episode = Episode.getEpisode();
+    }
+
+    private Location getTop(Location location){
+        Location cLoc = location.clone();
+        int t = 0;
+        int b = 0;
+        int a = 0;
+        for (int j = 1; j < 255-cLoc.getBlockY(); j++) {
+            if(a >= 2){
+                cLoc.add(0,-2,0);
+                return cLoc;
+            }
+            cLoc.add(0,j,0);
+            if(!cLoc.getWorld().getBlockAt(cLoc).getType().equals(Material.AIR)){
+                t++;
+                b++;
+                a = 0;
+                if(t > 2){
+                    return null;
+                }
+
+            }else {
+                a++;
+                b++;
+            }
+
+
+
+
+        }
+        return cLoc;
+    }
 }
