@@ -77,9 +77,12 @@ public class BallonInv implements Listener{
 
     @EventHandler
     public void onClickInv(InventoryClickEvent event){
-        if(event.getClickedInventory().getName().equals(inventory.getName())){
-            event.setCancelled(true);
+        if(event.getClickedInventory() != null){
+            if(event.getClickedInventory().getName().equals(inventory.getName())){
+                event.setCancelled(true);
+            }
         }
+
     }
 
 }

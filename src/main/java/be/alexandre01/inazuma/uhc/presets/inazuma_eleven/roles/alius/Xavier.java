@@ -18,12 +18,13 @@ import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-public class Xavier extends Role {
+public class Xavier extends Role implements Listener {
     private Inventory inventory;
     private int episode;
     @Setter
@@ -31,6 +32,7 @@ public class Xavier extends Role {
      @Setter  Location location = null;
     public Xavier(IPreset preset) {
         super("Xéné",preset);
+        addListener(this);
         setRoleCategory(Alius.class);
         onLoad(new load() {
             @Override
@@ -81,6 +83,9 @@ public class Xavier extends Role {
     @EventHandler
     public void onInventoryClick(InventoryClickEvent event){
         Player player = (Player) event.getWhoClicked();
+        if(event.getClickedInventory() == null){
+            return;
+        }
         if(!event.getClickedInventory().getName().equals(inventory.getName()))
             return;
         switch (event.getSlot()){

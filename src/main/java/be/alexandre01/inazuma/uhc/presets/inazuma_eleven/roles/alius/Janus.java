@@ -201,6 +201,9 @@ public class  Janus extends Role implements Listener {
 
     @EventHandler
     public void onInventoryClick(InventoryClickEvent event){
+        if(event.getClickedInventory() == null){
+            return;
+        }
         Player player = (Player) event.getWhoClicked();
         if(!event.getClickedInventory().getName().equals(inventory.getName()))
             return;
