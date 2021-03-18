@@ -15,6 +15,7 @@ import net.minecraft.server.v1_8_R3.Tuple;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -122,6 +123,8 @@ public class Xavier extends Role implements Listener {
             return false;
         }
         player.teleport(tpLoc);
+        player.playSound(player.getLocation(), Sound.ENDERMAN_TELEPORT, 1,1);
+        player.sendMessage(Preset.instance.p.prefixName()+ " §cVous vous êtes téléporte a votre ballon");
         return true;
     }
     private void onClick(Player player){

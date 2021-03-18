@@ -11,6 +11,7 @@ import be.alexandre01.inazuma.uhc.utils.*;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
@@ -137,6 +138,7 @@ public class Scotty extends Role {
         double y = pLoc.getY();
         pLoc.setY(1);
         player.teleport(pLoc);
+        player.playSound(player.getLocation(), Sound.FALL_SMALL,1,1);
         pLoc.setY(y);
         new BukkitRunnable() {
             int sec = 0;

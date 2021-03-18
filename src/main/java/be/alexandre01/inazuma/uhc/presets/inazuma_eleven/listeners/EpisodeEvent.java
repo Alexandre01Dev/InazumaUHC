@@ -19,6 +19,12 @@ public class EpisodeEvent implements Listener {
     public void onEpisode(EpisodeChangeEvent e){
         World world = ((CraftWorld)InazumaUHC.get.worldGen.defaultWorld).getHandle();
         switch (Episode.getEpisode()){
+            case 1:
+                world.makeSound(0,0,0,"episode1", (Preset.instance.p.getBorderSize(org.bukkit.World.Environment.NORMAL)/10f)*3,1);
+                for (Player player : Bukkit.getOnlinePlayers()){
+                    TitleUtils.sendTitle(player,30,90,10,"§9Début de l'§eEpisode 1","§9Les §5extraterrestres §9débarquent !");
+                }
+                break;
             case 2:
                 world.makeSound(0,0,0,"episode2", (Preset.instance.p.getBorderSize(org.bukkit.World.Environment.NORMAL)/10f)*3,1);
                 for (Player player : Bukkit.getOnlinePlayers()){

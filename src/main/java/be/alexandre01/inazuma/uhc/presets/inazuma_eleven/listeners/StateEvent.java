@@ -91,17 +91,6 @@ public class StateEvent implements Listener {
                 player.setFlySpeed(0.2f);
                 player.teleport(team.getLocation());
             }
-            Bukkit.getScheduler().scheduleSyncDelayedTask(i, new BukkitRunnable() {
-                @Override
-                public void run() {
-                    team.getPlateform().despawn();
-                    for (Player player : Bukkit.getOnlinePlayers()){
-                        player.playSound(player.getLocation(), "episode1", Integer.MAX_VALUE, 1);
-                        TitleUtils.sendTitle(player,30,90,10,"§9Début de l'§eEpisode 1","§9Les §5extraterrestres §9débarquent !");
-
-                    }
-                }
-            });
         }
             Bukkit.getScheduler().scheduleSyncDelayedTask(i, new BukkitRunnable() {
                         @Override

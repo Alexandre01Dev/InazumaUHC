@@ -11,9 +11,11 @@ import be.alexandre01.inazuma.uhc.roles.Role;
 import be.alexandre01.inazuma.uhc.roles.RoleItem;
 import be.alexandre01.inazuma.uhc.utils.CustomHead;
 import be.alexandre01.inazuma.uhc.utils.ItemBuilder;
+import be.alexandre01.inazuma.uhc.utils.PatchedEntity;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.Skull;
@@ -29,6 +31,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 public class  Janus extends Role implements Listener {
@@ -108,31 +111,34 @@ public class  Janus extends Role implements Listener {
                 switch (i){
                     case 0:
                         clone.setAmount(1);
-                        cloneMeta.setDisplayName("Ballon n°1");
+                        cloneMeta.setDisplayName("§7Ballon n°§e1");
+                        cloneMeta.setLore(Arrays.asList("§fX §7: §2"+block.getLocation().getBlockX() + "","§fY §7: §2"+block.getLocation().getBlockY()+ "","§fZ §7: §2" +block.getLocation().getBlockZ()));
                         clone.setItemMeta(cloneMeta);
                         inventory.setItem(10,clone);
                         break;
                     case 1:
                         clone.setAmount(2);
-                        cloneMeta.setDisplayName("Ballon n°2");
+                        cloneMeta.setDisplayName("§7Ballon n°§e2");
+                        cloneMeta.setLore(Arrays.asList("§fX §7: §2"+block.getLocation().getBlockX() + "","§fY §7: §2"+block.getLocation().getBlockY()+ "","§fZ §7: §2" +block.getLocation().getBlockZ()));
                         clone.setItemMeta(cloneMeta);
                         inventory.setItem(12,clone);
                         break;
                     case 2:
                         clone.setAmount(3);
-                        cloneMeta.setDisplayName("Ballon n°3");
+                        cloneMeta.setDisplayName("§7Ballon n°§e3");
+                        cloneMeta.setLore(Arrays.asList("§fX §7: §2"+block.getLocation().getBlockX() + "","§fY §7: §2"+block.getLocation().getBlockY()+ "","§fZ §7: §2" +block.getLocation().getBlockZ()));
                         clone.setItemMeta(cloneMeta);
                         inventory.setItem(14,clone);
                         break;
                 }
                 i++;
-                player.sendMessage(Preset.instance.p.prefixName()+" §aBallon posé ! §e| §7X:"+ block.getLocation().getBlockX()+"§8| §7Y:"+block.getLocation().getBlockY()+ "§8| §7Z:"+block.getLocation().getBlockZ() );
+                player.sendMessage(Preset.instance.p.prefixName()+"§7Ballon n°§e"+(i+1)+" §aposé ! §e| §7X:"+ block.getLocation().getBlockX()+"§8| §7Y:"+block.getLocation().getBlockY()+ "§8| §7Z:"+block.getLocation().getBlockZ() );
             }
         });
         addRoleItem(ballons);
 
         RoleItem ballonsXavier = new RoleItem();
-        CustomHead customHeadXavier = new CustomHead(textureXavier,"§eBallons de Xavier");
+        CustomHead customHeadXavier = new CustomHead(textureXavier,"§7Ballon de §5§lXavier");
         ItemStack itemStackXavier = customHeadXavier.toItemStack();
         itemStackXavier.setAmount(1);
         ballonsXavier.setItemstack(itemStackXavier);
@@ -180,7 +186,8 @@ public class  Janus extends Role implements Listener {
                 switch (i){
                     case 0:
                         clone.setAmount(1);
-                        cloneMeta.setDisplayName("Ballon de Xavier");
+                        cloneMeta.setDisplayName("§7Ballon de §5§lXavier");
+                        cloneMeta.setLore(Arrays.asList("§fX §7: §2"+block.getLocation().getBlockX() + "","§fY §7: §2"+block.getLocation().getBlockY()+ "","§fZ §7: §2" +block.getLocation().getBlockZ()));
                         clone.setItemMeta(cloneMeta);
                         inventory.setItem(16,clone);
                         for(Role role : Role.getRoles()){
@@ -193,7 +200,7 @@ public class  Janus extends Role implements Listener {
                         break;
                 }
                 i++;
-                player.sendMessage(Preset.instance.p.prefixName()+" §aBallon de Xavier posé ! §e| §7X:"+ block.getLocation().getBlockX()+"§8| §7Y:"+block.getLocation().getBlockY()+ "§8| §7Z:"+block.getLocation().getBlockZ() );
+                player.sendMessage(Preset.instance.p.prefixName()+" §7Ballon de §5§lXavier§a posé ! §e| §7X:"+ block.getLocation().getBlockX()+"§8| §7Y:"+block.getLocation().getBlockY()+ "§8| §7Z:"+block.getLocation().getBlockZ() );
             }
         });
         addRoleItem(ballonsXavier);
@@ -220,7 +227,7 @@ public class  Janus extends Role implements Listener {
                 onClick(player,2);
                 break;
             case 16:
-                player.sendMessage(Preset.instance.p.prefixName()+" §cCe ballon est réservé à Xavier.");
+                player.sendMessage(Preset.instance.p.prefixName()+" §cCe ballon est réservé à §5§lXavier§c.");
                 break;
         }
 
@@ -234,7 +241,8 @@ public class  Janus extends Role implements Listener {
         event.setCancelled(true);
         event.getBlock().setType(Material.AIR);
         for(Player player : getPlayers()){
-            player.sendMessage(Preset.instance.p.prefixName()+" §cUn de tes ballons ce sont cassé");
+            player.sendMessage(Preset.instance.p.prefixName()+" §cUn de tes ballons ce sont cassé, tu as donc perdu 1 coeur permanent.");
+            PatchedEntity.setMaxHealthInSilent(player, player.getMaxHealth()-2);
 
         }
            ItemStack barrier = new ItemBuilder(Material.BARRIER).setName("§cCassé").toItemStack();
@@ -258,7 +266,7 @@ public class  Janus extends Role implements Listener {
     }
     private void onClick(Player player,int i){
         if(Episode.getEpisode() == this.episode){
-            player.sendMessage(Preset.instance.p+ " §cTu ne peux te téléporter que tout les épisodes.");
+            player.sendMessage(Preset.instance.p.prefixName()+ " §cVous vous êtes déja téléporté cette épisode.");
 
             return;
         }
@@ -270,10 +278,12 @@ public class  Janus extends Role implements Listener {
                 return;
             }
             player.teleport(tpLoc);
+            player.playSound(player.getLocation(), Sound.ENDERMAN_TELEPORT, 1,1);
+            player.sendMessage(Preset.instance.p.prefixName()+ " §cVous vous êtes téléporte au §7Ballon n°§e"+(i+1));
 
             return;
         }
-            player.sendMessage(Preset.instance.p.prefixName()+ " §cLe ballon n°"+(i+1)+" n'existe pas");
+            player.sendMessage(Preset.instance.p.prefixName()+ " §cLe §7Ballon n°§e"+(i+1)+" n'existe pas");
         this.episode = Episode.getEpisode();
     }
 
