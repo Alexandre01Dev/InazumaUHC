@@ -56,7 +56,7 @@ public class Mark extends Role implements Listener {
             public int i = 0;
             @Override
             public void a(String[] args, Player player) {
-                if(i > 2){
+                if(i >= 2){
                     player.sendMessage(Preset.instance.p.prefixName()+" Vous avez dépassé le nombre d'utilisation de cette commande");
                     return;
                 }

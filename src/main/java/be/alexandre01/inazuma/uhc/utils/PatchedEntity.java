@@ -34,12 +34,8 @@ public class PatchedEntity{
             public void onSend(SentPacket sentPacket) {
 
                 if(sentPacket.getPacketName().equalsIgnoreCase("PacketPlayOutEntityStatus")){
-                    System.out.println(sentPacket.getPacketName());
                     Object object1 = sentPacket.getPacketValue("a");
-
                     Object object2 = sentPacket.getPacketValue("b");
-                    System.out.println("OBJ1"+object1);
-                    System.out.println("OBJ2"+object2);
                     if((byte) object2 == (byte) 2){
                         if(ids.contains((Integer) object1)){
                             sentPacket.setCancelled(true);
@@ -47,11 +43,9 @@ public class PatchedEntity{
                     }
                 }
                 if(sentPacket.getPacketName().equalsIgnoreCase("PacketPlayOutNamedSoundEffect")){
-                    System.out.println((String) sentPacket.getPacketValue("a"));
                    if(sounds.contains(((String) sentPacket.getPacketValue("a")))){
 
                        for(Location location : locations){
-                           System.out.println((int)sentPacket.getPacketValue("b")/8D);
                            if(Math.abs(location.getX()-((int)sentPacket.getPacketValue("b")/8D)) > 2){
                                return;
                            }
@@ -62,9 +56,7 @@ public class PatchedEntity{
                            if(Math.abs(location.getZ()-((int)sentPacket.getPacketValue("d")/8D)) > 2){
                                return;
                            }
-                           System.out.println("FUCK");
                            if(!lids.contains(((CraftPlayer)sentPacket.getPlayer()).getHandle().getId())){
-                               System.out.println("PACKET >>" +sentPacket.getPlayer().getName());
                                sentPacket.setCancelled(true);
                            }
 

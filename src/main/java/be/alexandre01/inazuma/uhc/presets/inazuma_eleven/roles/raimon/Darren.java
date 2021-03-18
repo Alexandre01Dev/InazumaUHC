@@ -77,11 +77,13 @@ public class Darren extends Role implements Listener {
                 }
 
                 if(args[0].equalsIgnoreCase("accept")){
+                    player.sendMessage(preset.prefixName()+" §aTu viens d'accepter la proposition.");
                     hasChoose = true;
                     accept();
                     return;
                 }
                 if (args[0].equalsIgnoreCase("refuse")) {
+                    player.sendMessage(preset.prefixName()+" §aTu viens de refuser la proposition.");
                     hasChoose = true;
                     refuse(player);
                     return;
@@ -126,7 +128,7 @@ public class Darren extends Role implements Listener {
             public int i = 0;
             @Override
             public void a(String[] args, Player player) {
-                if(i > 2){
+                if(i >= 2){
                     player.sendMessage(Preset.instance.p.prefixName()+" Vous avez dépassé le nombre d'utilisation de cette commande");
                     return;
                 }
@@ -201,14 +203,14 @@ public class Darren extends Role implements Listener {
             }
         }
         //REVENGE
-        if(markDead && getPlayers().contains(player) && player.equals(tracked)){
+        if(markDead && getPlayers().contains(killer) && player.equals(tracked)){
             Tracker tracker = Tracker.getOrCreate();
             for(Player players : getPlayers()){
                 tracker.removeTargetToPlayer(players);
             }
-            player.sendMessage(Preset.instance.p.prefixName()+" Tu as tué §cl'assassin §7, tu reçois tes 2 §ccoeurs §7 ainsi qu'un effet de résistance permanent ! ");
-            player.setMaxHealth(player.getMaxHealth()+4);
-            player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, Integer.MAX_VALUE, 0,false,false), true);
+            killer.sendMessage(Preset.instance.p.prefixName()+" Tu as tué §cl'assassin §7, tu reçois tes 2 §ccoeurs §7 ainsi qu'un effet de résistance permanent ! ");
+            killer.setMaxHealth(player.getMaxHealth()+4);
+            killer.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, Integer.MAX_VALUE, 0,false,false), true);
         }
     }
 }
