@@ -132,7 +132,7 @@ public class  Janus extends Role implements Listener {
                         break;
                 }
                 i++;
-                player.sendMessage(Preset.instance.p.prefixName()+"§7Ballon n°§e"+(i+1)+" §aposé ! §e| §7X:"+ block.getLocation().getBlockX()+"§8| §7Y:"+block.getLocation().getBlockY()+ "§8| §7Z:"+block.getLocation().getBlockZ() );
+                player.sendMessage(Preset.instance.p.prefixName()+"§7Ballon n°§e"+(i)+" §aposé ! §e| §7X:"+ block.getLocation().getBlockX()+"§8| §7Y:"+block.getLocation().getBlockY()+ "§8| §7Z:"+block.getLocation().getBlockZ() );
             }
         });
         addRoleItem(ballons);
@@ -267,7 +267,6 @@ public class  Janus extends Role implements Listener {
     private void onClick(Player player,int i){
         if(Episode.getEpisode() == this.episode){
             player.sendMessage(Preset.instance.p.prefixName()+ " §cVous vous êtes déja téléporté cette épisode.");
-
             return;
         }
 
@@ -280,11 +279,10 @@ public class  Janus extends Role implements Listener {
             player.teleport(tpLoc);
             player.playSound(player.getLocation(), Sound.ENDERMAN_TELEPORT, 1,1);
             player.sendMessage(Preset.instance.p.prefixName()+ " §cVous vous êtes téléporte au §7Ballon n°§e"+(i+1));
-
+            this.episode = Episode.getEpisode();
             return;
         }
             player.sendMessage(Preset.instance.p.prefixName()+ " §cLe §7Ballon n°§e"+(i+1)+" n'existe pas");
-        this.episode = Episode.getEpisode();
     }
 
 

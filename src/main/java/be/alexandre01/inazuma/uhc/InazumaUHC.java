@@ -100,7 +100,7 @@ public final class InazumaUHC extends JavaPlugin {
         lm.addListener(new WorldGenEvent());
         lm.addListener(new NetherEvent());
         lm.addListener(new PlayerEvent());
-        lm.addListener(new BoatEvent());
+        //lm.addListener(new BoatEvent());
         for(World world : Bukkit.getWorlds()){
             for(Entity entity : world.getEntities()){
                 if(entity instanceof LivingEntity){
