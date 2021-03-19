@@ -27,7 +27,6 @@ public class EpisodeTimer extends Timer {
             @Override
             public void run() {
                 builderTimer.loadDate();
-                System.out.println(builderTimer.getDate().getTime()+" temps timer");
                 if(builderTimer.getDate().getTime() <= 0){
                     System.out.println("timeurrr");
                     InazumaUHC.get.tm.getTimer(EpisodeTimeTimer.class).reset();
