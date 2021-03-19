@@ -67,6 +67,7 @@ public class Byron extends Role implements Listener {
         addDescription(celest);
 
         addDescription("§8- §7A chaque §4§lkill§7, vous gagnerez §c§l0.5 §4❤§c supplémentaires");
+        addDescription("§8- §7Vous pouvez également lire les messages entre §cTorch§7 et §bGazelle§7.");
 
         setRoleCategory(Solo.class);
         onLoad(new load() {
@@ -93,6 +94,7 @@ public class Byron extends Role implements Listener {
         RoleItem potion = new RoleItem();
         potion.setItemstack(pot1);
         this.potion = pot1;
+        potion.setPlaceableItem(true);
         addRoleItem(potion);
 
 
@@ -166,7 +168,6 @@ public class Byron extends Role implements Listener {
             Bukkit.getServer().getScheduler().runTaskLaterAsynchronously(InazumaUHC.get, new Runnable() {
                 public void run() {
                     player.sendMessage(Preset.instance.p.prefixName()+" Vous venez de boire votre §f§lNectar §7§lDivin.");
-                    player.setItemInHand(new ItemStack(Material.AIR));
                 }
             }, 1L);
         }

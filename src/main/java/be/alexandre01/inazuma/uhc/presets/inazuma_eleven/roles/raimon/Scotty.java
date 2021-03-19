@@ -8,6 +8,9 @@ import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.categories.Raimon;
 import be.alexandre01.inazuma.uhc.roles.Role;
 import be.alexandre01.inazuma.uhc.roles.RoleItem;
 import be.alexandre01.inazuma.uhc.utils.*;
+import net.md_5.bungee.api.chat.BaseComponent;
+import net.md_5.bungee.api.chat.HoverEvent;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -25,6 +28,36 @@ public class Scotty extends Role {
 
     public Scotty(IPreset preset) {
         super("Scotty Banyan",preset);
+        addDescription("§8- §7Votre objectif est de gagner avec §6§lRaimon");
+        addDescription("§8- §7Vous disposez de §b§lSpeed 1§7");
+        addDescription(" ");
+        addDescription("§8- §7Etant très malicieux, vous disposez de 2 pièges qui sont les suivants :");
+        CustomComponentBuilder c = new CustomComponentBuilder("");
+        c.append("§8- §7");
+
+        BaseComponent bananaButton = new TextComponent("§ePeau de banane");
+
+        BaseComponent bananaDesc = new TextComponent();
+        bananaDesc.addExtra("§e- §9Utilisation selon le nombre d'§eitem\n");
+        bananaDesc.addExtra("§e- §9Donne au joueur marchant dessus §8Blindness 10§7 et §8Slowness 10§7 durant 3 secondes.");
+        bananaButton.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,bananaDesc.getExtra().toArray(new BaseComponent[0])));
+        c.append(bananaButton);
+        addDescription(c);
+
+        CustomComponentBuilder d = new CustomComponentBuilder("");
+
+        d.append("§8- §7");
+
+        BaseComponent casierButton = new TextComponent("§eCasiers Cadenet");
+
+        BaseComponent casierDesc = new TextComponent();
+        casierDesc.addExtra("§e- §9Utilisation selon le nombre d'§eitem\n");
+        casierDesc.addExtra("§e- §9Téléporte le joueur marchant dessus pendant 20 secondes.");
+        casierButton.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,casierDesc.getExtra().toArray(new BaseComponent[0])));
+        d.append(casierButton);
+        addDescription(d);
+
+
         setRoleCategory(Raimon.class);
         onLoad(new load() {
             @Override

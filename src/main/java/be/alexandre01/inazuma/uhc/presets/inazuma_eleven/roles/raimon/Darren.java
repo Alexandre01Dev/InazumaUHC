@@ -77,13 +77,13 @@ public class Darren extends Role implements Listener {
                 }
 
                 if(args[0].equalsIgnoreCase("accept")){
-                    player.sendMessage(preset.prefixName()+" §aTu viens d'accepter la proposition.");
+                    player.sendMessage(Preset.instance.p.prefixName()+" §aTu viens d'accepter la proposition.");
                     hasChoose = true;
                     accept();
                     return;
                 }
                 if (args[0].equalsIgnoreCase("refuse")) {
-                    player.sendMessage(preset.prefixName()+" §aTu viens de refuser la proposition.");
+                    player.sendMessage(Preset.instance.p.prefixName()+" §aTu viens de refuser la proposition.");
                     hasChoose = true;
                     refuse(player);
                     return;
@@ -97,7 +97,7 @@ public class Darren extends Role implements Listener {
     private void refuse(Player player){
         Tracker tracker = Tracker.getOrCreate();
         if(tracked == null){
-            player.sendMessage(Preset.instance.p+" Coups dûr ! Tu viens d'apprendre que Mark est mort tout seul...");
+            player.sendMessage(Preset.instance.p.prefixName()+" Coups dûr ! Tu viens d'apprendre que Mark est mort tout seul...");
         return;
         }
 

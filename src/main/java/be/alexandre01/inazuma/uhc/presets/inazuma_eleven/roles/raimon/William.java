@@ -25,6 +25,13 @@ public class William extends Role implements Listener {
 
     public William(IPreset preset) {
         super("William Glass",preset);
+        addDescription("§8- §7Votre objectif est de gagner avec §6§lRaimon");
+        addDescription("§8- §7Vous disposez de §8§lFaiblesse 1§7.");
+        addDescription(" ");
+        addDescription("§8- §7Lorsque un joueur utilise son pouvoir, vous recevrez un message disant qu'un camps a utilisé un pouvoir.");
+        addDescription(" ");
+        addDescription("§8- §7Vous aurez un allié de confiance tous les 2 Episodes.");
+
         William w = this;
         setRoleCategory(Raimon.class);
 

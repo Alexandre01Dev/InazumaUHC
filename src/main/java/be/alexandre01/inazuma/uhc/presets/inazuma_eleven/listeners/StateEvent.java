@@ -66,7 +66,6 @@ public class StateEvent implements Listener {
             player.setFlying(false);
             player.setFlySpeed(0);
             player.setWalkSpeed(0);
-            player.getInventory().clear();
             player.updateInventory();
             player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, Integer.MAX_VALUE, 0,false,false), true);
         }
@@ -85,6 +84,12 @@ public class StateEvent implements Listener {
         isLaunched = true;
         for(Team team : i.teamManager.getTeams()){
             for(Player player : team.getPlayers().values()){
+
+                player.getInventory (). setHelmet (null);
+                player.getInventory (). setChestplate (null);
+                player.getInventory (). setLeggings (null);
+                player.getInventory (). setBoots (null);
+                player.getInventory().clear();
                 player.setFlying(false);
                 player.setGameMode(GameMode.SURVIVAL);
                 player.setAllowFlight(false);
@@ -118,11 +123,13 @@ public class StateEvent implements Listener {
                     });
 
         //START ITEM
-        ItemStack books = new ItemStack(Material.BOOK,8);
+        ItemStack water = new ItemStack(Material.WATER_BUCKET,1);
+        ItemStack books = new ItemStack(Material.BOOK,4);
         ItemStack steaks = new ItemStack(Material.COOKED_BEEF,64);
         for(Player player : i.getRemainingPlayers()){
             player.getInventory().addItem(books);
             player.getInventory().addItem(steaks);
+            player.getInventory().addItem(water);
             player.updateInventory();
         }
 
