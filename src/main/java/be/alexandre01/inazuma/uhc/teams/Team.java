@@ -92,10 +92,9 @@ public class Team {
                 net.minecraft.server.v1_8_R3.Chunk nmsc = ((CraftChunk)c).getHandle();
 
                 PacketPlayOutMapChunk p = new PacketPlayOutMapChunk(nmsc,true,20);
-                player.sendMessage("[DEBUG] Send packet >> Chunk (X="+c.getX()+"; Z="+c.getZ()+")");
                 playerConnection.sendPacket(p);
             }
-            player.sendMessage("[DEBUG] Teleport");
+
             player.teleport(l);
             player.setWalkSpeed(0.2f);
             player.removePotionEffect(PotionEffectType.BLINDNESS);

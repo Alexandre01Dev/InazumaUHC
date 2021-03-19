@@ -69,12 +69,12 @@ public class Xavier extends Role implements Listener {
                     return;
                 }
                 if(i >= 2){
-                    player.sendMessage(Preset.instance.p+ " §cTu ne peux téléporter quelqu'un que 2x en total");
+                    player.sendMessage(Preset.instance.p.prefixName()+ " §cTu ne peux téléporter quelqu'un que 2x en total");
 
                     return;
                 }
                 if(Episode.getEpisode() == episode){
-                    player.sendMessage(Preset.instance.p+ " §cTu ne peux téléporter quelqu'un que 1x tout les épisodes.");
+                    player.sendMessage(Preset.instance.p.prefixName()+ " §cTu ne peux téléporter quelqu'un que 1x tout les épisodes.");
 
                     return;
                 }
@@ -133,7 +133,7 @@ public class Xavier extends Role implements Listener {
     }
     private void onClick(Player player){
         if(Episode.getEpisode() == this.episode){
-            player.sendMessage(Preset.instance.p+ " §cTu ne peux te téléporter que tout les épisodes.");
+            player.sendMessage(Preset.instance.p.prefixName()+ " §cTu ne peux te téléporter que tout les épisodes.");
 
             return;
         }

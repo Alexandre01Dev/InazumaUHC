@@ -66,7 +66,7 @@ public class Jack extends Role implements Listener {
 
             if(getPlayers().contains(damager)){
                 damager.removePotionEffect(PotionEffectType.SLOW);
-                damager.addPotionEffect(new PotionEffect(PotionEffectType.SLOW,20*10,0,false,false),true);
+                damager.addPotionEffect(new PotionEffect(PotionEffectType.SLOW,20*3,0,false,false),true);
             }
         }
     }

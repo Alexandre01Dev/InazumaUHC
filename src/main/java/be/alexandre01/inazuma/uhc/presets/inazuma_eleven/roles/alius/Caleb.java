@@ -27,6 +27,7 @@ public class Caleb extends Role implements Listener {
     public Caleb(IPreset preset) {
         super("Caleb Stonewall",preset);
         setRoleCategory(Alius.class);
+        setRoleToSpoil(Caleb.class);
         onLoad(new load() {
             @Override
             public void a(Player player) {
