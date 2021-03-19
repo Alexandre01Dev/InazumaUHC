@@ -50,11 +50,7 @@ public class Caleb extends Role implements Listener {
 
                 if(args[0].equalsIgnoreCase("accept")){
                     hasChoose = true;
-
-
                     acceptA();
-
-
                     return;
                 }
                 if (args[0].equalsIgnoreCase("refuse")) {
