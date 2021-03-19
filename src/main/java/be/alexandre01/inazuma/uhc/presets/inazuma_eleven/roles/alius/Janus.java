@@ -263,6 +263,26 @@ public class  Janus extends Role implements Listener {
         ballonsBlock.remove(event.getBlock());
        }
 
+        if(event.getBlock() == xavierBlock){
+            for(Player player : getPlayers()){
+                player.sendMessage(Preset.instance.p.prefixName()+" §cUn de tes ballons ce sont cassé, tu as donc perdu 1 coeur permanent.");
+                PatchedEntity.setMaxHealthInSilent(player, player.getMaxHealth()-2);
+
+            }
+            Xavier xavier = (Xavier) inazumaUHC.rm.getRole(Xavier.class);
+            if(xavier != null){
+                for(Player player :  inazumaUHC.rm.getRole(Xavier.class).getPlayers()){
+                    player.sendMessage(Preset.instance.p.prefixName()+" §cTon ballon c'est cassé.");
+
+                }
+                xavier.setBlock(null);
+                xavier.setLocation(null);
+            }
+
+            ItemStack barrier = new ItemBuilder(Material.BARRIER).setName("§cCassé").toItemStack();
+            inventory.setItem(16,barrier);
+        }
+
     }
     private void onClick(Player player,int i){
         if(Episode.getEpisode() == this.episode){

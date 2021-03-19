@@ -68,7 +68,7 @@ public class Xavier extends Role implements Listener {
                     player.sendMessage(Preset.instance.p.prefixName()+"§c Veuillez mettre /inaballtp [Joueur]");
                     return;
                 }
-                if(i > 2){
+                if(i >= 2){
                     player.sendMessage(Preset.instance.p+ " §cTu ne peux téléporter quelqu'un que 2x en total");
 
                     return;
@@ -124,7 +124,11 @@ public class Xavier extends Role implements Listener {
         }
         player.teleport(tpLoc);
         player.playSound(player.getLocation(), Sound.ENDERMAN_TELEPORT, 1,1);
-        player.sendMessage(Preset.instance.p.prefixName()+ " §cVous vous êtes téléporte a votre ballon");
+        if(getPlayers().contains(player)){
+            player.sendMessage(Preset.instance.p.prefixName()+ " §cVous vous êtes téléporté a votre ballon");
+            return true;
+        }
+        player.sendMessage(Preset.instance.p.prefixName()+ " §cVous vous êtes téléporté au ballon de Xavier.");
         return true;
     }
     private void onClick(Player player){
