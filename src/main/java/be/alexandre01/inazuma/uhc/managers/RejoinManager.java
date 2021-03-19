@@ -169,7 +169,7 @@ public class RejoinManager implements Listener {
         }
 
         for(Player player : Bukkit.getOnlinePlayers()){
-            if(p != player && !InazumaUHC.get.spectatorManager.getPlayers().contains(p)){
+            if(p != player && InazumaUHC.get.spectatorManager.getPlayers().contains(p)){
                 player.showPlayer(p);
             }
         }

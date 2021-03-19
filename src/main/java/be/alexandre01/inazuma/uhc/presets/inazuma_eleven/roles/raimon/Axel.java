@@ -12,6 +12,7 @@ import be.alexandre01.inazuma.uhc.utils.ItemBuilder;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
+import net.minecraft.server.v1_8_R3.Tuple;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -50,6 +51,9 @@ public class Axel extends Role {
         RoleItem roleItem = new RoleItem();
         ItemBuilder itemBuilder = new ItemBuilder(Material.BLAZE_ROD).setName("§4§lTornade §c§lDe §4§lFeu");
         roleItem.setItemstack(itemBuilder.toItemStack());
+
+        roleItem.deployVerificationsOnRightClick(roleItem.generateVerification(new Tuple<>(RoleItem.VerificationType.EPISODES,1)));
+
         roleItem.setRightClick(player -> {
             player.sendMessage(Preset.instance.p.prefixName()+" Vous venez d'utiliser la §4§lTornade §c§lDe §4§lFeu§7.");
             player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 90*20, 1,false,false), true);
@@ -59,10 +63,11 @@ public class Axel extends Role {
 
     @EventHandler
     public void onKillEvent(PlayerInstantDeathEvent event){
-        Player killer = event.getPlayer().getKiller();
+        Player killer = event.getKiller();
         if(killer != null){
             if (inazumaUHC.rm.getRole(killer.getUniqueId()).getClass().equals(Axel.class)){
                 killer.getInventory().addItem(new ItemStack(Material.GOLDEN_APPLE));
+                killer.updateInventory();
             }
         }
     }

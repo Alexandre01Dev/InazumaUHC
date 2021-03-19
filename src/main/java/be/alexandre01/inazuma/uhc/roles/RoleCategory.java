@@ -8,6 +8,7 @@ import java.util.HashMap;
 
 public class RoleCategory {
     String name;
+    String[] deathMessage = {"§e%player%§7 est §cmort(e)§7","§7 Son rôle était §f: %role%"};
     String prefixColor;
     private ArrayList<Role> roles = new ArrayList<>();
 
