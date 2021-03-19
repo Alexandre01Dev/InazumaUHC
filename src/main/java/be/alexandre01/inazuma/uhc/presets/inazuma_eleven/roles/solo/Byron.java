@@ -129,11 +129,13 @@ public class Byron extends Role implements Listener {
                 ArrayList<Player> p = new ArrayList<>();
                 System.out.println("target");
                 player.sendMessage(Preset.instance.p.prefixName()+" Vous venez d'utiliser l'§7§lInstant Céleste§7.");
+                player.playSound(player.getLocation(),"instantceleste",5,1);
                 for(Player target : PlayerUtils.getNearbyPlayersFromPlayer(player,25,25,25)){
                     System.out.println("INSTANT");
                         freeze.freezePlayer(target);
                         p.add(target);
-                        TitleUtils.sendActionBar(target,"§7§lINSTANT CELESTE§7");
+                        TitleUtils.sendTitle(target,20,20*8,20,"§7§lINSTANT CELESTE§7");
+                        target.playSound(player.getLocation(),"instantceleste",5,1);
                 }
                 f.setP(p);
                 InazumaUHC.get.lm.addListener(f);
