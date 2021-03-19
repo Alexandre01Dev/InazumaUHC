@@ -39,7 +39,7 @@ public class David extends Role implements Listener {
         onLoad(new load() {
             @Override
             public void a(Player player) {
-                InazumaUHC.get.dm.addEffectPourcentage(player, DamageManager.EffectType.INCREASE_DAMAGE,2,120);
+                InazumaUHC.get.dm.addEffectPourcentage(player, DamageManager.EffectType.INCREASE_DAMAGE,2,125);
             }
         });
         addCommand("manchot", new command() {
@@ -59,7 +59,7 @@ public class David extends Role implements Listener {
                     accepted = true;
                     bukkitTask.cancel();
                     RoleItem roleItem = new RoleItem();
-                    roleItem.deployVerificationsOnRightClick(roleItem.generateVerification(new Tuple<>(RoleItem.VerificationType.EPISODES,1)));
+                    roleItem.deployVerificationsOnRightClick(roleItem.generateVerification(new Tuple<>(RoleItem.VerificationType.EPISODES,2)));
 
 
                     ItemBuilder it = new ItemBuilder(Material.NETHER_STAR).setName("§c§lManchot §c§lEmpereur §4§lN°1");

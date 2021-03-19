@@ -104,7 +104,7 @@ public class  Janus extends Role implements Listener {
                         player.setItemInHand(itemStack);
                     }
                 }, 1L);
-                ballonsLoc.add(i,tpLoc);
+                ballonsLoc.add(tpLoc);
                 ballonsBlock.put(block,tpLoc);
                 ItemStack clone = itemStack.clone();
                 ItemMeta cloneMeta = clone.getItemMeta();

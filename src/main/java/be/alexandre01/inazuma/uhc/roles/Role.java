@@ -247,6 +247,8 @@ public class Role {
     public boolean isValidItem(ItemStack itemStack){
         if(itemStack == null)
             return false;
+        if(itemStack.getItemMeta() == null)
+            return false;
         if(itemStack.getItemMeta().getDisplayName() == null)
             return false;
 
