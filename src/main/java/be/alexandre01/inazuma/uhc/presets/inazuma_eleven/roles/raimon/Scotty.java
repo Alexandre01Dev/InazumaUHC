@@ -39,7 +39,7 @@ public class Scotty extends Role {
 
         BaseComponent bananaDesc = new TextComponent();
         bananaDesc.addExtra("§e- §9Utilisation selon le nombre d'§eitem\n");
-        bananaDesc.addExtra("§e- §9Donne au joueur marchant dessus §8Blindness 10§7 et §8Slowness 10§7 durant 3 secondes.");
+        bananaDesc.addExtra("§e- §9Donne au joueur marchant dessus §8Blindness 10§7 et §8Slowness 10§7 durant 4 secondes.");
         bananaButton.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,bananaDesc.getExtra().toArray(new BaseComponent[0])));
         c.append(bananaButton);
         addDescription(c);
@@ -104,7 +104,8 @@ public class Scotty extends Role {
                     public void a(Player player) {
                         if(!getPlayers().contains(player)){
                             player.sendMessage(Preset.instance.p.prefixName()+" §cTu viens de marcher sur une peau de banane.");
-                            player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 3*20, 9,false,false), true);
+                            player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 4*20, 9,false,false), true);
+                            player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 4*20, 9,false,false), true);
                             inazumaUHC.playerMovementManager.remBlockLocation(finalBlock.getLocation());
 
                             for(Player s : getPlayers()){
