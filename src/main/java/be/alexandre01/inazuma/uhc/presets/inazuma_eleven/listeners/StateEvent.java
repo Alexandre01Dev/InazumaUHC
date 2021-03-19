@@ -96,7 +96,14 @@ public class StateEvent implements Listener {
                 player.setFlySpeed(0.2f);
                 player.teleport(team.getLocation());
             }
+            Bukkit.getScheduler().scheduleSyncDelayedTask(i, new BukkitRunnable() {
+                @Override
+                public void run() {
+                    team.getPlateform().despawn();
+                }
+            });
         }
+
             Bukkit.getScheduler().scheduleSyncDelayedTask(i, new BukkitRunnable() {
                         @Override
                         public void run() {

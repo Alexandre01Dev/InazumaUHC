@@ -116,7 +116,7 @@ public class Byron extends Role implements Listener {
             }
         });
 
-        timeStop.deployVerificationsOnRightClick(timeStop.generateVerification(verificationGenerations,new Tuple<>(RoleItem.VerificationType.USAGES,100)));
+        timeStop.deployVerificationsOnRightClick(timeStop.generateVerification(verificationGenerations,new Tuple<>(RoleItem.VerificationType.EPISODES,1)));
 
 
         timeStop.setRightClick(new RoleItem.RightClick() {
