@@ -2,10 +2,12 @@ package be.alexandre01.inazuma.uhc.presets.inazuma_eleven.roles.solo;
 
 import be.alexandre01.inazuma.uhc.InazumaUHC;
 import be.alexandre01.inazuma.uhc.custom_events.player.PlayerInstantDeathEvent;
+import be.alexandre01.inazuma.uhc.managers.chat.Chat;
 import be.alexandre01.inazuma.uhc.managers.damage.DamageManager;
 import be.alexandre01.inazuma.uhc.presets.IPreset;
 import be.alexandre01.inazuma.uhc.presets.Preset;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.categories.Solo;
+import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.roles.alius.Torch;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.roles.solo.listeners.FreezePlayerListener;
 import be.alexandre01.inazuma.uhc.roles.Role;
 import be.alexandre01.inazuma.uhc.roles.RoleItem;
@@ -77,9 +79,28 @@ public class Byron extends Role implements Listener {
                     inazumaUHC.dm.addEffectPourcentage(player, DamageManager.EffectType.INCREASE_DAMAGE,1,110);
                     player.setMaxHealth(24);
                     player.setHealth(24);
+                Chat chat = inazumaUHC.cm.getChat("InaChat");
+                if(chat != null){
+                    chat.add(player.getUniqueId(),"Byron");
+                }
+
             }
         });
 
+        if(inazumaUHC.cm.getChat("InaChat") == null){
+            for(Role role : Role.getRoles()){
+                if(role.getClass() == Byron.class){
+                    InazumaUHC.get.cm.addChat("InaChat", Chat.builder()
+                            .chatName("§4§lINA§7-§3§lCHAT")
+                            .prefixColor("§b§l")
+                            .message("§7 ")
+                            .separator("§8» ")
+                            .build()
+
+                    );
+                }
+            }
+        }
         ItemStack pot1 =  new Potion(PotionType.SPEED, 1).toItemStack(1);
         PotionMeta meta = (PotionMeta) pot1.getItemMeta();
         meta.clearCustomEffects();

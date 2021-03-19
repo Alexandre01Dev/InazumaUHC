@@ -194,8 +194,9 @@ public class  Janus extends Role implements Listener {
                                 Xavier xavier = (Xavier) role;
                                 xavier.setLocation(xavierBall);
                                 xavier.setBlock(xavierBlock);
-                                player.sendMessage(Preset.instance.p.prefixName()+" §cTon ballon vient de se poser.");
-
+                                xavier.getPlayers().forEach(x -> {
+                                    x.sendMessage(Preset.instance.p.prefixName()+" §cTon ballon vient de se poser.");
+                                });
 
                             }
                         }
@@ -265,7 +266,7 @@ public class  Janus extends Role implements Listener {
         ballonsBlock.remove(event.getBlock());
        }
 
-        if(event.getBlock() == xavierBlock){
+        if(event.getBlock().equals(xavierBlock)){
             for(Player player : getPlayers()){
                 player.sendMessage(Preset.instance.p.prefixName()+" §cUn de tes ballons ce sont cassé, tu as donc perdu 1 coeur permanent.");
                 PatchedEntity.setMaxHealthInSilent(player, player.getMaxHealth()-2);

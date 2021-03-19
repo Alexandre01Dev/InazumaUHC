@@ -90,6 +90,7 @@ public class Xavier extends Role implements Listener {
                 if(!canTeleportPlayer(p)){
                     player.sendMessage(Preset.instance.p.prefixName()+" §cVous ne pouvez pas téléporter le joueur à votre ballon, car celui-ci est obstrué par plus de 3 blocks.");
                 }else {
+                    player.sendMessage(Preset.instance.p.prefixName()+" §aLe joueur a bien été téléporté.");
                     episode = Episode.getEpisode();
                     i++;
                 }

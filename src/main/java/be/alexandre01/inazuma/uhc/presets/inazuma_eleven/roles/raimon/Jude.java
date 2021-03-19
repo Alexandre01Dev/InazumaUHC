@@ -99,7 +99,6 @@ public class Jude extends Role implements Listener {
 
     public static void collierAlliusNotif(Location location){
         int roundedX = ((location.getBlockX() + 99) / 100 ) * 100;
-        int roundedY = ((location.getBlockY() + 99) / 100 ) * 100;
         int roundedZ = ((location.getBlockZ() + 99) / 100 ) * 100;
 
         Jude jude = (Jude) InazumaUHC.get.rm.getRole(Jude.class);
@@ -108,7 +107,7 @@ public class Jude extends Role implements Listener {
             return;
 
         for(Player player : jude.getPlayers()){
-            player.sendMessage(Preset.instance.p.prefixName()+" §7Un §eCollier-Allius§7 vient d'être utilisé §e"+roundedX+"X §c|§e "+ roundedY+"Y §c|§e"+ roundedZ+"Z");
+            player.sendMessage(Preset.instance.p.prefixName()+" §7Un §eCollier-Allius§7 vient d'être utilisé approxivement  §e"+roundedX+"X §c|§e"+ roundedZ+"Z");
             }
     }
 }

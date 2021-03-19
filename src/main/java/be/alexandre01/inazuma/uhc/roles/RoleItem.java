@@ -199,15 +199,15 @@ public class RoleItem {
         }
         if(type.equals(VerificationType.EPISODES)){
             v = new VerificationGeneration() {
-                int i = -value;
-                final int episodeLastRange = value;
+                int i = -value-1;
+                final int episodeLastRange = value-1;
                 @Override
                 public boolean verification(Player player) {
                     int currentEpisode = Episode.getEpisode();
                     System.out.println("CALC EPISODE " +i+episodeLastRange);
                     System.out.println("CURRENT "+ currentEpisode);
                     if(i+episodeLastRange >= currentEpisode){
-                        player.sendMessage(Preset.instance.p.prefixName()+"§c Tu peux utiliser cette item tout les "+episodeLastRange+" épisode(s) après son utilisation ");
+                        player.sendMessage(Preset.instance.p.prefixName()+"§c Tu peux utiliser cette item tout les "+(episodeLastRange+1)+" épisode(s) après son utilisation ");
                         return false;
                     }
                     i = currentEpisode;

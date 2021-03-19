@@ -12,19 +12,22 @@ import be.alexandre01.inazuma.uhc.utils.ItemBuilder;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
+import net.minecraft.server.v1_8_R3.EntitySkeleton;
 import net.minecraft.server.v1_8_R3.Tuple;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-public class Axel extends Role {
+public class Axel extends Role implements Listener {
     public Axel(IPreset preset) {
         super("Axel Blaze",preset);
         setRoleCategory(Raimon.class);
 
+        addListener(this);
         addDescription("§8- §7Votre objectif est de gagner avec §6§lRaimon");
         addDescription("§8- §7Vous possédez l’effet §6§l§4§lForce 1 §7ainsi que §6§lFire Résistance§7.");
         CustomComponentBuilder c = new CustomComponentBuilder("");
@@ -65,7 +68,8 @@ public class Axel extends Role {
     public void onKillEvent(PlayerInstantDeathEvent event){
         Player killer = event.getKiller();
         if(killer != null){
-            if (inazumaUHC.rm.getRole(killer.getUniqueId()).getClass().equals(Axel.class)){
+            if (inazumaUHC.rm.getRole(killer) == this){
+                killer.sendMessage(Preset.instance.p.prefixName()+" Tu reçois une pomme en or");
                 killer.getInventory().addItem(new ItemStack(Material.GOLDEN_APPLE));
                 killer.updateInventory();
             }
