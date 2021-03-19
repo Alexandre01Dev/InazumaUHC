@@ -5,6 +5,7 @@ import be.alexandre01.inazuma.uhc.presets.IPreset;
 import be.alexandre01.inazuma.uhc.presets.Preset;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.categories.Alius;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.objects.Episode;
+import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.roles.raimon.Jude;
 import be.alexandre01.inazuma.uhc.roles.Role;
 import be.alexandre01.inazuma.uhc.roles.RoleItem;
 import be.alexandre01.inazuma.uhc.utils.ItemBuilder;
@@ -29,6 +30,7 @@ public class Joseph extends Role {
         collierAllius.setRightClick(new RoleItem.RightClick() {
             @Override
             public void execute(Player player) {
+                Jude.collierAlliusNotif(player.getLocation());
                 player.sendMessage(Preset.instance.p.prefixName()+" Tu viens d'utiliser ton Collier-Allius");
                 player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 60*20, 0,false,false), true);
             }

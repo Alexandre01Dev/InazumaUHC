@@ -2,6 +2,7 @@ package be.alexandre01.inazuma.uhc.presets.inazuma_eleven.roles.raimon;
 
 import be.alexandre01.inazuma.uhc.InazumaUHC;
 import be.alexandre01.inazuma.uhc.presets.IPreset;
+import be.alexandre01.inazuma.uhc.presets.Preset;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.categories.Raimon;
 import be.alexandre01.inazuma.uhc.roles.Role;
 import be.alexandre01.inazuma.uhc.utils.CustomComponentBuilder;
@@ -12,6 +13,7 @@ import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.minecraft.server.v1_8_R3.*;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.craftbukkit.v1_8_R3.scoreboard.CraftScoreboard;
 import org.bukkit.entity.Player;
@@ -93,5 +95,20 @@ public class Jude extends Role implements Listener {
             Player player = (Player) event.getEntity();
             setHealth(player);
         }
+    }
+
+    public static void collierAlliusNotif(Location location){
+        int roundedX = ((location.getBlockX() + 99) / 100 ) * 100;
+        int roundedY = ((location.getBlockY() + 99) / 100 ) * 100;
+        int roundedZ = ((location.getBlockZ() + 99) / 100 ) * 100;
+
+        Jude jude = (Jude) InazumaUHC.get.rm.getRole(Jude.class);
+
+        if(jude == null)
+            return;
+
+        for(Player player : jude.getPlayers()){
+            player.sendMessage(Preset.instance.p.prefixName()+" §7Un §eCollier-Allius§7 vient d'être utilisé §e"+roundedX+"X §c|§e "+ roundedY+"Y §c|§e"+ roundedZ+"Z");
+            }
     }
 }
