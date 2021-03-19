@@ -134,7 +134,7 @@ public class Byron extends Role implements Listener {
                     System.out.println("INSTANT");
                         freeze.freezePlayer(target);
                         p.add(target);
-                        TitleUtils.sendTitle(target,20,20*8,20,"§7§lINSTANT CELESTE§7");
+                        TitleUtils.sendTitle(target,20,20*8,20,"§7§lINSTANT CELESTE§7"," ");
                         target.playSound(player.getLocation(),"instantceleste",5,1);
                 }
                 f.setP(p);

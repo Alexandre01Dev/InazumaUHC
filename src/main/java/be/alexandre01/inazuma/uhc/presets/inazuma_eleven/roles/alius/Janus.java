@@ -187,7 +187,6 @@ public class  Janus extends Role implements Listener {
                     case 0:
                         clone.setAmount(1);
                         cloneMeta.setDisplayName("§7Ballon de §5§lXavier");
-                        cloneMeta.setLore(Arrays.asList("§fX §7: §2"+block.getLocation().getBlockX() + "","§fY §7: §2"+block.getLocation().getBlockY()+ "","§fZ §7: §2" +block.getLocation().getBlockZ()));
                         clone.setItemMeta(cloneMeta);
                         inventory.setItem(16,clone);
                         for(Role role : Role.getRoles()){

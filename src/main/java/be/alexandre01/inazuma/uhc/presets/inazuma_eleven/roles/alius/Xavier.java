@@ -133,7 +133,7 @@ public class Xavier extends Role implements Listener {
     }
     private void onClick(Player player){
         if(Episode.getEpisode() == this.episode){
-            player.sendMessage(Preset.instance.p+ " §cTu ne peux te téléporter que tout les épisodes.");
+            player.sendMessage(Preset.instance.p.prefixName()+ " §cTu ne peux te téléporter que tout les épisodes.");
 
             return;
         }
