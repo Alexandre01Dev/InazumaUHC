@@ -31,7 +31,6 @@ public class InvisibilityInventory extends Reflections {
         for(Player p : Bukkit.getOnlinePlayers()){
             if(p != player){
                 for(PacketPlayOutEntityEquipment packet : packetPlayOutEntityEquipments){
-                    p.sendMessage("SENDPACKET");
                     sendPacket(p,packet);
                 }
             }
@@ -53,7 +52,6 @@ public class InvisibilityInventory extends Reflections {
 
         for(Player p : Bukkit.getOnlinePlayers()){
             if(p != player){
-                    p.sendMessage("SENDPACKET");
                     sendPacket(p,packet);
             }
         }
@@ -96,7 +94,6 @@ public class InvisibilityInventory extends Reflections {
         for(Player p : Bukkit.getOnlinePlayers()){
             if(p != player){
                 for(PacketPlayOutEntityEquipment packet : packetPlayOutEntityEquipments){
-                    p.sendMessage("SENDPACKET");
                     sendPacket(p,packet);
                 }
             }

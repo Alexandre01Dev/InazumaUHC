@@ -194,6 +194,9 @@ public class  Janus extends Role implements Listener {
                                 Xavier xavier = (Xavier) role;
                                 xavier.setLocation(xavierBall);
                                 xavier.setBlock(xavierBlock);
+                                player.sendMessage(Preset.instance.p.prefixName()+" §cTon ballon vient de se poser.");
+
+
                             }
                         }
                         break;
@@ -295,6 +298,7 @@ public class  Janus extends Role implements Listener {
                 player.sendMessage(Preset.instance.p.prefixName()+" §cVous ne pouvez pas vous téléportez à votre ballon, car celui-ci est obstrué par plus de 3 blocks.");
                 return;
             }
+
             player.teleport(tpLoc);
             player.playSound(player.getLocation(), Sound.ENDERMAN_TELEPORT, 1,1);
             player.sendMessage(Preset.instance.p.prefixName()+ " §cVous vous êtes téléporte au §7Ballon n°§e"+(i+1));
