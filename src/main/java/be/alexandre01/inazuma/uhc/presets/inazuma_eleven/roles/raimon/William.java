@@ -44,6 +44,7 @@ public class William extends Role implements Listener {
             @Override
             public void a(Player player) {
                 William.w = w;
+                episodeChanged();
                     player.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, Integer.MAX_VALUE, 0,false,false), true);
             }
 
@@ -66,6 +67,9 @@ public class William extends Role implements Listener {
 
     @EventHandler
     public void onEpisodeChangeEvent(EpisodeChangeEvent event){
+      episodeChanged();
+    }
+    private void episodeChanged(){
         raimon = new ArrayList<>(InazumaUHC.get.rm.getRoleCategory(Raimon.class).getRoles());
         for(Role used : usedRole){
             raimon.remove(used);
@@ -89,7 +93,7 @@ public class William extends Role implements Listener {
             if(!save){
                 raimon.remove(role);
             }
-         }
+        }
 
         episode++;
         if(episode == 2){
