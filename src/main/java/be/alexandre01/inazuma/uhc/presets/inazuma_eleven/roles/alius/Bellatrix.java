@@ -5,6 +5,7 @@ import be.alexandre01.inazuma.uhc.managers.damage.DamageManager;
 import be.alexandre01.inazuma.uhc.presets.IPreset;
 import be.alexandre01.inazuma.uhc.presets.Preset;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.categories.Alius;
+import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.categories.Solo;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.objects.Episode;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.roles.raimon.Mark;
 import be.alexandre01.inazuma.uhc.roles.Role;
@@ -28,9 +29,11 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.util.UUID;
+
 public class Bellatrix extends Role implements Listener {
     private boolean xeneDead = false;
-    private Player tracked = null;
+    private UUID uuid = null;
     private boolean revenge = false;
     private boolean hasChoose = false;
     private Inventory inventory;
@@ -131,14 +134,28 @@ public class Bellatrix extends Role implements Listener {
         loadCommands();
 
         Tracker tracker = Tracker.getOrCreate();
-        for(Player player : inazumaUHC.rm.getRole(Xavier.class).getPlayers()){
-            for(Player d : getPlayers()){
-                tracker.setTargetToPlayer(player,d);
-            }
-
+        if(tracker.getTrackerMap().containsKey(uuid)){
+            getPlayers().forEach(player -> {
+                tracker.setTargetToPlayer(player,tracker.getTrackerMap().get(uuid));
+            });
         }
 
+        inazumaUHC.rm.getRoleCategory(Alius.class).getRoles().forEach(role -> {
+            role.getPlayers().forEach(player -> {
+                getPlayers().forEach(b -> {
+                    b.sendMessage(Preset.instance.p.prefixName()+" "+ player.getName()+" fait partie de ton équipe");
+                    player.sendMessage(Preset.instance.p.prefixName()+" "+ b.getName()+" est §5Bellatrix.");
+                });
+            });
+        });
 
+        inazumaUHC.rm.getRoleCategory(Solo.class).getRoles().forEach(role -> {
+            role.getPlayers().forEach(player -> {
+                getPlayers().forEach(b -> {
+                    player.sendMessage(Preset.instance.p.prefixName()+" "+ b.getName()+" est §5Bellatrix.");
+                });
+            });
+        });
     }
 
 
@@ -146,12 +163,13 @@ public class Bellatrix extends Role implements Listener {
     public void onDeath(PlayerInstantDeathEvent event){
         Player player = event.getPlayer();
         Player killer = event.getKiller();
+
         Role role = inazumaUHC.rm.getRole(player);
 
-        //MARK DEATH ✝
+        //XAVIER DEATH ✝
         if(role.getClass() == Xavier.class){
+            uuid = player.getUniqueId();
             xeneDead = true;
-            tracked = killer;
             for(Player players : getPlayers()){
                 BaseComponent b = new TextComponent(role.getRoleCategory().getPrefixColor()+role.getName()+"§7 vient de mourir.\n");
                 b.addExtra("§7Souhaite tu le remplacer ");
@@ -172,8 +190,6 @@ public class Bellatrix extends Role implements Listener {
                             hasChoose = true;
                             refuse(player);
                         }
-
-
                     }
                 }.runTaskLaterAsynchronously(inazumaUHC,20*60);
             }

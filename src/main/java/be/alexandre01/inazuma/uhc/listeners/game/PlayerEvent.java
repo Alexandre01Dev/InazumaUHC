@@ -227,7 +227,6 @@ public class PlayerEvent implements Listener {
     public void onKill(EntityDamageEvent event){
 
         if(GameState.get().contains(State.PLAYING)){
-            System.out.println("DAMAGE PLAYER EVENT");
             if(event.getEntity() instanceof Player){
                 Player player = (Player) event.getEntity();
                 if(i.spectatorManager.getPlayers().contains(player)){

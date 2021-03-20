@@ -1,5 +1,6 @@
 package be.alexandre01.inazuma.uhc.utils;
 
+import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -15,7 +16,7 @@ import java.util.concurrent.TimeUnit;
 
 public class Tracker {
     private static Tracker tracker;
-    private HashMap<UUID /*TRACKER*/, UUID /*TRACKED*/> trackerMap = new HashMap<>();
+    @Getter private HashMap<UUID /*TRACKER*/, UUID /*TRACKED*/> trackerMap = new HashMap<>();
     private HashMap<UUID, ItemStack> compass = new HashMap<>();
     private ScheduledExecutorService scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
 
@@ -32,6 +33,11 @@ public class Tracker {
     }
     public void setTargetToPlayer(Player player, Player tracked){
         trackerMap.put(player.getUniqueId(),tracked.getUniqueId());
+        setItemToPlayer(player);
+    }
+
+    public void setTargetToPlayer(Player player, UUID tracked){
+        trackerMap.put(player.getUniqueId(),tracked);
         setItemToPlayer(player);
     }
     public void removeTargetToPlayer(Player player){

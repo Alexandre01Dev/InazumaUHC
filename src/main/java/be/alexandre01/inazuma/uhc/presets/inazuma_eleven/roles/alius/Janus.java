@@ -199,6 +199,14 @@ public class  Janus extends Role implements Listener {
                                 });
 
                             }
+                            if(role instanceof Bellatrix){
+                                Bellatrix bellatrix = (Bellatrix) role;
+                                bellatrix.setLocation(xavierBall);
+                                bellatrix.setBlock(xavierBlock);
+                                bellatrix.getPlayers().forEach(x -> {
+                                    x.sendMessage(Preset.instance.p.prefixName()+" §cTon ballon vient de se poser.");
+                                });
+                            }
                         }
                         break;
                 }
