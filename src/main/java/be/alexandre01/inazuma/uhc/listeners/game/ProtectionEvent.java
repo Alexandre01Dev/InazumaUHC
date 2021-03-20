@@ -1,5 +1,6 @@
 package be.alexandre01.inazuma.uhc.listeners.game;
 
+import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
@@ -34,16 +35,24 @@ public class ProtectionEvent implements Listener {
 
     @EventHandler
     public void onBlockBreak(BlockBreakEvent event){
-        event.setCancelled(true);
+        if(!event.getPlayer().getGameMode().equals(GameMode.CREATIVE)){
+            event.setCancelled(true);
+        }
     }
 
 
     @EventHandler
     public void onBlockPlace(BlockPlaceEvent event){
-        event.setCancelled(true);
+        if(!event.getPlayer().getGameMode().equals(GameMode.CREATIVE)){
+            event.setCancelled(true);
+        }
+
     }
     @EventHandler
     public void onInteract(PlayerInteractEvent event){
+        if(event.getPlayer().getGameMode().equals(GameMode.CREATIVE))
+            return;
+
         if(event.getClickedBlock() != null){
             Material m = event.getClickedBlock().getType();
             if(m.equals(Material.ACACIA_DOOR)){

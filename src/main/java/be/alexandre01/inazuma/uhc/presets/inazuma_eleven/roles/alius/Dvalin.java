@@ -7,6 +7,7 @@ import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.categories.Alius;
 import be.alexandre01.inazuma.uhc.roles.Role;
 import be.alexandre01.inazuma.uhc.roles.RoleItem;
 import be.alexandre01.inazuma.uhc.utils.ItemBuilder;
+import be.alexandre01.inazuma.uhc.utils.PatchedEntity;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -82,6 +83,7 @@ public class Dvalin extends Role implements Listener {
 
     }
     private void troueDeVer(Player player){
+        player.sendMessage(Preset.instance.p.prefixName()+" Tu viens de choisir ton passif ! Le Trou De Ver !");
         inazumaUHC.dm.addEffectPourcentage(player, DamageManager.EffectType.RESISTANCE,1,110);
         player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, Integer.MAX_VALUE, 0,false,false), true);
         RoleItem roleItem = new RoleItem();
@@ -91,8 +93,7 @@ public class Dvalin extends Role implements Listener {
         roleItem.setRightClickOnPlayer(15,new RoleItem.RightClickOnPlayer() {
             @Override
             public void execute(Player player, Player rightClicked) {
-                player.sendMessage("Tu as rightclick");
-                rightClicked.sendMessage("tu es le rightclicked");
+                player.sendMessage("Tu viens d'utiliser ton trou de ver sur "+ rightClicked.getName());
                 rightClicked.setVelocity(player.getLocation().subtract(rightClicked.getLocation()).toVector().normalize().multiply(player.getLocation().distance(rightClicked.getLocation())/2.5D));
             }
         });
@@ -100,8 +101,9 @@ public class Dvalin extends Role implements Listener {
         giveItem(player);
     }
     private void gungnir(Player player){
-        inazumaUHC.dm.addEffectPourcentage(player, DamageManager.EffectType.RESISTANCE,1,110);
-        player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, Integer.MAX_VALUE, 0,false,false), true);
+        player.sendMessage(Preset.instance.p.prefixName()+" Tu viens de choisir ton passif ! Le Gungnir !");
+        inazumaUHC.dm.addEffectPourcentage(player, DamageManager.EffectType.INCREASE_DAMAGE,1,110);
+        player.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, Integer.MAX_VALUE, 0,false,false), true);
         addListener(this);
         deployListeners();
 
@@ -112,10 +114,16 @@ public class Dvalin extends Role implements Listener {
 
         Player dam;
 
-        if(e.getDamager() instanceof Projectile){
+        if(e.getDamager() instanceof Projectile && e.getEntity() instanceof Player){
+            Player player = (Player) e.getEntity();
             Projectile pj = (Projectile) e.getDamager();
             if(pj.getShooter() instanceof Player){
                 dam = (Player) pj.getShooter();
+
+                if(inazumaUHC.rm.getRole(player) instanceof Dvalin){
+                    e.setCancelled(true);
+                    PatchedEntity.damage(dam,e.getDamage());
+                }
             }
         }
     }

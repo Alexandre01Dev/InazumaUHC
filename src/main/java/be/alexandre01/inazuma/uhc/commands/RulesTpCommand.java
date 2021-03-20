@@ -27,7 +27,10 @@ public class RulesTpCommand extends Command {
 
     @Override
     public boolean execute(CommandSender commandSender, String s, String[] strings) {
-
+        if(!commandSender.hasPermission("uhc.rulestp")){
+            commandSender.sendMessage(super.getPermissionMessage());
+            return false;
+        }
         Player player = (Player) commandSender;
 
 
