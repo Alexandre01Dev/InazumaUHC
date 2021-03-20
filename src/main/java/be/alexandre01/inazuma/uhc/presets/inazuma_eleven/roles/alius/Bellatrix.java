@@ -1,9 +1,11 @@
 package be.alexandre01.inazuma.uhc.presets.inazuma_eleven.roles.alius;
 
+import be.alexandre01.inazuma.uhc.InazumaUHC;
 import be.alexandre01.inazuma.uhc.custom_events.player.PlayerInstantDeathEvent;
 import be.alexandre01.inazuma.uhc.managers.damage.DamageManager;
 import be.alexandre01.inazuma.uhc.presets.IPreset;
 import be.alexandre01.inazuma.uhc.presets.Preset;
+import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.InazumaEleven;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.categories.Alius;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.categories.Solo;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.objects.Episode;
@@ -38,6 +40,7 @@ public class Bellatrix extends Role implements Listener {
     private boolean hasChoose = false;
     private Inventory inventory;
     private int episode;
+    private int i = 0;
     @Setter
     private Block block = null;
     @Setter
@@ -99,13 +102,14 @@ public class Bellatrix extends Role implements Listener {
         }else{
             message = Preset.instance.p.prefixName()+" §cBellatrix a §c§lrefusé de remplacer Xavier !";
         }
-        for(Role role : getRoles()){
-                for(Player player: role.getPlayers()){
-                    player.sendMessage(message);
-                }
-        }
+     for(Player player : Bukkit.getOnlinePlayers()){
+         player.sendMessage(message);
+     }
+
     }
     private void accept(){
+        inventory = ((InazumaEleven)Preset.instance.p).getBallonInv().toInventory();
+
         addCommand("inaball", new command() {
             @Override
             public void a(String[] args, Player player) {
@@ -225,11 +229,18 @@ public class Bellatrix extends Role implements Listener {
             return false;
         }
         player.teleport(tpLoc);
+        InazumaUHC.get.invincibilityDamager.addPlayer(player, 1000);
+        player.playSound(player.getLocation(), Sound.ENDERMAN_TELEPORT, 1,1);
+        if(getPlayers().contains(player)){
+            player.sendMessage(Preset.instance.p.prefixName()+ " §cVous vous êtes téléporté a votre ballon");
+            return true;
+        }
+        player.sendMessage(Preset.instance.p.prefixName()+ " §cVous vous êtes téléporté au ballon de Xavier.");
         return true;
     }
     private void onClick(Player player){
         if(Episode.getEpisode() == this.episode){
-            player.sendMessage(Preset.instance.p+ " §cTu ne peux te téléporter que tout les épisodes.");
+            player.sendMessage(Preset.instance.p.prefixName()+ " §cTu ne peux te téléporter que tout les épisodes.");
 
             return;
         }
@@ -237,10 +248,14 @@ public class Bellatrix extends Role implements Listener {
         if(location != null){
             if(!canTeleportPlayer(player)){
                 player.sendMessage(Preset.instance.p.prefixName()+" §cVous ne pouvez pas vous téléportez à votre ballon, car celui-ci est obstrué par plus de 3 blocks.");
+                return;
+            }else {
+                this.episode = Episode.getEpisode();
+                i++;
             }
         }
         player.sendMessage(Preset.instance.p.prefixName()+ " §cLe ballon n'existe pas");
-        this.episode = Episode.getEpisode();
+
     }
 
     private Location getTop(Location location){

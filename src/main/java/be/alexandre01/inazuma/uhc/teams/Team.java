@@ -69,7 +69,7 @@ public class Team {
 
     public void teleport(){
         Random rand1 = new Random();
-        int size = p.getBorderSize(World.Environment.NORMAL);
+        int size = p.getBorderSize(World.Environment.NORMAL)-3;
         int x = rand1.nextInt(size - ((-size) + 1)) + (-size);
         Random rand2 = new Random();
         int z = rand2.nextInt(size - ((-size) + 1)) + (-size);

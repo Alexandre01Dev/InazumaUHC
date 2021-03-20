@@ -218,8 +218,7 @@ public class RoleItem {
 
         if(type.equals(VerificationType.COOLDOWN)){
             v = new VerificationGeneration() {
-                DateBuilderTimer dateBuilderTimer = new DateBuilderTimer(MSToSec.toMili(value));
-                String d = dateBuilderTimer.getBuild();
+                DateBuilderTimer dateBuilderTimer = new DateBuilderTimer(0);
                 @Override
                 public boolean verification(Player player) {
                     dateBuilderTimer.loadComplexDate();
