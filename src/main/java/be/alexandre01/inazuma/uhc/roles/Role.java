@@ -9,6 +9,7 @@ import be.alexandre01.inazuma.uhc.utils.CustomComponentBuilder;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.TextComponent;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.Inventory;
@@ -109,6 +110,8 @@ public class Role {
     }
 
     public void giveItem(Player player){
+        Bukkit.getScheduler().scheduleSyncDelayedTask(inazumaUHC,() -> {
+            boolean full = false;
             if(!roleItems.isEmpty()){
                 for(RoleItem roleItem : roleItems.values()){
                     if(hasAvaliableSlot(player)){
@@ -124,11 +127,15 @@ public class Role {
                     ItemStack itemStack = player.getInventory().getItem(roleItem.getSlot());
                     player.getInventory().setItem(roleItem.getSlot(),roleItem.getItemStack());
                     player.getWorld().dropItemNaturally(player.getLocation(),itemStack,player);
+                    full = true;
+                }
+                if(full){
                     player.sendMessage("§cInventaire est plein lors de la distribution d'un item spécial.");
-                    player.sendMessage("§cUn de vos items vient d'être jeter au sol.");
+                    player.sendMessage("§4ATTENTION §cCertain de vos items ont été jeter au sol.");
                 }
                 player.updateInventory();
-        }
+            }
+        });
     }
 
     public void onLoad(load load){

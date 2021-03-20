@@ -9,6 +9,7 @@ import be.alexandre01.inazuma.uhc.utils.PatchedEntity;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -38,28 +39,33 @@ public class Caleb extends Role implements Listener {
         onLoad(new load() {
             @Override
             public void a(Player player) {
-                sendRequest(canDistribute());
+                Bukkit.getScheduler().runTaskLater(inazumaUHC, new Runnable() {
+                    @Override
+                    public void run() {
+                        sendRequest(canDistribute());
 
-                    player.removePotionEffect(PotionEffectType.INCREASE_DAMAGE);
-                    for(Player d : damages.keySet()){
-                        PatchedEntity.setMaxHealthInSilent(d,d.getMaxHealth()+damages.get(d));
-                    }
-
-                    damages.clear();
-                    hasChoose = false;
-
-
-                    s = new BukkitRunnable() {
-                        @Override
-                        public void run() {
-                            if(!hasChoose){
-                                hasChoose = true;
-                                refuse(player);
-                            }
-
-
+                        player.removePotionEffect(PotionEffectType.INCREASE_DAMAGE);
+                        for(Player d : damages.keySet()){
+                            PatchedEntity.setMaxHealthInSilent(d,d.getMaxHealth()+damages.get(d));
                         }
-                    }.runTaskLaterAsynchronously(inazumaUHC,20*60);
+
+                        damages.clear();
+                        hasChoose = false;
+
+
+                        s = new BukkitRunnable() {
+                            @Override
+                            public void run() {
+                                if(!hasChoose){
+                                    hasChoose = true;
+                                    refuse(player);
+                                }
+
+
+                            }
+                        }.runTaskLaterAsynchronously(inazumaUHC,20*60);
+                    }
+                },20*3);
             }
         });
 

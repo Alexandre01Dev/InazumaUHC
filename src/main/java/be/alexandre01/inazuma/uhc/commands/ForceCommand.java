@@ -60,6 +60,10 @@ public class ForceCommand extends Command {
 
     @Override
     public boolean execute(CommandSender sender, String msg, String[] args) {
+        if(!sender.hasPermission("uhc.force")){
+            sender.sendMessage(super.getPermissionMessage());
+            return false;
+        }
         if(args.length == 0){
             sender.sendMessage(preset.prefixName()+" §cFaites /force [module]");
             for(String varName : varNames.keySet()){

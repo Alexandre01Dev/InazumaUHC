@@ -17,6 +17,10 @@ public class ReviveCommand extends Command {
 
     @Override
     public boolean execute(CommandSender sender, String msg, String[] args) {
+        if(!sender.hasPermission("uhc.revive")){
+            sender.sendMessage(super.getPermissionMessage());
+            return false;
+        }
         if(args.length == 0){
             System.out.println(super.usageMessage);
         }
@@ -38,10 +42,10 @@ public class ReviveCommand extends Command {
                     sender.sendMessage(Preset.instance.p.prefixName()+" §cLe joueur ne peut pas se faire réssuciter.");
                 }
             }else {
-                player.sendMessage(Preset.instance.p.prefixName()+" §cLe joueur en question n'est pas connecté");
+                sender.sendMessage(Preset.instance.p.prefixName()+" §cLe joueur en question n'est pas connecté");
             }
         }else {
-            player.sendMessage(Preset.instance.p.prefixName()+" §cLe joueur en question n'est pas connecté");
+            sender.sendMessage(Preset.instance.p.prefixName()+" §cLe joueur en question n'est pas connecté");
         }
         return false;
     }

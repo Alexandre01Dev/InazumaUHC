@@ -26,7 +26,7 @@ import java.util.*;
 
 public class RejoinManager implements Listener {
     private HashMap<UUID, InventoryContainer> playerInventory = new HashMap<>();
-
+    private HashMap<UUID,Double> maxHealth = new HashMap<>();
     private HashMap<Block, UUID> chests = new HashMap<>();
     private HashMap<UUID,Block> playerChest = new HashMap<>();
     private HashMap<Block,Inventory> chestInv = new HashMap<>();
@@ -78,6 +78,7 @@ public class RejoinManager implements Listener {
             Block b = p.getLocation().getBlock();
             b.setType(Material.CHEST);
             chests.put(b,p.getUniqueId());
+            maxHealth.put(p.getUniqueId(),p.getMaxHealth());
             playerChest.put(p.getUniqueId(),b);
             playerInventory.put(p.getUniqueId(),new InventoryContainer(p.getInventory()));
             times.put(p.getUniqueId(),new DateBuilderTimer(1000*60*5).loadComplexDate());
@@ -111,14 +112,24 @@ public class RejoinManager implements Listener {
 
 
     public void revivePlayer(Player p){
+
+        p.setGameMode(GameMode.SURVIVAL);
+
+        if(InazumaUHC.get.spectatorManager.getPlayers().contains(p)){
+            InazumaUHC.get.spectatorManager.remPlayer(p);
+            InazumaUHC.get.teamManager.getTeam(p).setBukkitTeam();
+            p.removePotionEffect(PotionEffectType.INVISIBILITY);
+            p.setAllowFlight(false);
+            p.setFlying(false);
+        }
+
+
         playerInventory.get(p.getUniqueId()).restitutionToPlayer(p);
 
         Block b = playerChest.get(p.getUniqueId());
 
-        
+
         playerInventory.remove(p.getUniqueId());
-
-
 
         times.remove(p.getUniqueId());
         if(b != null){
@@ -129,6 +140,10 @@ public class RejoinManager implements Listener {
 
         playerChest.remove(p.getUniqueId());
 
+        if(maxHealth.containsKey(p.getUniqueId())){
+            p.setMaxHealth(maxHealth.get(p.getUniqueId()));
+            p.setHealth(maxHealth.get(p.getUniqueId()));
+        }
         if(Role.isDistributed){
             Role role = InazumaUHC.get.rm.getRole(p.getUniqueId());
             if(role == null){
@@ -158,18 +173,10 @@ public class RejoinManager implements Listener {
         if(!InazumaUHC.get.getRemainingPlayers().contains(p)){
             InazumaUHC.get.getRemainingPlayers().add(p);
         }
-        p.setGameMode(GameMode.SURVIVAL);
 
-        if(InazumaUHC.get.spectatorManager.getPlayers().contains(p)){
-            InazumaUHC.get.spectatorManager.remPlayer(p);
-            InazumaUHC.get.teamManager.getTeam(p).setBukkitTeam();
-            p.removePotionEffect(PotionEffectType.INVISIBILITY);
-            p.setAllowFlight(false);
-            p.setFlying(false);
-        }
 
         for(Player player : Bukkit.getOnlinePlayers()){
-            if(p != player && InazumaUHC.get.spectatorManager.getPlayers().contains(p)){
+            if(p != player && !InazumaUHC.get.spectatorManager.getPlayers().contains(p)){
                 player.showPlayer(p);
             }
         }

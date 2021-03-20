@@ -59,6 +59,7 @@ public class PlayerEvent implements Listener {
         if(!Role.isDistributed){
             Bukkit.broadcastMessage(Preset.instance.p.prefixName()+" §c§l"+player.getName()+"§7 vient de mourir (PVE).");
             InazumaUHC.get.getRejoinManager().onKilled(player);
+            event.getDrops().clear();
         }
     }
 }

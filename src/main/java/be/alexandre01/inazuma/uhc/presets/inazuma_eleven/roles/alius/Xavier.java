@@ -1,5 +1,6 @@
 package be.alexandre01.inazuma.uhc.presets.inazuma_eleven.roles.alius;
 
+import be.alexandre01.inazuma.uhc.InazumaUHC;
 import be.alexandre01.inazuma.uhc.managers.damage.DamageManager;
 import be.alexandre01.inazuma.uhc.presets.IPreset;
 import be.alexandre01.inazuma.uhc.presets.Preset;
@@ -126,6 +127,7 @@ public class Xavier extends Role implements Listener {
             return false;
         }
         player.teleport(tpLoc);
+        InazumaUHC.get.invincibilityDamager.addPlayer(player, 1000);
         player.playSound(player.getLocation(), Sound.ENDERMAN_TELEPORT, 1,1);
         if(getPlayers().contains(player)){
             player.sendMessage(Preset.instance.p.prefixName()+ " §cVous vous êtes téléporté a votre ballon");

@@ -19,10 +19,13 @@ public class ForceEpisodeCommand extends Command {
 
     @Override
     public boolean execute(CommandSender sender, String msg, String[] args) {
-
+        if(!sender.hasPermission("uhc.episode")){
+            sender.sendMessage(super.getPermissionMessage());
+            return false;
+        }
         InazumaUHC.get.tm.getTimer(EpisodeTimer.class).reset();
         InazumaUHC.get.tm.getTimer(EpisodeTimeTimer.class).reset();
-        sender.sendMessage("CHANGEMENT D'EPISODE PD");
+        sender.sendMessage("CHANGEMENT D'EPISODE");
 
         return false;
     }

@@ -14,7 +14,10 @@ public class SayCommand  extends Command {
 
     @Override
     public boolean execute(CommandSender sender, String label, String[] args) {
-
+        if(!sender.hasPermission("uhc.say")){
+            sender.sendMessage(super.getPermissionMessage());
+            return false;
+        }
         if (sender instanceof Player) {
             Player player = (Player) sender;
 

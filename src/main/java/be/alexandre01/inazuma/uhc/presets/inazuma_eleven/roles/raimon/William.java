@@ -8,6 +8,7 @@ import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.categories.Raimon;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.custom_events.EpisodeChangeEvent;
 import be.alexandre01.inazuma.uhc.roles.Role;
 import be.alexandre01.inazuma.uhc.roles.RoleCategory;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -35,6 +36,7 @@ public class William extends Role implements Listener {
         William w = this;
         setRoleCategory(Raimon.class);
 
+
         addDescription("§8- §7Votre objectif est de gagner avec §6§lRaimon");
         addDescription("§8- §7Vous possédez l’effet §8Faiblesse 1§7.");
         addDescription("§8- §7Lorsque n'importe quel joueur utilise son pouvoir, vous aurez un message disant quel camp a utilisé un pouvoir.");
@@ -44,7 +46,10 @@ public class William extends Role implements Listener {
             @Override
             public void a(Player player) {
                 William.w = w;
-                episodeChanged();
+                Bukkit.getScheduler().runTaskLater(inazumaUHC, () -> {
+                    episodeChanged();
+                },20*3);
+
                     player.addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, Integer.MAX_VALUE, 0,false,false), true);
             }
 

@@ -64,11 +64,13 @@ public class Bellatrix extends Role {
             if(args[0].equalsIgnoreCase("accept")){
                 hasChoose = true;
                 accept();
+                announceRole(true);
                 return;
             }
             if (args[0].equalsIgnoreCase("refuse")) {
                 hasChoose = true;
                 refuse(player);
+                announceRole(false);
                 return;
             }
             player.sendMessage(Preset.instance.p.prefixName()+" Veuillez mettre §a/xene accept §7ou §a/xene refuse");
@@ -93,11 +95,9 @@ public class Bellatrix extends Role {
             message = Preset.instance.p.prefixName()+" §cBellatrix a §c§lrefusé de remplacer Xavier !";
         }
         for(Role role : getRoles()){
-            for(Role camp: Role.getRoles()){
-                for(Player player: camp.getPlayers()){
+                for(Player player: role.getPlayers()){
                     player.sendMessage(message);
                 }
-            }
         }
     }
     private void accept(){

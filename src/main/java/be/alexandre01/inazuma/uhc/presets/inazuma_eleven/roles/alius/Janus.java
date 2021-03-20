@@ -301,6 +301,7 @@ public class  Janus extends Role implements Listener {
             }
 
             player.teleport(tpLoc);
+            InazumaUHC.get.invincibilityDamager.addPlayer(player, 1000);
             player.playSound(player.getLocation(), Sound.ENDERMAN_TELEPORT, 1,1);
             player.sendMessage(Preset.instance.p.prefixName()+ " §cVous vous êtes téléporte au §7Ballon n°§e"+(i+1));
             this.episode = Episode.getEpisode();

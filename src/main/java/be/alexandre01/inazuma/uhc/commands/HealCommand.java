@@ -10,11 +10,15 @@ import org.bukkit.entity.Player;
 public class HealCommand extends Command {
     public HealCommand(String s) {
         super(s);
-        super.setPermission("uhc.heal");
+     super.setPermission("uhc.heal");
     }
 
     @Override
     public boolean execute(CommandSender sender, String msg, String[] args) {
+        if(!sender.hasPermission("uhc.heal")){
+            sender.sendMessage(super.getPermissionMessage());
+            return false;
+        }
         if(args.length == 0){
             sender.sendMessage(Preset.instance.p.prefixName()+ " §cFait /heal ALL ou /heal [Player]");
         }

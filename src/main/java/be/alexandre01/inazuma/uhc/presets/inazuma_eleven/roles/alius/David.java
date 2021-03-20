@@ -39,25 +39,30 @@ public class David extends Role implements Listener {
         onLoad(new load() {
             @Override
             public void a(Player player) {
-                InazumaUHC.get.dm.addEffectPourcentage(player, DamageManager.EffectType.INCREASE_DAMAGE,2,125);
+                Bukkit.getScheduler().runTaskLater(inazumaUHC, new Runnable() {
+                    @Override
+                    public void run() {
+                        InazumaUHC.get.dm.addEffectPourcentage(player, DamageManager.EffectType.INCREASE_DAMAGE,2,125);
 
-                if(bukkitTask != null){
-                    bukkitTask.cancel();
-                }
-                if(accepted){
-                        if (player.getMaxHealth()>8){
-                            player.sendMessage(Preset.instance.p.prefixName()+" Vous avez perdu §c§l0.5 §4❤§7 permanent suite à avoir accepté le §c§lManchot §c§lEmpereur §4§lN°1§7.");
-                            PatchedEntity.setMaxHealthInSilent(player, player.getMaxHealth()-1);
+                        if(bukkitTask != null){
+                            bukkitTask.cancel();
                         }
-                    return;
-                }
+                        if(accepted){
+                            if (player.getMaxHealth()>8){
+                                player.sendMessage(Preset.instance.p.prefixName()+" Vous avez perdu §c§l0.5 §4❤§7 permanent suite à avoir accepté le §c§lManchot §c§lEmpereur §4§lN°1§7.");
+                                PatchedEntity.setMaxHealthInSilent(player, player.getMaxHealth()-1);
+                            }
+                            return;
+                        }
 
-                sendRequest();
+                        sendRequest();
 
-                bukkitTask = Bukkit.getScheduler().runTaskLaterAsynchronously(inazumaUHC, () -> {
-                    hasChoose = true;
-                },20*60*5);
-                hasChoose = false;
+                        bukkitTask = Bukkit.getScheduler().runTaskLaterAsynchronously(inazumaUHC, () -> {
+                            hasChoose = true;
+                        },20*60*5);
+                        hasChoose = false;
+                    }
+                },20*3);
             }
         });
         addCommand("manchot", new command() {
