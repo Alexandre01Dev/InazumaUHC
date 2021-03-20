@@ -9,14 +9,17 @@ import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.InazumaEleven;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.categories.Alius;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.categories.Solo;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.objects.Episode;
+import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.roles.raimon.Jude;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.roles.raimon.Mark;
 import be.alexandre01.inazuma.uhc.roles.Role;
+import be.alexandre01.inazuma.uhc.roles.RoleItem;
 import be.alexandre01.inazuma.uhc.utils.PlayerUtils;
 import be.alexandre01.inazuma.uhc.utils.Tracker;
 import lombok.Setter;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
+import net.minecraft.server.v1_8_R3.Tuple;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.entity.EntityType;
@@ -48,13 +51,23 @@ public class Bellatrix extends Role implements Listener {
     public Bellatrix(IPreset preset) {
         super("Bellatrix",preset);
         setRoleCategory(Alius.class);
+
         addListener(this);
         onLoad(new load() {
             @Override
             public void a(Player player) {
+                    inazumaUHC.dm.addEffectPourcentage(player, DamageManager.EffectType.RESISTANCE,1,110);
                     player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 0,false,false), true);
             }
         });
+        RoleItem colierAllius = new RoleItem();
+        colierAllius.deployVerificationsOnRightClick(colierAllius.generateVerification(new Tuple<>(RoleItem.VerificationType.EPISODES,1)));
+        colierAllius.setRightClick(player -> {
+            Jude.collierAlliusNotif(player.getLocation());
+            player.sendMessage(Preset.instance.p.prefixName()+" Vous rentrez en résonance avec la §8§lpierre§7§l-§5§lalius.");
+            player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 90*20, 0,false,false), true);
+        });
+        addRoleItem(colierAllius);
 
     addCommand("xene", new command() {
         @Override

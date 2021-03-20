@@ -4,6 +4,7 @@ import be.alexandre01.inazuma.uhc.managers.damage.DamageManager;
 import be.alexandre01.inazuma.uhc.presets.IPreset;
 import be.alexandre01.inazuma.uhc.presets.Preset;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.categories.Alius;
+import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.roles.raimon.Jude;
 import be.alexandre01.inazuma.uhc.roles.Role;
 import be.alexandre01.inazuma.uhc.roles.RoleItem;
 import be.alexandre01.inazuma.uhc.utils.ItemBuilder;
@@ -34,6 +35,14 @@ public class Dvalin extends Role implements Listener {
         super("Dvalin",preset);
         setRoleCategory(Alius.class);
 
+        RoleItem colierAllius = new RoleItem();
+        colierAllius.deployVerificationsOnRightClick(colierAllius.generateVerification(new Tuple<>(RoleItem.VerificationType.EPISODES,1)));
+        colierAllius.setRightClick(player -> {
+            Jude.collierAlliusNotif(player.getLocation());
+            player.sendMessage(Preset.instance.p.prefixName()+" Vous rentrez en résonance avec la §8§lpierre§7§l-§5§lalius.");
+            player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 90*20, 0,false,false), true);
+        });
+        addRoleItem(colierAllius);
         onLoad(player -> {
             Bukkit.getScheduler().runTaskLater(inazumaUHC, () -> {
                 BaseComponent b = new TextComponent("Début du match, quel poste voulez-vous obternir ?");

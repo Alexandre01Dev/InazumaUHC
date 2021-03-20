@@ -102,47 +102,37 @@ public class Jack extends Role implements Listener {
                         return null;
                     }
                 });
-
-                timer.setTimer(new ITimer() {
-                    int i;
-                    @Override
-                    public void preRun() {
-                        i = 1;
-                        isSneakTimer = true;
+            isSneakTimer = true;
+            new BukkitRunnable() {
+                int i = 0;
+                @Override
+                public void run() {
+                    if(!player.isSneaking()){
+                        invisible = false;
+                        player.removePotionEffect(PotionEffectType.INVISIBILITY);
+                        inazumaUHC.invisibilityInventory.setInventoryToInitialToOther(player);
+                        isSneakTimer = false;
+                        Team t = Bukkit.getScoreboardManager().getMainScoreboard().getTeam(player.getName());
+                        t.setNameTagVisibility(NameTagVisibility.ALWAYS);
+                        timer.cancel();
                     }
-
-                    @Override
-                    public void run() {
-                        if(!player.isSneaking()){
-                            invisible = false;
-                            player.removePotionEffect(PotionEffectType.INVISIBILITY);
-                            inazumaUHC.invisibilityInventory.setInventoryToInitialToOther(player);
-                            isSneakTimer = false;
-                            Team t = Bukkit.getScoreboardManager().getMainScoreboard().getTeam(player.getName());
-                            t.setNameTagVisibility(NameTagVisibility.ALWAYS);
-                            timer.cancel();
-                        }
-                        if(!PlayerUtils.getNearbyPlayersFromPlayer(player,30,30,30).isEmpty() && i < 10){
-                            player.sendMessage(Preset.instance.p.prefixName()+"Il y a un joueur prêt de toi, tu ne peux pas utiliser ta technique");
-                            isSneakTimer = false;
-                            timer.cancel();
-                        }
-                        if(i == 10){
-                            invisible = true;
-                            player.sendMessage(Preset.instance.p.prefixName()+" Vous êtes camouflé.");
-                            inazumaUHC.invisibilityInventory.setInventoryInvisibleToOther(player);
-                            player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, Integer.MAX_VALUE, 0,false,false), true);
-                            Player p = event.getPlayer(); //Player to hide name
-                            Team t = Bukkit.getScoreboardManager().getMainScoreboard().getTeam(player.getName());
-                            t.setNameTagVisibility(NameTagVisibility.NEVER);
-                        }
-                        i++;
-
+                    if(!PlayerUtils.getNearbyPlayersFromPlayer(player,30,30,30).isEmpty() && i < 10){
+                        player.sendMessage(Preset.instance.p.prefixName()+"Il y a un joueur prêt de toi, tu ne peux pas utiliser ta technique");
+                        isSneakTimer = false;
+                        timer.cancel();
                     }
-                });
-
-                timer.runTaskTimerAsynchronously(inazumaUHC,20,20);
-            }
-
+                    if(i == 10){
+                        invisible = true;
+                        player.sendMessage(Preset.instance.p.prefixName()+" Vous êtes camouflé.");
+                        inazumaUHC.invisibilityInventory.setInventoryInvisibleToOther(player);
+                        player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, Integer.MAX_VALUE, 0,false,false), true);
+                        Player p = event.getPlayer();
+                        Team t = Bukkit.getScoreboardManager().getMainScoreboard().getTeam(player.getName());
+                        t.setNameTagVisibility(NameTagVisibility.NEVER);
+                    }
+                    i++;
+                }
+            }.runTaskTimerAsynchronously(inazumaUHC,20,20);
+        }
     }
 }
