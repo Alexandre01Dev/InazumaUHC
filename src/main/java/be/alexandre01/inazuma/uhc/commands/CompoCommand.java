@@ -28,7 +28,6 @@ public class CompoCommand extends Command {
             return false;
         }
 
-            sender.sendMessage(preset.prefixName()+" §cFaites /compo");
             for(Role role : Role.getRoles()){
                 if(role != null){
                     if(role.getName() != null){

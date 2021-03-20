@@ -199,6 +199,7 @@ public final class InazumaUHC extends JavaPlugin {
 
         Tracker.initialize();
         registerCommand("force", new ForceCommand("force"));
+        registerCommand("compo", new CompoCommand("compo"));
 
         //lm.automaticFindListener();
 
