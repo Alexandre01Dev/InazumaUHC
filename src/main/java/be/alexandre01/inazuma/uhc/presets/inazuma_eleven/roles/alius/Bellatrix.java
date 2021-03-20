@@ -20,6 +20,7 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Firework;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.meta.FireworkMeta;
@@ -27,7 +28,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
-public class Bellatrix extends Role {
+public class Bellatrix extends Role implements Listener {
     private boolean xeneDead = false;
     private Player tracked = null;
     private boolean revenge = false;
@@ -41,6 +42,7 @@ public class Bellatrix extends Role {
     public Bellatrix(IPreset preset) {
         super("Bellatrix",preset);
         setRoleCategory(Alius.class);
+        addListener(this);
         onLoad(new load() {
             @Override
             public void a(Player player) {
