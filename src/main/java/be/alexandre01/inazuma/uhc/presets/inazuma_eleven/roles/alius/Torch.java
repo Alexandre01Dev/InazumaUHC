@@ -6,7 +6,9 @@ import be.alexandre01.inazuma.uhc.presets.IPreset;
 import be.alexandre01.inazuma.uhc.presets.Preset;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.categories.Alius;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.custom_events.EpisodeChangeEvent;
+import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.roles.raimon.Axel;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.roles.raimon.Hurley;
+import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.roles.raimon.Shawn;
 import be.alexandre01.inazuma.uhc.roles.Role;
 import be.alexandre01.inazuma.uhc.roles.RoleItem;
 import be.alexandre01.inazuma.uhc.utils.ItemBuilder;
@@ -114,7 +116,7 @@ public class Torch  extends Role implements Listener {
                     return;
                if(getRoleItems().containsKey(player.getItemInHand().getItemMeta().getDisplayName())){
                    if(i != 0){
-                       if( !inazumaUHC.rm.getRole(p).getClass().equals(Hurley.class)){
+                       if( !inazumaUHC.rm.getRole(p).getClass().equals(Torch.class) && !inazumaUHC.rm.getRole(p).getClass().equals(Axel.class) && !inazumaUHC.rm.getRole(p).getClass().equals(Shawn.class) &&  !inazumaUHC.rm.getRole(p).getClass().equals(Hurley.class)){
                            event.getEntity().setFireTicks(3*20);
                        }
                        i--;

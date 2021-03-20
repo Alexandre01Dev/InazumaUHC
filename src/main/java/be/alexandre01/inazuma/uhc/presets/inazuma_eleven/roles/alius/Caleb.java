@@ -38,7 +38,28 @@ public class Caleb extends Role implements Listener {
         onLoad(new load() {
             @Override
             public void a(Player player) {
+                sendRequest(canDistribute());
 
+                    player.removePotionEffect(PotionEffectType.INCREASE_DAMAGE);
+                    for(Player d : damages.keySet()){
+                        PatchedEntity.setMaxHealthInSilent(d,d.getMaxHealth()+damages.get(d));
+                    }
+
+                    damages.clear();
+                    hasChoose = false;
+
+
+                    s = new BukkitRunnable() {
+                        @Override
+                        public void run() {
+                            if(!hasChoose){
+                                hasChoose = true;
+                                refuse(player);
+                            }
+
+
+                        }
+                    }.runTaskLaterAsynchronously(inazumaUHC,20*60);
             }
         });
 

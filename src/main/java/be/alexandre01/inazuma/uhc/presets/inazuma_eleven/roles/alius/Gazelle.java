@@ -6,6 +6,9 @@ import be.alexandre01.inazuma.uhc.presets.IPreset;
 import be.alexandre01.inazuma.uhc.presets.Preset;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.categories.Alius;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.custom_events.EpisodeChangeEvent;
+import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.roles.raimon.Axel;
+import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.roles.raimon.Hurley;
+import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.roles.raimon.Shawn;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.roles.raimon.William;
 import be.alexandre01.inazuma.uhc.roles.Role;
 import be.alexandre01.inazuma.uhc.roles.RoleItem;
@@ -101,7 +104,7 @@ public class Gazelle extends Role implements Listener {
     public void onDamage(EntityDamageByEntityEvent event){
         if(event.getDamager() instanceof Player && event.getEntity() instanceof Player){
             Player player = (Player) event.getDamager();
-
+            Player p = (Player) event.getEntity();
             Role role = inazumaUHC.rm.getRole(player);
 
             if(role.getClass().equals(Gazelle.class)){
@@ -109,7 +112,7 @@ public class Gazelle extends Role implements Listener {
                     return;
                 if(getRoleItems().containsKey(player.getItemInHand().getItemMeta().getDisplayName())){
                     if(this.i != 0){
-                        Player p = (Player) event.getEntity();
+                        if( !inazumaUHC.rm.getRole(p).getClass().equals(Torch.class) && !inazumaUHC.rm.getRole(p).getClass().equals(Axel.class) && !inazumaUHC.rm.getRole(p).getClass().equals(Shawn.class)){
                         p.removePotionEffect(PotionEffectType.SLOW);
                         p.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 20*5, 1,true,false));
 
@@ -120,6 +123,7 @@ public class Gazelle extends Role implements Listener {
                     }
                 }
             }
+        }
         }
     }
 

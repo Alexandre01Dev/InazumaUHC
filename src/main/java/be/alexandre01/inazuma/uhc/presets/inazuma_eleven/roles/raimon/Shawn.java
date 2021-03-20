@@ -4,6 +4,8 @@ import be.alexandre01.inazuma.uhc.managers.damage.DamageManager;
 import be.alexandre01.inazuma.uhc.presets.IPreset;
 import be.alexandre01.inazuma.uhc.presets.Preset;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.categories.Raimon;
+import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.roles.alius.Gazelle;
+import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.roles.alius.Torch;
 import be.alexandre01.inazuma.uhc.roles.Role;
 import be.alexandre01.inazuma.uhc.roles.RoleItem;
 import be.alexandre01.inazuma.uhc.utils.CustomComponentBuilder;
@@ -57,8 +59,10 @@ public class Shawn extends Role {
             @Override
             public void execute(Player player, Player rightClicked) {
                 player.sendMessage(Preset.instance.p.prefixName()+"Vous avez utilisé votre §3Blizzard Eternel§7 sur §c"+ rightClicked.getName());
-                rightClicked.addPotionEffect(new PotionEffect(PotionEffectType.SLOW,20*7,1));
-                rightClicked.sendMessage(Preset.instance.p.prefixName()+"Tu as été touché par le §3Blizzard Eternel");
+                rightClicked.addPotionEffect(new PotionEffect(PotionEffectType.SLOW,20*10,1));
+                if(!inazumaUHC.rm.getRole(rightClicked).getClass().equals(Torch.class) && !inazumaUHC.rm.getRole(rightClicked).getClass().equals(Axel.class) &&  !inazumaUHC.rm.getRole(rightClicked).getClass().equals(Gazelle.class)){
+                    rightClicked.sendMessage(Preset.instance.p.prefixName()+"Tu as été touché par le §3Blizzard Eternel");
+                }
             }
         });
 
