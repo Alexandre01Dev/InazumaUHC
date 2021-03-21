@@ -34,6 +34,14 @@ public class Caleb extends Role implements Listener {
     BukkitTask s = null;
     public Caleb(IPreset preset) {
         super("Caleb Stonewall",preset);
+
+        addDescription("§8- §7Votre objectif est de gagner avec §5§ll'§5§lAcadémie §5§lAlius");
+        addDescription(" ");
+        addDescription("§8- §7A chaque début d'§eEpisode§7, un choix s'offre à vous :");
+        addDescription("§8- §7Faire perdre ou non 2 coeurs permanents durant §e1 Epsiode§7 à un mate random.");
+        addDescription("§8- §7Afin d'obtenir §4§lForce 1 et §c§l2 §4❤§7§7 permanent pendant l'Episode.");
+        addDescription("§c⚠§7 Vous avez §a5 minutes§7 à chaque début d'§eEpisode§7 pour faire votre choix.");
+
         setRoleCategory(Alius.class);
         setRoleToSpoil(Xavier.class);
         onLoad(new load() {

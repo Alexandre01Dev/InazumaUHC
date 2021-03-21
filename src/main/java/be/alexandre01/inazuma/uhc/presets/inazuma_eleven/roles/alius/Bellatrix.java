@@ -13,11 +13,13 @@ import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.roles.raimon.Jude;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.roles.raimon.Mark;
 import be.alexandre01.inazuma.uhc.roles.Role;
 import be.alexandre01.inazuma.uhc.roles.RoleItem;
+import be.alexandre01.inazuma.uhc.utils.CustomComponentBuilder;
 import be.alexandre01.inazuma.uhc.utils.PlayerUtils;
 import be.alexandre01.inazuma.uhc.utils.Tracker;
 import lombok.Setter;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.minecraft.server.v1_8_R3.Tuple;
 import org.bukkit.*;
@@ -50,6 +52,23 @@ public class Bellatrix extends Role implements Listener {
     Location location = null;
     public Bellatrix(IPreset preset) {
         super("Bellatrix",preset);
+
+        addDescription("§8- §7Votre objectif est de gagner avec §5§ll'§5§lAcadémie §5§lAlius");
+        addDescription("§8- §7Vous possédez l’effet §6§l§4§lForce 1§7.");
+        addDescription(" ");
+        addDescription("§8- §7Vous disposez du §d§lCollier§7§l-§5§lAlius§7 qui vous donnera §6§lRésistance 1§7 (NERF) pendant §a1 minute 30§7.");
+        addDescription(" ");
+        addDescription("Lors de la mort de §5Xavier§7, 2 choix s'offrent à vous, qui sont de le §aremplacer§7 ou §cnon§7.");
+        addDescription(" ");
+        addDescription("§8- §7Si vous §aacceptez§7 de le remplacer, vous perdrez §c§l3 §4❤§7 permanent.§7.");
+        addDescription("§8- §7Alors, toute §5§ll'§5§lAcadémie §5§lAlius§7 vous connaîtra et inversement.");
+        addDescription("§8- §7Cependant si vous §aacceptez§7, le capitaine de l'équipe §6§lRaimon§7 vous connaîtra.");
+        addDescription(" ");
+        addDescription("§8- §7Vous pouvez également §crefuser§7 cette demande.");
+        addDescription("§8- §7Si vous §crefusez§7 de le remplacer, vous obtiendrez l’effet §4§lForce 1 et §c§l1 §4❤§7§7 permanent.");
+        addDescription("§8- §7Une annonce sera faites comme quoi vous avez §crefusé§7 de le remplacer.");
+
+
         setRoleCategory(Alius.class);
 
         addListener(this);

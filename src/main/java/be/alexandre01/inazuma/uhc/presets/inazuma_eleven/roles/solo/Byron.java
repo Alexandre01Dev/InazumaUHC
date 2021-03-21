@@ -39,6 +39,8 @@ public class Byron extends Role implements Listener {
     public Byron(IPreset preset) {
         super("Byron Love",preset);
         addDescription("§8- §7Votre objectif est de gagner §c§lSeul");
+        addDescription("§8- §7Vous possédez l’effet §4§lForce 1 et §c§l2 §4❤§7§7 permanent");
+        addDescription(" ");
         CustomComponentBuilder c = new CustomComponentBuilder("");
         c.append("§8- §7Vous avez une potion nommée ");
 
@@ -51,15 +53,14 @@ public class Byron extends Role implements Listener {
         nectarButton.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,nectarDesc.getExtra().toArray(new BaseComponent[0])));
         c.append(nectarButton);
         addDescription(c);
-        addDescription("§8- §7Vous possédez l’effet §4§lForce 1 et §c§l2 §4❤§7§c supplémentaires\n");
 
         CustomComponentBuilder celest = new CustomComponentBuilder("");
-        celest.append("§8- §7Vous disposez également d'une §f§l⟳Horloge⟳§7 nommée \n");
+        celest.append("§8- §7Vous disposez également d'un item nommée \n");
         BaseComponent celestButton = new TextComponent("§7§lInstant Céleste §7*§8Curseur§7*");
         BaseComponent celestDesc = new TextComponent();
 
         celestDesc.addExtra("§e- §9Utilisation par §eEpisode\n");
-        celestDesc.addExtra("§e- §9Fige tous les joueurs autour 9de vous §9[§525 blocks §9- §a10 sec§9]");
+        celestDesc.addExtra("§e- §9Fige tous les joueurs autour de vous §9[§525 blocks §9- §a10 sec§9]");
 
 
         celestButton.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, celestDesc.getExtra().toArray(new BaseComponent[0])));
@@ -68,7 +69,8 @@ public class Byron extends Role implements Listener {
         celest.append("§7.\n");
         addDescription(celest);
 
-        addDescription("§8- §7A chaque §4§lkill§7, vous gagnerez §c§l0.5 §4❤§c supplémentaires");
+        addDescription("§8- §7A chaque §4§lkill§7, vous gagnerez §c§l0.5 §4❤§7 permanent");
+        addDescription(" ");
         addDescription("§8- §7Vous pouvez également lire les messages entre §cTorch§7 et §bGazelle§7.");
 
         setRoleCategory(Solo.class);
@@ -105,7 +107,7 @@ public class Byron extends Role implements Listener {
         PotionMeta meta = (PotionMeta) pot1.getItemMeta();
         meta.clearCustomEffects();
         pot1.setItemMeta(meta);
-        meta.addCustomEffect(new PotionEffect(PotionEffectType.REGENERATION, 10*20, 1,false,false), true);
+        meta.addCustomEffect(new PotionEffect(PotionEffectType.REGENERATION, 15*20, 1,false,false), true);
         meta.addCustomEffect(new PotionEffect(PotionEffectType.SPEED, 20*20, 0,false,false), true);
         meta.setDisplayName("§f§lNectar §7§lDivin");
         meta.setLore(Arrays.asList("Boisson Divine légué par §fDieu§r lui même","cette boisson vous rendra §fimmortel§r durant un certain moment."));

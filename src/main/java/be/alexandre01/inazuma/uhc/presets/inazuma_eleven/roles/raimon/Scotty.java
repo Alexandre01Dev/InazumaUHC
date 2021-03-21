@@ -31,7 +31,7 @@ public class Scotty extends Role {
         addDescription("§8- §7Votre objectif est de gagner avec §6§lRaimon");
         addDescription("§8- §7Vous disposez de §b§lSpeed 1§7");
         addDescription(" ");
-        addDescription("§8- §7Etant très malicieux, vous disposez de 2 pièges qui sont les suivants :");
+        addDescription("§8- §7Étant très malicieux, vous disposez de 2 pièges qui sont les suivants :");
         CustomComponentBuilder c = new CustomComponentBuilder("");
         c.append("§8- §7");
 
@@ -39,7 +39,7 @@ public class Scotty extends Role {
 
         BaseComponent bananaDesc = new TextComponent();
         bananaDesc.addExtra("§e- §9Utilisation selon le nombre d'§eitem\n");
-        bananaDesc.addExtra("§e- §9Donne au joueur marchant dessus §8Blindness 10§7 et §8Slowness 10§7 durant 4 secondes.");
+        bananaDesc.addExtra("§e- §9Donne au joueur marchant dessus §8Blindness 10§9 et §8Slowness 10§9 durant §a4 secondes.");
         bananaButton.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,bananaDesc.getExtra().toArray(new BaseComponent[0])));
         c.append(bananaButton);
         addDescription(c);
@@ -52,7 +52,7 @@ public class Scotty extends Role {
 
         BaseComponent casierDesc = new TextComponent();
         casierDesc.addExtra("§e- §9Utilisation selon le nombre d'§eitem\n");
-        casierDesc.addExtra("§e- §9Téléporte le joueur marchant dessus pendant 20 secondes.");
+        casierDesc.addExtra("§e- §9Téléporte le joueur marchant dessus pendant §a20 secondes.");
         casierButton.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,casierDesc.getExtra().toArray(new BaseComponent[0])));
         d.append(casierButton);
         addDescription(d);

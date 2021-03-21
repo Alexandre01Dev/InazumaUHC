@@ -29,8 +29,10 @@ public class Mark extends Role implements Listener {
         addListener(this);
         addDescription("§8- §7Votre objectif est de gagner avec §6§lRaimon");
         addDescription("§8- §7Vous possédez l’effet §6§lRésistance 1§7.");
+        addDescription(" ");
         addDescription("§8- §7A chaque mort d'un joueur de §6§lRaimon§7, vous perdrez §c§l0.5 §4❤§7 permanent.");
-        addDescription("§8- §7A votre mort, chaque joueur de §6§lRaimon§7 auront §8Faiblesse 1 §7pendant §a 2 minutes§7.");
+        addDescription("§8- §7A votre mort, tous les joueurs de §6§lRaimon§7 auront §8Faiblesse 1 §7pendant §a 2 minutes§7.");
+        addDescription(" ");
         CustomComponentBuilder c = new CustomComponentBuilder("");
         c.append("§8- §7Vous avez une commande nommée ");
 
@@ -38,11 +40,12 @@ public class Mark extends Role implements Listener {
 
         BaseComponent corruptDesc = new TextComponent();
         corruptDesc.addExtra("§e- §9Utilisation 2 fois uniquement\n");
-        corruptDesc.addExtra("§e- §9Savoir le nombre(s) de joueur(s) de l'§5§lAcadémie §5§lAlius §9[§525 blocks§9]");
+        corruptDesc.addExtra("§e- §9Savoir le nombre(s) de joueur(s) de l'§5§lAcadémie §5§lAlius §9[§515 blocks§9]");
         corruptButton.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,corruptDesc.getExtra().toArray(new BaseComponent[0])));
         c.append(corruptButton);
         addDescription(c);
-        addDescription("§8- §7Si §5Bellatrix§7 accepte de remplacer §5Xavier§7, vous aurez son pseudo");
+        addDescription(" ");
+        addDescription("§8- §7Si §5Bellatrix§7 accepte de remplacer §5Xavier§7, vous aurez son pseudo.");
 
         onLoad(new load() {
             @Override
@@ -61,7 +64,7 @@ public class Mark extends Role implements Listener {
                     return;
                 }
                 int a = 0;
-                for(Player p : PlayerUtils.getNearbyPlayersFromPlayer(player,20,20,20)){
+                for(Player p : PlayerUtils.getNearbyPlayersFromPlayer(player,15,15,15)){
                         if(inazumaUHC.rm.getRole(p).getRoleCategory() == null){
                             System.out.println(inazumaUHC.rm.getRole(p).getName());
                             continue;

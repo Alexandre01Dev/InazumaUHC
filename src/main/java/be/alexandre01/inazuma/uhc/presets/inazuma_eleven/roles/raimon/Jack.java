@@ -37,10 +37,11 @@ public class Jack extends Role implements Listener {
     public Jack(IPreset preset) {
         super("Jack Wallside",preset);
         addDescription("§8- §7Votre objectif est de gagner avec §6§lRaimon");
-        addDescription("§8- §7Vous disposez de §6§lRésistance 1§7 et également de §c§l2 §4❤§7 en plus.");
+        addDescription("§8- §7Vous disposez de §6§lRésistance 1§7 et également de §c§l2 §4❤§7 permanents.");
         addDescription(" ");
-        addDescription("§8- §7Lorsque vous vous trouvez proche d'un joueur dans un rayon de 20 blocks, étant très peureux vous aurez Vitesse pendant 1 minute.");
-        addDescription("§8- §7Si vous restez accroupit, au bout de 10 secondes vous deviendrez invisible sauf si un joueur se trouve dans un rayon de 30 blocks durant les 10 secondes.");
+        addDescription("§8- §7Lorsque vous vous trouvez proche d'un joueur ayant activé son collier-alius dans un rayon de 20 blocks, étant très peureux vous aurez §b§lSpeed 1§7 pendant 1 minute.");
+        addDescription(" ");
+        addDescription("§8- §7Si vous restez accroupi, au bout de 10 secondes vous deviendrez invisible sauf si un joueur se trouve dans un rayon de 30 blocks durant les 10 secondes.");
         addDescription("§8- §7Il vous suffira de vous desneak pour redevenir visible (Votre armure sera invisible ainsi que vos items dans votre main.");
 
         setRoleCategory(Raimon.class);

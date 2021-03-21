@@ -37,7 +37,7 @@ public class Jude extends Role implements Listener {
 
         addDescription("§8- §7Votre objectif est de gagner avec §6§lRaimon");
         addDescription("§8- §7Vous possédez l’effet §b§lSpeed 1§7.");
-        addDescription("§8- §7Vous voyez également la §4vie§7 des joueurs au dessus de leurs têtes.");
+        addDescription("§8- §7Vous voyez également la §4vie§7 des joueurs au-dessus de leurs têtes.");
         addDescription("§8- §7Vous recevrez les coordonnées approximatives à chaque utilisation d'un §d§lCollier§7§l-§5§lAlius§7.");
 
 

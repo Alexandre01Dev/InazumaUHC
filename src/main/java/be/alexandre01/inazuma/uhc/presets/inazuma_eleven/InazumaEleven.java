@@ -47,8 +47,8 @@ public class InazumaEleven extends PresetData implements IPreset{
         teamSize = 1;
         pvpTime = 20*60;
         netherTime = 55*60;
-        bordureTime = 60*60;
-        borderSize = 50;
+        bordureTime = 100*60;
+        borderSize = 500;
         borderSizeNether = 150;
         endBordureTime = 60*15;
         endBordureSize = 250*2;
@@ -63,6 +63,7 @@ public class InazumaEleven extends PresetData implements IPreset{
         new Alius("Académie-Alius","§5");
         new Solo("Solo","§c");
         //INITIALIZE ROLES
+        new Dvalin(this);
 
     }
 

@@ -25,6 +25,7 @@ public class Shawn extends Role {
 
         addDescription("§8- §7Votre objectif est de gagner avec §6§lRaimon");
         addDescription("§8- §7Vous possédez l’effet §6§lRésistance 1§7.");
+        addDescription(" ");
         CustomComponentBuilder c = new CustomComponentBuilder("");
         c.append("§8- §7Vous possédez également le ");
 
@@ -36,6 +37,8 @@ public class Shawn extends Role {
         blizzardButton.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,blizzardDesc.getExtra().toArray(new BaseComponent[0])));
         c.append(blizzardButton);
         addDescription(c);
+        addDescription(" ");
+        addDescription("§8- §7Les attaques de §cTorch§7, §bGazelle§7 et §6Axel§7 ne vous atteignent pas.");
 
         setRoleToSpoil(Axel.class);
         setRoleCategory(Raimon.class);
@@ -48,7 +51,7 @@ public class Shawn extends Role {
 
         });
 
-        ItemBuilder itemBuilder = new ItemBuilder(Material.STICK);
+        ItemBuilder itemBuilder = new ItemBuilder(Material.PACKED_ICE);
         itemBuilder.setName("§3Blizzard Eternel");
 
         RoleItem blizzardEternel = new RoleItem();

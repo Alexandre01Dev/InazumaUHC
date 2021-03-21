@@ -26,10 +26,12 @@ public class Axel extends Role implements Listener {
     public Axel(IPreset preset) {
         super("Axel Blaze",preset);
         setRoleCategory(Raimon.class);
+        setRoleToSpoil(Mark.class);
 
         addListener(this);
         addDescription("§8- §7Votre objectif est de gagner avec §6§lRaimon");
         addDescription("§8- §7Vous possédez l’effet §6§l§4§lForce 1 §7ainsi que §6§lFire Résistance§7.");
+        addDescription(" ");
         CustomComponentBuilder c = new CustomComponentBuilder("");
         c.append("§8- §7Vous possédez également la ");
 
@@ -41,7 +43,10 @@ public class Axel extends Role implements Listener {
         tornadeButton.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,tornadeDesc.getExtra().toArray(new BaseComponent[0])));
         c.append(tornadeButton);
         addDescription(c);
-        addDescription("§8- §7A chaque §4§lkill§7, vous gagnerez §e1 gapple §7suplémentaire.");
+        addDescription(" ");
+        addDescription("§8- §7A chaque §4§lkill§7, vous gagnerez §e1 gapple §7supplémentaire.");
+        addDescription(" ");
+        addDescription("§8- §7Les attaques de §cTorch§7, §bGazelle§7 et §6Shawn§7 ne vous atteignent pas.");
 
         onLoad(new load() {
             @Override

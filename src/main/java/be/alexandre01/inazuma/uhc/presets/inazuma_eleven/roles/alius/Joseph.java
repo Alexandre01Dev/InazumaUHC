@@ -8,7 +8,11 @@ import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.objects.Episode;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.roles.raimon.Jude;
 import be.alexandre01.inazuma.uhc.roles.Role;
 import be.alexandre01.inazuma.uhc.roles.RoleItem;
+import be.alexandre01.inazuma.uhc.utils.CustomComponentBuilder;
 import be.alexandre01.inazuma.uhc.utils.ItemBuilder;
+import net.md_5.bungee.api.chat.BaseComponent;
+import net.md_5.bungee.api.chat.HoverEvent;
+import net.md_5.bungee.api.chat.TextComponent;
 import net.minecraft.server.v1_8_R3.Tuple;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -21,27 +25,25 @@ public class Joseph extends Role {
 
     public Joseph(IPreset preset) {
         super("Joseph King",preset);
+
+        addDescription("§8- §7Votre objectif est de gagner avec §5§ll'§5§lAcadémie §5§lAlius");
+        CustomComponentBuilder c = new CustomComponentBuilder("");
+        c.append("§8- §7Vous avez une commande nommée ");
+
+        BaseComponent morsureButton = new TextComponent("§5/morsure §7*§8Curseur§7*");
+
+        BaseComponent morsureDesc = new TextComponent();
+        morsureDesc.addExtra("§e- §9Utilisation 3 fois uniquement §7[Cooldown par §eEpisode§7]\n");
+        morsureDesc.addExtra("§e- §9Vous donnera §6§lRésistance 2§9 pendant §a2 minutes\n");
+        morsureDesc.addExtra("§e- §9La première utilisation vous mettra §8§lFaiblesse 1§7 pendants §a2 minutes\n");
+        morsureDesc.addExtra("§e- §9La deuxieme utilisation vous mettra §8§lFaiblesse 1§7 pendants §a5 minutes\n");
+        morsureDesc.addExtra("§e- §9La troisieme utilisation vous mettra §8§lFaiblesse 1§7 permanent");
+        morsureButton.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,morsureDesc.getExtra().toArray(new BaseComponent[0])));
+        c.append(morsureButton);
+        addDescription(c);;
+
         setRoleCategory(Alius.class);
-
-        RoleItem collierAllius = new RoleItem();
-
-        collierAllius.deployVerificationsOnRightClick(collierAllius.generateVerification(new Tuple<>(RoleItem.VerificationType.EPISODES,1)));
-
-        collierAllius.setRightClick(new RoleItem.RightClick() {
-            @Override
-            public void execute(Player player) {
-                Jude.collierAlliusNotif(player.getLocation());
-                player.sendMessage(Preset.instance.p.prefixName()+" Tu viens d'utiliser ton Collier-Allius");
-                player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 60*20, 0,false,false), true);
-            }
-        });
-
-        ItemBuilder itemBuilder = new ItemBuilder(Material.NETHER_STAR);
-
-        itemBuilder.setName("Collier-Allius");
-
-        collierAllius.setItemstack(itemBuilder.toItemStack());
-        addRoleItem(collierAllius);
+        setRoleToSpoil(Caleb.class);
 
         addCommand("morsure", new command() {
             int i = 0;

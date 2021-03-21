@@ -12,8 +12,12 @@ import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.roles.raimon.Shawn;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.roles.raimon.William;
 import be.alexandre01.inazuma.uhc.roles.Role;
 import be.alexandre01.inazuma.uhc.roles.RoleItem;
+import be.alexandre01.inazuma.uhc.utils.CustomComponentBuilder;
 import be.alexandre01.inazuma.uhc.utils.ItemBuilder;
 import be.alexandre01.inazuma.uhc.utils.StringUtils;
+import net.md_5.bungee.api.chat.BaseComponent;
+import net.md_5.bungee.api.chat.HoverEvent;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
@@ -30,6 +34,25 @@ public class Gazelle extends Role implements Listener {
     private int i = 6;
     public Gazelle(IPreset preset) {
         super("Gazelle",preset);
+
+        addDescription("§8- §7Votre objectif est de gagner avec §5§ll'§5§lAcadémie §5§lAlius");
+        addDescription("§8- §7Vous possédez l’effet §6§l§4§lForce 1 §7ainsi que §6§lHaste 1§7.");
+        addDescription(" ");
+        CustomComponentBuilder c = new CustomComponentBuilder("");
+        addDescription("§8- §7Vous disposez d'une commande qui est le §5/inachat§7 qui vous permettre de dialoguer avec votre frère §cTorch§7, mais attention §c§lByron§7 peut lire vos messages...");
+        addDescription(" ");
+        c.append("§8- §7Vous disposez également d'une épée nommé ");
+
+        BaseComponent fire_swordButton = new TextComponent("§b§lImpact§7-§b§lNordique §7*§8Curseur§7*");
+
+        BaseComponent fire_swordDesc = new TextComponent();
+        fire_swordDesc.addExtra("§e- §9Utilisation 8 coups par §eEpisode\n");
+        fire_swordDesc.addExtra("§e- §9Donne aujoueur frappé §8§lSlowness 2 pendant §a5 secondes");
+        fire_swordButton.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,fire_swordDesc.getExtra().toArray(new BaseComponent[0])));
+        c.append(fire_swordButton);
+        addDescription(c);
+        addDescription(" ");
+        addDescription("§8- §7Les attaques de §cTorch§7, §6Axel§7 et §6Shawn§7 ne vous atteignent pas.");
         setRoleToSpoil(Xavier.class);
         setRoleCategory(Alius.class);
         addListener(this);

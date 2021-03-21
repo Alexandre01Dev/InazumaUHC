@@ -8,6 +8,7 @@ import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.categories.Alius;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.custom_events.EpisodeChangeEvent;
 import be.alexandre01.inazuma.uhc.roles.Role;
 import be.alexandre01.inazuma.uhc.roles.RoleItem;
+import be.alexandre01.inazuma.uhc.utils.CustomComponentBuilder;
 import be.alexandre01.inazuma.uhc.utils.ItemBuilder;
 import be.alexandre01.inazuma.uhc.utils.PatchedEntity;
 import net.md_5.bungee.api.chat.BaseComponent;
@@ -33,6 +34,26 @@ public class David extends Role implements Listener {
     private BukkitTask bukkitTask;
     public David(IPreset preset) {
         super("David Samford",preset);
+
+        addDescription("§8- §7Votre objectif est de gagner avec §5§ll'§5§lAcadémie §5§lAlius");
+        addDescription(" ");
+        CustomComponentBuilder c = new CustomComponentBuilder("");
+        c.append("§8- §7En échange de §c§l2 §4❤§7§7 permanent :");
+
+        BaseComponent inaballtpButton = new TextComponent("§c§lManchot §c§lEmpereur §4§lN°1 §7*§8Curseur§7*");
+
+        BaseComponent inaballtpDesc = new TextComponent();
+        inaballtpDesc.addExtra("§e- §9Utilisation par §eEpisode\n");
+        inaballtpDesc.addExtra("§e- §9Donne §4§lForce BOOST§7 et §b§lSpeed 1§9 pendant §a2 minutes \n");
+        inaballtpDesc.addExtra("§e- §c⚠§9 vous perdrez §4❤§7§7 permanent chaque §eEpisode\n");
+        inaballtpDesc.addExtra("§e- §c⚠§9 Vous avez §a5 minutes§9 à chaque début d'§eEpisode§9 pour le prendre");
+        inaballtpButton.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,inaballtpDesc.getExtra().toArray(new BaseComponent[0])));
+        c.append(inaballtpButton);
+        addDescription(c);;
+        addDescription(" ");
+        addDescription("§8- §7Vous pouvez également voir ou se situent les différents ballons de §5Janus§7 avec le §5/inaball§7.");
+
+
         setRoleToSpoil(Caleb.class);
         addListener(this);
         setRoleCategory(Alius.class);

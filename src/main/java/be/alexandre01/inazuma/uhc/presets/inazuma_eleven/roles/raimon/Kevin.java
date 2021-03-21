@@ -26,7 +26,7 @@ public class Kevin extends Role {
         BaseComponent intimidateButton = new TextComponent("§5/intimidate §7(§9Pseudo§7) §7*§8Curseur§7*");
 
         BaseComponent intimidateDesc = new TextComponent();
-        intimidateDesc.addExtra("§e- §9Utilisation 3 fois uniquement §7[Cooldown par §eEpisode§7]\n");
+        intimidateDesc.addExtra("§e- §9Utilisation 3 fois uniquement §7[Cooldown par de §a45 secondes§7]\n");
         intimidateDesc.addExtra("§e- §9Donne au joueur §7ciblé, §8Faiblesse§9 et §8Slowness 1§7 pendant §a20 secondes");
         intimidateButton.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,intimidateDesc.getExtra().toArray(new BaseComponent[0])));
         c.append(intimidateButton);

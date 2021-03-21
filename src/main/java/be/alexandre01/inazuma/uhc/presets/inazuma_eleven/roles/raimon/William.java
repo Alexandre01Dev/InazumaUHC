@@ -29,18 +29,13 @@ public class William extends Role implements Listener {
         addDescription("§8- §7Votre objectif est de gagner avec §6§lRaimon");
         addDescription("§8- §7Vous disposez de §8§lFaiblesse 1§7.");
         addDescription(" ");
-        addDescription("§8- §7Lorsque un joueur utilise son pouvoir, vous recevrez un message disant qu'un camps a utilisé un pouvoir.");
+        addDescription("§8- §7Lorsqu'un joueur utilise son pouvoir, vous recevrez un message disant quel personnage a utilisé son pouvoir.");
         addDescription(" ");
-        addDescription("§8- §7Vous aurez un allié de confiance tous les 2 Episodes.");
+        addDescription("§8- §7Vous aurez un allié de confiance tous les §e2 épisodes.");
 
         William w = this;
         setRoleCategory(Raimon.class);
 
-
-        addDescription("§8- §7Votre objectif est de gagner avec §6§lRaimon");
-        addDescription("§8- §7Vous possédez l’effet §8Faiblesse 1§7.");
-        addDescription("§8- §7Lorsque n'importe quel joueur utilise son pouvoir, vous aurez un message disant quel camp a utilisé un pouvoir.");
-        addDescription("§8- §7Tout les §e2 Episodes§7 vous aurez un pseudo d'un joueur de votre équipe.");
 
         onLoad(new load() {
             @Override
