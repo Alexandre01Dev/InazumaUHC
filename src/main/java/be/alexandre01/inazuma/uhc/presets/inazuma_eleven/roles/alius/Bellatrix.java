@@ -13,13 +13,12 @@ import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.roles.raimon.Jude;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.roles.raimon.Mark;
 import be.alexandre01.inazuma.uhc.roles.Role;
 import be.alexandre01.inazuma.uhc.roles.RoleItem;
-import be.alexandre01.inazuma.uhc.utils.CustomComponentBuilder;
+import be.alexandre01.inazuma.uhc.utils.ItemBuilder;
 import be.alexandre01.inazuma.uhc.utils.PlayerUtils;
 import be.alexandre01.inazuma.uhc.utils.Tracker;
 import lombok.Setter;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ClickEvent;
-import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.minecraft.server.v1_8_R3.Tuple;
 import org.bukkit.*;
@@ -68,7 +67,6 @@ public class Bellatrix extends Role implements Listener {
         addDescription("§8- §7Si vous §crefusez§7 de le remplacer, vous obtiendrez l’effet §4§lForce 1 et §c§l1 §4❤§7§7 permanent.");
         addDescription("§8- §7Une annonce sera faites comme quoi vous avez §crefusé§7 de le remplacer.");
 
-
         setRoleCategory(Alius.class);
 
         addListener(this);
@@ -80,6 +78,7 @@ public class Bellatrix extends Role implements Listener {
             }
         });
         RoleItem colierAllius = new RoleItem();
+        colierAllius.setItemstack(new ItemBuilder(Material.NETHER_STAR).setName("§d§lCollier§7§l-§5§lAlius").toItemStack());
         colierAllius.deployVerificationsOnRightClick(colierAllius.generateVerification(new Tuple<>(RoleItem.VerificationType.EPISODES,1)));
         colierAllius.setRightClick(player -> {
             Jude.collierAlliusNotif(player.getLocation());
@@ -142,6 +141,8 @@ public class Bellatrix extends Role implements Listener {
     private void accept(){
         inventory = ((InazumaEleven)Preset.instance.p).getBallonInv().toInventory();
 
+
+
         addCommand("inaball", new command() {
             @Override
             public void a(String[] args, Player player) {
@@ -185,6 +186,17 @@ public class Bellatrix extends Role implements Listener {
             });
         });
 
+        Role mark = inazumaUHC.rm.getRole(Mark.class);
+        if(mark != null){
+            if(!mark.getPlayers().isEmpty()){
+                for(Player player : mark.getPlayers()){
+                    getPlayers().forEach(b -> {
+                        player.sendMessage(Preset.instance.p.prefixName()+" "+ b.getName()+" est §5Bellatrix.");
+                    });
+                }
+            }
+
+        }
         inazumaUHC.rm.getRoleCategory(Solo.class).getRoles().forEach(role -> {
             role.getPlayers().forEach(player -> {
                 getPlayers().forEach(b -> {

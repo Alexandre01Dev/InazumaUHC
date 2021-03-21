@@ -48,7 +48,7 @@ public class InazumaEleven extends PresetData implements IPreset{
         pvpTime = 20*60;
         netherTime = 55*60;
         bordureTime = 100*60;
-        borderSize = 500;
+        borderSize = 50;
         borderSizeNether = 150;
         endBordureTime = 60*15;
         endBordureSize = 250*2;
@@ -64,7 +64,9 @@ public class InazumaEleven extends PresetData implements IPreset{
         new Solo("Solo","§c");
         //INITIALIZE ROLES
         new Dvalin(this);
-
+        new Kevin(this);
+        new William(this);
+        //new Bellatrix(this);
     }
 
     @Override

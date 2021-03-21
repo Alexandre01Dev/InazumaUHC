@@ -36,7 +36,6 @@ public class Role {
     private RoleCategory roleCategory = null;
     public Role(String name,IPreset iPreset){
         this.players = new ArrayList<>();
-
         this.inazumaUHC = InazumaUHC.get;
         this.name = name;
         rolesByInstance.add(this);
@@ -137,7 +136,32 @@ public class Role {
             }
         });
     }
+    public void giveItem(Player player,RoleItem roleItem){
+        Bukkit.getScheduler().scheduleSyncDelayedTask(inazumaUHC,() -> {
+            boolean full = false;
+            if(!roleItems.isEmpty()){
 
+                    if(hasAvaliableSlot(player)){
+                        if(player.getInventory().getItem(roleItem.getSlot()) == null){
+                            player.getInventory().setItem(roleItem.getSlot(),roleItem.getItemStack());
+                            return;
+                        }
+                        ItemStack itemStack = player.getInventory().getItem(roleItem.getSlot());
+                        player.getInventory().setItem(roleItem.getSlot(),roleItem.getItemStack());
+                        player.getInventory().addItem(itemStack);
+                        return;
+                    }
+                    ItemStack itemStack = player.getInventory().getItem(roleItem.getSlot());
+                    player.getInventory().setItem(roleItem.getSlot(),roleItem.getItemStack());
+                    player.getWorld().dropItemNaturally(player.getLocation(),itemStack,player);
+
+                    player.sendMessage("§cInventaire est plein lors de la distribution d'un item spécial.");
+                    player.sendMessage("§4ATTENTION §cCertain de vos items ont été jeter au sol.");
+
+                player.updateInventory();
+            }
+        });
+    }
     public void onLoad(load load){
         this.load = load;
     }

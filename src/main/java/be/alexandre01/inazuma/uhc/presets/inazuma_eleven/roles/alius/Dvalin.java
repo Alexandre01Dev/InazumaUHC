@@ -15,9 +15,9 @@ import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.minecraft.server.v1_8_R3.Tuple;
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.Material;
+import org.bukkit.*;
+import org.bukkit.entity.Arrow;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
@@ -30,6 +30,11 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
+import spg.lgdev.config.ImanityWorldConfig;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Random;
 
 public class Dvalin extends Role implements Listener {
     private boolean hasChoose = false;
@@ -67,28 +72,26 @@ public class Dvalin extends Role implements Listener {
         d.append(attakButton);
         addDescription(d);
 
-
         setRoleCategory(Alius.class);
 
         RoleItem colierAllius = new RoleItem();
-        ItemBuilder itemBuilder = new ItemBuilder(Material.NETHER_STAR).setName("§d§lCollier§7§l-§5§lAlius");
-        colierAllius.setItemstack(itemBuilder.toItemStack());
+        colierAllius.setItemstack(new ItemBuilder(Material.NETHER_STAR).setName("§d§lCollier§7§l-§5§lAlius").toItemStack());
         colierAllius.deployVerificationsOnRightClick(colierAllius.generateVerification(new Tuple<>(RoleItem.VerificationType.EPISODES,1)));
         colierAllius.setRightClick(player -> {
             Jude.collierAlliusNotif(player.getLocation());
             player.sendMessage(Preset.instance.p.prefixName()+" Vous rentrez en résonance avec la §8§lpierre§7§l-§5§lalius.");
-            player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 60*2*20, 0,false,false), true);
+            player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 90*20, 0,false,false), true);
         });
         addRoleItem(colierAllius);
         onLoad(player -> {
             Bukkit.getScheduler().runTaskLater(inazumaUHC, () -> {
-                BaseComponent b = new TextComponent(Preset.instance.p.prefixName()+ "Début du match, quel poste voulez-vous obtenir ? \n");
+                BaseComponent b = new TextComponent("Début du match, quel poste voulez-vous obternir ?");
                 b.addExtra("");
-                BaseComponent yes = new TextComponent("§a[§cATTAQUANT§a] ");
+                BaseComponent yes = new TextComponent("§a[§cATTAQUANT§a]");
                 yes.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND,"/dvalin gungnir"));
                 b.addExtra(yes);
                 b.addExtra(" §7ou ");
-                BaseComponent no = new TextComponent("§a[§bDEFENSEUR§a] ");
+                BaseComponent no = new TextComponent("§a[§bDEFENSEUR§a]");
                 no.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND,"/dvalin troueDeVer"));
 
                 b.addExtra(no);
@@ -106,7 +109,7 @@ public class Dvalin extends Role implements Listener {
                 }
 
                 if(args.length == 0){
-                    player.sendMessage(Preset.instance.p.prefixName()+" Veuillez mettre §a/dvalin accept §7ou §a/dvalin refuse");
+                    player.sendMessage(Preset.instance.p.prefixName()+" Veuillez mettre §a/xene accept §7ou §a/xene refuse");
                     return;
                 }
 
@@ -122,7 +125,7 @@ public class Dvalin extends Role implements Listener {
 
                     return;
                 }
-                player.sendMessage(Preset.instance.p.prefixName()+" Veuillez mettre §a/dvalin accept §7ou §a/dvalin refuse");
+                player.sendMessage(Preset.instance.p.prefixName()+" Veuillez mettre §a/xene accept §7ou §a/xene refuse");
             }
         });
 
@@ -133,18 +136,18 @@ public class Dvalin extends Role implements Listener {
         inazumaUHC.dm.addEffectPourcentage(player, DamageManager.EffectType.RESISTANCE,1,110);
         player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, Integer.MAX_VALUE, 0,false,false), true);
         RoleItem roleItem = new RoleItem();
-        roleItem.setItemstack(new ItemBuilder(Material.BEACON).setName("§2Trou §2De §2Ver").toItemStack());
-
+        roleItem.setItemstack(new ItemBuilder(Material.STICK).setName("TroueDeVer").toItemStack());
+        roleItem.setSlot(7);
         roleItem.deployVerificationsOnRightClickOnPlayer(roleItem.generateVerification(new Tuple<>(RoleItem.VerificationType.COOLDOWN,60*10)));
         roleItem.setRightClickOnPlayer(15,new RoleItem.RightClickOnPlayer() {
             @Override
             public void execute(Player player, Player rightClicked) {
                 player.sendMessage("Tu viens d'utiliser ton trou de ver sur "+ rightClicked.getName());
-                rightClicked.setVelocity(player.getLocation().subtract(rightClicked.getLocation()).toVector().normalize().multiply(player.getLocation().distance(rightClicked.getLocation())/1.5D));
+                rightClicked.setVelocity(player.getLocation().subtract(rightClicked.getLocation()).toVector().normalize().multiply(player.getLocation().distance(rightClicked.getLocation())/2.5D));
             }
         });
         addRoleItem(roleItem);
-        giveItem(player);
+        giveItem(player,roleItem);
     }
     private void gungnir(Player player){
         player.sendMessage(Preset.instance.p.prefixName()+" Tu viens de choisir ton passif ! Le Gungnir !");
@@ -155,20 +158,62 @@ public class Dvalin extends Role implements Listener {
 
     }
 
-    @EventHandler(priority = EventPriority.LOW)
+    @EventHandler(priority = EventPriority.HIGHEST)
     public void onDamage(EntityDamageByEntityEvent e){
 
-        Player dam;
+        LivingEntity dam;
 
         if(e.getDamager() instanceof Projectile && e.getEntity() instanceof Player){
             Player player = (Player) e.getEntity();
             Projectile pj = (Projectile) e.getDamager();
-            if(pj.getShooter() instanceof Player){
-                dam = (Player) pj.getShooter();
-
+            if(pj.getShooter() instanceof LivingEntity && pj instanceof Arrow){
+                dam = (LivingEntity) pj.getShooter();
+                Arrow pjA = (Arrow) pj;
                 if(inazumaUHC.rm.getRole(player) instanceof Dvalin){
                     e.setCancelled(true);
-                    PatchedEntity.damage(dam,e.getDamage());
+
+                    Location shooterLoc = dam.getLocation();
+                    shooterLoc.setPitch(0);
+                    int t = 0;
+                    shooterLoc.add(0,1+ 0 + (1.5d - 0) * new Random().nextDouble(),0);
+                    boolean found = false;
+                    Location twoBlocksAway = null;
+                    while (!found){
+                        if(t >= 3){
+                            PatchedEntity.damage(dam,pjA.spigot().getDamage());
+                            player.getWorld().playSound(player.getLocation(), Sound.ENDERMAN_TELEPORT, 1,1);
+                            return;
+                        }
+                        Random r = new Random();
+                        shooterLoc.setYaw(r.nextInt((179 - (-179)) + 1));
+                        twoBlocksAway = shooterLoc.add(shooterLoc.getDirection().normalize().multiply(0.5));
+                        if(twoBlocksAway.getBlock().getType().equals(Material.AIR)){
+                            found = true;
+                        }
+
+                        t++;
+                    }
+
+
+                    //twoBlocksAway.setYaw(twoBlocksAway.getYaw()*-1);
+                    pj.teleport(twoBlocksAway);
+                    pj.setVelocity(dam.getLocation().subtract(player.getLocation()).toVector().normalize());
+                    Location damLoc = dam.getLocation();
+                    damLoc.setPitch(0);
+
+                    damLoc.setY(pjA.getLocation().getY());
+                    player.getWorld().playEffect(twoBlocksAway, Effect.PORTAL,200,200);
+                    Arrow arrow = player.getWorld().spawnArrow(twoBlocksAway,dam.getLocation().subtract(player.getLocation()).toVector().normalize().multiply(1),1,1);
+                    arrow.setBounce(true);
+                    player.getWorld().playSound(player.getLocation(), Sound.ENDERMAN_TELEPORT, 1,1);
+                    arrow.setCritical(pjA.isCritical());
+                    arrow.setKnockbackStrength(arrow.getKnockbackStrength());
+                    arrow.spigot().setDamage(pjA.spigot().getDamage());
+
+
+
+                    pj.remove();
+                  //  PatchedEntity.damage(dam,1.5d);
                 }
             }
         }

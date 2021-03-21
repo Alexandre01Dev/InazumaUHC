@@ -25,13 +25,14 @@ import org.bukkit.event.player.PlayerToggleSneakEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.scoreboard.NameTagVisibility;
 import org.bukkit.scoreboard.Team;
 
 import java.util.ArrayList;
 
 public class Jack extends Role implements Listener {
-
+    private BukkitTask b;
     private boolean isSneakTimer = false;
     private boolean invisible = false;
     public Jack(IPreset preset) {
@@ -96,15 +97,17 @@ public class Jack extends Role implements Listener {
                 return;
             }
 
-                Timer timer = new Timer("jacksneaktimer",true);
-                timer.setSetup(new Timer.setup() {
-                    @Override
-                    public Timer setInstance() {
-                        return null;
-                    }
-                });
+
             isSneakTimer = true;
-            new BukkitRunnable() {
+            if(b != null){
+                try {
+                    b.cancel();
+                }catch (Exception ignored){
+
+                }
+
+            }
+             b = new BukkitRunnable() {
                 int i = 0;
                 @Override
                 public void run() {
@@ -115,12 +118,12 @@ public class Jack extends Role implements Listener {
                         isSneakTimer = false;
                         Team t = Bukkit.getScoreboardManager().getMainScoreboard().getTeam(player.getName());
                         t.setNameTagVisibility(NameTagVisibility.ALWAYS);
-                        timer.cancel();
+                        b.cancel();
                     }
                     if(!PlayerUtils.getNearbyPlayersFromPlayer(player,30,30,30).isEmpty() && i < 10){
                         player.sendMessage(Preset.instance.p.prefixName()+"Il y a un joueur prêt de toi, tu ne peux pas utiliser ta technique");
                         isSneakTimer = false;
-                        timer.cancel();
+                        b.cancel();
                     }
                     if(i == 10){
                         invisible = true;

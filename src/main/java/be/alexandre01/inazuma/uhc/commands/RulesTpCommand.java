@@ -105,8 +105,8 @@ public class RulesTpCommand extends Command {
                             for(Player pls : Bukkit.getOnlinePlayers()){
 
                                 if(!pls.equals(player)){
-                                    PlayerUtils.sendViewPacket(pls,loc);
                                     pls.teleport(loc);
+                                    PlayerUtils.sendViewPacket(pls,loc);
                                 }
 
                             TitleUtils.sendTitle(pls, 20, 30, 20,"§6Sinon je te perma !","§6Signée§9 " + player.getName());

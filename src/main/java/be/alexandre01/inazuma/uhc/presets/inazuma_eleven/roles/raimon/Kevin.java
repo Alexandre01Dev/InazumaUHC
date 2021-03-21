@@ -4,6 +4,8 @@ import be.alexandre01.inazuma.uhc.presets.IPreset;
 import be.alexandre01.inazuma.uhc.presets.Preset;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.categories.Raimon;
 import be.alexandre01.inazuma.uhc.roles.Role;
+import be.alexandre01.inazuma.uhc.timers.utils.DateBuilderTimer;
+import be.alexandre01.inazuma.uhc.timers.utils.MSToSec;
 import be.alexandre01.inazuma.uhc.utils.CustomComponentBuilder;
 import be.alexandre01.inazuma.uhc.utils.TitleUtils;
 import net.md_5.bungee.api.chat.BaseComponent;
@@ -34,8 +36,15 @@ public class Kevin extends Role {
 
         addCommand("intimidate", new command() {
         public int i = 0;
+        public DateBuilderTimer dateBuilderTimer = new DateBuilderTimer(0);
             @Override
         public void a(String[] args, Player player) {
+                dateBuilderTimer.loadComplexDate();
+
+                if(dateBuilderTimer.getDate().getTime() > 0){
+                    player.sendMessage(Preset.instance.p.prefixName()+"§c Tu dois attendre "+ dateBuilderTimer.getLongBuild());
+                    return;
+                }
                 Player target = Bukkit.getPlayer(args[0]);
                 if(target == null){
                     player.sendMessage(Preset.instance.p.prefixName()+" Le joueur n'est pas en game.");
@@ -55,6 +64,7 @@ public class Kevin extends Role {
                 target.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 10*20, 1,false,false), true);
                 player.sendMessage(Preset.instance.p.prefixName()+"Vous avez intimidé "+target.getName()+".");
                 target.sendMessage(Preset.instance.p.prefixName()+"Kevin vous a intimidé.");
+                dateBuilderTimer = new DateBuilderTimer(MSToSec.toMili(45));
                 i++;
             }
         });

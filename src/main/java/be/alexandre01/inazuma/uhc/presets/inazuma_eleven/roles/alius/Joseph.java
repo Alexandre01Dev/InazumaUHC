@@ -45,22 +45,21 @@ public class Joseph extends Role {
         setRoleCategory(Alius.class);
         setRoleToSpoil(Caleb.class);
 
-        addCommand("morsure", new command() {
+        RoleItem morsure = new RoleItem();
+        morsure.setItemstack(new ItemBuilder(Material.GHAST_TEAR).setName("§bMorsure").toItemStack());
+        morsure.setSlot(7);
+        morsure.deployVerificationsOnRightClickOnPlayer(morsure.generateVerification(new Tuple<>(RoleItem.VerificationType.COOLDOWN,60*10)));
+        morsure.setRightClickOnPlayer(15,new RoleItem.RightClickOnPlayer() {
             int i = 0;
-            int lastEpisode = 0;
             @Override
-            public void a(String[] args, Player player) {
+            public void execute(Player player, Player rightClicked) {
                 i++;
-                if(lastEpisode == Episode.getEpisode()){
-                    player.sendMessage(Preset.instance.p.prefixName()+" §cTu ne peux utiliser cette commande que tout les épisodes");
-                    return;
-                }
                 switch (i){
                     case 1:
                         addEffectAfter(player,2*20*60,2*60*20,PotionEffectType.WEAKNESS);
                         break;
                     case 2:
-                     addEffectAfter(player,2*20*60,5*60*20,PotionEffectType.WEAKNESS);
+                        addEffectAfter(player,2*20*60,5*60*20,PotionEffectType.WEAKNESS);
                         break;
                     case 3:
                         addEffectAfter(player,2*20*60,Integer.MAX_VALUE,PotionEffectType.WEAKNESS);
@@ -69,12 +68,13 @@ public class Joseph extends Role {
                         player.sendMessage(Preset.instance.p.prefixName()+" Tu as déjà atteint la limite d'utilisation");
                         return;
                 }
-                lastEpisode = Episode.getEpisode();
                 player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 2*60*20, 1,false,false), true);
                 inazumaUHC.dm.addEffectPourcentage(player, DamageManager.EffectType.RESISTANCE,2,120);
-                player.sendMessage(Preset.instance.p.prefixName()+" Tu viens d'utiliser la commande et de recevoir l'effet");
+                player.sendMessage(Preset.instance.p.prefixName()+" Tu viens de recevoir l'effet RESISTANCE pendant 2 minutes.");
             }
         });
+
+
 
 
     }

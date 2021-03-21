@@ -19,8 +19,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class William extends Role implements Listener {
-    private ArrayList<Role> raimon = null;
-    private ArrayList<Role> usedRole = new ArrayList<>();
+    private final ArrayList<Role> usedRole = new ArrayList<>();
     private static William w = null;
     private int episode = 0;
 
@@ -70,29 +69,31 @@ public class William extends Role implements Listener {
       episodeChanged();
     }
     private void episodeChanged(){
-        raimon = new ArrayList<>(InazumaUHC.get.rm.getRoleCategory(Raimon.class).getRoles());
+        ArrayList<Role> raimon = new ArrayList<>(InazumaUHC.get.rm.getRoleCategory(Raimon.class).getRoles());
+
+        raimon.remove(this);
         for(Role used : usedRole){
             raimon.remove(used);
         }
-        Collections.shuffle(raimon);
-
         if(raimon.isEmpty()){
             return;
         }
+
+        Collections.shuffle(raimon);
+
+        System.out.println(raimon.size());
         for(Role role : raimon){
-            if(role.getClass().equals(this.getClass())){
-                raimon.remove(this);
-                continue;
-            }
             boolean save = false;
-            for(Player player : role.getPlayers())
+            for(Player player : role.getPlayers()){
                 if(player.isOnline()){
                     save = true;
                     break;
                 }
+            }
             if(!save){
                 raimon.remove(role);
             }
+
         }
 
         episode++;
