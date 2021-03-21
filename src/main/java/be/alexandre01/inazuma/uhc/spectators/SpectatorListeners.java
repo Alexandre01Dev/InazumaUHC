@@ -20,6 +20,9 @@ public class SpectatorListeners implements Listener {
     }
     @EventHandler(priority = EventPriority.LOW)
     public void onInteract(PlayerInteractEvent event){
+        if(event.getPlayer().getGameMode().equals(GameMode.CREATIVE)){
+            return;
+        }
         if(i.spectatorManager.getPlayers().contains(event.getPlayer())){
             event.setCancelled(true);
         }

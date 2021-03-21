@@ -21,7 +21,7 @@ import java.util.Collections;
 public class William extends Role implements Listener {
     private final ArrayList<Role> usedRole = new ArrayList<>();
     private static William w = null;
-    private int episode = 0;
+    private int episode = 1;
 
     public William(IPreset preset) {
         super("William Glass",preset);
