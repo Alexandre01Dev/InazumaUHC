@@ -40,13 +40,13 @@ public class Joseph extends Role {
         morsureDesc.addExtra("§e- §9La troisieme utilisation vous mettra §8§lFaiblesse 1§7 permanent");
         morsureButton.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,morsureDesc.getExtra().toArray(new BaseComponent[0])));
         c.append(morsureButton);
-        addDescription(c);;
+        addDescription(c);
 
         setRoleCategory(Alius.class);
         setRoleToSpoil(Caleb.class);
 
         RoleItem morsure = new RoleItem();
-        morsure.setItemstack(new ItemBuilder(Material.GHAST_TEAR).setName("§bMorsure").toItemStack());
+        morsure.setItemstack(new ItemBuilder(Material.GHAST_TEAR).setName("§2Morsure§7-§2Sauvage").toItemStack());
         morsure.setSlot(7);
         morsure.deployVerificationsOnRightClickOnPlayer(morsure.generateVerification(new Tuple<>(RoleItem.VerificationType.COOLDOWN,60*10)));
         morsure.setRightClickOnPlayer(15,new RoleItem.RightClickOnPlayer() {
