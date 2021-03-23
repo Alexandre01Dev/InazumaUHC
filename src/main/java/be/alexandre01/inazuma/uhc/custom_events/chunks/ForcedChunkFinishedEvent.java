@@ -19,6 +19,7 @@ public class ForcedChunkFinishedEvent extends Event {
 
     public ForcedChunkFinishedEvent(ChunksGenerator chunkGenerator){
         this.chunkGenerator = chunkGenerator;
+
     }
 
     public ChunksGenerator get(){

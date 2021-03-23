@@ -30,6 +30,7 @@ public class CustomBoat extends EntityBoat {
 		public CustomBoat(InazumaUHC i, World world) {
 			super(world);
 			this.i = i;
+
 		}
 
 		public static CustomBoat spawn(InazumaUHC i, Location loc) {

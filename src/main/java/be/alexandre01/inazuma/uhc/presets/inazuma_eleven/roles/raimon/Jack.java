@@ -116,7 +116,7 @@ public class Jack extends Role implements Listener {
                         player.removePotionEffect(PotionEffectType.INVISIBILITY);
                         inazumaUHC.invisibilityInventory.setInventoryToInitialToOther(player);
                         isSneakTimer = false;
-                        Team t = Bukkit.getScoreboardManager().getMainScoreboard().getTeam(player.getName());
+                        Team t = Bukkit.getScoreboardManager().getMainScoreboard().getTeam(0+player.getName());
                         t.setNameTagVisibility(NameTagVisibility.ALWAYS);
                         b.cancel();
                     }
@@ -131,7 +131,7 @@ public class Jack extends Role implements Listener {
                         inazumaUHC.invisibilityInventory.setInventoryInvisibleToOther(player);
                         player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, Integer.MAX_VALUE, 0,false,false), true);
                         Player p = event.getPlayer();
-                        Team t = Bukkit.getScoreboardManager().getMainScoreboard().getTeam(player.getName());
+                        Team t = Bukkit.getScoreboardManager().getMainScoreboard().getTeam(0+player.getName());
                         t.setNameTagVisibility(NameTagVisibility.NEVER);
                     }
                     i++;

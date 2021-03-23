@@ -74,6 +74,8 @@ public class Joseph extends Role {
             }
         });
 
+        addRoleItem(morsure);
+
 
 
 
