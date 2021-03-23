@@ -120,7 +120,7 @@ public class Jack extends Role implements Listener {
 
             }
              b = new BukkitRunnable() {
-                int i = 0;
+                int i = 10;
                 @Override
                 public void run() {
                     if(!player.isSneaking()){
@@ -137,11 +137,12 @@ public class Jack extends Role implements Listener {
                         isSneakTimer = false;
                         b.cancel();
                     }
-                    if (i < 10){
+                    if (i > 0){
                         TitleUtils.sendActionBar(player,"§7Vous allez être Invisible dans §f" + i + " §7seconde(s)");
                     }
-                    if(i == 10){
+                    if(i == 0){
                         invisible = true;
+                        TitleUtils.sendActionBar(player,"§7Vous êtes camouflé");
                         player.sendMessage(Preset.instance.p.prefixName()+" Vous êtes camouflé.");
                         inazumaUHC.invisibilityInventory.setInventoryInvisibleToOther(player);
                         player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, Integer.MAX_VALUE, 0,false,false), true);
@@ -149,7 +150,7 @@ public class Jack extends Role implements Listener {
                         Team t = Bukkit.getScoreboardManager().getMainScoreboard().getTeam(0+player.getName());
                         t.setNameTagVisibility(NameTagVisibility.NEVER);
                     }
-                    i++;
+                    i--;
                 }
             }.runTaskTimerAsynchronously(inazumaUHC,20,20);
         }

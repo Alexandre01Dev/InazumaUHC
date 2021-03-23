@@ -12,6 +12,7 @@ import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.roles.alius.*;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.roles.raimon.*;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.roles.solo.Byron;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.timers.*;
+import be.alexandre01.inazuma.uhc.scenarios.Scenario;
 import be.alexandre01.inazuma.uhc.scenarios.betazombie.BetaZombie;
 import be.alexandre01.inazuma.uhc.scenarios.cancelenchant.CancelEnchant;
 import be.alexandre01.inazuma.uhc.scenarios.cateyes.CatEyes;
@@ -64,8 +65,8 @@ public class InazumaEleven extends PresetData implements IPreset{
         new Solo("Solo","§c");
         //INITIALIZE ROLES
         new Jack(this);
-        new Xavier(this);
-        new Byron(this);
+        new Scotty(this);
+        new Dvalin(this);
 
         /* new Axel(this);
         new Darren(this);

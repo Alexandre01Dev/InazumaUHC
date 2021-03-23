@@ -3,6 +3,7 @@ package be.alexandre01.inazuma.uhc;
 import be.alexandre01.inazuma.uhc.commands.*;
 import be.alexandre01.inazuma.uhc.commands.test.ChunkCommand;
 import be.alexandre01.inazuma.uhc.commands.test.ForceEpisodeCommand;
+import be.alexandre01.inazuma.uhc.commands.test.StuffMeetupCommand;
 import be.alexandre01.inazuma.uhc.config.Config;
 import be.alexandre01.inazuma.uhc.config.Messages;
 import be.alexandre01.inazuma.uhc.generations.NetherPortalsManager;
@@ -202,6 +203,7 @@ public final class InazumaUHC extends JavaPlugin {
         registerCommand("force", new ForceCommand("force"));
         registerCommand("compo", new CompoCommand("compo"));
         registerCommand("ina",new BaseCommand("ina","ina"));
+        registerCommand("ina",new StuffMeetupCommand("stuffmeetup"));
         //lm.automaticFindListener();
 
     }
