@@ -8,6 +8,7 @@ import be.alexandre01.inazuma.uhc.roles.Role;
 import be.alexandre01.inazuma.uhc.timers.ITimer;
 import be.alexandre01.inazuma.uhc.timers.Timer;
 import be.alexandre01.inazuma.uhc.utils.PlayerUtils;
+import be.alexandre01.inazuma.uhc.utils.TitleUtils;
 import net.minecraft.server.v1_8_R3.PacketPlayOutScoreboardTeam;
 import net.minecraft.server.v1_8_R3.PlayerConnection;
 import net.minecraft.server.v1_8_R3.ScoreboardTeam;
@@ -67,6 +68,17 @@ public class Jack extends Role implements Listener {
 
 
             if(getPlayers().contains(damager)){
+                if (invisible){
+
+                    invisible = false;
+                    player.removePotionEffect(PotionEffectType.INVISIBILITY);
+                    inazumaUHC.invisibilityInventory.setInventoryToInitialToOther(player);
+                    isSneakTimer = false;
+                    Team t = Bukkit.getScoreboardManager().getMainScoreboard().getTeam(0+player.getName());
+                    t.setNameTagVisibility(NameTagVisibility.ALWAYS);
+                    b.cancel();
+
+                }
                 damager.removePotionEffect(PotionEffectType.SLOW);
                 damager.addPotionEffect(new PotionEffect(PotionEffectType.SLOW,20*3,0,false,false),true);
             }
@@ -120,10 +132,13 @@ public class Jack extends Role implements Listener {
                         t.setNameTagVisibility(NameTagVisibility.ALWAYS);
                         b.cancel();
                     }
-                    if(!PlayerUtils.getNearbyPlayersFromPlayer(player,30,30,30).isEmpty() && i < 10){
+                    if(!PlayerUtils.getNearbyPlayersFromPlayer(player,20,12,20).isEmpty() && i < 10){
                         player.sendMessage(Preset.instance.p.prefixName()+"Il y a un joueur prêt de toi, tu ne peux pas utiliser ta technique");
                         isSneakTimer = false;
                         b.cancel();
+                    }
+                    if (i < 10){
+                        TitleUtils.sendActionBar(player,"§7Vous allez être Invisible dans §f" + i + " §7seconde(s)");
                     }
                     if(i == 10){
                         invisible = true;

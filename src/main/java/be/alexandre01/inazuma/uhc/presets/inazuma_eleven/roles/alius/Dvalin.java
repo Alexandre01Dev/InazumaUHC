@@ -46,6 +46,7 @@ public class Dvalin extends Role implements Listener {
         addDescription("§8- §7Vous disposez du §d§lCollier§7§l-§5§lAlius§7 qui vous donnera §b§lSpeed 1§7 pendant §a1 minute 30§7.");
         addDescription(" ");
         addDescription("§8- §7Des l'annonce des rôles, vous avez un choix, qui est d'être §c§lAttaquant§7 ou §b§lDéfenseur§7.");
+        addDescription("§8- §c§l⚠ §7Vous pouvez également faire §5/dvalin §cgungnir§7 ou §5/dvalin §btroueDeVer§7.");
         addDescription(" ");
         c.append("§8- §7Si vous devenez : ");
 
@@ -125,7 +126,7 @@ public class Dvalin extends Role implements Listener {
 
                     return;
                 }
-                player.sendMessage(Preset.instance.p.prefixName()+" Veuillez mettre §a/xene accept §7ou §a/xene refuse");
+                player.sendMessage(Preset.instance.p.prefixName()+" Veuillez mettre §a/dvalin accept §7ou §a/dvalin refuse");
             }
         });
 

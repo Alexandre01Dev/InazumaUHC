@@ -5,6 +5,7 @@ import be.alexandre01.inazuma.uhc.scenarios.Scenario;
 import be.alexandre01.inazuma.uhc.utils.CustomExp;
 import be.alexandre01.inazuma.uhc.utils.ExperienceManager;
 import be.alexandre01.inazuma.uhc.utils.ItemBuilder;
+import be.alexandre01.inazuma.uhc.utils.TitleUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.ExperienceOrb;
@@ -41,7 +42,12 @@ public class DiamondLimit extends Scenario implements Listener {
             i++;
             ints.put(player.getUniqueId(), i);
 
+            if (i < 23){
+                TitleUtils.sendActionBar(player, "§9Diamond Limit à §b" + i + "§9/§b22");
+            }
+
             if (i > 22){
+                TitleUtils.sendActionBar(player, "§9Diamond Limit §cAtteinte");
                 e.setCancelled(true);
                 e.getBlock().setType(Material.AIR);
                 ((ExperienceOrb)CustomExp.spawn(InazumaUHC.getGet(),player.getLocation()).getBukkitEntity()).setExperience(e.getExpToDrop());

@@ -57,6 +57,7 @@ public class StateEvent implements Listener {
     @EventHandler
     public void onStarting(StartingEvent event){
         System.out.println("StartingEvent called");
+        Bukkit.broadcastMessage(Preset.instance.p.prefixName() + "Le chat vient d'être §c§ldésactivé");
         i.worldGen.defaultWorld.getWorldBorder().setSize(p.getBorderSize(World.Environment.NORMAL)*2);
         for(Player player : Bukkit.getOnlinePlayers()){
             Location t = player.getLocation();

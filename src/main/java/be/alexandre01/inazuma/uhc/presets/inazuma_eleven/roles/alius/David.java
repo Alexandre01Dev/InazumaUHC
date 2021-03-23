@@ -43,6 +43,7 @@ public class David extends Role implements Listener {
         BaseComponent inaballtpButton = new TextComponent("§c§lManchot §c§lEmpereur §4§lN°1 §7*§8Curseur§7*");
 
         BaseComponent inaballtpDesc = new TextComponent();
+        inaballtpDesc.addExtra("§e- §c§l⚠ §9Vous pouvez également faire §5/manchot §aaccept§9 ou §5/manchot §crefuse\n");
         inaballtpDesc.addExtra("§e- §9Utilisation par §eEpisode\n");
         inaballtpDesc.addExtra("§e- §9Donne §4§lForce BOOST§7 et §b§lSpeed 1§9 pendant §a2 minutes \n");
         inaballtpDesc.addExtra("§e- §c⚠§9 vous perdrez §4❤§7§7 permanent chaque §eEpisode\n");

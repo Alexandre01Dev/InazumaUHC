@@ -58,6 +58,7 @@ public class Bellatrix extends Role implements Listener {
         addDescription("§8- §7Vous disposez du §d§lCollier§7§l-§5§lAlius§7 qui vous donnera §6§lRésistance 1§7 (NERF) pendant §a1 minute 30§7.");
         addDescription(" ");
         addDescription("Lors de la mort de §5Xavier§7, 2 choix s'offrent à vous, qui sont de le §aremplacer§7 ou §cnon§7.");
+        addDescription("§8- §7Vous pouvez également faire §5/xene §aaccept§9 ou §5/xene §crefuse.");
         addDescription(" ");
         addDescription("§8- §7Si vous §aacceptez§7 de le remplacer, vous perdrez §c§l3 §4❤§7 permanent.§7.");
         addDescription("§8- §7Alors, toute §5§ll'§5§lAcadémie §5§lAlius§7 vous connaîtra et inversement.");

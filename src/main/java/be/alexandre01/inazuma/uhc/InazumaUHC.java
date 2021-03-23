@@ -122,6 +122,7 @@ public final class InazumaUHC extends JavaPlugin {
         registerCommand("rulestp", new RulesTpCommand("rulestp"));
         registerCommand("addEpisode", new ForceEpisodeCommand("addEpisode"));
         registerCommand("say", new SayCommand("say"));
+        registerCommand("groupe", new GroupCommand("groupe"));
 
         potionEvent = new PotionEvent();
         lm.addListener(potionEvent);

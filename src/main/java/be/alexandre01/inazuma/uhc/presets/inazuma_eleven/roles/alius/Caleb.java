@@ -41,6 +41,7 @@ public class Caleb extends Role implements Listener {
         addDescription("§8- §7Faire perdre ou non 2 coeurs permanents durant §e1 Epsiode§7 à un mate random.");
         addDescription("§8- §7Afin d'obtenir §4§lForce 1 et §c§l2 §4❤§7§7 permanent pendant l'Episode.");
         addDescription("§c⚠§7 Vous avez §a5 minutes§7 à chaque début d'§eEpisode§7 pour faire votre choix.");
+        addDescription("§8- §c§l⚠ §7Vous pouvez également faire §5/power §aaccept§7 ou §5/power §crefuse§7.");
 
         setRoleCategory(Alius.class);
         setRoleToSpoil(Xavier.class);
@@ -87,7 +88,7 @@ public class Caleb extends Role implements Listener {
                 }
 
                 if(args.length == 0){
-                    player.sendMessage(Preset.instance.p.prefixName()+" Veuillez mettre §a/power accept §7ou §a/mark refuse");
+                    player.sendMessage(Preset.instance.p.prefixName()+" Veuillez mettre §a/power §aaccept §7ou §a/power §crefuse");
                     return;
                 }
 
@@ -105,7 +106,7 @@ public class Caleb extends Role implements Listener {
                     refuse(player);
                     return;
                 }
-                player.sendMessage(Preset.instance.p.prefixName()+" Veuillez mettre §a/power accept §7ou §a/power refuse");
+                player.sendMessage(Preset.instance.p.prefixName()+" Veuillez mettre §a/power §aaccept §7ou §a/power §crefuse");
             }
         });
 

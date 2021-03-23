@@ -41,6 +41,7 @@ public class Darren extends Role implements Listener {
         addDescription("§8- §7Vous disposez de §c§l2 §4❤§7 permanent.");
         addDescription(" ");
         addDescription("§8- §7Lors de la mort de §6Mark§7, 2 choix s'offrent à vous, qui sont de le §aremplacer§7 ou §cnon§7.");
+        addDescription("§8- §c§l⚠ §7Vous pouvez également faire §5/mark §aaccept§9 ou §5/mark §crefuse.");
         addDescription(" ");
         addDescription("§8- §7Si vous §aacceptez§7 de le remplacer, vous pourrez 2 fois dans la partie §5/corrupt§7.");
         addDescription("§8- §7Également, vous enleverez la §8Faiblesse 1§7 de §6§lRaimon§7 suite à la mort de §6Mark§7.");

@@ -28,12 +28,12 @@ public class Joseph extends Role {
 
         addDescription("§8- §7Votre objectif est de gagner avec §5§ll'§5§lAcadémie §5§lAlius");
         CustomComponentBuilder c = new CustomComponentBuilder("");
-        c.append("§8- §7Vous avez une commande nommée ");
+        c.append("§8- §7Vous avez un iteme nommée ");
 
-        BaseComponent morsureButton = new TextComponent("§5/morsure §7*§8Curseur§7*");
+        BaseComponent morsureButton = new TextComponent("§2Morsure§7-§2Sauvage §7*§8Curseur§7*");
 
         BaseComponent morsureDesc = new TextComponent();
-        morsureDesc.addExtra("§e- §9Utilisation 3 fois uniquement §7[Cooldown par §eEpisode§7]\n");
+        morsureDesc.addExtra("§e- §9Utilisation 3 fois uniquement §7[Cooldown de §a10 minutes§7]\n");
         morsureDesc.addExtra("§e- §9Vous donnera §6§lRésistance 2§9 pendant §a2 minutes\n");
         morsureDesc.addExtra("§e- §9La première utilisation vous mettra §8§lFaiblesse 1§7 pendants §a2 minutes\n");
         morsureDesc.addExtra("§e- §9La deuxieme utilisation vous mettra §8§lFaiblesse 1§7 pendants §a5 minutes\n");
@@ -48,11 +48,11 @@ public class Joseph extends Role {
         RoleItem morsure = new RoleItem();
         morsure.setItemstack(new ItemBuilder(Material.GHAST_TEAR).setName("§2Morsure§7-§2Sauvage").toItemStack());
         morsure.setSlot(7);
-        morsure.deployVerificationsOnRightClickOnPlayer(morsure.generateVerification(new Tuple<>(RoleItem.VerificationType.COOLDOWN,60*10)));
-        morsure.setRightClickOnPlayer(15,new RoleItem.RightClickOnPlayer() {
+        morsure.deployVerificationsOnRightClick(morsure.generateVerification(new Tuple<>(RoleItem.VerificationType.COOLDOWN,60*10)));
+        morsure.setRightClick(new RoleItem.RightClick() {
             int i = 0;
             @Override
-            public void execute(Player player, Player rightClicked) {
+            public void execute(Player player) {
                 i++;
                 switch (i){
                     case 1:
@@ -73,11 +73,7 @@ public class Joseph extends Role {
                 player.sendMessage(Preset.instance.p.prefixName()+" Tu viens de recevoir l'effet RESISTANCE pendant 2 minutes.");
             }
         });
-
         addRoleItem(morsure);
-
-
-
 
     }
     private void addEffectAfter(Player player,long l, int t, PotionEffectType p){
