@@ -151,7 +151,7 @@ public class RejoinManager implements Listener {
                 nRole.spoilRole(p);
                 nRole.giveItem(p);
             }else {
-                role.getPlayers().add(p);
+                role.addPlayer(p);
 
                 if(role.getLoad() != null){
                     role.getLoad().a(p);

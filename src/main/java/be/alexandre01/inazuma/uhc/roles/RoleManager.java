@@ -13,9 +13,9 @@ public class RoleManager {
     private int i = 0;
 
     private ArrayList<Role> totalRole;
-    private HashMap<UUID,Role> roles;
-    private HashMap<Role,List<UUID>> uuids;
-    private HashMap<Class<?>,Role> classes;
+    private final HashMap<UUID,Role> roles;
+    private final HashMap<Role,List<UUID>> uuids;
+    private final HashMap<Class<?>,Role> classes;
     public HashMap<RoleCategory,Role> rolesByCat;
     public HashMap<Class<?>,RoleCategory> roleCategories;
 
@@ -27,7 +27,6 @@ public class RoleManager {
         rolesByCat = new HashMap<>();
         InazumaUHC.get.lm.addListener(new InteractItemEvent());
         InazumaUHC.get.lm.addListener(new DropRoleItemEvent());
-        System.out.println("ADDLISTEUNEUR");
         InazumaUHC.get.lm.addListener(new PlayerInstantDeath());
     }
 
@@ -71,6 +70,7 @@ public class RoleManager {
             rolesByCat.put(role.getRoleCategory(),role);
         }
         role.addPlayer(Bukkit.getPlayer(uuid));
+
         if(role.getLoad() != null){
             role.getLoad().a(player);
         }

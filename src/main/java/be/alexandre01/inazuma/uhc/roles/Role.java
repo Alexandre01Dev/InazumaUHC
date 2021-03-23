@@ -6,16 +6,20 @@ import be.alexandre01.inazuma.uhc.presets.Preset;
 import be.alexandre01.inazuma.uhc.roles.commands.CommandRole;
 
 import be.alexandre01.inazuma.uhc.utils.CustomComponentBuilder;
+import lombok.Getter;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.TextComponent;
 
 import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
+import org.bukkit.Server;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Role {
     private IPreset preset;
@@ -23,7 +27,10 @@ public class Role {
     public boolean isListenerDeployed = false;
     public static boolean isDistributed = false;
     private ArrayList<Class<?>> roleToSpoil = new ArrayList<>();
-    private ArrayList<Player> players;
+    private ArrayList<UUID> players;
+    private ArrayList<Player> onlinePlayers;
+    @Getter private ArrayList<UUID> eliminatedPlayers;
+    @Getter private ArrayList<UUID> initialPlayers;
     private load load;
     private command command;
 
@@ -36,6 +43,9 @@ public class Role {
     private RoleCategory roleCategory = null;
     public Role(String name,IPreset iPreset){
         this.players = new ArrayList<>();
+        this.initialPlayers = new ArrayList<>();
+        this.eliminatedPlayers = new ArrayList<>();
+        this.onlinePlayers = new ArrayList<>();
         this.inazumaUHC = InazumaUHC.get;
         this.name = name;
         rolesByInstance.add(this);
@@ -101,11 +111,26 @@ public class Role {
     }
     public void addPlayer(Player player){
         System.out.println(getName()+" > "+player.getName());
-        players.add(player);
-    }
+        players.add(player.getUniqueId());
+        onlinePlayers.add(player);
+        System.out.println("ADD "+player.getName());
 
+        if(!initialPlayers.contains(player.getUniqueId())) {
+            System.out.println("NOT CONTAINS !!! "+player.getName());
+            initialPlayers.add(player.getUniqueId());
+        }
+        for (UUID uuid : initialPlayers){
+            System.out.println(uuid);
+        }
+
+    }
+    public void removePlayer(Player player){
+        System.out.println(getName()+" > "+player.getName());
+        players.remove(player.getUniqueId());
+        onlinePlayers.remove(player);
+    }
     public ArrayList<Player> getPlayers() {
-        return players;
+        return onlinePlayers;
     }
 
     public void giveItem(Player player){

@@ -244,10 +244,11 @@ public class NPC extends Reflections {
     public void setCamera(Player player , boolean state){
         if(state){
             PacketPlayOutCamera packet = new PacketPlayOutCamera(entityPlayer);
+            PatchedEntity.addAuthorizedPacket(packet,1);
             sendPacket(player,packet);
         }else {
             PacketPlayOutCamera packet = new PacketPlayOutCamera(((CraftPlayer)player).getHandle());
-
+            PatchedEntity.addAuthorizedPacket(packet,1);
             sendPacket(player,packet);
         }
 

@@ -4,6 +4,7 @@ import be.alexandre01.inazuma.uhc.presets.IPreset;
 import be.alexandre01.inazuma.uhc.presets.Preset;
 import be.alexandre01.inazuma.uhc.roles.Role;
 import be.alexandre01.inazuma.uhc.timers.Timer;
+import be.alexandre01.inazuma.uhc.utils.PlayerUUIDConverter;
 import lombok.Getter;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -31,9 +32,14 @@ public class CompoCommand extends Command {
             for(Role role : Role.getRoles()){
                 if(role != null){
                     if(role.getName() != null){
-                        if(!role.getPlayers().isEmpty()){
-                            role.getPlayers().forEach(player -> {
-                                sender.sendMessage("§e- §7"+player.getName()+" est "+ role.getRoleCategory().getPrefixColor()+role.getName());
+                        if(!role.getInitialPlayers().isEmpty()){
+                            role.getInitialPlayers().forEach(player -> {
+                                String name = "§b"+ PlayerUUIDConverter.getPlayerName(player);
+                                if(role.getEliminatedPlayers().contains(player))
+                                    name = "§8§m"+PlayerUUIDConverter.getPlayerName(player);
+
+
+                                sender.sendMessage("§e- "+name+"§7 est "+ role.getRoleCategory().getPrefixColor()+role.getName());
                             });
 
                         }

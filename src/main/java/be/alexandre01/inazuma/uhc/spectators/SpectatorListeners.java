@@ -1,6 +1,7 @@
 package be.alexandre01.inazuma.uhc.spectators;
 
 import be.alexandre01.inazuma.uhc.InazumaUHC;
+import it.unimi.dsi.fastutil.Hash;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -10,13 +11,14 @@ import org.bukkit.event.entity.*;
 import org.bukkit.event.player.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class SpectatorListeners implements Listener {
-    private ArrayList<Player> blockedInEntity;
+    private HashMap<Player,GameMode> blockedInEntity;
     InazumaUHC i;
     public SpectatorListeners(){
          this.i = InazumaUHC.get;
-         this.blockedInEntity = new ArrayList<>();
+         this.blockedInEntity = new HashMap<>();
     }
     @EventHandler(priority = EventPriority.LOW)
     public void onInteract(PlayerInteractEvent event){
@@ -65,16 +67,17 @@ public class SpectatorListeners implements Listener {
         if(i.spectatorManager.getPlayers().contains(event.getPlayer())){
             event.setCancelled(true);
                 Player spectator = event.getPlayer();
+                GameMode oldGameMode = spectator.getGameMode();
                 spectator.setGameMode(GameMode.SPECTATOR);
                 i.spectatorManager.getPlayer(spectator).setCamera(event.getRightClicked());
-                blockedInEntity.add(spectator);
+                blockedInEntity.put(spectator,oldGameMode);
         }
     }
 
     @EventHandler
     public void onShift(PlayerToggleSneakEvent event){
         Player spectator = event.getPlayer();
-        if(blockedInEntity.contains(spectator)){
+        if(blockedInEntity.containsKey(spectator)){
             spectator.setAllowFlight(true);
             spectator.setFlying(true);
             i.spectatorManager.getPlayer(spectator).setCamera(spectator);

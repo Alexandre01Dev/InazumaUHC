@@ -19,6 +19,7 @@ public class ForceCommand extends Command {
     @Getter private static ForceCommand instance;
     private HashMap<String,String> varNames;
     private HashMap<String, Timer> timers;
+    private ArrayList<String> usedTimers = new ArrayList<>();
     public ForceCommand(String s) {
         super(s);
         super.setPermission("uhc.force");
@@ -71,11 +72,15 @@ public class ForceCommand extends Command {
             }
             return false;
         }
-
+        if(usedTimers.contains(args[0].toLowerCase())){
+            sender.sendMessage(preset.prefixName()+" §cModule déjà utilisé.");
+            return false;
+        }
         if(varNames.containsKey(args[0].toLowerCase())){
             setValue(varNames.get(args[0].toLowerCase()),5);
             Timer t = timers.get(args[0].toLowerCase());
             t = t.reset();
+            usedTimers.add(args[0].toLowerCase());
             return true;
         }
         sender.sendMessage(preset.prefixName()+" §cModule non trouvé");

@@ -177,7 +177,17 @@ public class PlayerEvent implements Listener {
            inazumaUHC.getRejoinManager().onDisconnect(player);
        }
 
+        if(inazumaUHC.rm != null){
+            if(Role.isDistributed){
+                Role role = inazumaUHC.rm.getRole(player);
+                if(role != null){
+                    if(!role.getPlayers().isEmpty()){
+                        role.removePlayer(player);
+                    }
+                }
 
+            }
+        }
 
         InazumaUHC.get.getRemainingPlayers().remove(player);
     }
@@ -249,7 +259,7 @@ public class PlayerEvent implements Listener {
 
                             }
 
-                           ((ExperienceOrb)CustomExp.spawn(i,player.getLocation()).getBukkitEntity()).setExperience(ExperienceManager.getTotalExperience(playerInstantDeathEvent.getDroppedExp()));
+                           ((ExperienceOrb)CustomExp.spawn(i,player.getLocation()).getBukkitEntity()).setExperience(playerInstantDeathEvent.getDroppedExp());
 
                         }
 

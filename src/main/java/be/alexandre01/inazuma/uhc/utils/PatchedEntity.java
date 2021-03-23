@@ -1,6 +1,7 @@
 package be.alexandre01.inazuma.uhc.utils;
 
 import be.alexandre01.inazuma.uhc.InazumaUHC;
+import be.alexandre01.inazuma.uhc.timers.utils.DateBuilderTimer;
 import net.minecraft.server.v1_8_R3.*;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -16,6 +17,7 @@ import org.inventivetalent.packetlistener.PacketListenerAPI;
 import org.inventivetalent.packetlistener.handler.PacketHandler;
 import org.inventivetalent.packetlistener.handler.ReceivedPacket;
 import org.inventivetalent.packetlistener.handler.SentPacket;
+import org.omg.CORBA.PUBLIC_MEMBER;
 
 import java.lang.reflect.Field;
 import java.util.*;
@@ -26,13 +28,24 @@ public class PatchedEntity{
     private static ArrayList<Integer> lids = new ArrayList<>();
     private static ArrayList<Location> locations = new ArrayList<>();
     private static ArrayList<String> sounds = new ArrayList<>();
+    private static HashMap<Packet<?>,Integer> authorizedPackets = new HashMap<>();
     private static PacketHandler packetHandler;
     private static boolean register = false;
     public static void init(){
         packetHandler = new PacketHandler() {
             @Override
             public void onSend(SentPacket sentPacket) {
+                if(authorizedPackets.containsKey((Packet<?>) sentPacket.getPacket())){
+                    int i = authorizedPackets.get((Packet<?>) sentPacket.getPacket())-1;
+                    if(i == 0){
+                        authorizedPackets.remove((Packet<?>) sentPacket.getPacket());
+                        return;
+                    }
+                    authorizedPackets.put((Packet<?>) sentPacket.getPacket(),i);
 
+
+                    return;
+                }
                 if(sentPacket.getPacketName().equalsIgnoreCase("PacketPlayOutEntityStatus")){
                     Object object1 = sentPacket.getPacketValue("a");
                     Object object2 = sentPacket.getPacketValue("b");
@@ -40,6 +53,23 @@ public class PatchedEntity{
                         if(ids.contains((Integer) object1)){
                             sentPacket.setCancelled(true);
                         }
+                    }
+                }
+
+                if(sentPacket.getPacketName().equalsIgnoreCase("PacketPlayInSpectate")){
+                    if(sentPacket.getPlayer() != null){
+                        System.out.println(sentPacket.getPlayer().getName());
+
+                        if(!InazumaUHC.get.spectatorManager.getPlayers().contains(sentPacket.getPlayer()))
+                            sentPacket.setCancelled(true);
+                    }
+                }
+                if(sentPacket.getPacketName().equalsIgnoreCase("PacketPlayOutCamera")){
+                    if(sentPacket.getPlayer() != null){
+                        System.out.println(sentPacket.getPlayer().getName());
+
+                        if(!InazumaUHC.get.spectatorManager.getPlayers().contains(sentPacket.getPlayer()))
+                            sentPacket.setCancelled(true);
                     }
                 }
                 if(sentPacket.getPacketName().equalsIgnoreCase("PacketPlayOutNamedSoundEffect")){
@@ -67,7 +97,14 @@ public class PatchedEntity{
 
             @Override
             public void onReceive(ReceivedPacket receivedPacket) {
+                if(receivedPacket.getPacketName().equalsIgnoreCase("PacketPlayInSpectate")){
+                    if(receivedPacket.getPlayer() != null){
+                        System.out.println(receivedPacket.getPlayer().getName());
 
+                        if(!InazumaUHC.get.spectatorManager.getPlayers().contains(receivedPacket.getPlayer()))
+                            receivedPacket.setCancelled(true);
+                    }
+                }
             }
 
         };
@@ -179,5 +216,9 @@ public class PatchedEntity{
             return field.get(obj);
         }catch(Exception e){}
         return null;
+    }
+
+    public static void addAuthorizedPacket(Packet<?> packet, int life){
+        authorizedPackets.put(packet,life);
     }
 }

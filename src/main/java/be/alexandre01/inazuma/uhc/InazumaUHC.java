@@ -40,6 +40,9 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scoreboard.Objective;
+import org.bukkit.scoreboard.Scoreboard;
+import org.bukkit.scoreboard.Team;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -88,6 +91,15 @@ public final class InazumaUHC extends JavaPlugin {
         InazumaUHC.get = this;
         //TOCHANGE
 
+        //OBJECTIVES && TEAM RESET
+        Scoreboard scoreboard = Bukkit.getScoreboardManager().getMainScoreboard();
+        for(Team team : scoreboard.getTeams()){
+            team.unregister();
+        }
+        for(Objective objective : scoreboard.getObjectives()){
+            objective.unregister();
+        }
+
         //GameState
         remainingPlayers = new ArrayList<>();
         //Execute config
@@ -98,6 +110,7 @@ public final class InazumaUHC extends JavaPlugin {
 
         this.cm = new ChatManager();
         this.lm = new ListenersManager();
+        lm.addListener(new PlayerUUIDConverter());
         lm.addListener(new WorldGenEvent());
         lm.addListener(new NetherEvent());
         lm.addListener(new PlayerEvent());

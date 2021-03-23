@@ -46,10 +46,17 @@ public class PlayerInstantDeath implements Listener {
                 Bukkit.broadcastMessage("§7 Son rôle était §f: " + role.getName());
             }
             Bukkit.broadcastMessage("§r§l§8»§8§m-----------------------------------------------§l§8«");
+
+            if(!role.getPlayers().isEmpty()){
+                role.removePlayer(player);
+            }
+            role.getEliminatedPlayers().add(player.getUniqueId());
             return;
         }
         Bukkit.broadcastMessage("§r§l§8»§8§m-----------------------------------------------§l§8«");
             Bukkit.broadcastMessage("§e"+player.getName()+"§7 vient de §cmourir§7.");
         Bukkit.broadcastMessage("§r§l§8»§8§m-----------------------------------------------§l§8«");
+
+
     }
 }
