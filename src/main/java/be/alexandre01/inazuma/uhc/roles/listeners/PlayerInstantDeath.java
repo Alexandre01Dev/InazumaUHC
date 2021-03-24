@@ -39,8 +39,9 @@ public class PlayerInstantDeath implements Listener {
         if(role != null){
             Bukkit.broadcastMessage("§r§l§8»§8§m-----------------------------------------------§l§8«");
             if(role.getRoleCategory() != null){
-                Bukkit.broadcastMessage("§e"+player.getName()+"§7 est §cmort(e)§7");
-                Bukkit.broadcastMessage("§7 Son rôle était §f: "+role.getRoleCategory().getPrefixColor()+ role.getName());
+                for(String msg : role.getRoleCategory().getDeathMessage()){
+                    Bukkit.broadcastMessage(msg.replaceAll("%player%",player.getName()).replaceAll("%role%",role.getRoleCategory().getPrefixColor()+role.getName()));
+                }
             }else {
                 Bukkit.broadcastMessage("§e"+player.getName()+"§7 vient de §cmourir");
                 Bukkit.broadcastMessage("§7 Son rôle était §f: " + role.getName());

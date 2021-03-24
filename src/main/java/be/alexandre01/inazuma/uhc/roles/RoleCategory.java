@@ -1,6 +1,8 @@
 package be.alexandre01.inazuma.uhc.roles;
 
 import be.alexandre01.inazuma.uhc.InazumaUHC;
+import lombok.Getter;
+import lombok.Setter;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
@@ -8,6 +10,7 @@ import java.util.HashMap;
 
 public class RoleCategory {
     String name;
+    @Getter @Setter
     String[] deathMessage = {"§e%player%§7 est §cmort(e)§7","§7 Son rôle était §f: %role%"};
     String prefixColor;
     private ArrayList<Role> roles = new ArrayList<>();
