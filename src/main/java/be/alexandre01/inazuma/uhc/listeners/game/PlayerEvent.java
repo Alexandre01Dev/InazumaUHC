@@ -12,10 +12,7 @@ import be.alexandre01.inazuma.uhc.state.GameState;
 import be.alexandre01.inazuma.uhc.state.State;
 import be.alexandre01.inazuma.uhc.teams.Team;
 import be.alexandre01.inazuma.uhc.teams.TeamManager;
-import be.alexandre01.inazuma.uhc.utils.CustomBoat;
-import be.alexandre01.inazuma.uhc.utils.CustomExp;
-import be.alexandre01.inazuma.uhc.utils.ExperienceManager;
-import be.alexandre01.inazuma.uhc.utils.PlayerUtils;
+import be.alexandre01.inazuma.uhc.utils.*;
 import net.minecraft.server.v1_8_R3.*;
 import org.bukkit.*;
 import org.bukkit.Material;
@@ -327,12 +324,13 @@ public class PlayerEvent implements Listener {
 
     }
 
-   /* @EventHandler
+  /*  @EventHandler
     public void onSneak(PlayerToggleSneakEvent event){
         if(event.isSneaking()){
-            CustomBoat.spawn(i,event.getPlayer().getLocation());
+            CustomBoat.spawn(event.getPlayer().getLocation());
         }
-    }*/
+        }*/
+
 /*    @EventHandler(priority = EventPriority.LOWEST)
     public void onDrop(PlayerDropItemEvent event){
         if(!event.isCancelled()){

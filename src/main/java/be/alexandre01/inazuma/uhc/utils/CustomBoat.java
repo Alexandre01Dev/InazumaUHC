@@ -22,20 +22,22 @@ import spg.lgdev.config.iSpigotConfig;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 public class CustomBoat extends EntityBoat {
 		private InazumaUHC i;
-		public CustomBoat(InazumaUHC i, World world) {
+		public CustomBoat(World world) {
 			super(world);
 			this.i = i;
 
 		}
 
-		public static CustomBoat spawn(InazumaUHC i, Location loc) {
+		public static CustomBoat spawn( Location loc) {
 			World w = ((CraftWorld) loc.getWorld()).getHandle();
-			CustomBoat f = new CustomBoat(i, w);
+			CustomBoat f = new CustomBoat(w);
 			f.setPosition(loc.getX(), loc.getY(), loc.getZ());
 			w.addEntity(f, CreatureSpawnEvent.SpawnReason.CUSTOM);
 			return f;
@@ -43,9 +45,21 @@ public class CustomBoat extends EntityBoat {
 
 		public static void registerEntity() {
 			try {
+				List<Map<?, ?>> dataMap = new ArrayList<Map<?, ?>>();
+				for (Field f : EntityTypes.class.getDeclaredFields()){
+					if (f.getType().getSimpleName().equals(Map.class.getSimpleName())){
+						f.setAccessible(true);
+						dataMap.add((Map<?, ?>) f.get(null));
+					}
+				}
+
+				if (dataMap.get(2).containsKey(41)){
+					dataMap.get(0).remove("CustomBoat");
+					dataMap.get(2).remove(41);
+				}
 				Method a = EntityTypes.class.getDeclaredMethod("a", Class.class, String.class, int.class);
 				a.setAccessible(true);
-				a.invoke(null, CustomBoat.class, "CustomBoat",302);
+				a.invoke(null, CustomBoat.class, "CustomBoat", 41);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -192,6 +206,7 @@ public class CustomBoat extends EntityBoat {
 			} else if (this.unoccupiedDeceleration >= 0.0D) {
 				this.motX *= this.unoccupiedDeceleration;
 				this.motZ *= this.unoccupiedDeceleration;
+				System.out.println("unoccupiedDeceleration");
 				if (this.motX <= 1.0E-5D) {
 					this.motX = 0.0D;
 				}
@@ -233,6 +248,7 @@ public class CustomBoat extends EntityBoat {
 					int var26 = MathHelper.floor(this.locY) + var40;
 					BlockPosition var27 = new BlockPosition(var37, var26, var18);
 					Block var28 = this.world.getType(var27).getBlock();
+
 					if (var28 == Blocks.SNOW_LAYER) {
 						if (!CraftEventFactory.callEntityChangeBlockEvent(this, var37, var26, var18, Blocks.AIR, 0).isCancelled()) {
 						//	this.world.setAir(var27);
@@ -364,10 +380,9 @@ public class CustomBoat extends EntityBoat {
 
 		if (this.noclip) {
 			this.a(this.getBoundingBox().c(var1, var3, var5));
-			this.recalcPosition();
 		} else {
 			try {
-				this.checkBlockCollisions();
+
 			} catch (Throwable var61) {
 				CrashReport var63 = CrashReport.a(var61, "Checking entity block collision");
 				CrashReportSystemDetails var64 = var63.a("Entity being checked for collision");
@@ -405,7 +420,7 @@ public class CustomBoat extends EntityBoat {
 				var22 = (AxisAlignedBB)var23.next();
 			}
 
-			this.a(this.getBoundingBox().c(0.0D, var3, 0.0D));
+		//	this.a(this.getBoundingBox().c(0.0D, var3, 0.0D));
 			boolean var66 = this.onGround || var15 != var3 && var15 < 0.0D;
 
 			AxisAlignedBB var24;
@@ -414,7 +429,7 @@ public class CustomBoat extends EntityBoat {
 				var24 = (AxisAlignedBB)var25.next();
 			}
 
-			this.a(this.getBoundingBox().c(var1, 0.0D, 0.0D));
+		//	this.a(this.getBoundingBox().c(var1, 0.0D, 0.0D));
 
 			for(var25 = var20.iterator(); var25.hasNext(); var5 = var24.c(this.getBoundingBox(), var5)) {
 				var24 = (AxisAlignedBB)var25.next();
@@ -433,85 +448,14 @@ public class CustomBoat extends EntityBoat {
 				AxisAlignedBB var35 = var34.a(var13, 0.0D, var17);
 				double var36 = var3;
 
-				AxisAlignedBB var38;
-				for(Iterator var39 = var33.iterator(); var39.hasNext(); var36 = var38.b(var35, var36)) {
-					var38 = (AxisAlignedBB)var39.next();
-				}
 
-				var34 = var34.c(0.0D, var36, 0.0D);
-				double var78 = var13;
-
-				AxisAlignedBB var41;
-				for(Iterator var42 = var33.iterator(); var42.hasNext(); var78 = var41.a(var34, var78)) {
-					var41 = (AxisAlignedBB)var42.next();
-				}
-
-				var34 = var34.c(var78, 0.0D, 0.0D);
-				double var79 = var17;
-
-				AxisAlignedBB var44;
-				for(Iterator var45 = var33.iterator(); var45.hasNext(); var79 = var44.c(var34, var79)) {
-					var44 = (AxisAlignedBB)var45.next();
-				}
-
-				var34 = var34.c(0.0D, 0.0D, var79);
-				AxisAlignedBB var80 = this.getBoundingBox();
-				double var46 = var3;
-
-				AxisAlignedBB var48;
-				for(Iterator var49 = var33.iterator(); var49.hasNext(); var46 = var48.b(var80, var46)) {
-					var48 = (AxisAlignedBB)var49.next();
-				}
-
-				var80 = var80.c(0.0D, var46, 0.0D);
-				double var81 = var13;
-
-				AxisAlignedBB var51;
-				for(Iterator var52 = var33.iterator(); var52.hasNext(); var81 = var51.a(var80, var81)) {
-					var51 = (AxisAlignedBB)var52.next();
-				}
-
-				var80 = var80.c(var81, 0.0D, 0.0D);
-				double var82 = var17;
-
-				AxisAlignedBB var54;
-				for(Iterator var55 = var33.iterator(); var55.hasNext(); var82 = var54.c(var80, var82)) {
-					var54 = (AxisAlignedBB)var55.next();
-				}
-
-				var80 = var80.c(0.0D, 0.0D, var82);
-				double var83 = var78 * var78 + var79 * var79;
-				double var57 = var81 * var81 + var82 * var82;
-				if (var83 > var57) {
-					var1 = var78;
-					var5 = var79;
-					var3 = -var36;
-					this.a(var34);
-				} else {
-					var1 = var81;
-					var5 = var82;
-					var3 = -var46;
-					this.a(var80);
-				}
-
-				AxisAlignedBB var59;
-				for(Iterator var60 = var33.iterator(); var60.hasNext(); var3 = var59.b(this.getBoundingBox(), var3)) {
-					var59 = (AxisAlignedBB)var60.next();
-				}
-
-				this.a(this.getBoundingBox().c(0.0D, var3, 0.0D));
-				if (var26 * var26 + var30 * var30 >= var1 * var1 + var5 * var5) {
-					var1 = var26;
-					var3 = var28;
-					var5 = var30;
-					this.a(var32);
-				}
 			}
 
 			this.world.methodProfiler.b();
 			this.world.methodProfiler.a("rest");
-			this.recalcPosition();
-			this.positionChanged = var13 != var1 || var17 != var5;
+			//this.recalcPosition();
+			//this.positionChanged = var13 != var1 || var17 != var5;
+			this.positionChanged = false;
 			this.E = var15 != var3;
 			this.onGround = this.E && var15 < 0.0D;
 			this.F = this.positionChanged || this.E;
@@ -528,20 +472,9 @@ public class CustomBoat extends EntityBoat {
 				}
 			}
 
-			this.a(var3, this.onGround, var69, var29);
-			if (var13 != var1) {
-				this.motX = 0.0D;
-			}
-
-			if (var17 != var5) {
-				this.motZ = 0.0D;
-			}
-
-			if (var15 != var3) {
-				var69.a(this.world, this);
-			}
 
 			if (this.positionChanged && this.getBukkitEntity() instanceof Vehicle) {
+				System.out.println("VEHICLE MOVE");
 				/*Vehicle var70 = (Vehicle)this.getBukkitEntity();
 				org.bukkit.block.Block var73 = this.world.getWorld().getBlockAt(MathHelper.floor(this.locX), MathHelper.floor(this.locY), MathHelper.floor(this.locZ));
 				if (var13 > var1) {
@@ -559,61 +492,21 @@ public class CustomBoat extends EntityBoat {
 			}
 
 			if (this.s_() && !var19 && this.vehicle == null) {
-				double var71 = this.locX - var62;
-				double var75 = this.locY - var65;
-				double var77 = this.locZ - var11;
-				if (var69 != Blocks.LADDER) {
-					var75 = 0.0D;
-				}
 
-				if (var69 != null && this.onGround) {
-				}
-
-				this.M = (float)((double)this.M + (double)MathHelper.sqrt(var71 * var71 + var77 * var77) * 0.6D);
-				this.N = (float)((double)this.N + (double)MathHelper.sqrt(var71 * var71 + var75 * var75 + var77 * var77) * 0.6D);
-				if (this.N > (float)h && var69.getMaterial() != Material.AIR) {
-					h = (int)this.N + 1;
-					setPrivateField("h",Entity.class,this,h);
-					if (this.V()) {
-						float var37 = MathHelper.sqrt(this.motX * this.motX * 0.20000000298023224D + this.motY * this.motY + this.motZ * this.motZ * 0.20000000298023224D) * 0.35F;
-						if (var37 > 1.0F) {
-							var37 = 1.0F;
-						}
-
-						this.makeSound(this.P(), var37, 1.0F + (this.random.nextFloat() - this.random.nextFloat()) * 0.4F);
-					}
-
-					this.a(var29, var69);
-					var69.a(this.world, var29, this);
-				}
 			}
 
 			boolean var72 = this.U();
 			if (this.world.e(this.getBoundingBox().shrink(0.001D, 0.001D, 0.001D))) {
-				this.burn(1.0F);
-				if (!var72) {
-					++this.fireTicks;
-					if (this.fireTicks <= 0) {
-						EntityCombustEvent var76 = new EntityCombustEvent(this.getBukkitEntity(), 8);
-						this.world.getServer().getPluginManager().callEvent(var76);
-						if (!var76.isCancelled()) {
-							this.setOnFire(var76.getDuration());
-						}
-					} else {
-						this.setOnFire(8);
-					}
-				}
-			} else if (this.fireTicks <= 0) {
-				this.fireTicks = -this.maxFireTicks;
-			}
 
-			if (var72 && this.fireTicks > 0) {
-				this.makeSound("random.fizz", 0.7F, 1.6F + (this.random.nextFloat() - this.random.nextFloat()) * 0.4F);
-				this.fireTicks = -this.maxFireTicks;
 			}
 
 			this.world.methodProfiler.b();
 		}
+
+	}
+	@Override
+	protected void checkBlockCollisions() {
+
 
 	}
 	private void recalcPosition() {

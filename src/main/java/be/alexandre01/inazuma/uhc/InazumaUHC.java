@@ -32,6 +32,7 @@ import be.alexandre01.inazuma.uhc.worlds.utils.WorldUtils;
 import be.alexandre01.inazuma.uhc.worlds.executors.ArrowToCenter;
 import lombok.Getter;
 import lombok.Setter;
+import net.minecraft.server.v1_8_R3.CommandSummon;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.command.Command;
@@ -114,6 +115,7 @@ public final class InazumaUHC extends JavaPlugin {
         lm.addListener(new WorldGenEvent());
         lm.addListener(new NetherEvent());
         lm.addListener(new PlayerEvent());
+        lm.addListener(new WorldEvent());
         //lm.addListener(new BoatEvent());
         for(World world : Bukkit.getWorlds()){
             for(Entity entity : world.getEntities()){
@@ -125,6 +127,7 @@ public final class InazumaUHC extends JavaPlugin {
                 }
             }
         }
+
 
         playerMovementManager.init();
         lm.addListener(new ProtectionEvent());
@@ -161,6 +164,7 @@ public final class InazumaUHC extends JavaPlugin {
 
         PatchedEntity.init();
         CustomExp.registerEntity();
+        CustomSkeleton.registerEntity();
         CustomBoat.registerEntity();
         //ARROWS
         if(p.p.isArrowCalculated()){
