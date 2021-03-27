@@ -26,7 +26,7 @@ public class Axel extends Role implements Listener {
     public Axel(IPreset preset) {
         super("Axel Blaze",preset);
         setRoleCategory(Raimon.class);
-        setRoleToSpoil(Mark.class);
+        setRoleToSpoil(Shawn.class);
 
         addListener(this);
         addDescription("§8- §7Votre objectif est de gagner avec §6§lRaimon");

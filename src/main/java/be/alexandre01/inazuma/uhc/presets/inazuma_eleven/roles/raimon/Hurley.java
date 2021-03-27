@@ -39,7 +39,6 @@ public class Hurley extends Role implements Listener {
     public Hurley(IPreset preset) {
         super("Hurley Kane",preset);
         setRoleCategory(Raimon.class);
-        setRoleToSpoil(Darren.class);
 
             addDescription("§8- §7Votre objectif est de gagner avec §6§lRaimon");
             addDescription("§8- §7Vous possédez l’effet §b§lSpeed 1 §7ainsi qu'un livre §3Depth Strider II§7.");

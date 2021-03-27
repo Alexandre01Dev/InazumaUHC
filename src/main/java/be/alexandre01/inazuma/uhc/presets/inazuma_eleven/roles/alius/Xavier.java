@@ -82,7 +82,7 @@ public class Xavier extends Role implements Listener {
             player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 90*20, 0,false,false), true);
         });
         addRoleItem(roleItem);
-        setRoleToSpoil(Bellatrix.class, Janus.class, Torch.class, Gazelle.class, Dvalin.class);
+        setRoleToSpoil(Bellatrix.class, Janus.class);
         addCommand("inaball", new command() {
             @Override
             public void a(String[] args, Player player) {

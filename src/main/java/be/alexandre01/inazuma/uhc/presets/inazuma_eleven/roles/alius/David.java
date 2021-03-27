@@ -55,7 +55,6 @@ public class David extends Role implements Listener {
         addDescription("§8- §7Vous pouvez également voir ou se situent les différents ballons de §5Janus§7 avec le §5/inaball§7.");
 
 
-        setRoleToSpoil(Caleb.class);
         addListener(this);
         setRoleCategory(Alius.class);
         onLoad(new load() {

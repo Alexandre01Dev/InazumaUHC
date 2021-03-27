@@ -25,6 +25,8 @@ public class Mark extends Role implements Listener {
     public Mark(IPreset preset) {
         super("Mark Evans",preset);
         setRoleCategory(Raimon.class);
+        setRoleToSpoil(Shawn.class);
+        setRoleToSpoil(Axel.class);
        // setRoleToSpoil(Victoria);
         addListener(this);
         addDescription("§8- §7Votre objectif est de gagner avec §6§lRaimon");
@@ -40,7 +42,7 @@ public class Mark extends Role implements Listener {
 
         BaseComponent corruptDesc = new TextComponent();
         corruptDesc.addExtra("§e- §9Utilisation 2 fois uniquement\n");
-        corruptDesc.addExtra("§e- §9Savoir le nombre(s) de joueur(s) de l'§5§lAcadémie §5§lAlius §9[§515 blocks§9]");
+        corruptDesc.addExtra("§e- §9Savoir si il y a des joueurs de l'§5§lAcadémie §5§lAlius §9[§515 blocks§9]");
         corruptButton.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,corruptDesc.getExtra().toArray(new BaseComponent[0])));
         c.append(corruptButton);
         addDescription(c);
@@ -77,7 +79,7 @@ public class Mark extends Role implements Listener {
                     player.sendMessage(Preset.instance.p.prefixName()+"Il n'y a aucun joueur(s) de l'Académie-Alius autour de vous.");
                 }
                 if( a > 0){
-                    player.sendMessage(Preset.instance.p.prefixName()+"Il y a "+a+" joueur(s) de l'Académie-Alius autour de vous.");
+                    player.sendMessage(Preset.instance.p.prefixName()+"Il y a des joueur(s) de l'Académie-Alius autour de vous.");
                 }
                 i++;
             }

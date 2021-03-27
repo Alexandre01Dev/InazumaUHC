@@ -43,7 +43,6 @@ public class Joseph extends Role {
         addDescription(c);
 
         setRoleCategory(Alius.class);
-        setRoleToSpoil(Caleb.class);
 
         RoleItem morsure = new RoleItem();
         morsure.setItemstack(new ItemBuilder(Material.GHAST_TEAR).setName("§2Morsure§7-§2Sauvage").toItemStack());

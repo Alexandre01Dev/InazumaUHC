@@ -44,7 +44,6 @@ public class Caleb extends Role implements Listener {
         addDescription("§8- §c§l⚠ §7Vous pouvez également faire §5/power §aaccept§7 ou §5/power §crefuse§7.");
 
         setRoleCategory(Alius.class);
-        setRoleToSpoil(Xavier.class);
         onLoad(new load() {
             @Override
             public void a(Player player) {
