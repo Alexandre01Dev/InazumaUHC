@@ -248,7 +248,13 @@ public class Bellatrix extends Role implements Listener {
     @EventHandler
     public void onInventoryClick(InventoryClickEvent event){
         Player player = (Player) event.getWhoClicked();
+        if(inazumaUHC.rm.getRole(player) instanceof Bellatrix){
+        if(inventory == null)
+            return;
         if(event.getClickedInventory() == null){
+            return;
+        }
+        if(event.getClickedInventory().getName() == null){
             return;
         }
         if(!event.getClickedInventory().getName().equals(inventory.getName()))
@@ -266,6 +272,8 @@ public class Bellatrix extends Role implements Listener {
             case 16:
                 onClick(player);
                 break;
+        }
+
         }
     }
     private boolean canTeleportPlayer(Player player){

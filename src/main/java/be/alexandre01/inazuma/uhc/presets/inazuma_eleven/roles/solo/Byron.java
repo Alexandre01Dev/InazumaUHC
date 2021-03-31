@@ -139,6 +139,7 @@ public class Byron extends Role implements Listener {
             }
         });
 
+
         timeStop.deployVerificationsOnRightClick(timeStop.generateVerification(verificationGenerations,new Tuple<>(RoleItem.VerificationType.EPISODES,1)));
 
 
@@ -146,7 +147,6 @@ public class Byron extends Role implements Listener {
             int i = 0;
             @Override
             public void execute(Player player) {
-                System.out.println("1");
                 FreezePlayerListener f = new FreezePlayerListener();
                 Freeze freeze = new Freeze(10);
                 ArrayList<Player> p = new ArrayList<>();
@@ -154,7 +154,6 @@ public class Byron extends Role implements Listener {
                 player.sendMessage(Preset.instance.p.prefixName()+" Vous venez d'utiliser l'§7§lInstant Céleste§7.");
                 player.playSound(player.getLocation(),"instantceleste",5,1);
                 for(Player target : PlayerUtils.getNearbyPlayersFromPlayer(player,25,25,25)){
-                    System.out.println("INSTANT");
                         freeze.freezePlayer(target);
                         p.add(target);
                         TitleUtils.sendTitle(target,20,20*8,20,"§7§lINSTANT CELESTE§7"," ");

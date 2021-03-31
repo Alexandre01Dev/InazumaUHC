@@ -179,6 +179,10 @@ public class RejoinManager implements Listener {
             if(p != player && !InazumaUHC.get.spectatorManager.getPlayers().contains(p)){
                 player.showPlayer(p);
             }
+            if(p != player && InazumaUHC.get.spectatorManager.getPlayers().contains(player)){
+                p.hidePlayer(player);
+            }
+
         }
 
 

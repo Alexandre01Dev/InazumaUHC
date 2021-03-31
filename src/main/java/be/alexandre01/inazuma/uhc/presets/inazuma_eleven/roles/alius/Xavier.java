@@ -128,8 +128,13 @@ public class Xavier extends Role implements Listener {
     public void onInventoryClick(InventoryClickEvent event){
         Player player = (Player) event.getWhoClicked();
         if(inazumaUHC.rm.getRole(player) instanceof Xavier){
-
+        if(inventory == null){
+            return;
+        }
         if(event.getClickedInventory() == null){
+            return;
+        }
+        if(event.getClickedInventory().getName() == null){
             return;
         }
         if(!event.getClickedInventory().getName().equals(inventory.getName()))

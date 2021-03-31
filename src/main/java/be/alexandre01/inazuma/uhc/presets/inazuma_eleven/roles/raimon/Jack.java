@@ -9,15 +9,15 @@ import be.alexandre01.inazuma.uhc.timers.ITimer;
 import be.alexandre01.inazuma.uhc.timers.Timer;
 import be.alexandre01.inazuma.uhc.utils.PlayerUtils;
 import be.alexandre01.inazuma.uhc.utils.TitleUtils;
-import net.minecraft.server.v1_8_R3.PacketPlayOutScoreboardTeam;
-import net.minecraft.server.v1_8_R3.PlayerConnection;
-import net.minecraft.server.v1_8_R3.ScoreboardTeam;
-import net.minecraft.server.v1_8_R3.ScoreboardTeamBase;
+import javafx.scene.layout.Priority;
+import net.minecraft.server.v1_8_R3.*;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.craftbukkit.v1_8_R3.scoreboard.CraftScoreboard;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerItemHeldEvent;
@@ -29,13 +29,20 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.scoreboard.NameTagVisibility;
 import org.bukkit.scoreboard.Team;
+import org.inventivetalent.packetlistener.PacketListenerAPI;
+import org.inventivetalent.packetlistener.handler.PacketHandler;
+import org.inventivetalent.packetlistener.handler.ReceivedPacket;
+import org.inventivetalent.packetlistener.handler.SentPacket;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class Jack extends Role implements Listener {
     private BukkitTask b;
     private boolean isSneakTimer = false;
     private boolean invisible = false;
+    private PacketHandler packetHandler = null;
+    private boolean register;
     public Jack(IPreset preset) {
         super("Jack Wallside",preset);
         addDescription("§8- §7Votre objectif est de gagner avec §6§lRaimon");
@@ -55,12 +62,36 @@ public class Jack extends Role implements Listener {
                         player.setHealth(24);
             }
         });
+        packetHandler = new PacketHandler() {
+            @Override
+            public void onSend(SentPacket sentPacket) {
+
+                if(sentPacket.getPacketName().equalsIgnoreCase("PacketPlayOutEntityEquipment")){
+                    int a = (int) sentPacket.getPacketValue("a");
+                    int b = (int) sentPacket.getPacketValue("b");
+
+                    if(getPlayers().stream().noneMatch(player -> player.getEntityId() == a)){
+                        System.out.println("abc");
+                        inazumaUHC.invisibilityInventory.setInventoryInvisibleToOther(sentPacket.getPlayer(),b);
+                        sentPacket.setCancelled(true);
+                    }
+
+                }
+            }
+
+            @Override
+            public void onReceive(ReceivedPacket receivedPacket) {
+
+            }
+
+
+        };
 
         addListener(this);
     }
 
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.LOWEST)
     public void onDamage(EntityDamageByEntityEvent event){
         if(event.getEntity() instanceof Player && event.getDamager() instanceof Player){
             Player player = (Player) event.getEntity();
@@ -69,15 +100,18 @@ public class Jack extends Role implements Listener {
 
             if(getPlayers().contains(damager)){
                 if (invisible){
-
-                    invisible = false;
+                    if(register){
+                        PacketListenerAPI.removePacketHandler(packetHandler);
+                        register = false;
+                    }
                     player.removePotionEffect(PotionEffectType.INVISIBILITY);
                     inazumaUHC.invisibilityInventory.setInventoryToInitialToOther(player);
                     isSneakTimer = false;
                     Team t = Bukkit.getScoreboardManager().getMainScoreboard().getTeam(0+player.getName());
                     t.setNameTagVisibility(NameTagVisibility.ALWAYS);
+                    invisible = false;
+                    System.out.println("invisible tap !");
                     b.cancel();
-
                 }
                 damager.removePotionEffect(PotionEffectType.SLOW);
                 damager.addPotionEffect(new PotionEffect(PotionEffectType.SLOW,20*3,0,false,false),true);
@@ -87,7 +121,7 @@ public class Jack extends Role implements Listener {
 
     @EventHandler
     public void onChangeItemSlot(PlayerItemHeldEvent event){
-        if(invisible){
+      /*  if(invisible){
             Player player = event.getPlayer();
             if(getPlayers().contains(player)){
                 new BukkitRunnable() {
@@ -98,7 +132,7 @@ public class Jack extends Role implements Listener {
                 }.runTaskLaterAsynchronously(InazumaUHC.get,1);
 
             }
-        }
+        }*/
     }
     @EventHandler
     public void onSneak(PlayerToggleSneakEvent event){
@@ -130,13 +164,24 @@ public class Jack extends Role implements Listener {
                         isSneakTimer = false;
                         Team t = Bukkit.getScoreboardManager().getMainScoreboard().getTeam(0+player.getName());
                         t.setNameTagVisibility(NameTagVisibility.ALWAYS);
+                        if(register){
+                            PacketListenerAPI.removePacketHandler(packetHandler);
+                            register = false;
+                        }
                         b.cancel();
                     }
-                    if(!PlayerUtils.getNearbyPlayersFromPlayer(player,20,12,20).isEmpty() && i < 10){
-                        player.sendMessage(Preset.instance.p.prefixName()+"Il y a un joueur prêt de toi, tu ne peux pas utiliser ta technique");
-                        isSneakTimer = false;
-                        b.cancel();
+                    if(!invisible){
+                        if(!PlayerUtils.getNearbyPlayersFromPlayer(player,20,12,20).isEmpty() && i < 10){
+                            player.sendMessage(Preset.instance.p.prefixName()+"Il y a un joueur prêt de toi, tu ne peux pas utiliser ta technique");
+                            isSneakTimer = false;
+                            if(register){
+                                PacketListenerAPI.removePacketHandler(packetHandler);
+                                register = false;
+                            }
+                            b.cancel();
+                        }
                     }
+
                     if (i > 0){
                         TitleUtils.sendActionBar(player,"§7Vous allez être Invisible dans §f" + i + " §7seconde(s)");
                     }
@@ -149,10 +194,15 @@ public class Jack extends Role implements Listener {
                         Player p = event.getPlayer();
                         Team t = Bukkit.getScoreboardManager().getMainScoreboard().getTeam(0+player.getName());
                         t.setNameTagVisibility(NameTagVisibility.NEVER);
+                        packetHandler();
                     }
                     i--;
                 }
             }.runTaskTimerAsynchronously(inazumaUHC,20,20);
         }
     }
+    public void packetHandler(){
+        register = true;
+        PacketListenerAPI.addPacketHandler(packetHandler);
+}
 }
