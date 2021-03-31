@@ -62,6 +62,8 @@ public class Xavier extends Role implements Listener {
 
 
         addListener(this);
+        setRoleToSpoil(Bellatrix.class);
+        setRoleToSpoil(Janus.class);
         setRoleCategory(Alius.class);
         onLoad(new load() {
             @Override

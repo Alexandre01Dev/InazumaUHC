@@ -25,8 +25,6 @@ public class Mark extends Role implements Listener {
     public Mark(IPreset preset) {
         super("Mark Evans",preset);
         setRoleCategory(Raimon.class);
-        setRoleToSpoil(Shawn.class);
-        setRoleToSpoil(Axel.class);
        // setRoleToSpoil(Victoria);
         addListener(this);
         addDescription("§8- §7Votre objectif est de gagner avec §6§lRaimon");
@@ -78,9 +76,13 @@ public class Mark extends Role implements Listener {
                 if( a == 0){
                     player.sendMessage(Preset.instance.p.prefixName()+"Il n'y a aucun joueur(s) de l'Académie-Alius autour de vous.");
                 }
-                if( a > 0){
-                    player.sendMessage(Preset.instance.p.prefixName()+"Il y a des joueur(s) de l'Académie-Alius autour de vous.");
+                if( a == 1){
+                    player.sendMessage(Preset.instance.p.prefixName()+"Il y a un joueur de l'Académie-Alius autour de vous.");
                 }
+                if( a > 1){
+                    player.sendMessage(Preset.instance.p.prefixName()+"Il y a des joueurs de l'Académie-Alius autour de vous.");
+                }
+
                 i++;
             }
         });
