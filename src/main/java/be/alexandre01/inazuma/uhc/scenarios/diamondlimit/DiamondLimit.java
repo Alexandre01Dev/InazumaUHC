@@ -51,7 +51,7 @@ public class DiamondLimit extends Scenario implements Listener {
                 e.setCancelled(true);
                 e.getBlock().setType(Material.AIR);
                 ((ExperienceOrb)CustomExp.spawn(InazumaUHC.getGet(),player.getLocation()).getBukkitEntity()).setExperience(e.getExpToDrop());
-                Item item = (Item)e.getBlock().getWorld().dropItem(e.getBlock().getLocation(),new ItemStack(Material.GOLD_ORE));
+                Item itzem = (Item)e.getBlock().getWorld().dropItem(e.getBlock().getLocation(),new ItemStack(Material.GOLD_ORE));
             }
         }
 

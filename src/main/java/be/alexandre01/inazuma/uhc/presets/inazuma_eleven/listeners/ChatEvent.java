@@ -15,7 +15,7 @@ public class ChatEvent implements Listener {
         Player player = e.getPlayer();
         String message = e.getMessage();
 
-        if (!GameState.get().contains(State.PREPARING)){
+        if (!GameState.get().contains(State.PREPARING) || !GameState.get().contains(State.WAITING)){
 
             if (!player.hasPermission("uhc.chatmessage")){
                 e.setCancelled(true);
