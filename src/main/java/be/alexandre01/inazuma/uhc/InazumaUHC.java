@@ -221,6 +221,7 @@ public final class InazumaUHC extends JavaPlugin {
         registerCommand("compo", new CompoCommand("compo"));
         registerCommand("ina",new BaseCommand("ina","ina"));
         registerCommand("ina",new StuffMeetupCommand("stuffmeetup"));
+        registerCommand("invsee",new InvSeeCommand( "invsee"));
         //lm.automaticFindListener();
 
     }

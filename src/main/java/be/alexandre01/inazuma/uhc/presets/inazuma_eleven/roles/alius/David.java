@@ -41,19 +41,17 @@ public class David extends Role implements Listener {
         CustomComponentBuilder c = new CustomComponentBuilder("");
         c.append("§8- §7En échange de §c§l2 §4❤§7§7 permanent :");
 
-        BaseComponent inaballtpButton = new TextComponent("§c§lManchot §c§lEmpereur §4§lN°1 §7*§8Curseur§7*");
+        BaseComponent manchotButton = new TextComponent("§c§lManchot §c§lEmpereur §4§lN°1 §7*§8Curseur§7*");
 
-        BaseComponent inaballtpDesc = new TextComponent();
-        inaballtpDesc.addExtra("§e- §c§l⚠ §9Vous pouvez également faire §5/manchot §aaccept§9 ou §5/manchot §crefuse\n");
-        inaballtpDesc.addExtra("§e- §9Utilisation par §eEpisode\n");
-        inaballtpDesc.addExtra("§e- §9Donne §4§lForce BOOST§7 et §b§lSpeed 1§9 pendant §a2 minutes \n");
-        inaballtpDesc.addExtra("§e- §c⚠§9 vous perdrez §4❤§7§7 permanent chaque §eEpisode\n");
-        inaballtpDesc.addExtra("§e- §c⚠§9 Vous avez §a5 minutes§9 à chaque début d'§eEpisode§9 pour le prendre");
-        inaballtpButton.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,inaballtpDesc.getExtra().toArray(new BaseComponent[0])));
-        c.append(inaballtpButton);
+        BaseComponent manchotDesc = new TextComponent();
+        manchotDesc.addExtra("§e- §c§l⚠ §9Vous pouvez également faire §5/manchot §aaccept§9 ou §5/manchot §crefuse\n");
+        manchotDesc.addExtra("§e- §9Utilisation par §eEpisode\n");
+        manchotDesc.addExtra("§e- §9Donne §4§lForce BOOST§7 et §b§lSpeed 1§9 pendant §a2 minutes \n");
+        manchotDesc.addExtra("§e- §c⚠§9 vous perdrez §4 0.5 ❤§7§7 permanent chaque §eEpisode\n");
+        manchotDesc.addExtra("§e- §c⚠§9 Vous avez §a5 minutes§9 à chaque début d'§eEpisode§9 pour le prendre");
+        manchotButton.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,manchotDesc.getExtra().toArray(new BaseComponent[0])));
+        c.append(manchotButton);
         addDescription(c);;
-        addDescription(" ");
-        addDescription("§8- §7Vous pouvez également voir ou se situent les différents ballons de §5Janus§7 avec le §5/inaball§7.");
 
 
         addListener(this);
