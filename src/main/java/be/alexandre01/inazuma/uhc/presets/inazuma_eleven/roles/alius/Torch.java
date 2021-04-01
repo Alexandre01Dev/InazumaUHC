@@ -140,7 +140,7 @@ public class Torch  extends Role implements Listener {
                     return;
                if(getRoleItems().containsKey(player.getItemInHand().getItemMeta().getDisplayName())){
                    if(i != 0){
-                       if( !inazumaUHC.rm.getRole(p).getClass().equals(Torch.class) && !inazumaUHC.rm.getRole(p).getClass().equals(Axel.class) && !inazumaUHC.rm.getRole(p).getClass().equals(Shawn.class) &&  !inazumaUHC.rm.getRole(p).getClass().equals(Hurley.class)){
+                       if( !inazumaUHC.rm.getRole(p).getClass().equals(Gazelle.class) && !inazumaUHC.rm.getRole(p).getClass().equals(Axel.class) && !inazumaUHC.rm.getRole(p).getClass().equals(Shawn.class) &&  !inazumaUHC.rm.getRole(p).getClass().equals(Hurley.class)){
                            event.getEntity().setFireTicks(3*20);
                        }
                        i--;

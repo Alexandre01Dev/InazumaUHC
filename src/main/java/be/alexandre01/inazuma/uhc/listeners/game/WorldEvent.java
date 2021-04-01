@@ -14,9 +14,7 @@ public class WorldEvent implements Listener {
     public void onEntitySpawn(EntitySpawnEvent event){
         if(!(((CraftEntity)event.getEntity()).getHandle() instanceof CustomSkeleton) && (((CraftEntity)event.getEntity()).getHandle() instanceof EntitySkeleton)){
             event.setCancelled(true);
-            System.out.println("TRY TO SPAWN");
             CustomSkeleton.spawn(event.getLocation());
-            System.out.println("SPAWNED >>" + event.getLocation().getBlockX()+" "+ event.getLocation().getBlockZ());
         }
     }
 }

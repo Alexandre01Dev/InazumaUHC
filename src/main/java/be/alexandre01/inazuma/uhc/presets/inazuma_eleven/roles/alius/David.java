@@ -26,6 +26,7 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitTask;
 
 import javax.xml.soap.Text;
+import java.util.Arrays;
 
 public class David extends Role implements Listener {
     boolean hasChoose = false;

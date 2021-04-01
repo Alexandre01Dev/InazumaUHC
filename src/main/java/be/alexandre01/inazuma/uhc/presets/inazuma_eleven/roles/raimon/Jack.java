@@ -35,6 +35,7 @@ import org.inventivetalent.packetlistener.handler.ReceivedPacket;
 import org.inventivetalent.packetlistener.handler.SentPacket;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.stream.Collectors;
 
 public class Jack extends Role implements Listener {
@@ -69,10 +70,14 @@ public class Jack extends Role implements Listener {
                 if(sentPacket.getPacketName().equalsIgnoreCase("PacketPlayOutEntityEquipment")){
                     int a = (int) sentPacket.getPacketValue("a");
                     int b = (int) sentPacket.getPacketValue("b");
+                    System.out.println(getPlayers().stream().filter(player -> player.getEntityId() == a).count());
+                    if(getPlayers().stream().filter(player -> player.getEntityId() == a).collect(Collectors.toList()).size() != 0){
+                        System.out.println(sentPacket.getPlayer());
 
-                    if(getPlayers().stream().noneMatch(player -> player.getEntityId() == a)){
+                        System.out.println(sentPacket.getPlayer().getEntityId());
+                        System.out.println(a);
                         System.out.println("abc");
-                        inazumaUHC.invisibilityInventory.setInventoryInvisibleToOther(sentPacket.getPlayer(),b);
+                       // inazumaUHC.invisibilityInventory.setInventoryInvisibleToOther(sentPacket.getPlayer(),b);
                         sentPacket.setCancelled(true);
                     }
 
@@ -104,10 +109,10 @@ public class Jack extends Role implements Listener {
                         PacketListenerAPI.removePacketHandler(packetHandler);
                         register = false;
                     }
-                    player.removePotionEffect(PotionEffectType.INVISIBILITY);
-                    inazumaUHC.invisibilityInventory.setInventoryToInitialToOther(player);
+                    damager.removePotionEffect(PotionEffectType.INVISIBILITY);
+                    inazumaUHC.invisibilityInventory.setInventoryToInitialToOther(damager);
                     isSneakTimer = false;
-                    Team t = Bukkit.getScoreboardManager().getMainScoreboard().getTeam(0+player.getName());
+                    Team t = Bukkit.getScoreboardManager().getMainScoreboard().getTeam(0+damager.getName());
                     t.setNameTagVisibility(NameTagVisibility.ALWAYS);
                     invisible = false;
                     System.out.println("invisible tap !");
@@ -173,6 +178,7 @@ public class Jack extends Role implements Listener {
                     if(!invisible){
                         if(!PlayerUtils.getNearbyPlayersFromPlayer(player,20,12,20).isEmpty() && i < 10){
                             player.sendMessage(Preset.instance.p.prefixName()+"Il y a un joueur prêt de toi, tu ne peux pas utiliser ta technique");
+                            TitleUtils.sendActionBar(player,"§cIl y a un joueur prêt de toi");
                             isSneakTimer = false;
                             if(register){
                                 PacketListenerAPI.removePacketHandler(packetHandler);
