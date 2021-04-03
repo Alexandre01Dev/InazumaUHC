@@ -47,7 +47,7 @@ public class Nathan extends Role implements Listener {
         CustomComponentBuilder d = new CustomComponentBuilder("");
         d.append("§8- §7Vous possédez également le ");
 
-        BaseComponent dashButton = new TextComponent("§b§lDash§7 §7*§8Curseur§7*");
+        BaseComponent dashButton = new TextComponent("§b§lDribble Rafale§7 §7*§8Curseur§7*");
 
         BaseComponent dashDesc = new TextComponent();
         dashDesc.addExtra("§e- §9Utilisation §6illimité §7[Cooldown de §a10 minutes§7]\n");
