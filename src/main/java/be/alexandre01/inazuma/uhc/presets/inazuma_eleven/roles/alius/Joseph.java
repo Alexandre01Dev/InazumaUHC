@@ -68,7 +68,7 @@ public class Joseph extends Role {
                         return;
                 }
                 player.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 2*60*20, 1,false,false), true);
-                inazumaUHC.dm.addEffectPourcentage(player, DamageManager.EffectType.RESISTANCE,2,120);
+                inazumaUHC.dm.addEffectPourcentage(player, DamageManager.EffectType.RESISTANCE,2,125);
                 player.sendMessage(Preset.instance.p.prefixName()+" Tu viens de recevoir l'effet RESISTANCE pendant 2 minutes.");
             }
         });

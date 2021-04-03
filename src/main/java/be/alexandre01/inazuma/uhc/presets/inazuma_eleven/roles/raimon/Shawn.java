@@ -66,6 +66,10 @@ public class Shawn extends Role {
                 rightClicked.addPotionEffect(new PotionEffect(PotionEffectType.SLOW,20*10,1));
                     rightClicked.sendMessage(Preset.instance.p.prefixName()+"Tu as été touché par le §3Blizzard Eternel");
                 }
+                if(inazumaUHC.rm.getRole(rightClicked).getClass().equals(Torch.class) && inazumaUHC.rm.getRole(rightClicked).getClass().equals(Axel.class) &&  inazumaUHC.rm.getRole(rightClicked).getClass().equals(Gazelle.class)){
+                    rightClicked.sendMessage(Preset.instance.p.prefixName()+"Tu as été touché par le §3Blizzard Eternel mais en vain");
+                }
+                player.sendMessage(Preset.instance.p.prefixName()+"Tu as utilisé ton §3Blizzard Eternel sur" + rightClicked.getName());
             }
         });
 

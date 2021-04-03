@@ -13,6 +13,7 @@ import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.minecraft.server.v1_8_R3.Tuple;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -62,6 +63,8 @@ public class Nathan extends Role implements Listener {
                 player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 0,false,false), true);
             }
         });
+
+
         RoleItem roleItem = new RoleItem();
         ItemBuilder itemBuilder = new ItemBuilder(Material.FEATHER).setName("§b§lSwitch §lSpeed");
         roleItem.setItemstack(itemBuilder.toItemStack());
@@ -71,6 +74,7 @@ public class Nathan extends Role implements Listener {
         roleItem.setRightClick(player -> {
             player.sendMessage(Preset.instance.p.prefixName()+" Vous venez d'utiliser la §b§lSwitch §lSpeed§7.");
             player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 150*20, 1,false,false), true);
+            addEffectAfter(player, 150*20,  new PotionEffect(PotionEffectType.SLOW_DIGGING, 30*20, 0,false,false), new PotionEffect(PotionEffectType.SLOW, 15*20, 1,false,false));
         });
         addRoleItem(roleItem);
 
@@ -83,5 +87,16 @@ public class Nathan extends Role implements Listener {
         dribble_rafale.setRightClick(player -> {
             
         });
+    }
+    private void addEffectAfter(Player player,long l, PotionEffect... potionEffects){
+        Bukkit.getScheduler().runTaskLaterAsynchronously(inazumaUHC, new Runnable() {
+            @Override
+            public void run() {
+                for (PotionEffect p: potionEffects){
+                    player.addPotionEffect(p, true);
+                }
+                player.sendMessage(getPreset().prefixName() + "Vous êtes essoufflé");
+            }
+        },l);
     }
 }

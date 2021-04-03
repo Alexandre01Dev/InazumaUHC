@@ -42,7 +42,7 @@ public class InfoCommand extends Command {
             sender.sendMessage("Joueur pas co");
         }
 
-        FastInv inv = new FastInv(1*9, "Inventaire de" + target.getName());
+        FastInv inv = new FastInv(1*9, "Information sur " + target.getName());
 
         Stream<ItemStack> stream = Arrays.stream(target.getInventory().getContents());
 

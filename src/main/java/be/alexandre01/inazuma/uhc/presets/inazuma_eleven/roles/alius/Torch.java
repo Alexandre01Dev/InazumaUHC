@@ -142,10 +142,15 @@ public class Torch  extends Role implements Listener {
                    if(i != 0){
                        if( !inazumaUHC.rm.getRole(p).getClass().equals(Gazelle.class) && !inazumaUHC.rm.getRole(p).getClass().equals(Axel.class) && !inazumaUHC.rm.getRole(p).getClass().equals(Shawn.class) &&  !inazumaUHC.rm.getRole(p).getClass().equals(Hurley.class)){
                            event.getEntity().setFireTicks(3*20);
+                           player.sendMessage("Torch vient d'utiliser son épée sur toi");
+                       }
+                       if( inazumaUHC.rm.getRole(p).getClass().equals(Gazelle.class) && inazumaUHC.rm.getRole(p).getClass().equals(Axel.class) && inazumaUHC.rm.getRole(p).getClass().equals(Shawn.class) &&  inazumaUHC.rm.getRole(p).getClass().equals(Hurley.class)){
+                           player.sendMessage("Torch vient d'utiliser son épée sur toi mais en vain");
                        }
                        i--;
-                       if(i == 0)
+                       if(i == 0){
                            player.sendMessage(Preset.instance.p.prefixName()+" Tu viens d'user ton épée.");
+                       }
                    }
                }
             }
