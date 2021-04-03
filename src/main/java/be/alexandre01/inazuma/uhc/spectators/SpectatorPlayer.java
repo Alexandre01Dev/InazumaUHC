@@ -27,7 +27,7 @@ public class SpectatorPlayer{
     public void setInvisibleTeam(){
 
             Scoreboard score = Bukkit.getScoreboardManager().getMainScoreboard();
-            Team oldT = score.getTeam("0VIVANT");
+            Team oldT = score.getTeam("/VIVANT");
             if(oldT != null){
                 oldT.removePlayer(player);
                 ScoreboardUtil.get.removePlayer(score,oldT,player);
@@ -36,7 +36,7 @@ public class SpectatorPlayer{
 
             Team t = null;
 
-            t = score.getTeam("999MORT");
+            t = score.getTeam("ЇMORT");
 
             t.setDisplayName(player.getName());
 

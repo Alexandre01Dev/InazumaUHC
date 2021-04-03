@@ -73,5 +73,15 @@ public class Nathan extends Role implements Listener {
             player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 150*20, 1,false,false), true);
         });
         addRoleItem(roleItem);
+
+        RoleItem dribble_rafale = new RoleItem();
+        ItemBuilder dr = new ItemBuilder(Material.SUGAR).setName("§b§lDribble Rafale");
+        dribble_rafale.setItemstack(dr.toItemStack());
+        addRoleItem(dribble_rafale);
+
+        dribble_rafale.deployVerificationsOnRightClick(roleItem.generateVerification(new Tuple<>(RoleItem.VerificationType.COOLDOWN,60*10)));
+        dribble_rafale.setRightClick(player -> {
+            
+        });
     }
 }

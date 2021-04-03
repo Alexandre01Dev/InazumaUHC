@@ -13,7 +13,9 @@ import javafx.scene.layout.Priority;
 import net.minecraft.server.v1_8_R3.*;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_8_R3.inventory.CraftItemStack;
 import org.bukkit.craftbukkit.v1_8_R3.scoreboard.CraftScoreboard;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -64,12 +66,12 @@ public class Jack extends Role implements Listener {
             }
         });
         packetHandler = new PacketHandler() {
+            ItemStack itemStack = CraftItemStack.asNMSCopy(new org.bukkit.inventory.ItemStack(Material.AIR));
             @Override
             public void onSend(SentPacket sentPacket) {
 
                 if(sentPacket.getPacketName().equalsIgnoreCase("PacketPlayOutEntityEquipment")){
                     int a = (int) sentPacket.getPacketValue("a");
-                    int b = (int) sentPacket.getPacketValue("b");
                     System.out.println(getPlayers().stream().filter(player -> player.getEntityId() == a).count());
                     if(getPlayers().stream().filter(player -> player.getEntityId() == a).collect(Collectors.toList()).size() != 0){
                         System.out.println(sentPacket.getPlayer());
@@ -77,8 +79,9 @@ public class Jack extends Role implements Listener {
                         System.out.println(sentPacket.getPlayer().getEntityId());
                         System.out.println(a);
                         System.out.println("abc");
+
                        // inazumaUHC.invisibilityInventory.setInventoryInvisibleToOther(sentPacket.getPlayer(),b);
-                        sentPacket.setCancelled(true);
+                        sentPacket.setPacketValue("c",itemStack);
                     }
 
                 }
@@ -112,7 +115,7 @@ public class Jack extends Role implements Listener {
                     damager.removePotionEffect(PotionEffectType.INVISIBILITY);
                     inazumaUHC.invisibilityInventory.setInventoryToInitialToOther(damager);
                     isSneakTimer = false;
-                    Team t = Bukkit.getScoreboardManager().getMainScoreboard().getTeam(0+damager.getName());
+                    Team t = Bukkit.getScoreboardManager().getMainScoreboard().getTeam(damager.getName());
                     t.setNameTagVisibility(NameTagVisibility.ALWAYS);
                     invisible = false;
                     System.out.println("invisible tap !");
@@ -167,13 +170,14 @@ public class Jack extends Role implements Listener {
                         player.removePotionEffect(PotionEffectType.INVISIBILITY);
                         inazumaUHC.invisibilityInventory.setInventoryToInitialToOther(player);
                         isSneakTimer = false;
-                        Team t = Bukkit.getScoreboardManager().getMainScoreboard().getTeam(0+player.getName());
+                        Team t = Bukkit.getScoreboardManager().getMainScoreboard().getTeam(player.getName());
                         t.setNameTagVisibility(NameTagVisibility.ALWAYS);
                         if(register){
                             PacketListenerAPI.removePacketHandler(packetHandler);
                             register = false;
                         }
                         b.cancel();
+                        return;
                     }
                     if(!invisible){
                         if(!PlayerUtils.getNearbyPlayersFromPlayer(player,20,12,20).isEmpty() && i < 10){
@@ -185,6 +189,7 @@ public class Jack extends Role implements Listener {
                                 register = false;
                             }
                             b.cancel();
+                            return;
                         }
                     }
 
@@ -198,7 +203,7 @@ public class Jack extends Role implements Listener {
                         inazumaUHC.invisibilityInventory.setInventoryInvisibleToOther(player);
                         player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, Integer.MAX_VALUE, 0,false,false), true);
                         Player p = event.getPlayer();
-                        Team t = Bukkit.getScoreboardManager().getMainScoreboard().getTeam(0+player.getName());
+                        Team t = Bukkit.getScoreboardManager().getMainScoreboard().getTeam(player.getName());
                         t.setNameTagVisibility(NameTagVisibility.NEVER);
                         packetHandler();
                     }

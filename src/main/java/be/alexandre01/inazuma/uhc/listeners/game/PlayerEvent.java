@@ -30,6 +30,7 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.player.*;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.permissions.Permissible;
 import org.bukkit.potion.PotionEffect;
 
 import java.util.ArrayList;
@@ -42,16 +43,36 @@ public class PlayerEvent implements Listener {
     public PlayerEvent(){
         this.i = InazumaUHC.get;
     }
+
+    @EventHandler
+    public void onLogin(PlayerLoginEvent event){
+        event.setAsync(false);
+        if (GameState.get().contains(State.STARTING)){
+            event.disallow(PlayerLoginEvent.Result.KICK_OTHER,"§cLa partie est entrain de commencer.");
+            return;
+        }
+        if (GameState.get().contains(State.PREPARING) && GameState.get().contains(State.WAITING)){
+        if(i.p.p.getPlayerSize() <= Bukkit.getOnlinePlayers().size()){
+            if(!event.getPlayer().hasPermission("uhc.bypass.login")){
+                event.getPlayer().sendMessage("§cLe serveur séléctionné à atteint la limite de joueurs maximum");
+                event.setKickMessage("§cLe serveur séléctionné à atteint la limite de joueurs maximum");
+                event.disallow(PlayerLoginEvent.Result.KICK_OTHER,"§cLe serveur séléctionné à atteint la limite de joueurs maximum");
+                return;
+            }
+            event.setResult(PlayerLoginEvent.Result.ALLOWED);
+        }
+     }
+    }
     @EventHandler
     public void onJoin(PlayerJoinEvent event){
+        event.setAsync(false);
+
         InazumaUHC inazumaUHC = InazumaUHC.get;
         Player player = event.getPlayer();
         World world = null;
 
         //PATCH PLAYER VIEW
         EntityPlayer nmsPlayer =((CraftPlayer)player).getHandle();
-
-
 
 
 
@@ -157,6 +178,7 @@ public class PlayerEvent implements Listener {
 
     @EventHandler
     public void onLeave(PlayerQuitEvent event){
+        event.setAsync(false);
         InazumaUHC inazumaUHC = InazumaUHC.get;
         IPreset p = Preset.instance.p;
         Player player = event.getPlayer();

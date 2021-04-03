@@ -12,6 +12,7 @@ import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.roles.alius.*;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.roles.raimon.*;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.roles.solo.Byron;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.timers.*;
+import be.alexandre01.inazuma.uhc.roles.Role;
 import be.alexandre01.inazuma.uhc.scenarios.Scenario;
 import be.alexandre01.inazuma.uhc.scenarios.betazombie.BetaZombie;
 import be.alexandre01.inazuma.uhc.scenarios.cancelenchant.CancelEnchant;
@@ -55,6 +56,7 @@ public class InazumaEleven extends PresetData implements IPreset{
         endBordureSize = 250*2;
         scenarios = null;
 
+
         getScenarios();
 
         //INITIALZE OBJECTS
@@ -90,6 +92,8 @@ public class InazumaEleven extends PresetData implements IPreset{
         new Caleb(this);
         new Bellatrix(this);
         //new Bellatrix(this);*/
+
+        playerSize = Role.getRoles().size();
     }
 
     @Override
