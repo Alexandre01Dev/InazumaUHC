@@ -138,16 +138,20 @@ public class Gazelle extends Role implements Listener {
                         if( !inazumaUHC.rm.getRole(p).getClass().equals(Torch.class) && !inazumaUHC.rm.getRole(p).getClass().equals(Axel.class) && !inazumaUHC.rm.getRole(p).getClass().equals(Shawn.class)){
                         p.removePotionEffect(PotionEffectType.SLOW);
                         p.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 20*5, 1,true,false));
-
-                        i--;
-                        if(i == 0){
-                            player.sendMessage(Preset.instance.p.prefixName()+" Tu viens d'user ton épée.");
+                            player.sendMessage("Torch vient d'utiliser ton épée");
                         }
+                        if( inazumaUHC.rm.getRole(p).getClass().equals(Torch.class) && inazumaUHC.rm.getRole(p).getClass().equals(Axel.class) && inazumaUHC.rm.getRole(p).getClass().equals(Shawn.class) &&  inazumaUHC.rm.getRole(p).getClass().equals(Hurley.class)){
+                            player.sendMessage("Gazelle vient d'utiliser son épée mais en vain");
+                        }
+                        i--;
+                    }
+                    if(i == 0){
+                        player.sendMessage(Preset.instance.p.prefixName()+" Tu viens d'user ton épée.");
                     }
                 }
             }
         }
-        }
+
     }
 
     @EventHandler

@@ -43,13 +43,13 @@ public class InazumaEleven extends PresetData implements IPreset{
         generatorSettings = new String[]{"", ""};
         hasNether = false;
         minPlayerToStart = 2;
-        playerSize = 30;
+        playerSize = 21;
         totalTime = 60*60;
         teamSize = 1;
         pvpTime = 20*60;
         netherTime = 55*60;
         bordureTime = 100*60;
-        borderSize = 50;
+        borderSize = 1000;
         borderSizeNether = 150;
         endBordureTime = 60*15;
         endBordureSize = 250*2;
@@ -64,10 +64,7 @@ public class InazumaEleven extends PresetData implements IPreset{
         new Alius("Académie-Alius","§5");
         new Solo("Solo","§c");
         //INITIALIZE ROLES
-        new Jack(this);
-        new Torch(this);
-
-        /*new Axel(this);
+        new Axel(this);
         new Darren(this);
         new Hurley(this);
         new Jack(this);
@@ -89,7 +86,6 @@ public class InazumaEleven extends PresetData implements IPreset{
         new David(this);
         new Caleb(this);
         new Bellatrix(this);
-        //new Bellatrix(this);*/
     }
 
     @Override
