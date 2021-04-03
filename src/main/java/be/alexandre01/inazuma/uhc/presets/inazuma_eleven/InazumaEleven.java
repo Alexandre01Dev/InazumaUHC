@@ -12,6 +12,7 @@ import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.roles.alius.*;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.roles.raimon.*;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.roles.solo.Byron;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.timers.*;
+import be.alexandre01.inazuma.uhc.roles.Role;
 import be.alexandre01.inazuma.uhc.scenarios.Scenario;
 import be.alexandre01.inazuma.uhc.scenarios.betazombie.BetaZombie;
 import be.alexandre01.inazuma.uhc.scenarios.cancelenchant.CancelEnchant;
@@ -43,7 +44,7 @@ public class InazumaEleven extends PresetData implements IPreset{
         generatorSettings = new String[]{"", ""};
         hasNether = false;
         minPlayerToStart = 2;
-        playerSize = 21;
+        playerSize = 20;
         totalTime = 60*60;
         teamSize = 1;
         pvpTime = 20*60;
@@ -63,8 +64,11 @@ public class InazumaEleven extends PresetData implements IPreset{
         new Raimon("Équipe Raimon","§6");
         new Alius("Académie-Alius","§5");
         new Solo("Solo","§c");
+
+        new Jack(this);
+        new Darren(this);
         //INITIALIZE ROLES
-        new Axel(this);
+        /*new Axel(this);
         new Darren(this);
         new Hurley(this);
         new Jack(this);
@@ -84,8 +88,10 @@ public class InazumaEleven extends PresetData implements IPreset{
         new Gazelle(this);
         new Dvalin(this);
         new David(this);
-        new Caleb(this);
-        new Bellatrix(this);
+        new Caleb(this);*/
+      //  new Bellatrix(this);
+
+        playerSize = Role.getRoles().size();
     }
 
     @Override
