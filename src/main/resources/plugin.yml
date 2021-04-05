@@ -13,3 +13,14 @@ commands:
     permission: uhc.start
   host:
     permission: uhc.host
+  pack:
+    aliases:
+      - packs
+  doc:
+    aliases:
+      - gdoc
+      - gdocs
+      - docs
+  mumble:
+    aliases:
+      - mumbles

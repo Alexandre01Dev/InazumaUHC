@@ -66,6 +66,7 @@ public class InazumaEleven extends PresetData implements IPreset{
         new Solo("Solo","§c");
 
         //INITIALIZE ROLES
+
         new Axel(this);
         new Darren(this);
         new Hurley(this);
@@ -128,6 +129,7 @@ public class InazumaEleven extends PresetData implements IPreset{
             listeners.add(new TeamsEvent());
             listeners.add(new EpisodeEvent());
             listeners.add(new ChatEvent());
+            listeners.add(new WeatherEvent());
             listeners.add(ballonInv);
         }
         return listeners;

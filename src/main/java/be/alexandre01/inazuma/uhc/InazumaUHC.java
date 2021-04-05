@@ -140,7 +140,6 @@ public final class InazumaUHC extends JavaPlugin {
         registerCommand("addEpisode", new ForceEpisodeCommand("addEpisode"));
         registerCommand("say", new SayCommand("say"));
         registerCommand("groupe", new GroupCommand("groupe"));
-
         potionEvent = new PotionEvent();
         lm.addListener(potionEvent);
         lm.addListener(new TeamsEvent());
@@ -184,6 +183,10 @@ public final class InazumaUHC extends JavaPlugin {
 
         this.getCommand("scenario").setExecutor(new ScenarioCommand());
         this.getCommand("start").setExecutor(new StartCommand());
+        this.getCommand("doc").setExecutor(new DocCommand());
+        this.getCommand("pack").setExecutor(new PackCommand());
+        this.getCommand("mumble").setExecutor(new MumbleCommand());
+
 
 
         this.tm = new TimersManager();
