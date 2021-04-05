@@ -3,6 +3,7 @@ package be.alexandre01.inazuma.uhc.worlds.executors;
 import be.alexandre01.inazuma.uhc.generations.chunks.ChunksGenerator;
 import be.alexandre01.inazuma.uhc.presets.IPreset;
 import be.alexandre01.inazuma.uhc.presets.Preset;
+import lombok.Setter;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -15,10 +16,10 @@ import java.util.concurrent.TimeUnit;
 
 public class ArrowToCenter {
     private ScheduledExecutorService scheduledExecutorService;
-    private IPreset p;
+  @Setter private IPreset preset;
     public ArrowToCenter(){
         super();
-        p = Preset.instance.p;
+        preset = Preset.instance.p;
         scheduledExecutorService = Executors.newScheduledThreadPool(4);
     }
 
@@ -82,11 +83,11 @@ public class ArrowToCenter {
                          }
                      }
                      sb.append(c+" (§c"+distance+"§e)");
-                     p.getArrows().put(player.getUniqueId(),sb.toString());
+                     preset.getArrows().put(player.getUniqueId(),sb.toString());
                      continue;
                  }
                  sb.append(c);
-                 p.getArrows().put(player.getUniqueId(),sb.toString());
+                 preset.getArrows().put(player.getUniqueId(),sb.toString());
              }
             }
         },0,1, TimeUnit.SECONDS);

@@ -22,10 +22,12 @@ import java.util.jar.JarFile;
 
 public class ListenersManager {
     public HashMap<Class,Listener> listeners;
+    public ArrayList<Listener> presetListeners;
     private Plugin pl;
     private PluginManager pluginManager;
     public ListenersManager(){
         this.listeners = new HashMap<>();
+        this.presetListeners = new ArrayList<>();
         this.pl = InazumaUHC.get;
         this.pluginManager = pl.getServer().getPluginManager();
     }
@@ -55,9 +57,19 @@ public class ListenersManager {
                     if(!listeners.isEmpty()){
                         for(Listener l : listeners){
                             addListener(l);
+                            presetListeners.add(l);
                         }
                     }
             }
+    }
+
+    public void clearPresetListeners(){
+        if(presetListeners.isEmpty())
+            return;
+        for(Listener listener : presetListeners){
+            HandlerList.unregisterAll(listener);
+        }
+        presetListeners.clear();
     }
 
     private boolean checkPackage(String pack){

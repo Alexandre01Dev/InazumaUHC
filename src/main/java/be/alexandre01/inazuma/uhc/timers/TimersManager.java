@@ -46,4 +46,8 @@ public class TimersManager {
             }
         }
     }
+
+    public void clear(){
+        timers.clear();
+    }
 }

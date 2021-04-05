@@ -15,7 +15,7 @@ import java.util.HashMap;
 
 
 public class ForceCommand extends Command {
-    IPreset preset;
+
     @Getter private static ForceCommand instance;
     private HashMap<String,String> varNames;
     private HashMap<String, Timer> timers;
@@ -23,7 +23,6 @@ public class ForceCommand extends Command {
     public ForceCommand(String s) {
         super(s);
         super.setPermission("uhc.force");
-        this.preset = Preset.instance.p;
         this.varNames = new HashMap<>();
         this.timers = new HashMap<>();
         instance = this;
@@ -34,6 +33,7 @@ public class ForceCommand extends Command {
         timers.put(link.toLowerCase(),timer);
     }
     public void setValue(String varName, Object value){
+        IPreset preset = Preset.instance.p;
         Class c = null;
         try {
             c = Class.forName("be.alexandre01.inazuma.uhc.presets."+preset.getPackageName()+"."+preset.getName());
@@ -61,10 +61,12 @@ public class ForceCommand extends Command {
 
     @Override
     public boolean execute(CommandSender sender, String msg, String[] args) {
+
         if(!sender.hasPermission("uhc.force")){
             sender.sendMessage(super.getPermissionMessage());
             return false;
         }
+        IPreset preset = Preset.instance.p;
         if(args.length == 0){
             sender.sendMessage(preset.prefixName()+" §cFaites /force [module]");
             for(String varName : varNames.keySet()){

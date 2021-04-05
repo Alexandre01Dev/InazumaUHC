@@ -15,16 +15,16 @@ import org.bukkit.entity.Player;
 import java.util.ArrayList;
 
 public class ScenarioCommand implements CommandExecutor {
-    IPreset iPreset;
+
     public ScenarioCommand(){
-        iPreset = Preset.instance.p;
     }
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String msg, String[] args) {
         if(sender instanceof Player){
             Player player = (Player) sender;
             if(cmd.getName().equalsIgnoreCase("scenario")){
-                ArrayList<Class<?>> c = iPreset.getScenarios();
+                IPreset preset = Preset.instance.p;
+                ArrayList<Class<?>> c = preset.getScenarios();
                 player.sendMessage("§9Scénarios activés:");
                 if(c.isEmpty()) {
                     return false;

@@ -1,6 +1,7 @@
 package be.alexandre01.inazuma.uhc.generations;
 
 import be.alexandre01.inazuma.uhc.InazumaUHC;
+import be.alexandre01.inazuma.uhc.presets.IPreset;
 import be.alexandre01.inazuma.uhc.presets.Preset;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -17,12 +18,12 @@ public class NetherPortalsManager {
     public boolean active = true;
     private World netherWorld;
     private World defaultWorld;
-    private Preset p;
+
     public NetherPortalsManager(){
         this.portalUsedByPlayer = new HashMap<>();
         this.portalsToDefault = new HashMap<>();
         this.portalsToNether = new HashMap<>();
-        this.p = Preset.instance;
+
         this.netherWorld = InazumaUHC.get.worldGen.netherWorld;
         this.defaultWorld = InazumaUHC.get.worldGen.defaultWorld;
     }
@@ -51,8 +52,9 @@ public class NetherPortalsManager {
     }
 
     public Location netherLocGeneration(){
+        IPreset preset = Preset.instance.p;
         Random rand1 = new Random();
-        int size = p.p.getBorderSize(World.Environment.NETHER);
+        int size = preset.getBorderSize(World.Environment.NETHER);
         int x = rand1.nextInt(size - ((-size) + 1)) + (-size);
         Random rand2 = new Random();
         int z = rand2.nextInt(size - ((-size) + 1)) + (-size);
@@ -60,8 +62,9 @@ public class NetherPortalsManager {
     }
 
     public Location defaultLocGeneration(){
+        IPreset preset = Preset.instance.p;
         Random rand1 = new Random();
-        int size = p.p.getBorderSize(World.Environment.NORMAL);
+        int size = preset.getBorderSize(World.Environment.NORMAL);
         int x = rand1.nextInt(size - ((-size) + 1)) + (-size);
         Random rand2 = new Random();
         int z = rand2.nextInt(size - ((-size) + 1)) + (-size);

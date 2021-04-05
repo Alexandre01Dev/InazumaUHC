@@ -12,10 +12,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 public class HostCommand implements CommandExecutor {
-    IPreset iPreset;
-    public HostCommand(){
-        iPreset = Preset.instance.p;
-    }
+
+
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String msg, String[] args) {
         if(sender instanceof Player){

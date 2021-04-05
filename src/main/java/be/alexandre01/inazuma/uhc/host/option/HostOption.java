@@ -3,6 +3,7 @@ package be.alexandre01.inazuma.uhc.host.option;
 import be.alexandre01.inazuma.uhc.InazumaUHC;
 import be.alexandre01.inazuma.uhc.host.gui.HostOptionsGui;
 import be.alexandre01.inazuma.uhc.host.gui.ModifierGUI;
+import be.alexandre01.inazuma.uhc.modules.Module;
 import be.alexandre01.inazuma.uhc.presets.IPreset;
 import be.alexandre01.inazuma.uhc.presets.Preset;
 import org.bukkit.Material;
@@ -19,9 +20,8 @@ public class HostOption extends HostButton{
     public Object value;
     private boolean isModifiable = true;
     private ArrayList<HostOptionsGui> hostOptionsGuis;
-    private String description = null;
+    private String[] description = null;
     private VarType varType;
-    private IPreset preset;
     private String varName;
     private String name;
     private action action;
@@ -34,7 +34,6 @@ public class HostOption extends HostButton{
     public HostOption(Object value,String varName){
         super(Type.OPTION);
         hostOptionsGuis = new ArrayList<>();
-        preset = Preset.instance.p;
         this.value = value;
         this.varName = varName;
         setupDefaultAction();
@@ -45,9 +44,18 @@ public class HostOption extends HostButton{
         action = new action() {
             @Override
             public void a(Object value) {
+                IPreset preset = Preset.instance.p;
                 Class c = null;
                 try {
-                    c = Class.forName("be.alexandre01.inazuma.uhc.presets."+preset.getPackageName()+"."+preset.getName());
+                    Module m = Preset.instance.m;
+                    if(m.getChild() == null){
+                        c = Class.forName(m.getPresetPath());
+                    }else {
+                        c = Class.forName(m.getPresetPath(), true, m.getChild());
+                    }
+
+
+                   // c = Class.forName("be.alexandre01.inazuma.uhc.presets."+preset.getPackageName()+"."+preset.getName());
                 } catch (ClassNotFoundException e) {
                     e.printStackTrace();
                 }
@@ -86,7 +94,6 @@ public class HostOption extends HostButton{
     }
 
     public void updateItemStack(){
-        System.out.println(itemStack.getItemMeta().getLore());
         ItemMeta itemMeta = itemStack.getItemMeta();
         if(name != null){
             itemMeta.setDisplayName(name);
@@ -115,7 +122,7 @@ public class HostOption extends HostButton{
         }
 
         if(description != null){
-            l.add(description);
+            l.addAll(Arrays.asList(description));
         }
         itemMeta.setLore(l);
         itemStack.setItemMeta(itemMeta);
@@ -128,7 +135,7 @@ public class HostOption extends HostButton{
         }
     }
 
-    public void setDescription(String description) {
+    public void setDescription(String[] description) {
         if(itemStack != null){
             ItemMeta itemMeta = itemStack.getItemMeta();
             List<String> l;
@@ -138,7 +145,7 @@ public class HostOption extends HostButton{
                 l = new ArrayList<>();
             }
 
-            l.add(description);
+            l.addAll(Arrays.asList(description));
             itemMeta.setLore(l);
             itemStack.setItemMeta(itemMeta);
         }
@@ -159,7 +166,7 @@ public class HostOption extends HostButton{
         return isModifiable;
     }
 
-    public String getDescription() {
+    public String[] getDescription() {
         return description;
     }
 
@@ -205,7 +212,7 @@ public class HostOption extends HostButton{
     }
 
     public IPreset getPreset() {
-        return preset;
+        return Preset.instance.p;
     }
 
     public String getVarName() {

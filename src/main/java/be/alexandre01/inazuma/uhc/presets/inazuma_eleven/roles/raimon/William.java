@@ -60,7 +60,7 @@ public class William extends Role implements Listener {
         RoleCategory roleCat  = InazumaUHC.get.rm.getRole(player).getRoleCategory();
 
         for(Player william : InazumaUHC.get.rm.getRole(William.class).getPlayers()){
-            william.sendMessage(Preset.instance.p.prefixName()+"Un pouvoir a été utilisé dans le camp "+ roleCat.getPrefixColor()+roleCat.getName());
+            william.sendMessage(Preset.instance.p.prefixName()+"Le pouvoir "+event.getRoleItem().getItemStack().getItemMeta().getDisplayName()+"§7 a été utilisé");
         }
     }
 

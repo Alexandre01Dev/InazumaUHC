@@ -52,7 +52,7 @@ public class PlayerEvent implements Listener {
             return;
         }
         if (GameState.get().contains(State.PREPARING) && GameState.get().contains(State.WAITING)){
-        if(i.p.p.getPlayerSize() <= Bukkit.getOnlinePlayers().size()){
+            if(i.p.p.getPlayerSize() <= Bukkit.getOnlinePlayers().size()){
             if(!event.getPlayer().hasPermission("uhc.bypass.login")){
                 event.getPlayer().sendMessage("§cLe serveur séléctionné à atteint la limite de joueurs maximum");
                 event.setKickMessage("§cLe serveur séléctionné à atteint la limite de joueurs maximum");
@@ -60,7 +60,7 @@ public class PlayerEvent implements Listener {
                 return;
             }
             event.setResult(PlayerLoginEvent.Result.ALLOWED);
-        }
+            }
      }
     }
     @EventHandler

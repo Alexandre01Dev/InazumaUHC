@@ -1,6 +1,7 @@
 package be.alexandre01.inazuma.uhc.presets;
 
 import be.alexandre01.inazuma.uhc.generations.Plateform;
+import be.alexandre01.inazuma.uhc.modules.Module;
 import be.alexandre01.inazuma.uhc.scenarios.Scenario;
 import be.alexandre01.inazuma.uhc.scoreboard.IPersonalScoreBoard;
 import be.alexandre01.inazuma.uhc.timers.Timer;

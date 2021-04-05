@@ -60,7 +60,7 @@ public class Axel extends Role implements Listener {
         ItemBuilder itemBuilder = new ItemBuilder(Material.BLAZE_ROD).setName("§4§lTornade §c§lDe §4§lFeu");
         roleItem.setItemstack(itemBuilder.toItemStack());
 
-        roleItem.deployVerificationsOnRightClick(roleItem.generateVerification(new Tuple<>(RoleItem.VerificationType.EPISODES,1)));
+        roleItem.deployVerificationsOnRightClick(roleItem.generateVerification(new Tuple<>(RoleItem.VerificationType.COOLDOWN,60*10)));
 
         roleItem.setRightClick(player -> {
             player.sendMessage(Preset.instance.p.prefixName()+" Vous venez d'utiliser la §4§lTornade §c§lDe §4§lFeu§7.");

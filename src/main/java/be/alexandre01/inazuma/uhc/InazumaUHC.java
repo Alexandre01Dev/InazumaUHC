@@ -10,14 +10,22 @@ import be.alexandre01.inazuma.uhc.generations.NetherPortalsManager;
 import be.alexandre01.inazuma.uhc.host.Host;
 import be.alexandre01.inazuma.uhc.listeners.ListenersManager;
 import be.alexandre01.inazuma.uhc.listeners.game.*;
+import be.alexandre01.inazuma.uhc.listeners.host.InventoryClick;
+import be.alexandre01.inazuma.uhc.listeners.host.InventoryClose;
 import be.alexandre01.inazuma.uhc.managers.*;
 import be.alexandre01.inazuma.uhc.managers.chat.ChatManager;
 import be.alexandre01.inazuma.uhc.managers.damage.DamageManager;
 import be.alexandre01.inazuma.uhc.managers.damage.InvincibilityDamager;
 import be.alexandre01.inazuma.uhc.managers.player.InvisibilityInventory;
 import be.alexandre01.inazuma.uhc.managers.player.PlayerMovementManager;
+import be.alexandre01.inazuma.uhc.modules.Module;
+import be.alexandre01.inazuma.uhc.modules.ModuleLoader;
+import be.alexandre01.inazuma.uhc.presets.IPreset;
 import be.alexandre01.inazuma.uhc.presets.Preset;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.InazumaEleven;
+import be.alexandre01.inazuma.uhc.presets.jujutsu_kaisen.Jujutsu_Kaisen;
+import be.alexandre01.inazuma.uhc.presets.normal.Normal;
+import be.alexandre01.inazuma.uhc.roles.Role;
 import be.alexandre01.inazuma.uhc.roles.RoleManager;
 import be.alexandre01.inazuma.uhc.scenarios.Scenario;
 import be.alexandre01.inazuma.uhc.scoreboard.ScoreboardManager;
@@ -34,6 +42,7 @@ import lombok.Getter;
 import lombok.Setter;
 import net.minecraft.server.v1_8_R3.CommandSummon;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandMap;
@@ -46,6 +55,7 @@ import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
 
 import java.lang.reflect.Field;
+import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -86,11 +96,15 @@ public final class InazumaUHC extends JavaPlugin {
     public boolean unloadWorlds = false;
     public PlayerMovementManager playerMovementManager = new PlayerMovementManager();
 
+    public ModuleLoader moduleLoader;
+
     @Override
     public void onEnable() {
         //Instance
         InazumaUHC.get = this;
         //TOCHANGE
+
+        Config.createDir(getDataFolder().getAbsolutePath()+"/modules");
 
         //OBJECTIVES && TEAM RESET
         Scoreboard scoreboard = Bukkit.getScoreboardManager().getMainScoreboard();
@@ -148,28 +162,39 @@ public final class InazumaUHC extends JavaPlugin {
         this.worldGen = new WorldGen(this);
 
         Scenario.initialize();
-         p = new Preset(new InazumaEleven());
+        Module module = new Module();
+        module.setModuleName("Inazuma Eleven");
+        module.setPresetPath("be.alexandre01.inazuma.uhc.presets.inazuma_eleven.InazumaEleven");
+        module.setVersion("Beta 1.3");
+        module.setAuthors(new String[]{"Alexandre01","Nan0uche"});
+        module.setMaterial(Material.BLAZE_POWDER);
+        module.setDescription("Mode de jeu OFFICIEL d'Inazuma");
+        module.setPresetClass(InazumaEleven.class);
+        module.setChild(null);
+         p = new Preset(module);
+        // p.add("Jujutsu_Kaisen",Jujutsu_Kaisen.class);
+        Module normal = new Module();
+        normal.setModuleName("Normal");
+        normal.setPresetPath("be.alexandre01.inazuma.uhc.presets.normal.Normal");
+        normal.setVersion("Beta 1.0");
+        normal.setAuthors(new String[]{"Alexandre01"});
+        normal.setMaterial(Material.APPLE);
+        normal.setDescription("Mode de jeu normal");
+        normal.setChild(null);
+        normal.setPresetClass(Normal.class);
+         p.add("Normal",normal);
 
 
-         //DEFAULT TIMERS LOAD
-        p.pData.getTimers().add(new BordureTimer());
-        p.pData.getTimers().add(new InvincibilityTimer());
-        p.pData.getTimers().add(new MoveBordureTimer());
-        p.pData.getTimers().add(new NetherTimer());
-        p.pData.getTimers().add(new PVPTimer());
-        p.pData.getTimers().add(new StabilizationTimer());
-        p.pData.getTimers().add(new StartingTimer());
-        p.pData.getTimers().add(new WaitingTimer());
+
 
         PatchedEntity.init();
         CustomExp.registerEntity();
         CustomSkeleton.registerEntity();
         CustomBoat.registerEntity();
         //ARROWS
-        if(p.p.isArrowCalculated()){
-            arrowToCenter = new ArrowToCenter();
-            arrowToCenter.schedule();
-        }
+        this.tm = new TimersManager();
+        moduleLoader = new ModuleLoader(this);
+        onLoadPreset();
 
         if(loadWorldBefore){
             worldGen.gen();
@@ -189,14 +214,14 @@ public final class InazumaUHC extends JavaPlugin {
 
 
 
-        this.tm = new TimersManager();
 
 
 
-        tm.searchPresetTimer();
+
+
 
         Bukkit.getWorld("world").setSpawnLocation(-176,90,-211);
-        lm.searchPresetListener();
+
 
          teamManager = new TeamManager();
 
@@ -208,13 +233,8 @@ public final class InazumaUHC extends JavaPlugin {
         lm.addListener(rejoinManager);
         GameState gameState = new GameState();
 
-        if(isHosted){
-            host = new Host();
-            this.getCommand("host").setExecutor(new HostCommand());
-        }
-        if(p.p.hasRoles() && rm == null){
-            rm = new RoleManager();
-        }
+
+
 
 
 
@@ -226,6 +246,59 @@ public final class InazumaUHC extends JavaPlugin {
         registerCommand("ina",new StuffMeetupCommand("stuffmeetup"));
         registerCommand("invsee",new InvSeeCommand( "invsee"));
         //lm.automaticFindListener();
+
+    }
+
+    public void onLoadPreset(){
+        //DEFAULT TIMERS LOAD
+        p.pData.getTimers().add(new BordureTimer());
+        p.pData.getTimers().add(new InvincibilityTimer());
+        p.pData.getTimers().add(new MoveBordureTimer());
+        p.pData.getTimers().add(new NetherTimer());
+        p.pData.getTimers().add(new PVPTimer());
+        p.pData.getTimers().add(new StabilizationTimer());
+        p.pData.getTimers().add(new StartingTimer());
+        p.pData.getTimers().add(new WaitingTimer());
+
+        lm.clearPresetListeners();
+        lm.searchPresetListener();
+        if(InazumaUHC.get.scoreboardManager != null){
+            InazumaUHC.get.scoreboardManager.setPreset(Preset.instance.p);
+            if(!InazumaUHC.get.scoreboardManager.getScoreboards().isEmpty()){
+                //InazumaUHC.get.scoreboardManager.refreshPlayers();
+            }
+
+        }
+
+        if(!Bukkit.getOnlinePlayers().isEmpty()){
+            for(Player player : Bukkit.getOnlinePlayers()){
+                player.closeInventory();
+            }
+        }
+        if(p.p.isArrowCalculated()){
+            if(arrowToCenter == null){
+            arrowToCenter = new ArrowToCenter();
+            arrowToCenter.schedule();
+            }else {
+                arrowToCenter.setPreset(Preset.instance.p);
+            }
+        }
+
+        tm.clear();
+        tm.searchPresetTimer();
+
+        if(isHosted){
+            lm.removeListener(InventoryClick.class);
+            lm.removeListener(InventoryClose.class);
+            host = new Host();
+            this.getCommand("host").setExecutor(new HostCommand());
+        }
+
+
+
+        if(p.p.hasRoles() && rm == null){
+            rm = new RoleManager();
+        }
 
     }
 

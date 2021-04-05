@@ -45,7 +45,7 @@ public class StateEvent implements Listener {
     }
     @EventHandler
     public void onPreparing(PreparingEvent event){
-        System.out.println("PreparingEvent called");
+        System.out.println("PreparingEvent called juju");
         PreparingScoreboard preparingScoreboard = new PreparingScoreboard(n);
         preparingScoreboard.setScoreboard();
         i.getScoreboardManager().refreshPlayers();

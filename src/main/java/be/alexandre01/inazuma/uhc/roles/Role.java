@@ -51,7 +51,11 @@ public class Role {
         rolesByInstance.add(this);
         description = new ArrayList<>();
     }
-
+    public static void clear(){
+        commands.clear();
+        isDistributed = false;
+        rolesByInstance.clear();
+    }
 
     public void setRoleToSpoil(Class<?>... c){
         roleToSpoil.addAll(Arrays.asList(c));

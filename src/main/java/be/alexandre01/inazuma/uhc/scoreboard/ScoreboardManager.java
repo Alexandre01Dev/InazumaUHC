@@ -4,6 +4,7 @@ package be.alexandre01.inazuma.uhc.scoreboard;
 import be.alexandre01.inazuma.uhc.InazumaUHC;
 import be.alexandre01.inazuma.uhc.presets.IPreset;
 import be.alexandre01.inazuma.uhc.presets.Preset;
+import lombok.Setter;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Color;
@@ -40,7 +41,7 @@ public class ScoreboardManager {
     private int ipCharIndex;
     private int cooldown;
     private boolean reverse = false;
-    private IPreset p = Preset.instance.p;
+    @Setter private IPreset preset = Preset.instance.p;
     private String ip = InazumaUHC.get.ip;
     public ScoreboardManager() {
         InazumaUHC inazumaUHC = InazumaUHC.get;
@@ -70,7 +71,7 @@ public class ScoreboardManager {
         if (scoreboards.containsKey(player.getUniqueId())) {
             return;
         }
-        scoreboards.put(player.getUniqueId(), p.getScoreboard(player));
+        scoreboards.put(player.getUniqueId(), preset.getScoreboard(player));
     }
 
     public void onLogout(Player player) {
@@ -154,7 +155,7 @@ public class ScoreboardManager {
         for (UUID uuid : scoreboards.keySet()){
             Player player = Bukkit.getPlayer(uuid);
             scoreboards.get(player.getUniqueId()).onLogout();
-            scoreboards.put(player.getUniqueId(), p.getScoreboard(player));
+            scoreboards.put(player.getUniqueId(), preset.getScoreboard(player));
         }
     }
 }

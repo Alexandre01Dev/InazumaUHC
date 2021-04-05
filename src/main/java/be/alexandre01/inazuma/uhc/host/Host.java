@@ -5,15 +5,19 @@ import be.alexandre01.inazuma.uhc.config.LanguageData;
 import be.alexandre01.inazuma.uhc.config.Messages;
 import be.alexandre01.inazuma.uhc.host.gui.HostGUI;
 import be.alexandre01.inazuma.uhc.host.gui.TGUI;
+import be.alexandre01.inazuma.uhc.host.option.HostButton;
 import be.alexandre01.inazuma.uhc.host.option.HostContainer;
 import be.alexandre01.inazuma.uhc.host.option.HostOption;
 import be.alexandre01.inazuma.uhc.host.option.VarType;
 import be.alexandre01.inazuma.uhc.listeners.host.InventoryClick;
 import be.alexandre01.inazuma.uhc.listeners.host.InventoryClose;
+import be.alexandre01.inazuma.uhc.modules.Module;
 import be.alexandre01.inazuma.uhc.presets.IPreset;
 import be.alexandre01.inazuma.uhc.presets.Preset;
 import be.alexandre01.inazuma.uhc.presets.PresetData;
+import be.alexandre01.inazuma.uhc.roles.Role;
 import be.alexandre01.inazuma.uhc.scenarios.Scenario;
+import be.alexandre01.inazuma.uhc.state.GameState;
 import be.alexandre01.inazuma.uhc.utils.ItemBuilder;
 import org.bukkit.Material;
 import org.bukkit.inventory.Inventory;
@@ -27,7 +31,6 @@ import java.util.UUID;
 public class Host {
     public HashMap<UUID, ArrayList<TGUI>> lastTGUI = new HashMap<>();
     public HashMap<UUID, TGUI> currentTGUI = new HashMap<>();
-    IPreset iPreset;
     HostGUI hostGUI;
     Inventory inv;
     PresetData presetData;
@@ -48,21 +51,21 @@ public class Host {
         nether.setModifiable(true);
         nether.setVarType(VarType.FASTBOOL);
         nether.setItemStack(new ItemStack(Material.NETHERRACK));
-        nether.setDescription(messages.get("hasNether"));
+        nether.setDescription(new String[]{messages.get("hasNether")});
         //Minimum player to Start
         HostOption minPlayerToStart = new HostOption(presetData.minPlayerToStart,"minPlayerToStart");
         minPlayerToStart.setModifiable(true);
         minPlayerToStart.setVarType(VarType.INTEGER);
         minPlayerToStart.setItemStack(new ItemStack(Material.WOOD));
         minPlayerToStart.setName("Joueurs minimum pour commencer la partie");
-        minPlayerToStart.setDescription(messages.get("minPlayerToStart"));
+        minPlayerToStart.setDescription(new String[]{messages.get("minPlayerToStart") });
         minPlayerToStart.setMinAndMax(new int[]{2,50});
 
         //Total Time
         HostOption totalTime = new HostOption(presetData.totalTime,"totalTime");
         totalTime.setModifiable(true);
         totalTime.setVarType(VarType.INTEGER);
-        totalTime.setDescription(messages.get("totalTime"));
+        totalTime.setDescription(new String[]{messages.get("totalTime") });
         totalTime.setItemStack(new ItemStack(Material.GLASS));
         totalTime.setMinAndMax(new int[]{50,90});
         totalTime.setRange(5);
@@ -71,7 +74,7 @@ public class Host {
         HostOption playerSize = new HostOption(presetData.playerSize,"playerSize");
         playerSize.setModifiable(true);
         playerSize.setVarType(VarType.INTEGER);
-        playerSize.setDescription(messages.get("playerSize"));
+        playerSize.setDescription(new String[]{messages.get("playerSize")});
         playerSize.setItemStack(new ItemStack(Material.GLASS));
         playerSize.setMinAndMax(new int[]{2,50});
         playerSize.setRange(1);
@@ -130,7 +133,65 @@ public class Host {
 
         hostContainer.deploy();
 
+        HostContainer presets = new HostContainer("§cPresets");
+        presets.setItemStack(new ItemBuilder(Material.BEACON).setName(presets.getName()).toItemStack());
+        presets.setDescription("Les PRESETS");
+        presets.setSlot(2);
+        hostContainers.put(2,presets);
 
+        int p = 0;
+        for(Class<?> preset : Preset.instance.getPresets()){
+            Module module = Preset.instance.modules.get(preset);
+            boolean defaultValue = false;
+            if(Preset.instance.p.getClass() == preset){
+                defaultValue = true;
+            }
+            HostOption s = new HostOption(defaultValue,"preset");
+            s.setVarType(VarType.FASTBOOL);
+            s.setModifiable(true);
+            s.setName(module.getModuleName());
+
+            StringBuilder sb = new StringBuilder();
+            int i = 0;
+            for(String m : module.getAuthors()){
+                sb.append(m);
+                if(module.getAuthors().length-2 == i){
+                sb.append(" & ");
+                }else {
+                    sb.append(", ");
+                }
+            }
+            s.setDescription(new String[]{module.getDescription(),"§bAuteur(s): "+ sb.toString()});
+            s.setItemStack(new ItemStack(module.getMaterial()));
+            s.setAction(new HostOption.action() {
+                @Override
+                public void a(Object value) {
+                    boolean b = (boolean) value;
+                    if(b){
+                        for(HostButton button : presets.getHostOptions().values()){
+                            HostOption h = (HostOption) button;
+                            if(h != s){
+                                h.value = false;
+                            }
+                        }
+
+                        Role.clear();
+                        Preset.instance.set(module);
+
+
+                        InazumaUHC.get.onLoadPreset();
+                        GameState.get().setTo(GameState.get().getState());
+                    }else {
+                        s.value = true;
+                    }
+
+                    s.updateItemStack();
+                }
+            });
+            presets.getHostOptions().put(p,s);
+            p++;
+        }
+        presets.deploy();
         HostContainer scenarios = new HostContainer("§bScénarios");
         scenarios.setItemStack(new ItemBuilder(Material.EYE_OF_ENDER).setName(scenarios.getName()).toItemStack());
         scenarios.setDescription("Les scénarios");
@@ -147,7 +208,7 @@ public class Host {
                 s.setVarType(VarType.FASTBOOL);
                 s.setModifiable(true);
                 s.setName(scenario.getName());
-                s.setDescription(scenario.getDescription());
+                s.setDescription(new String[]{scenario.getDescription()});
                  s.setItemStack(scenario.getItemStack());
                 s.setAction(new HostOption.action() {
                     @Override

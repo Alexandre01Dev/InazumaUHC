@@ -1,6 +1,7 @@
 package be.alexandre01.inazuma.uhc.state;
 
 import be.alexandre01.inazuma.uhc.custom_events.state.*;
+import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
@@ -9,7 +10,7 @@ import java.util.ArrayList;
 
 public class GameState{
     private static GameState instance;
-    private State state = State.NONE;
+    @Getter private State state = State.NONE;
     private ArrayList<preparing> preparings;
     private ArrayList<waiting> waitings;
     private ArrayList<starting> startings;

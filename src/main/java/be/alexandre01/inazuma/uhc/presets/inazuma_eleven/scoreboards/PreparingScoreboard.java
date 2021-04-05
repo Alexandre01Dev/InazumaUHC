@@ -40,6 +40,7 @@ public class PreparingScoreboard {
 
                 @Override
                 public void lines(String ip, ObjectiveSign objectiveSign) {
+                    System.out.println("LINE UPDATE INA");
                     objectiveSign.setDisplayName("§8»§3§lInazuma§8§l-§3§lEleven§8«");
 
                     objectiveSign.setLine(4, "§r§l§8»§8§m------------§l§8«");

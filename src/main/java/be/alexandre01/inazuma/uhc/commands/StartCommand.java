@@ -17,9 +17,9 @@ import org.bukkit.entity.Player;
 
 public class StartCommand implements CommandExecutor{
 
-        IPreset iPreset;
+
         public StartCommand(){
-            iPreset = Preset.instance.p;
+
         }
         @Override
         public boolean onCommand(CommandSender sender, Command cmd, String msg, String[] args) {
@@ -41,7 +41,7 @@ public class StartCommand implements CommandExecutor{
                             ChunksGenerator c = new ChunksGenerator();
                             InazumaUHC.get.worldGen.defaultWorldLoaded();
                             World world = InazumaUHC.get.worldGen.defaultWorld;
-                            c.generate(world.getChunkAt(0,0),(iPreset.getBorderSize(world.getEnvironment())/16)+InazumaUHC.get.getServer().getViewDistance()+5,true);
+                            c.generate(world.getChunkAt(0,0),(Preset.instance.p.getBorderSize(world.getEnvironment())/16)+InazumaUHC.get.getServer().getViewDistance()+5,true);
                         }
 
                         return true;

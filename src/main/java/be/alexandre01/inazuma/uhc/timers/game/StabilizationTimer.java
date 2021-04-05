@@ -1,6 +1,8 @@
 package be.alexandre01.inazuma.uhc.timers.game;
 
+import be.alexandre01.inazuma.uhc.presets.IPreset;
 import be.alexandre01.inazuma.uhc.presets.Preset;
+import be.alexandre01.inazuma.uhc.presets.PresetData;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.InazumaEleven;
 import be.alexandre01.inazuma.uhc.timers.ITimer;
 import be.alexandre01.inazuma.uhc.timers.Timer;
@@ -13,7 +15,7 @@ import java.util.ArrayList;
 public class StabilizationTimer extends Timer {
     public StabilizationTimer() {
         super("stabilizationTimer");
-            InazumaEleven p = (InazumaEleven) Preset.instance.p;
+            IPreset p = Preset.instance.p;
             be.alexandre01.inazuma.uhc.InazumaUHC i = be.alexandre01.inazuma.uhc.InazumaUHC.get;
             spg.lgdev.iSpigot iSpigot = spg.lgdev.iSpigot.INSTANCE;
             ArrayList<Player> players = new ArrayList<>(Bukkit.getOnlinePlayers());

@@ -14,12 +14,11 @@ import java.util.HashMap;
 
 
 public class CompoCommand extends Command {
-    IPreset preset;
+
     @Getter private static CompoCommand instance;
     public CompoCommand(String s) {
         super(s);
         super.setPermission("uhc.compo");
-        this.preset = Preset.instance.p;
         instance = this;
     }
     @Override

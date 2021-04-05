@@ -14,9 +14,11 @@ import be.alexandre01.inazuma.uhc.scenarios.timber.Timber;
 import be.alexandre01.inazuma.uhc.scoreboard.IPersonalScoreBoard;
 import be.alexandre01.inazuma.uhc.scoreboard.PersonalScoreboard;
 import be.alexandre01.inazuma.uhc.timers.Timer;
+import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
+import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -56,7 +58,7 @@ public class Jujutsu_Kaisen extends PresetData implements IPreset{
 
     @Override
     public String getName() {
-        return "Jujutsu Kaizen";
+        return "Jujutsu_Kaisen";
     }
 
     @Override
@@ -71,7 +73,7 @@ public class Jujutsu_Kaisen extends PresetData implements IPreset{
 
     @Override
     public String getPackageName() {
-        return "jujutsu_kaizen";
+        return "jujutsu_kaisen";
     }
 
     @Override
@@ -275,4 +277,5 @@ public class Jujutsu_Kaisen extends PresetData implements IPreset{
     public HashMap<UUID, String> getArrows() {
         return arrows;
     }
+
 }
