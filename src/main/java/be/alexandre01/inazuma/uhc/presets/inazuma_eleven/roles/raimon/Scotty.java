@@ -103,13 +103,13 @@ public class Scotty extends Role {
                     @Override
                     public void a(Player player) {
                         if(!getPlayers().contains(player)){
-                            player.sendMessage(Preset.instance.p.prefixName()+" §cTu viens de marcher sur une peau de banane.");
+                            player.sendMessage(Preset.instance.p.prefixName()+" §cVous venez de marcher sur une peau de banane.");
                             player.addPotionEffect(new PotionEffect(PotionEffectType.BLINDNESS, 4*20, 9,false,false), true);
                             player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 4*20, 9,false,false), true);
                             inazumaUHC.playerMovementManager.remBlockLocation(finalBlock.getLocation());
 
                             for(Player s : getPlayers()){
-                                s.sendMessage(Preset.instance.p.prefixName()+ "Un joueur viens de glisser dans un de tes pièges.");
+                                s.sendMessage(Preset.instance.p.prefixName()+ "Un joueur vient de glisser sur un de vos pièges.");
                             }
                         }
                     }
@@ -145,13 +145,13 @@ public class Scotty extends Role {
                     @Override
                     public void a(Player player) {
                         if(!getPlayers().contains(player)){
-                            player.sendMessage(Preset.instance.p.prefixName()+" §cTu viens d'être enfermé dans un casier'.");
+                            player.sendMessage(Preset.instance.p.prefixName()+" §cVous venez d'être enfermé dans un casier'.");
 
                            addPlayerLock(player);
                             inazumaUHC.playerMovementManager.remBlockLocation(finalBlock.getLocation());
 
                             for(Player s : getPlayers()){
-                                s.sendMessage(Preset.instance.p.prefixName()+ "Un joueur viens d'être enfermé dans un de tes pièges.");
+                                s.sendMessage(Preset.instance.p.prefixName()+ "Un joueur vient d'être enfermer sur un de vos pièges.");
                             }
                         }
                     }

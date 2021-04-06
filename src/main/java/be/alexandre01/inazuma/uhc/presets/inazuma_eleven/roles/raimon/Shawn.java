@@ -64,12 +64,12 @@ public class Shawn extends Role {
                 player.sendMessage(Preset.instance.p.prefixName()+"Vous avez utilisé votre §3Blizzard Eternel§7 sur §c"+ rightClicked.getName());
                 if(!inazumaUHC.rm.getRole(rightClicked).getClass().equals(Torch.class) && !inazumaUHC.rm.getRole(rightClicked).getClass().equals(Axel.class) &&  !inazumaUHC.rm.getRole(rightClicked).getClass().equals(Gazelle.class)){
                 rightClicked.addPotionEffect(new PotionEffect(PotionEffectType.SLOW,20*10,1));
-                    rightClicked.sendMessage(Preset.instance.p.prefixName()+"Tu as été touché par le §3Blizzard Eternel");
+                    rightClicked.sendMessage(Preset.instance.p.prefixName()+"§7Vous avez été touché par le §3Blizzard Eternel");
                 }
                 if(inazumaUHC.rm.getRole(rightClicked).getClass().equals(Torch.class) && inazumaUHC.rm.getRole(rightClicked).getClass().equals(Axel.class) &&  inazumaUHC.rm.getRole(rightClicked).getClass().equals(Gazelle.class)){
-                    rightClicked.sendMessage(Preset.instance.p.prefixName()+"Tu as été touché par le §3Blizzard Eternel mais en vain");
+                    rightClicked.sendMessage(Preset.instance.p.prefixName()+"Vous avez été touché par le §3Blizzard Eternel§7, mais en vain");
                 }
-                player.sendMessage(Preset.instance.p.prefixName()+"Tu as utilisé ton §3Blizzard Eternel sur" + rightClicked.getName());
+                player.sendMessage(Preset.instance.p.prefixName()+"§7Vous avez utilisé votre §3Blizzard Eternel §7sur" + rightClicked.getName());
             }
         });
 

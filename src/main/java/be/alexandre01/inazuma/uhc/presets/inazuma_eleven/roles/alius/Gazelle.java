@@ -126,27 +126,28 @@ public class Gazelle extends Role implements Listener {
     @EventHandler
     public void onDamage(EntityDamageByEntityEvent event){
         if(event.getDamager() instanceof Player && event.getEntity() instanceof Player){
-            Player player = (Player) event.getDamager();
-            Player p = (Player) event.getEntity();
-            Role role = inazumaUHC.rm.getRole(player);
+            Player gazelle = (Player) event.getDamager();
+            Player player = (Player) event.getEntity();
+            Role role = inazumaUHC.rm.getRole(gazelle);
 
             if(role.getClass().equals(Gazelle.class)){
-                if(!isValidItem(player.getItemInHand()))
+                if(!isValidItem(gazelle.getItemInHand()))
                     return;
-                if(getRoleItems().containsKey(player.getItemInHand().getItemMeta().getDisplayName())){
+                if(getRoleItems().containsKey(gazelle.getItemInHand().getItemMeta().getDisplayName())){
                     if(this.i != 0){
-                        if( !inazumaUHC.rm.getRole(p).getClass().equals(Torch.class) && !inazumaUHC.rm.getRole(p).getClass().equals(Axel.class) && !inazumaUHC.rm.getRole(p).getClass().equals(Shawn.class)){
-                        p.removePotionEffect(PotionEffectType.SLOW);
-                        p.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 20*5, 1,true,false));
-                            p.sendMessage("Gazelle vient d'utiliser son épée sur toi");
+                        if( !inazumaUHC.rm.getRole(player).getClass().equals(Torch.class) && !inazumaUHC.rm.getRole(player).getClass().equals(Axel.class) && !inazumaUHC.rm.getRole(player).getClass().equals(Shawn.class)){
+                            player.removePotionEffect(PotionEffectType.SLOW);
+                            player.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 20*5, 1,true,false));
+                            player.sendMessage(Preset.instance.p.prefixName()+" §bGazelle§7 vient d'utiliser son épée sur vous.");
                         }
-                        if( inazumaUHC.rm.getRole(p).getClass().equals(Torch.class) && inazumaUHC.rm.getRole(p).getClass().equals(Axel.class) && inazumaUHC.rm.getRole(p).getClass().equals(Shawn.class) &&  inazumaUHC.rm.getRole(p).getClass().equals(Hurley.class)){
-                            p.sendMessage("Gazelle vient d'utiliser son épée sur toi, mais en vain");
+                        if( inazumaUHC.rm.getRole(player).getClass().equals(Torch.class) && inazumaUHC.rm.getRole(player).getClass().equals(Axel.class) && inazumaUHC.rm.getRole(player).getClass().equals(Shawn.class)){
+                            player.sendMessage(Preset.instance.p.prefixName()+" §bGazelle§7 vient d'utiliser son épée sur vous, mais en vain.");
                         }
+                        gazelle.sendMessage(Preset.instance.p.prefixName()+" §7Vous venez d''utiliser votre §b§lImpact§7-§b§lNordique§7 sur §c" + player.getName() + "§7.Il vous reste §c" + i + " §7coups.");
                         i--;
                     }
                     if(i == 0){
-                        player.sendMessage(Preset.instance.p.prefixName()+" Tu viens d'user ton épée.");
+                        gazelle.sendMessage(Preset.instance.p.prefixName()+" §7Vous venez d'atteindre votre limite d'utilisation de ton §b§lImpact§7-§b§lNordique§7 pour cette §eépisode.");
                     }
                 }
             }
@@ -157,7 +158,7 @@ public class Gazelle extends Role implements Listener {
     @EventHandler
     public void onEpisodeChanged(EpisodeChangeEvent event){
         for(Player player : getPlayers()){
-            player.sendMessage(Preset.instance.p.prefixName()+" Ton épée c'est réparé comme par magie.");
+            player.sendMessage(Preset.instance.p.prefixName()+" §7Vous venez de récupérer toute les utilisation sur votre §b§lImpact§7-§b§lNordique§7 (§b6 coups§7).");
         }
         this.i = 6;
     }

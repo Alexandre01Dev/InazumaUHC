@@ -131,25 +131,26 @@ public class Torch  extends Role implements Listener {
     @EventHandler
     public void onDamage(EntityDamageByEntityEvent event){
         if(event.getDamager() instanceof Player && event.getEntity() instanceof Player){
-            Player player = (Player) event.getDamager();
-            Player p = (Player) event.getEntity();
-            Role role = inazumaUHC.rm.getRole(player);
+            Player torch = (Player) event.getDamager();
+            Player player = (Player) event.getEntity();
+            Role role = inazumaUHC.rm.getRole(torch);
 
             if(role.getClass().equals(Torch.class)){
-                if(!isValidItem(player.getItemInHand()))
+                if(!isValidItem(torch.getItemInHand()))
                     return;
-               if(getRoleItems().containsKey(player.getItemInHand().getItemMeta().getDisplayName())){
+               if(getRoleItems().containsKey(torch.getItemInHand().getItemMeta().getDisplayName())){
                    if(i != 0){
-                       if( !inazumaUHC.rm.getRole(p).getClass().equals(Gazelle.class) && !inazumaUHC.rm.getRole(p).getClass().equals(Axel.class) && !inazumaUHC.rm.getRole(p).getClass().equals(Shawn.class) &&  !inazumaUHC.rm.getRole(p).getClass().equals(Hurley.class)){
-                           event.getEntity().setFireTicks(3*20);
-                           player.sendMessage("Torch vient d'utiliser son épée sur toi");
+                       if( !inazumaUHC.rm.getRole(player).getClass().equals(Gazelle.class) && !inazumaUHC.rm.getRole(player).getClass().equals(Axel.class) && !inazumaUHC.rm.getRole(player).getClass().equals(Shawn.class) &&  !inazumaUHC.rm.getRole(player).getClass().equals(Hurley.class)){
+                           player.setFireTicks(3*20);
+                           player.sendMessage(Preset.instance.p.prefixName()+" §cTorch§7 vient d'utiliser son épée sur vous.");
                        }
-                       if( inazumaUHC.rm.getRole(p).getClass().equals(Gazelle.class) && inazumaUHC.rm.getRole(p).getClass().equals(Axel.class) && inazumaUHC.rm.getRole(p).getClass().equals(Shawn.class) &&  inazumaUHC.rm.getRole(p).getClass().equals(Hurley.class)){
-                           player.sendMessage("Torch vient d'utiliser son épée sur toi mais en vain");
+                       if( inazumaUHC.rm.getRole(player).getClass().equals(Gazelle.class) && inazumaUHC.rm.getRole(player).getClass().equals(Axel.class) && inazumaUHC.rm.getRole(player).getClass().equals(Shawn.class) &&  inazumaUHC.rm.getRole(player).getClass().equals(Hurley.class)){
+                           player.sendMessage(Preset.instance.p.prefixName()+" §cTorch§7 vient d'utiliser son épée sur vous, mais en vain.");
                        }
+                       torch.sendMessage(Preset.instance.p.prefixName()+" §7Vous venez d''utiliser votre §4§lEruption§7-§4§lSolaire§7 sur §c" + player.getName() + "§7.Il vous reste §c" + i + " §7coups.");
                        i--;
                        if(i == 0){
-                           player.sendMessage(Preset.instance.p.prefixName()+" Tu viens d'user ton épée.");
+                           torch.sendMessage(Preset.instance.p.prefixName()+" §7Vous venez d'atteindre votre limite d'utilisation de ton §4§lEruption§7-§4§lSolaire§7 pour cette §eépisode.");
                        }
                    }
                }
@@ -160,7 +161,7 @@ public class Torch  extends Role implements Listener {
     @EventHandler
     public void onEpisodeChanged(EpisodeChangeEvent event){
         for(Player player : getPlayers()){
-            player.sendMessage(Preset.instance.p.prefixName()+" Ton épée c'est réparé comme par magie.");
+            player.sendMessage(Preset.instance.p.prefixName()+" §7Vous venez de récupérer toute les utilisation sur votre §4§lEruption§7-§4§lSolaire§4§7 (§c8 coups§7).");
         }
         this.i = 8;
     }

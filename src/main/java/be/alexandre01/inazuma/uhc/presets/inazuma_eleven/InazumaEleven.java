@@ -68,8 +68,10 @@ public class InazumaEleven extends PresetData implements IPreset{
         new Solo("Solo","§c");
 
         //INITIALIZE ROLES
+        new Torch(this);
+        new Gazelle(this);
 
-        new Axel(this);
+       /* new Axel(this);
         new Darren(this);
         new Hurley(this);
         new Jack(this);
@@ -90,7 +92,7 @@ public class InazumaEleven extends PresetData implements IPreset{
         new Dvalin(this);
         new David(this);
         new Caleb(this);
-        new Bellatrix(this);
+        new Bellatrix(this); */
       //  new Bellatrix(this);
 
         playerSize = Role.getRoles().size();
