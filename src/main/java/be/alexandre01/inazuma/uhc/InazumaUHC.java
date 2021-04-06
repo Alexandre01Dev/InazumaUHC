@@ -16,6 +16,7 @@ import be.alexandre01.inazuma.uhc.managers.*;
 import be.alexandre01.inazuma.uhc.managers.chat.ChatManager;
 import be.alexandre01.inazuma.uhc.managers.damage.DamageManager;
 import be.alexandre01.inazuma.uhc.managers.damage.InvincibilityDamager;
+import be.alexandre01.inazuma.uhc.managers.damage.NoFallDamager;
 import be.alexandre01.inazuma.uhc.managers.player.InvisibilityInventory;
 import be.alexandre01.inazuma.uhc.managers.player.PlayerMovementManager;
 import be.alexandre01.inazuma.uhc.modules.Module;
@@ -77,6 +78,7 @@ public final class InazumaUHC extends JavaPlugin {
     public DamageManager dm;
     public TeamManager teamManager;
     @Getter  public InvincibilityDamager invincibilityDamager;
+    @Getter  public NoFallDamager noFallDamager;
     public SpectatorManager spectatorManager;
     @Getter private RejoinManager rejoinManager;
     public InvisibilityInventory invisibilityInventory = new InvisibilityInventory();
@@ -147,7 +149,8 @@ public final class InazumaUHC extends JavaPlugin {
         lm.addListener(new ProtectionEvent());
         lm.addListener(new StateEvent());
         invincibilityDamager = new InvincibilityDamager();
-        lm.addListener(invincibilityDamager);
+        noFallDamager = new NoFallDamager();
+        lm.addListener(noFallDamager);
         registerCommand("revive", new ReviveCommand("revive"));
         registerCommand("heal", new HealCommand("heal"));
         registerCommand("rulestp", new RulesTpCommand("rulestp"));

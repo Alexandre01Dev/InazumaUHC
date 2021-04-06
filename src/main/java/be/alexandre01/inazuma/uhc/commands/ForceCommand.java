@@ -92,7 +92,7 @@ public class ForceCommand extends Command {
             usedTimers.add(args[0].toLowerCase());
             return true;
         }
-        sender.sendMessage(preset.prefixName()+" §cModule non trouvé");
+        sender.sendMessage(preset.prefixName()+" §cModule non trouvé.");
         for(String varName : varNames.keySet()){
             sender.sendMessage("§e- §c/force "+ varName);
         }

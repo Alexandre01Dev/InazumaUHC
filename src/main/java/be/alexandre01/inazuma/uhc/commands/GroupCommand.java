@@ -24,7 +24,7 @@ public class GroupCommand  extends Command {
             Player player = (Player) sender;
 
             if (!player.hasPermission("uhc.groupe")) {
-                player.sendMessage("§cVous n'avez pas la permission d'exécuter cette commande");
+                player.sendMessage("§cVous n'avez pas la permission nécessaire pour exécuter cette commande.");
             } else {
                 player.hasPermission("uhc.groupe");
 

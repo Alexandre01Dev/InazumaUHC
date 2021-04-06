@@ -17,7 +17,7 @@ public class InvSeeCommand extends Command {
         Player player = (Player)sender;
 
         if (args.length != 1) {
-           sender.sendMessage("pas de truc après le pseudo");
+           sender.sendMessage("Veuillez ne pas foutre de truc après le pseudonyme de notre cher compatriote.");
             return false;
         }
 

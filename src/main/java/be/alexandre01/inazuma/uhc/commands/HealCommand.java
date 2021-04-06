@@ -20,7 +20,7 @@ public class HealCommand extends Command {
             return false;
         }
         if(args.length == 0){
-            sender.sendMessage(Preset.instance.p.prefixName()+ " §cFait /heal ALL ou /heal [Player]");
+            sender.sendMessage(Preset.instance.p.prefixName()+ " §cFaites /heal ALL ou /heal [Player]");
         }
 
         if(args[0].equalsIgnoreCase("all")){

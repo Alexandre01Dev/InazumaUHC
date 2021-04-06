@@ -32,14 +32,14 @@ public class ReviveCommand extends Command {
                 RejoinManager r = InazumaUHC.get.getRejoinManager();
                 if(r.isValidPlayer(player)){
                     r.revivePlayer(player);
-                    player.sendMessage(Preset.instance.p.prefixName()+" §aVous venez d'être réssucité.");
+                    player.sendMessage(Preset.instance.p.prefixName()+" §aVous venez d'être ressuscité.");
                     InazumaUHC.get.invincibilityDamager.addPlayer(player, 1000*7);
                     player.sendMessage(Preset.instance.p.prefixName()+" §eVous avez 7 secondes d'invincibilité.");
                     r.teleportRandom(player);
                     player.setExp(player.getExp()/2);
                     player.setLevel(player.getLevel()/2);
                 }else {
-                    sender.sendMessage(Preset.instance.p.prefixName()+" §cLe joueur ne peut pas se faire réssuciter.");
+                    sender.sendMessage(Preset.instance.p.prefixName()+" §cLe joueur ne peut pas se faire ressusciter.");
                 }
             }else {
                 sender.sendMessage(Preset.instance.p.prefixName()+" §cLe joueur en question n'est pas connecté");

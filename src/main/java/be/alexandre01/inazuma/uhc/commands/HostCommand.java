@@ -29,7 +29,7 @@ public class HostCommand implements CommandExecutor {
                     }
                     player.openInventory(InazumaUHC.get.host.getInv());
                 }else {
-                    player.sendMessage("Vous ne pouvez plus ouvrir le menu de host");
+                    player.sendMessage("Vous ne pouvez plus ouvrir le menu de host.");
                 }
 
             }

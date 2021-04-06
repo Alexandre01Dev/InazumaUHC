@@ -15,7 +15,7 @@ public class BaseCommand extends Command {
     @Override
     public boolean execute(CommandSender sender, String msg, String[] args) {
         if(args.length == 0){
-            sender.sendMessage(Preset.instance.p.prefixName()+"§7listes des commandes ");
+            sender.sendMessage(Preset.instance.p.prefixName()+"§7liste des commandes ");
             sender.sendMessage(Preset.instance.p.prefixName()+"§e-§9 /ina me ");
             return false;
         }

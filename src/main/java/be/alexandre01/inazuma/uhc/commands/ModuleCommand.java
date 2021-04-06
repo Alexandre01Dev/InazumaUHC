@@ -26,7 +26,7 @@ public class ModuleCommand extends Command {
 
         if(args.length == 0){
 
-            sender.sendMessage("§eModule commands:");
+            sender.sendMessage("§eLes commandes disponibles pour les modules:");
             sender.sendMessage("§e- §9Module list");
             sender.sendMessage("§e- §9Module set [Module-Name]");
             sender.sendMessage("§e- §9Module reload [Module-Name]");
@@ -60,7 +60,7 @@ public class ModuleCommand extends Command {
                 InazumaUHC.get.onLoadPreset();
                 GameState.get().setTo(GameState.get().getState());
             }else {
-                sender.sendMessage("§cModule non trouvé");
+                sender.sendMessage("§cModule non trouvé (Oops).");
             }
         }
 
@@ -83,7 +83,7 @@ public class ModuleCommand extends Command {
 
             if(!ms.isEmpty()){
                 if(!InazumaUHC.get.moduleLoader.reloadModule(new ArrayList<>(ms).get(0)))
-                    sender.sendMessage("§cUn probleme est servenue :'(");
+                    sender.sendMessage("§cUn probleme est servenu :'(");
             }else {
                 sender.sendMessage("§cModule non trouvé");
             }

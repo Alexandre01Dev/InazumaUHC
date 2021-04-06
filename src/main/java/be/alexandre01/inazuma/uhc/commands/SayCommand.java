@@ -24,7 +24,7 @@ public class SayCommand  extends Command {
 
 
                 if (!player.hasPermission("uhc.say")) {
-                    player.sendMessage("§cVous n'avez pas la permission d'exécuter cette commande");
+                    player.sendMessage("§cVous n'avez pas la permission d'exécuter cette commande (Héhé)");
                 } else {
                     player.hasPermission("uhc.say");
 

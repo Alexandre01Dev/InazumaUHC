@@ -26,7 +26,7 @@ public class InfoCommand extends Command {
         Player player = (Player)sender;
 
         if (args.length != 1) {
-            sender.sendMessage("pas de truc après le pseudo");
+            sender.sendMessage("Veuillez ne pas foutre de truc après le pseudonyme de notre cher compatriote.");
             return false;
         }
 
@@ -34,12 +34,12 @@ public class InfoCommand extends Command {
         Role role = InazumaUHC.get.rm.getRole(target);
 
         if (target == null){
-            sender.sendMessage("Joueur nul");
+            sender.sendMessage("Compatriote nul(l).");
             return false;
         }
 
         if (!target.isOnline()){
-            sender.sendMessage("Joueur pas co");
+            sender.sendMessage("Compatriote non connecté.");
         }
 
         FastInv inv = new FastInv(1*9, "Information sur " + target.getName());
