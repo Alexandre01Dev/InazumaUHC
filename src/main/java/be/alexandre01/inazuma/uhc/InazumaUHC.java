@@ -20,10 +20,8 @@ import be.alexandre01.inazuma.uhc.managers.player.InvisibilityInventory;
 import be.alexandre01.inazuma.uhc.managers.player.PlayerMovementManager;
 import be.alexandre01.inazuma.uhc.modules.Module;
 import be.alexandre01.inazuma.uhc.modules.ModuleLoader;
-import be.alexandre01.inazuma.uhc.presets.IPreset;
 import be.alexandre01.inazuma.uhc.presets.Preset;
 import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.InazumaEleven;
-import be.alexandre01.inazuma.uhc.presets.jujutsu_kaisen.Jujutsu_Kaisen;
 import be.alexandre01.inazuma.uhc.presets.normal.Normal;
 import be.alexandre01.inazuma.uhc.roles.Role;
 import be.alexandre01.inazuma.uhc.roles.RoleManager;
@@ -57,8 +55,10 @@ import org.bukkit.scoreboard.Team;
 import java.lang.reflect.Field;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
+import java.util.stream.Collectors;
 
 public final class InazumaUHC extends JavaPlugin {
     @Getter @Setter public static InazumaUHC get;
@@ -162,17 +162,9 @@ public final class InazumaUHC extends JavaPlugin {
         this.worldGen = new WorldGen(this);
 
         Scenario.initialize();
-        Module module = new Module();
-        module.setModuleName("Inazuma Eleven");
-        module.setPresetPath("be.alexandre01.inazuma.uhc.presets.inazuma_eleven.InazumaEleven");
-        module.setVersion("Beta 1.3");
-        module.setAuthors(new String[]{"Alexandre01","Nan0uche"});
-        module.setMaterial(Material.BLAZE_POWDER);
-        module.setDescription("Mode de jeu OFFICIEL d'Inazuma");
-        module.setPresetClass(InazumaEleven.class);
-        module.setChild(null);
-         p = new Preset(module);
-        // p.add("Jujutsu_Kaisen",Jujutsu_Kaisen.class);
+
+        p = new Preset();
+
         Module normal = new Module();
         normal.setModuleName("Normal");
         normal.setPresetPath("be.alexandre01.inazuma.uhc.presets.normal.Normal");
@@ -182,7 +174,19 @@ public final class InazumaUHC extends JavaPlugin {
         normal.setDescription("Mode de jeu normal");
         normal.setChild(null);
         normal.setPresetClass(Normal.class);
-         p.add("Normal",normal);
+        p.add("Normal",normal);
+
+        moduleLoader = new ModuleLoader(this);
+
+        String defaultModule = getConfig().getString("config.default-module");
+
+        Collection<Module> ms = Preset.instance.modules.values().stream().filter(module -> module.getModuleName().equals(defaultModule)).collect(Collectors.toList());
+
+        if(!ms.isEmpty()){
+            p.set(new ArrayList<>(ms).get(0));
+        }else {
+            p.set(normal);
+        }
 
 
 
@@ -193,7 +197,7 @@ public final class InazumaUHC extends JavaPlugin {
         CustomBoat.registerEntity();
         //ARROWS
         this.tm = new TimersManager();
-        moduleLoader = new ModuleLoader(this);
+
         onLoadPreset();
 
         if(loadWorldBefore){
@@ -245,6 +249,7 @@ public final class InazumaUHC extends JavaPlugin {
         registerCommand("ina",new BaseCommand("ina","ina"));
         registerCommand("ina",new StuffMeetupCommand("stuffmeetup"));
         registerCommand("invsee",new InvSeeCommand( "invsee"));
+        registerCommand("module", new ModuleCommand("module"));
         //lm.automaticFindListener();
 
     }

@@ -4,6 +4,7 @@ import be.alexandre01.inazuma.uhc.InazumaUHC;
 import be.alexandre01.inazuma.uhc.modules.Module;
 import be.alexandre01.inazuma.uhc.roles.Role;
 import lombok.SneakyThrows;
+import org.bukkit.Bukkit;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -18,22 +19,14 @@ public class Preset {
     public IPreset p;
     public PresetData pData;
     @SneakyThrows
-    public Preset(Module module){
+    public Preset(){
        Preset.instance = this;
-       this.m = module;
        this.presets = new HashMap<>();
-       this.p = (IPreset) module.getPresetClass().newInstance();
-       this.pData = (PresetData) this.p;
-        modules.put(module.getPresetPath().getClass(),module);
-       add(module.getModuleName(), module);
-       if(!InazumaUHC.get.isHosted){
-           configurate();
-       }
     }
 
     @SneakyThrows
     public void set(Module module){
-        p = (IPreset) module.getPresetClass().newInstance();
+        p = (IPreset) module.getPresetClass().getConstructor().newInstance();
         pData = (PresetData) p;
         modules.put(module.getPresetClass(),module);
         this.m = module;
@@ -53,9 +46,14 @@ public class Preset {
     public Collection<Class<?>> getPresets(){
         return presets.values();
     }
-        public void add(String name, Module m){
+
+    public void add(String name, Module m){
         presets.put(name,m.getPresetClass());
         modules.put(m.getPresetClass(),m);
+    }
+    public void remove(String name,Module m){
+        presets.remove(name,m.getPresetClass());
+        modules.remove(m.getPresetClass(),m);
     }
     public void configurate(){
         InazumaUHC.get.worldGen.gen();

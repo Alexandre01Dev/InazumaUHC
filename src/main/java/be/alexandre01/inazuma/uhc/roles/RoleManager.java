@@ -4,11 +4,12 @@ import be.alexandre01.inazuma.uhc.InazumaUHC;
 import be.alexandre01.inazuma.uhc.roles.listeners.DropRoleItemEvent;
 import be.alexandre01.inazuma.uhc.roles.listeners.InteractItemEvent;
 import be.alexandre01.inazuma.uhc.roles.listeners.PlayerInstantDeath;
+import lombok.Data;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.util.*;
-
+@Data
 public class RoleManager {
     private int i = 0;
 

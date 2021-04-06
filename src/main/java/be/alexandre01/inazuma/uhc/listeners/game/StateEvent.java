@@ -20,20 +20,23 @@ public class StateEvent implements Listener {
 
         InazumaUHC.get.lm.removeListener(ProtectionEvent.class);
         System.out.println("PLAYING SCENARIO");
+
         if(Preset.instance.p.getPlatform() != null){
             Preset.instance.p.getPlatform().despawn();
         }
-        if(!Preset.instance.pData.getScenarios().isEmpty()){
-            for(Class<?> c : Preset.instance.pData.getScenarios()){
-                if(Scenario.getScenarios().containsKey(c)){
-                    Scenario scenario = Scenario.getScenarios().get(c);
-                    if(scenario.getLoad() != null){
-                        scenario.getLoad().a();
+        if(!Scenario.deployed){
+            if(!Preset.instance.pData.getScenarios().isEmpty()){
+                for(Class<?> c : Preset.instance.pData.getScenarios()){
+                    if(Scenario.getScenarios().containsKey(c)){
+                        Scenario scenario = Scenario.getScenarios().get(c);
+                        if(scenario.getLoad() != null){
+                            scenario.getLoad().a();
+                        }
+
+                        scenario.deployListener();
                     }
-
-                    scenario.deployListener();
                 }
-
+                Scenario.deployed = true;
             }
         }
     }

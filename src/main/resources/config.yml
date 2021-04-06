@@ -1,4 +1,7 @@
 #UHC Config
+config:
+  default-module: "Inazuma Eleven"
+  modules-dirs: ["%plugin_dir%/modules" , "/home/o_modules"]
 language:
   en:
     error:

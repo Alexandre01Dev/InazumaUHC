@@ -1,5 +1,7 @@
 package be.alexandre01.inazuma.uhc.commands;
 
+import be.alexandre01.inazuma.uhc.InazumaUHC;
+import be.alexandre01.inazuma.uhc.modules.Module;
 import be.alexandre01.inazuma.uhc.presets.IPreset;
 import be.alexandre01.inazuma.uhc.presets.Preset;
 import be.alexandre01.inazuma.uhc.presets.PresetData;
@@ -34,9 +36,14 @@ public class ForceCommand extends Command {
     }
     public void setValue(String varName, Object value){
         IPreset preset = Preset.instance.p;
+        Module m = Preset.instance.m;
         Class c = null;
         try {
-            c = Class.forName("be.alexandre01.inazuma.uhc.presets."+preset.getPackageName()+"."+preset.getName());
+            if(m.getChild() == null){
+                c = Class.forName(m.getPresetPath());
+            }else {
+                c = Class.forName(m.getPresetPath(), true, m.getChild());
+            }
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }

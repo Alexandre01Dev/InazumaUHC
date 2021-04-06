@@ -23,6 +23,7 @@ public class Scenario {
     String description;
     ItemStack itemStack;
     InazumaUHC inazumaUHC = InazumaUHC.get;
+    public static boolean deployed = false;
     private static HashMap<Class<?>,Scenario> scenarios = new HashMap<>();
 
 
