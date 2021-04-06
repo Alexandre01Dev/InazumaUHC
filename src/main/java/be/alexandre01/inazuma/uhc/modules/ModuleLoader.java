@@ -70,13 +70,12 @@ public class ModuleLoader {
                     return;
 
                 Class classToLoad = Class.forName(module.getPresetPath(), true, child);
-                Object instance = classToLoad.newInstance();
                 module.setPresetClass(classToLoad);
-                System.out.println(instance.getClass());
-                if(instance instanceof IPreset){
-                    System.out.println(module.getModuleName());
-                    Preset.instance.add(module.getModuleName(), module);
-                }
+
+
+                System.out.println(module.getModuleName());
+                Preset.instance.add(module.getModuleName(), module);
+
                 modules.add(module);
 
             }
