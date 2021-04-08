@@ -24,15 +24,17 @@ public class HRTPCommand extends Command {
         if(args.length == 0){
             sender.sendMessage("/hrtp [Player]");
         }
-
-        Player player = Bukkit.getPlayer(args[0]);
-        if(player == null){
+        Player player;
+        try {
+            player = Bukkit.getPlayer(args[0]);
+        }catch (Exception e){
             sender.sendMessage("Le joueur est invalide");
             return false;
         }
 
         teleportRandomFromRange(player,50,200);
         InazumaUHC.get.noFallDamager.addPlayer(player, 1000*7);
+        player.sendMessage(Preset.instance.p.prefixName()+ " §c§lVous venez d'être téléporté par un modérateur.");
         player.sendMessage(Preset.instance.p.prefixName()+" §eVous avez 7 secondes de no fall damage.");
 
         return false;
@@ -40,34 +42,61 @@ public class HRTPCommand extends Command {
 
 
     public void teleportRandomFromRange(Player player,int betweenRange ,int range){
+        int size = (int) (player.getWorld().getWorldBorder().getSize()/2);
         int rangeX = range;
         int rangeZ = range;
 
         int bRangeX = betweenRange;
         int bRangeZ = betweenRange;
         Location loc = player.getLocation();
-        if(!new Random().nextBoolean()){
-            rangeX = rangeX*-1;
-            bRangeX = bRangeX*-1;
-        }
 
-        if(!new Random().nextBoolean()){
-            rangeZ = rangeZ*-1;
-            bRangeZ = bRangeZ*-1;
-        }
+
+
 
         int xMax = loc.getBlockX()+rangeX;
         int xMin = xMax-bRangeX;
         int zMax = loc.getBlockZ()+rangeZ;
         int zMin = zMax-bRangeZ;
-
+        System.out.println("Xmax "+xMax+" | Xmin "+ xMin);
+        System.out.println("Zmax "+zMax+" | Zmin "+ zMin);
 
 
         Random rand1 = new Random();
-        int x = rand1.nextInt((xMax - xMin) + 1) + xMin;
-        Random rand2 = new Random();
-        int z = rand2.nextInt((zMax - zMin) + 1) + zMin;
+        int x = rand1.nextInt((xMax-xMin)+1) + xMax;
+        System.out.println("RX "+ x);
+        if(!new Random().nextBoolean()){
+           x = x*-1;
+        }
+        System.out.println("RXR "+ x);
+        if (Math.abs(x) > Math.abs(size)){
+            int s = size-20;
 
+            if(!new Random().nextBoolean()){
+                s = s*-1;
+            }
+            System.out.println("more");
+            x = s;
+        }
+        System.out.println("RXF "+ x);
+        Random rand2 = new Random();
+
+        int z = rand2.nextInt((zMax-zMin)+1) + zMin;
+        System.out.println("RZ "+ z);
+        if(!new Random().nextBoolean()){
+            z = z*-1;
+        }
+        System.out.println("RZR "+ x);
+        if (Math.abs(z) > Math.abs(size)){
+            int s = size-20;
+
+            if(!new Random().nextBoolean()){
+                s = s*-1;
+            }
+
+            z = s;
+            System.out.println("more");
+        }
+        System.out.println("RZF "+ x);
         World w = player.getWorld();
         Location l = new Location(w,x,121.001,z);
 

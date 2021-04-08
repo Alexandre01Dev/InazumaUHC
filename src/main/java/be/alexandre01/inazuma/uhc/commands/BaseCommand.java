@@ -32,16 +32,16 @@ public class BaseCommand extends Command {
 
                    role.spoilRole(player);
                 }
-
-            }
-            return false;
-        }
-        if(args[0].equalsIgnoreCase("compo")){
-            if(Role.getRoles().isEmpty()){
-                sender.sendMessage(Preset.instance.p +"§cIl n'y a pas de rôle encore distribué.");
                 return false;
             }
 
+        }
+        if(args[0].equalsIgnoreCase("compo")){
+            if(!Role.isDistributed){
+                sender.sendMessage(Preset.instance.p.prefixName() +"§cIl n'y a pas de rôle encore distribué.");
+                return false;
+            }
+            sender.sendMessage(Preset.instance.p.prefixName()+" §eVoici la liste des rôles encore en vie");
             for(Role role : Role.getRoles()){
                 if(role != null){
                     if(role.getName() != null){
@@ -49,7 +49,7 @@ public class BaseCommand extends Command {
                             role.getInitialPlayers().forEach(player -> {
                                 String name = "§b"+ role.getName();
                                 if(role.getEliminatedPlayers().contains(player))
-                                    name = "§8§m"+role.getName();
+                                    name = "§8§m"+role.getRoleCategory().getPrefixColor()+role.getName();
 
 
                                 sender.sendMessage("§e- "+name+".");
