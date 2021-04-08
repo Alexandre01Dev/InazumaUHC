@@ -1,9 +1,9 @@
 package be.alexandre01.inazuma.uhc.roles;
 
 import be.alexandre01.inazuma.uhc.presets.Preset;
-import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.objects.Episode;
 import be.alexandre01.inazuma.uhc.timers.utils.DateBuilderTimer;
 import be.alexandre01.inazuma.uhc.timers.utils.MSToSec;
+import be.alexandre01.inazuma.uhc.utils.Episode;
 import com.google.common.collect.Lists;
 import lombok.Getter;
 import lombok.Setter;

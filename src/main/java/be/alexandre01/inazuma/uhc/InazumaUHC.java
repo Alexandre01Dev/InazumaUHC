@@ -22,7 +22,6 @@ import be.alexandre01.inazuma.uhc.managers.player.PlayerMovementManager;
 import be.alexandre01.inazuma.uhc.modules.Module;
 import be.alexandre01.inazuma.uhc.modules.ModuleLoader;
 import be.alexandre01.inazuma.uhc.presets.Preset;
-import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.InazumaEleven;
 import be.alexandre01.inazuma.uhc.presets.normal.Normal;
 import be.alexandre01.inazuma.uhc.roles.Role;
 import be.alexandre01.inazuma.uhc.roles.RoleManager;
@@ -151,6 +150,7 @@ public final class InazumaUHC extends JavaPlugin {
         invincibilityDamager = new InvincibilityDamager();
         noFallDamager = new NoFallDamager();
         lm.addListener(noFallDamager);
+        lm.addListener(invincibilityDamager);
         registerCommand("revive", new ReviveCommand("revive"));
         registerCommand("heal", new HealCommand("heal"));
         registerCommand("rulestp", new RulesTpCommand("rulestp"));
@@ -200,6 +200,14 @@ public final class InazumaUHC extends JavaPlugin {
         CustomBoat.registerEntity();
         //ARROWS
         this.tm = new TimersManager();
+        p.pData.getTimers().add(new BordureTimer());
+        p.pData.getTimers().add(new InvincibilityTimer());
+        p.pData.getTimers().add(new MoveBordureTimer());
+        p.pData.getTimers().add(new NetherTimer());
+        p.pData.getTimers().add(new PVPTimer());
+        p.pData.getTimers().add(new StabilizationTimer());
+        p.pData.getTimers().add(new StartingTimer());
+        p.pData.getTimers().add(new WaitingTimer());
 
         onLoadPreset();
 
@@ -253,20 +261,21 @@ public final class InazumaUHC extends JavaPlugin {
         registerCommand("ina",new StuffMeetupCommand("stuffmeetup"));
         registerCommand("invsee",new InvSeeCommand( "invsee"));
         registerCommand("module", new ModuleCommand("module"));
+        registerCommand("changerole", new ChangeRoleCommand("changerole"));
         //lm.automaticFindListener();
 
     }
 
     public void onLoadPreset(){
         //DEFAULT TIMERS LOAD
-        p.pData.getTimers().add(new BordureTimer());
+       /* p.pData.getTimers().add(new BordureTimer());
         p.pData.getTimers().add(new InvincibilityTimer());
         p.pData.getTimers().add(new MoveBordureTimer());
         p.pData.getTimers().add(new NetherTimer());
         p.pData.getTimers().add(new PVPTimer());
         p.pData.getTimers().add(new StabilizationTimer());
         p.pData.getTimers().add(new StartingTimer());
-        p.pData.getTimers().add(new WaitingTimer());
+        p.pData.getTimers().add(new WaitingTimer());*/
 
         lm.clearPresetListeners();
         lm.searchPresetListener();

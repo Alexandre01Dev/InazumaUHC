@@ -1,20 +1,18 @@
-package be.alexandre01.inazuma.uhc.presets.inazuma_eleven.timers;
+package be.alexandre01.inazuma.uhc.timers.game;
 
 import be.alexandre01.inazuma.uhc.InazumaUHC;
-import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.objects.Episode;
-import be.alexandre01.inazuma.uhc.scoreboard.Reflection.PacketType;
+import be.alexandre01.inazuma.uhc.presets.Preset;
+import be.alexandre01.inazuma.uhc.presets.PresetData;
 import be.alexandre01.inazuma.uhc.timers.ITimer;
 import be.alexandre01.inazuma.uhc.timers.Timer;
 import be.alexandre01.inazuma.uhc.timers.utils.DateBuilderTimer;
-import be.alexandre01.inazuma.uhc.timers.utils.MSToSec;
-import be.alexandre01.inazuma.uhc.utils.TitleUtils;
-import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
+import be.alexandre01.inazuma.uhc.utils.Episode;
+
 
 public class EpisodeTimer extends Timer {
     public EpisodeTimer() {
         super("episodeTimer");
-
+        PresetData p = Preset.instance.pData;
         setTimer(new ITimer() {
             DateBuilderTimer builderTimer;
 

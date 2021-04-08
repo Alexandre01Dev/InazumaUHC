@@ -51,7 +51,7 @@ public class PlayerEvent implements Listener {
             event.disallow(PlayerLoginEvent.Result.KICK_OTHER,"§cLa partie est entrain de commencer.");
             return;
         }
-        if (GameState.get().contains(State.PREPARING) && GameState.get().contains(State.WAITING)){
+        if (GameState.get().contains(State.PREPARING) || GameState.get().contains(State.WAITING)){
             if(i.p.p.getPlayerSize() <= Bukkit.getOnlinePlayers().size()){
             if(!event.getPlayer().hasPermission("uhc.bypass.login")){
                 event.getPlayer().sendMessage("§cLe serveur séléctionné à atteint la limite de joueurs maximum");

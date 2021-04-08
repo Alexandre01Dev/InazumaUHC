@@ -5,14 +5,17 @@ import be.alexandre01.inazuma.uhc.config.Config;
 import be.alexandre01.inazuma.uhc.presets.IPreset;
 import be.alexandre01.inazuma.uhc.presets.Preset;
 import be.alexandre01.inazuma.uhc.roles.Role;
+import be.alexandre01.inazuma.uhc.roles.RoleManager;
 import be.alexandre01.inazuma.uhc.state.GameState;
 import lombok.SneakyThrows;
 import lombok.val;
+import lombok.var;
 import org.apache.commons.io.IOUtils;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
 
 import java.io.*;
@@ -165,16 +168,59 @@ public class ModuleLoader {
 
         if(r){
             System.out.println("YES RELOAD");
+
+            RoleManager roleManager = InazumaUHC.get.rm;
             Preset.instance.set(module);
             InazumaUHC.get.onLoadPreset();
+
+
             for(Player player : classRoles.keySet()){
+                ArrayList<Class<?>> classes  = new ArrayList<>();
                 for(Role role : Role.getRoles()){
+                    System.out.println(InazumaUHC.get.lm);
+                    System.out.println(InazumaUHC.get.lm.listeners);
+                    System.out.println(InazumaUHC.get.lm.listeners.values());
+                    classes.clear();
+                    for(Listener oL : InazumaUHC.get.lm.listeners.values()){
+                        for(Listener l : role.listeners){
+                            System.out.println(oL.getClass().getName());
+                            System.out.println(l.getClass().getName());
+                            if(oL.getClass().getName().equals(l.getClass().getName())){
+                                System.out.println("OK");
+                                try {
+                                    InazumaUHC.get.lm.unregisterListener(oL.getClass());
+                                    classes.add(oL.getClass());
+                                }catch (Exception e){
+                                    e.printStackTrace();
+                                }
+
+                            }
+                        }
+                    }
+                    for(Class<?> c : classes){
+                        InazumaUHC.get.lm.listeners.remove(c);
+                    }
+
+
                     if(role.getClass().getName().equals(classRoles.get(player).getClass().getName())){
-                        role.addPlayer(player);
+                        var load = role.getLoad();
+                        role.onLoad(null);
+                        InazumaUHC.get.rm.addRole(player.getUniqueId(),role);
+                        System.out.println("addRole");
+                        role.onLoad(load);
+                       // role.addPlayer(player);
+                        if(!role.isListenerDeployed){
+                            role.deployListeners();
+                        }
+                        if(!role.isListenerDeployed){
+                            role.loadCommands();
+                        }
+
                     }
                 }
 
             }
+            Role.isDistributed = true;
             //GameState.get().setTo(GameState.get().getState());
         }
         return true;

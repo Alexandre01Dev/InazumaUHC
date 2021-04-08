@@ -43,7 +43,7 @@ public class WaitingScoreboard {
                     objectiveSign.setLine(4, "§r§l§8»§8§m------------§l§8«");
                     objectiveSign.setLine(6, "§7Joueurs §l» §e" + Bukkit.getOnlinePlayers().size() + "§7/§e"+normal.getPlayerSize());
                     objectiveSign.setLine(7, "§7 §l» §cEn attentes de joueurs§e");
-                    objectiveSign.setLine(8, "§7 §l» §e§l"+Normal.lastModifier+"s.");
+                    objectiveSign.setLine(8, "§7 §l» §e§l"+normal.lastModifier+"s.");
                     objectiveSign.setLine(9, "§r§l§8»§8§m------------§l§8«§r");
                     World world = player.getWorld();
                     int borderSize = Preset.instance.p.getBorderSize(world.getEnvironment());

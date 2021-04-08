@@ -1,13 +1,15 @@
-package be.alexandre01.inazuma.uhc.presets.inazuma_eleven.timers;
+package be.alexandre01.inazuma.uhc.timers.game;
 
-import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.InazumaEleven;
-import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.objects.Episode;
+
+import be.alexandre01.inazuma.uhc.presets.Preset;
+import be.alexandre01.inazuma.uhc.presets.PresetData;
 import be.alexandre01.inazuma.uhc.timers.ITimer;
 import be.alexandre01.inazuma.uhc.timers.Timer;
 import be.alexandre01.inazuma.uhc.timers.utils.DateBuilderTimer;
 
 public class EpisodeTimeTimer extends Timer {
     public static boolean cancel = false;
+    PresetData p = Preset.instance.pData;
     public EpisodeTimeTimer() {
         super("episodeTimeTimer");
 
@@ -24,7 +26,7 @@ public class EpisodeTimeTimer extends Timer {
             public void run() {
                 builderTimer.loadDate();
 
-                InazumaEleven.totalTimeValue = builderTimer.getBuild()+"s";
+                p.totalTimeValue = builderTimer.getBuild()+"s";
                 if(cancel){
                     cancel();
                 }

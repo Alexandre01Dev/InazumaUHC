@@ -1,4 +1,4 @@
-package be.alexandre01.inazuma.uhc.presets.inazuma_eleven.custom_events;
+package be.alexandre01.inazuma.uhc.custom_events.episode;
 
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;

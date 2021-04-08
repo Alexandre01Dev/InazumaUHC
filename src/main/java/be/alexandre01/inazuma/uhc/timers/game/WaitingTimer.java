@@ -2,7 +2,6 @@ package be.alexandre01.inazuma.uhc.timers.game;
 
 import be.alexandre01.inazuma.uhc.presets.Preset;
 import be.alexandre01.inazuma.uhc.presets.PresetData;
-import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.InazumaEleven;
 import be.alexandre01.inazuma.uhc.timers.ITimer;
 import be.alexandre01.inazuma.uhc.timers.Timer;
 import org.bukkit.Bukkit;
@@ -39,13 +38,13 @@ public class WaitingTimer extends Timer {
                     }
                     if(modifier > 10 && size >= p.getMinPlayerToStart()){
                         modifier = 10;
-                        InazumaEleven.lastModifier = modifier;
+                        p.lastModifier = modifier;
                     }
                     if(size == 0){
                         modifier= p.waitingTime;
-                        InazumaEleven.lastModifier = modifier;
+                        p.lastModifier = modifier;
                     }else {
-                        InazumaEleven.lastModifier = modifier;
+                        p.lastModifier = modifier;
                         modifier--;
                     }
                 }

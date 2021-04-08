@@ -2,8 +2,6 @@ package be.alexandre01.inazuma.uhc.timers.game;
 
 import be.alexandre01.inazuma.uhc.presets.Preset;
 import be.alexandre01.inazuma.uhc.presets.PresetData;
-import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.InazumaEleven;
-import be.alexandre01.inazuma.uhc.presets.normal.Normal;
 import be.alexandre01.inazuma.uhc.timers.ITimer;
 import be.alexandre01.inazuma.uhc.timers.Timer;
 import be.alexandre01.inazuma.uhc.utils.TitleUtils;

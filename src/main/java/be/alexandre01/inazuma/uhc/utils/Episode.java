@@ -1,6 +1,7 @@
-package be.alexandre01.inazuma.uhc.presets.inazuma_eleven.objects;
+package be.alexandre01.inazuma.uhc.utils;
 
-import be.alexandre01.inazuma.uhc.presets.inazuma_eleven.custom_events.EpisodeChangeEvent;
+
+import be.alexandre01.inazuma.uhc.custom_events.episode.EpisodeChangeEvent;
 import org.bukkit.Bukkit;
 
 public class Episode {

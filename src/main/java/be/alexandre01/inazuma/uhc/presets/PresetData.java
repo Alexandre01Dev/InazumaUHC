@@ -35,13 +35,14 @@ public class PresetData {
     protected HashMap<UUID,String> arrows = new HashMap<>();
     protected Plateform plateform;
     protected String[] generatorSettings = {"",""};
-    public static int lastModifier = 0;
+    public int lastModifier = 0;
     public String pvpText = "";
     public String pvpValue = "";
     public String bordureValue ="";
     public String bordureText ="";
     public String netherText ="";
     public String netherValue ="";
+    public String totalTimeValue ="";
     public IPersonalScoreBoard i;
 
 
@@ -101,12 +102,12 @@ public class PresetData {
         this.plateform = plateform;
     }
 
-    public static int getLastModifier() {
+    public int getLastModifier() {
         return lastModifier;
     }
 
-    public static void setLastModifier(int lastModifier) {
-        PresetData.lastModifier = lastModifier;
+    public void setLastModifier(int lastModifier) {
+        this.lastModifier = lastModifier;
     }
 
     public  String getTimerText() {

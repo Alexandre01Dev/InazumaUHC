@@ -21,7 +21,7 @@ import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
 public class ListenersManager {
-    public HashMap<Class,Listener> listeners;
+    public HashMap<Class<?>,Listener> listeners;
     public ArrayList<Listener> presetListeners;
     private Plugin pl;
     private PluginManager pluginManager;
@@ -37,13 +37,18 @@ public class ListenersManager {
         listeners.put(listener.getClass(),listener);
     }
 
-    public void removeListener(Class listener){
+    public void removeListener(Class<?> listener){
+        System.out.println("unregister");
         unregisterListener(listener);
+        System.out.println("remove");
         listeners.remove(listener);
     }
 
-    public void unregisterListener(Class listener){
+    public void unregisterListener(Class<?> listener){
+        System.out.println("unregister1");
+        System.out.println(listeners.get(listener));
         HandlerList.unregisterAll(listeners.get(listener));
+        System.out.println("unregister2");
     }
     public void unregisterListener(Listener listener){
         HandlerList.unregisterAll(listener);

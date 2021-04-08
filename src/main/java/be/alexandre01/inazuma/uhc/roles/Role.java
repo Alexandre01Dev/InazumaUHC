@@ -25,6 +25,7 @@ public class Role {
     private IPreset preset;
     private String name;
     public boolean isListenerDeployed = false;
+    public boolean isCommandDeployed = false;
     public static boolean isDistributed = false;
     private ArrayList<Class<?>> roleToSpoil = new ArrayList<>();
     private ArrayList<UUID> players;
@@ -253,6 +254,7 @@ public class Role {
             CommandRole commandRole = commands.get(name);
             InazumaUHC.get.registerCommand(name, commandRole);
         }
+        isCommandDeployed = true;
     }
     public static ArrayList<Role> getRoles(){
         return rolesByInstance;
