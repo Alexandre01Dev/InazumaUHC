@@ -3,6 +3,7 @@ package be.alexandre01.inazuma.uhc.commands;
 import be.alexandre01.inazuma.uhc.InazumaUHC;
 import be.alexandre01.inazuma.uhc.presets.Preset;
 import be.alexandre01.inazuma.uhc.roles.Role;
+import be.alexandre01.inazuma.uhc.utils.PlayerUUIDConverter;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -33,7 +34,35 @@ public class BaseCommand extends Command {
                 }
 
             }
+            return false;
         }
+        if(args[0].equalsIgnoreCase("compo")){
+            if(Role.getRoles().isEmpty()){
+                sender.sendMessage(Preset.instance.p +"§cIl n'y a pas de rôle encore distribué.");
+                return false;
+            }
+
+            for(Role role : Role.getRoles()){
+                if(role != null){
+                    if(role.getName() != null){
+                        if(!role.getInitialPlayers().isEmpty()){
+                            role.getInitialPlayers().forEach(player -> {
+                                String name = "§b"+ role.getName();
+                                if(role.getEliminatedPlayers().contains(player))
+                                    name = "§8§m"+role.getName();
+
+
+                                sender.sendMessage("§e- "+name+".");
+                            });
+
+                        }
+
+                    }
+                }
+
+            }
+        }
+
         return false;
     }
 }

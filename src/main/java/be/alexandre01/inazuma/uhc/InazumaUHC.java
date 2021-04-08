@@ -208,6 +208,8 @@ public final class InazumaUHC extends JavaPlugin {
         p.pData.getTimers().add(new StabilizationTimer());
         p.pData.getTimers().add(new StartingTimer());
         p.pData.getTimers().add(new WaitingTimer());
+        p.pData.getTimers().add(new EpisodeTimer());
+        p.pData.getTimers().add(new EpisodeTimeTimer());
 
         onLoadPreset();
 
@@ -262,6 +264,7 @@ public final class InazumaUHC extends JavaPlugin {
         registerCommand("invsee",new InvSeeCommand( "invsee"));
         registerCommand("module", new ModuleCommand("module"));
         registerCommand("changerole", new ChangeRoleCommand("changerole"));
+        registerCommand("hrtp", new HRTPCommand("hrtp"));
         //lm.automaticFindListener();
 
     }
