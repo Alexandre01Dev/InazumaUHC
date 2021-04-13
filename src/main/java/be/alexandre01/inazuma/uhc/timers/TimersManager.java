@@ -22,6 +22,12 @@ public class TimersManager {
     }
 
     public void addTimer(Timer timer){
+        if(timers.containsKey(timer.getClass())){
+            if(timer.isRunning){
+                System.out.println("isRunning");
+                return;
+            }
+        }
         timers.put(timer.getClass(),timer);
     }
     public Timer getTimer(Class c){

@@ -41,7 +41,7 @@ public class BaseCommand extends Command {
                 sender.sendMessage(Preset.instance.p.prefixName() +"§cIl n'y a pas de rôle encore distribué.");
                 return false;
             }
-            sender.sendMessage(Preset.instance.p.prefixName()+" §eVoici la liste des rôles encore en vie");
+            sender.sendMessage(Preset.instance.p.prefixName()+" §eVoici la liste des rôles:");
             for(Role role : Role.getRoles()){
                 if(role != null){
                     if(role.getName() != null){
@@ -54,7 +54,6 @@ public class BaseCommand extends Command {
 
                                 sender.sendMessage("§e- "+name+".");
                             });
-
                         }
 
                     }

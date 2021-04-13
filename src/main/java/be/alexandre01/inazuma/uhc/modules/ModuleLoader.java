@@ -4,6 +4,8 @@ import be.alexandre01.inazuma.uhc.InazumaUHC;
 import be.alexandre01.inazuma.uhc.config.Config;
 import be.alexandre01.inazuma.uhc.presets.IPreset;
 import be.alexandre01.inazuma.uhc.presets.Preset;
+import be.alexandre01.inazuma.uhc.presets.PresetData;
+import be.alexandre01.inazuma.uhc.presets.normal.scoreboards.GameScoreboard;
 import be.alexandre01.inazuma.uhc.roles.Role;
 import be.alexandre01.inazuma.uhc.roles.RoleManager;
 import be.alexandre01.inazuma.uhc.state.GameState;
@@ -11,6 +13,7 @@ import lombok.SneakyThrows;
 import lombok.val;
 import lombok.var;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang.SerializationUtils;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -121,6 +124,7 @@ public class ModuleLoader {
         if(module.getFile() == null){
             return false;
         }
+        CustomClassLoader child;
         try{
 
             ((CustomClassLoader)module.getChild()).close();
@@ -138,7 +142,7 @@ public class ModuleLoader {
                 cp = file.toURI().getPath();
             }
             System.setProperty("java.class.path", cp);*/
-       CustomClassLoader child = new CustomClassLoader(
+        child = new CustomClassLoader(
                module.getFile().toURI().toURL(),
                 this.getClass().getClassLoader()
         );
@@ -168,6 +172,14 @@ public class ModuleLoader {
 
         if(r){
             System.out.println("YES RELOAD");
+            for(Object o : Preset.instance.pData.getTimers()){
+                System.out.println("TIMERS"+o);
+                replacePreset(o);
+            }
+
+            for(Object o : Preset.instance.pData.getListeners()){
+                replacePreset(o);
+            }
 
             RoleManager roleManager = InazumaUHC.get.rm;
             Preset.instance.set(module);
@@ -221,6 +233,28 @@ public class ModuleLoader {
 
             }
             Role.isDistributed = true;
+
+
+
+            //SCOREBOARD
+            Object o = InazumaUHC.get.getScoreboardManager().scoreboardInitializer;
+
+
+
+
+            if(o!= null){
+                try {
+                    Class classToLoad = Class.forName(o.getClass().getName(), true, child);
+                    Object obj = classToLoad.getDeclaredConstructor(PresetData.class).newInstance(Preset.instance.pData);
+                    Method me =  classToLoad.getMethod("setScoreboard");
+                    me.invoke(obj);
+                    InazumaUHC.get.getScoreboardManager().refreshPlayers(obj);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+
             //GameState.get().setTo(GameState.get().getState());
         }
         return true;
@@ -272,5 +306,123 @@ public class ModuleLoader {
             System.out.println(this.toString() + " - CL Finalized.");
         }
     }
+    public void replacePreset(Object object){
+        for(Field field : object.getClass().getFields()){
+            System.out.println("field >> "+field);
+        if(field.getType() == IPreset.class){
+            try {
+                System.out.println("PRESET !");
+                field.setAccessible(true);
+                field.set(object,Preset.instance.p);
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
+        if(field.getType() == PresetData.class){
+            try {
+                System.out.println("PRESETdata !");
+                field.setAccessible(true);
+                field.set(object,Preset.instance.pData);
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+        for(Field field : object.getClass().getDeclaredFields()){
+            System.out.println("declared field >> "+field);
+            if(field.getType() == IPreset.class){
+                try {
+                    System.out.println("PRESET !");
+                    field.setAccessible(true);
+                    field.set(object,Preset.instance.p);
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+            }
+            if(field.getType() == PresetData.class){
+                try {
+                    System.out.println("PRESETdata !");
+                    field.setAccessible(true);
+                    field.set(object,Preset.instance.pData);
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+    public void searchAllObject(Object object){
+        for(Field field : object.getClass().getFields()){
+            searchForField(field,object);
+        }
+        for(Field field : object.getClass().getDeclaredFields()){
+            searchForField(field,object);
+        }
+        for( Method method : object.getClass().getMethods()){
+            try {
+                searchAllObject(method.invoke(object));
+            }catch (Exception ignored){
 
+            }
+        }
+
+        for( Method method : object.getClass().getMethods()){
+            try {
+                searchAllObject(method.invoke(object));
+            }catch (Exception ignored){
+
+            }
+        }
+    }
+
+    public void searchForField(Field field,Object object){
+        if(field.getType() == List.class){
+            try {
+                List<?> l = (List<?>) field.get(object);
+                for(Object o : l){
+                    searchAllObject(o);
+                }
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
+        if(field.getType() == ArrayList.class){
+            try {
+                ArrayList<?> l = (ArrayList<?>) field.get(object);
+                for(Object o : l){
+                    searchAllObject(o);
+                }
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
+        if(field.getType() == HashMap.class){
+            try {
+                HashMap<?,?> l = (HashMap<?,?>) field.get(object);
+                for(Object o : l.keySet()){
+                    searchAllObject(o);
+                }
+                for(Object o : l.values()){
+                    searchAllObject(o);
+                }
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
+        if(field.getType() == IPreset.class){
+            try {
+                field.setAccessible(true);
+                field.set(object,Preset.instance.p);
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
+        if(field.getType() == PresetData.class){
+            try {
+                field.setAccessible(true);
+                field.set(object,Preset.instance.pData);
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }

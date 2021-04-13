@@ -34,6 +34,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class ScoreboardManager {
     private final Map<UUID, PersonalScoreboard> scoreboards;
+    public Object scoreboardInitializer = null;
     private final ScheduledFuture glowingTask;
     private final ScheduledFuture reloadingTask;
     private ChatColor fColor = ChatColor.AQUA;
@@ -151,7 +152,8 @@ public class ScoreboardManager {
         return scoreboards;
     }
 
-    public void refreshPlayers(){
+    public void refreshPlayers(Object o){
+        this.scoreboardInitializer = o;
         for (UUID uuid : scoreboards.keySet()){
             Player player = Bukkit.getPlayer(uuid);
             scoreboards.get(player.getUniqueId()).onLogout();

@@ -31,8 +31,6 @@ public class ForceEpisodeCommand extends Command {
         Timer timer;
         InazumaUHC.get.tm.getTimer(EpisodeTimer.class).reset();
         InazumaUHC.get.tm.getTimer(EpisodeTimeTimer.class).reset();
-        sender.sendMessage("CHANGEMENT D'EPISODE");
-        
       
         sender.sendMessage("§bChangement d'episode.");
 

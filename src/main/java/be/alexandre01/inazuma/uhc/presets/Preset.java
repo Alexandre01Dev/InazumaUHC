@@ -3,9 +3,11 @@ package be.alexandre01.inazuma.uhc.presets;
 import be.alexandre01.inazuma.uhc.InazumaUHC;
 import be.alexandre01.inazuma.uhc.modules.Module;
 import be.alexandre01.inazuma.uhc.roles.Role;
+import be.alexandre01.inazuma.uhc.utils.ObjectUtil;
 import lombok.SneakyThrows;
 import org.bukkit.Bukkit;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -26,6 +28,7 @@ public class Preset {
 
     @SneakyThrows
     public void set(Module module){
+
         p = (IPreset) module.getPresetClass().getConstructor().newInstance();
         pData = (PresetData) p;
         modules.put(module.getPresetClass(),module);
@@ -34,7 +37,24 @@ public class Preset {
             configurate();
         }
     }
+    @SneakyThrows
+    public void set(Module module,boolean inGame){
+        IPreset oldIPreset = p;
+        p = (IPreset) module.getPresetClass().getConstructor().newInstance();
+        if(inGame)
+            ObjectUtil.copyAndPaste(oldIPreset,p);
 
+        PresetData oldPresetData = pData;
+        pData = (PresetData) p;
+        if(inGame)
+            ObjectUtil.copyAndPaste(oldPresetData,pData);
+
+        modules.put(module.getPresetClass(),module);
+        this.m = module;
+        if(!InazumaUHC.get.isHosted){
+            configurate();
+        }
+    }
     @SneakyThrows
     public void set(String s){
         p = (IPreset) presets.get(s).newInstance();

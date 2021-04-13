@@ -11,9 +11,9 @@ import org.bukkit.World;
 import org.bukkit.entity.Player;
 
 public class GameScoreboard {
-    Normal normal;
+    PresetData normal;
     String scenario;
-    public GameScoreboard(Normal normal){
+    public GameScoreboard(PresetData normal){
         this.normal = normal;
         setScoreboard();
         if(normal.hasScenario()){

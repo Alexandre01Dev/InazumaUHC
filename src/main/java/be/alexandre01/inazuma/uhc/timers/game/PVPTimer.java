@@ -5,6 +5,7 @@ import be.alexandre01.inazuma.uhc.presets.PresetData;
 import be.alexandre01.inazuma.uhc.timers.ITimer;
 import be.alexandre01.inazuma.uhc.timers.Timer;
 import be.alexandre01.inazuma.uhc.utils.TitleUtils;
+import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -16,9 +17,9 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class PVPTimer extends Timer {
+    @Getter PresetData p = Preset.instance.pData;
     public PVPTimer() {
         super("pvpTimer");
-        PresetData p = Preset.instance.pData;
         be.alexandre01.inazuma.uhc.InazumaUHC i = be.alexandre01.inazuma.uhc.InazumaUHC.get;
         iSpigot iSpigot = spg.lgdev.iSpigot.INSTANCE;
         ArrayList<Player> players = new ArrayList<>(Bukkit.getOnlinePlayers());

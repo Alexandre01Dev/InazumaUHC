@@ -20,9 +20,10 @@ import java.util.Date;
 import java.util.HashMap;
 
 public class NetherTimer extends Timer {
+    PresetData p =  Preset.instance.pData;
     public NetherTimer() {
         super("nether");
-        PresetData p =  Preset.instance.pData;
+
         be.alexandre01.inazuma.uhc.InazumaUHC i = be.alexandre01.inazuma.uhc.InazumaUHC.get;
         iSpigot iSpigot = spg.lgdev.iSpigot.INSTANCE;
         ArrayList<Player> players = new ArrayList<>(Bukkit.getOnlinePlayers());

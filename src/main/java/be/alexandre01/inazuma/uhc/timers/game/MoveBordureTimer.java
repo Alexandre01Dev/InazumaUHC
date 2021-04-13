@@ -17,9 +17,10 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class MoveBordureTimer extends Timer {
+    PresetData p =  Preset.instance.pData;
     public MoveBordureTimer() {
         super("moveBordureTimer");
-        PresetData p =  Preset.instance.pData;
+
         be.alexandre01.inazuma.uhc.InazumaUHC i = be.alexandre01.inazuma.uhc.InazumaUHC.get;
         iSpigot iSpigot = spg.lgdev.iSpigot.INSTANCE;
         ArrayList<Player> players = new ArrayList<>(Bukkit.getOnlinePlayers());

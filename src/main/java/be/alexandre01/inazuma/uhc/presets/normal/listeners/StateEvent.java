@@ -43,14 +43,14 @@ public class StateEvent implements Listener {
         System.out.println("PreparingEvent called");
         PreparingScoreboard preparingScoreboard = new PreparingScoreboard(n);
         preparingScoreboard.setScoreboard();
-        i.getScoreboardManager().refreshPlayers();
+        i.getScoreboardManager().refreshPlayers(preparingScoreboard);
     }
     @EventHandler
     public void onWaiting(WaitingEvent event){
         System.out.println("Waitingevent called");
         WaitingScoreboard waitingScoreboard = new WaitingScoreboard(n);
         waitingScoreboard.setScoreboard();
-        i.getScoreboardManager().refreshPlayers();
+        i.getScoreboardManager().refreshPlayers(waitingScoreboard);
     }
     @EventHandler
     public void onStarting(StartingEvent event){
@@ -73,7 +73,7 @@ public class StateEvent implements Listener {
         i.teamManager.safeTeamTeleport(0);
          GameScoreboard gameScoreboard = new GameScoreboard(n);
         gameScoreboard.setScoreboard();
-        i.getScoreboardManager().refreshPlayers();
+        i.getScoreboardManager().refreshPlayers(gameScoreboard);
     }
     @EventHandler
     public void onPlaying(PlayingEvent event){
