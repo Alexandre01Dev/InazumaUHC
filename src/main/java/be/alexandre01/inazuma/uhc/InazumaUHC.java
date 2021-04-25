@@ -203,16 +203,6 @@ public final class InazumaUHC extends JavaPlugin {
         CustomBoat.registerEntity();
         //ARROWS
         this.tm = new TimersManager();
-        /*p.pData.getTimers().add(new BordureTimer());
-        p.pData.getTimers().add(new InvincibilityTimer());
-        p.pData.getTimers().add(new MoveBordureTimer());
-        p.pData.getTimers().add(new NetherTimer());
-        p.pData.getTimers().add(new PVPTimer());
-        p.pData.getTimers().add(new StabilizationTimer());
-        p.pData.getTimers().add(new StartingTimer());
-        p.pData.getTimers().add(new WaitingTimer());
-        p.pData.getTimers().add(new EpisodeTimer());
-        p.pData.getTimers().add(new EpisodeTimeTimer());*/
 
         onLoadPreset();
 
