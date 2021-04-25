@@ -17,6 +17,7 @@ public class Preset {
 
     public HashMap<String, Class<?>> presets;
     public HashMap<Class<?>, Module> modules = new HashMap<>();
+    public HashMap<Class<?>, Module> tempModules = new HashMap<>();
     public Module m;
     public IPreset p;
     public PresetData pData;
@@ -40,14 +41,15 @@ public class Preset {
     @SneakyThrows
     public void set(Module module,boolean inGame){
         IPreset oldIPreset = p;
+
         p = (IPreset) module.getPresetClass().getConstructor().newInstance();
         if(inGame)
-            ObjectUtil.copyAndPaste(oldIPreset,p);
+            ObjectUtil.copyAndPaste(oldIPreset,p,"timers","listeners");
 
         PresetData oldPresetData = pData;
         pData = (PresetData) p;
         if(inGame)
-            ObjectUtil.copyAndPaste(oldPresetData,pData);
+            ObjectUtil.copyAndPaste(oldPresetData,pData,"timers","listeners");
 
         modules.put(module.getPresetClass(),module);
         this.m = module;

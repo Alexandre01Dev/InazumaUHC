@@ -243,7 +243,7 @@ public class Timer extends BukkitRunnable{
     @Override
     public synchronized void cancel() throws IllegalStateException {
         TimerCancelEvent cancelTimerEvent = new TimerCancelEvent(this);
-
+        System.out.println("CANCEL :'( "+ this.getTimerName());
         Class c = this.getClass();
 
 

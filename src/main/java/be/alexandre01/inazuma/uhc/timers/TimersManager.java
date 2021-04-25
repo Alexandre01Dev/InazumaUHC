@@ -13,18 +13,24 @@ import java.util.HashMap;
 
 public class TimersManager {
     public HashMap<Class, Timer> timers;
+    public HashMap<Class,Timer> oldTimer;
     private Plugin pl;
     private PluginManager pluginManager;
     public TimersManager(){
         this.timers = new HashMap<>();
+        this.oldTimer = new HashMap<>();
         this.pl = InazumaUHC.get;
         this.pluginManager = pl.getServer().getPluginManager();
     }
 
     public void addTimer(Timer timer){
-        if(timers.containsKey(timer.getClass())){
-            if(timer.isRunning){
-                System.out.println("isRunning");
+        System.out.println("ADD TIMER >> "+ timer.getTimerName());
+
+        if(oldTimer.containsKey(timer.getClass())){
+            Timer t = oldTimer.get(timer.getClass());
+            if(t.isRunning){
+                System.out.println("Est lancé >> "+ timer.getTimerName());
+                timers.put(t.getClass(),t);
                 return;
             }
         }
@@ -54,6 +60,8 @@ public class TimersManager {
     }
 
     public void clear(){
+        oldTimer.clear();
+        oldTimer.putAll(timers);
         timers.clear();
     }
 }
