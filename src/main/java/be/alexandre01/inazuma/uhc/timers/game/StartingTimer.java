@@ -13,9 +13,9 @@ import spg.lgdev.iSpigot;
 import java.util.ArrayList;
 
 public class StartingTimer extends Timer {
+    PresetData p = Preset.instance.pData;
     public StartingTimer() {
         super("startingTimer");
-        PresetData p = Preset.instance.pData;
         be.alexandre01.inazuma.uhc.InazumaUHC i = be.alexandre01.inazuma.uhc.InazumaUHC.get;
         iSpigot iSpigot = spg.lgdev.iSpigot.INSTANCE;
         ArrayList<Player> players = new ArrayList<>(Bukkit.getOnlinePlayers());

@@ -36,6 +36,7 @@ public class ModuleCommand extends Command {
             for(Module m : Preset.instance.modules.values()){
                 sender.sendMessage("§b- §a"+m.getModuleName()+" §b|§a "+ m.getVersion());
             }
+            return false;
         }
 
         if(args[0].equalsIgnoreCase("set")){

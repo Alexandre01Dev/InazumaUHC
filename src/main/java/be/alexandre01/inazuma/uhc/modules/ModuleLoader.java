@@ -9,6 +9,7 @@ import be.alexandre01.inazuma.uhc.presets.normal.scoreboards.GameScoreboard;
 import be.alexandre01.inazuma.uhc.roles.Role;
 import be.alexandre01.inazuma.uhc.roles.RoleManager;
 import be.alexandre01.inazuma.uhc.state.GameState;
+import be.alexandre01.inazuma.uhc.timers.Timer;
 import lombok.SneakyThrows;
 import lombok.val;
 import lombok.var;
@@ -129,7 +130,7 @@ public class ModuleLoader {
 
             ((CustomClassLoader)module.getChild()).close();
         System.gc();
-        Thread.sleep(3000);
+        //Thread.sleep(3000);
             /*URLClassLoader child = (URLClassLoader) ClassLoader.getSystemClassLoader();
 
             Method m = URLClassLoader.class.getDeclaredMethod("addURL", new  Class[]{URL.class});
@@ -146,13 +147,11 @@ public class ModuleLoader {
                module.getFile().toURI().toURL(),
                 this.getClass().getClassLoader()
         );
-            Class classToLoad = Class.forName(module.getPresetPath(), true, child);
-            module.setPresetClass(classToLoad);
-
+        Class<?> classToLoad = Class.forName(module.getPresetPath(), true, child);
+        module.setPresetClass(classToLoad);
         module.setChild(child);
         modules.remove(module);
         Preset.instance.remove(module.getModuleName(),module);
-
 
 
         YamlConfiguration yamlConfiguration = new YamlConfiguration();
@@ -171,18 +170,36 @@ public class ModuleLoader {
     }
 
         if(r){
+
             System.out.println("YES RELOAD");
-            for(Object o : Preset.instance.pData.getTimers()){
+            InazumaUHC.get.tm.clear();
+
+
+            IPreset oldIPreset = Preset.instance.p;
+            PresetData oldPresetData = Preset.instance.pData;
+            Preset.instance.set(module,true);
+            System.out.println("REDISTRIBUTION IN EXISTING OBJ");
+            System.out.println("TIMERS SIZE == "+ oldPresetData.getTimers().size());
+            for(Object o : InazumaUHC.get.tm.timers.values()){
                 System.out.println("TIMERS"+o);
                 replacePreset(o);
             }
-
-            for(Object o : Preset.instance.pData.getListeners()){
+            for(Object o : InazumaUHC.get.tm.oldTimer.values()){
+                System.out.println("TIMERS"+o);
+                replacePreset(o);
+            }
+            for(Object o : oldPresetData.getTimers()){
+                System.out.println("TIMERS"+o);
+                replacePreset(o);
+            }
+            System.out.println("LISTENERS SIZE == "+ oldPresetData.getListeners().size());
+            for(Object o : oldPresetData.getListeners()){
                 replacePreset(o);
             }
 
+
             RoleManager roleManager = InazumaUHC.get.rm;
-            Preset.instance.set(module);
+
             InazumaUHC.get.onLoadPreset();
 
 

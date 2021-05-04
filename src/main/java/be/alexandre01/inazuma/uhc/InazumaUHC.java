@@ -3,6 +3,7 @@ package be.alexandre01.inazuma.uhc;
 import be.alexandre01.inazuma.uhc.commands.*;
 import be.alexandre01.inazuma.uhc.commands.test.ChunkCommand;
 import be.alexandre01.inazuma.uhc.commands.test.ForceEpisodeCommand;
+import be.alexandre01.inazuma.uhc.commands.test.InaReload;
 import be.alexandre01.inazuma.uhc.commands.test.StuffMeetupCommand;
 import be.alexandre01.inazuma.uhc.config.Config;
 import be.alexandre01.inazuma.uhc.config.Messages;
@@ -131,6 +132,7 @@ public final class InazumaUHC extends JavaPlugin {
         lm.addListener(new NetherEvent());
         lm.addListener(new PlayerEvent());
         lm.addListener(new WorldEvent());
+        lm.addListener(new TimerEvent());
         //lm.addListener(new BoatEvent());
         for(World world : Bukkit.getWorlds()){
             for(Entity entity : world.getEntities()){
@@ -157,6 +159,7 @@ public final class InazumaUHC extends JavaPlugin {
         registerCommand("addEpisode", new ForceEpisodeCommand("addEpisode"));
         registerCommand("say", new SayCommand("say"));
         registerCommand("groupe", new GroupCommand("groupe"));
+        registerCommand("ireload", new InaReload("ireload"));
         potionEvent = new PotionEvent();
         lm.addListener(potionEvent);
         lm.addListener(new TeamsEvent());
@@ -200,7 +203,7 @@ public final class InazumaUHC extends JavaPlugin {
         CustomBoat.registerEntity();
         //ARROWS
         this.tm = new TimersManager();
-        p.pData.getTimers().add(new BordureTimer());
+        /*p.pData.getTimers().add(new BordureTimer());
         p.pData.getTimers().add(new InvincibilityTimer());
         p.pData.getTimers().add(new MoveBordureTimer());
         p.pData.getTimers().add(new NetherTimer());
@@ -209,7 +212,7 @@ public final class InazumaUHC extends JavaPlugin {
         p.pData.getTimers().add(new StartingTimer());
         p.pData.getTimers().add(new WaitingTimer());
         p.pData.getTimers().add(new EpisodeTimer());
-        p.pData.getTimers().add(new EpisodeTimeTimer());
+        p.pData.getTimers().add(new EpisodeTimeTimer());*/
 
         onLoadPreset();
 
@@ -304,8 +307,21 @@ public final class InazumaUHC extends JavaPlugin {
             }
         }
 
-        tm.clear();
+       // tm.clear();
+
+        p.pData.getTimers().add(new BordureTimer());
+        p.pData.getTimers().add(new InvincibilityTimer());
+        p.pData.getTimers().add(new MoveBordureTimer());
+        p.pData.getTimers().add(new NetherTimer());
+        p.pData.getTimers().add(new PVPTimer());
+        p.pData.getTimers().add(new StabilizationTimer());
+        p.pData.getTimers().add(new StartingTimer());
+        p.pData.getTimers().add(new WaitingTimer());
+        p.pData.getTimers().add(new EpisodeTimer());
+        p.pData.getTimers().add(new EpisodeTimeTimer());
+
         tm.searchPresetTimer();
+
 
         if(isHosted){
             lm.removeListener(InventoryClick.class);
