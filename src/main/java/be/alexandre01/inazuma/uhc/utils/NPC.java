@@ -129,6 +129,10 @@ public class NPC extends Reflections {
         return entityPlayer;
     }
 
+    public void setAI(boolean isIntelligent){
+
+    }
+
     public void teleport(Location location){
 
         PacketPlayOutEntityTeleport packet = new PacketPlayOutEntityTeleport();
