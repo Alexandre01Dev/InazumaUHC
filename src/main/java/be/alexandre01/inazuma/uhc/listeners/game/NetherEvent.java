@@ -15,6 +15,7 @@ import org.bukkit.block.Block;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerPortalEvent;
+import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.event.world.PortalCreateEvent;
 
 import java.util.ArrayList;
@@ -23,127 +24,128 @@ public class NetherEvent  implements Listener {
     public static Location from = null;
     @EventHandler
     public void onNetherPortal(PlayerPortalEvent event){
-        NetherPortalsManager npm = InazumaUHC.get.npm;
-       // from = event.getFrom();
-        if(!npm.active){
-            event.getPlayer().sendMessage("§cTu ne peux plus rentrer dans le Nether car il est désormais désactivé.");
-            return;
-        }
-        if(Preset.instance.p.getNether()){
-            event.useTravelAgent(true);
-
-            World netherWorld = InazumaUHC.get.worldGen.netherWorld;
-            World defaultWorld =  InazumaUHC.get.worldGen.defaultWorld;
-            Location l = null;
-            TravelAgent p =  event.getPortalTravelAgent();
-            p.setCanCreatePortal(true);
-            if(event.getPlayer().getWorld() == defaultWorld){
-
-                PortalData data = npm.find(event.getFrom());
-                Location search = data.dLoc;
-
-                System.out.println(search);
-                if(search != null){
-
-                   l = p.findOrCreate(search);
-                   if(!data.b){
-                       Location v = l.clone();
-                       boolean isX = false;
-                       double lastValue;
-                       for (int i = -1; i < 1; i++) {
-                           v.setX(v.getX()+i);
-                           if(v.getBlock().getType().equals(Material.OBSIDIAN)){
-                               isX = true;
-                               lastValue = v.getBlockX()+i;
-                               break;
-                           }
-                       }
-
-                       Location block1 = l.clone();
-                       Location block2 = l.clone();
-                       if(isX){
-                           block1.add(-2,-1,-1);
-                           block2.add(4,6,1);
-                       }else {
-                           block1.add(-1,-1,-2);
-                           block2.add(1,6,4);
-                       }
-
-                       Portal portal = new Portal(block1,block2);
-                       npm.getPortalsToDefault().put(portal,event.getFrom());
-                       npm.portalUsedByPlayer.put(event.getPlayer(),event.getFrom());
-                       System.out.println(l.getBlockX()+"/"+l.getBlockY()+"/"+l.getBlockZ());
-                       data.b = true;
-                   }
-
-
-                }else {
-                    p.setCreationRadius(1);
-                    p.setSearchRadius(1);
-                    l = npm.netherLocGeneration();
-                    l = p.findOrCreate(l);
-
-                    npm.addPortals(event.getFrom(),l);
-                }
-            }else{
-                PortalData data = npm.find(event.getFrom());
-                Location search = data.dLoc;
-                System.out.println(search);
-                if(search != null){
-                    p.setCreationRadius(1);
-                    p.setSearchRadius(1);
-                    l = p.findOrCreate(search);
-                    if(!data.b){
-                        Location v = l.clone();
-                        boolean isX = false;
-                        double lastValue;
-                        for (int i = -1; i < 1; i++) {
-                            v.setX(v.getX()+i);
-                            if(v.getBlock().getType().equals(Material.OBSIDIAN)){
-                                isX = true;
-                                lastValue = v.getBlockX()+i;
-                                break;
-                            }
-                        }
-
-                        Location block1 = l.clone();
-                        Location block2 = l.clone();
-                        if(isX){
-                            block1.add(-2,-1,-1);
-                            block2.add(4,6,1);
-                        }else {
-                            block1.add(-1,-1,-2);
-                            block2.add(1,6,4);
-                        }
-
-                        Portal portal = new Portal(block1,block2);
-                        npm.getPortalsToNether().put(portal,event.getFrom());
-                        System.out.println(l.getBlockX()+"/"+l.getBlockY()+"/"+l.getBlockZ());
-                        data.b = true;
-                    }
-
-
-
-                    //     npm.getPortalsToDefault().put();
-                }else {
-                    l = npm.defaultLocGeneration();
-                    p.setCreationRadius(1);
-                    p.setSearchRadius(1);
-                    l = p.findOrCreate(l);
-                    npm.addPortals(l,event.getFrom());
-                }
+        if(event.getCause().equals(PlayerTeleportEvent.TeleportCause.NETHER_PORTAL)){
+            NetherPortalsManager npm = InazumaUHC.get.npm;
+            // from = event.getFrom();
+            if(!npm.active){
+                event.getPlayer().sendMessage("§cTu ne peux plus rentrer dans le Nether car il est désormais désactivé.");
+                return;
             }
-            event.setTo(l);
-           // event.setPortalTravelAgent(p);
-            PortalTravelAgent po;
+            if(Preset.instance.p.getNether()){
+                event.useTravelAgent(true);
 
-            System.out.println("portal>" );
-            return;
+                World netherWorld = InazumaUHC.get.worldGen.netherWorld;
+                World defaultWorld =  InazumaUHC.get.worldGen.defaultWorld;
+                Location l = null;
+                TravelAgent p =  event.getPortalTravelAgent();
+                p.setCanCreatePortal(true);
+                if(event.getPlayer().getWorld() == defaultWorld){
+
+                    PortalData data = npm.find(event.getFrom());
+                    Location search = data.dLoc;
+
+                    System.out.println(search);
+                    if(search != null){
+
+                        l = p.findOrCreate(search);
+                        if(!data.b){
+                            Location v = l.clone();
+                            boolean isX = false;
+                            double lastValue;
+                            for (int i = -1; i < 1; i++) {
+                                v.setX(v.getX()+i);
+                                if(v.getBlock().getType().equals(Material.OBSIDIAN)){
+                                    isX = true;
+                                    lastValue = v.getBlockX()+i;
+                                    break;
+                                }
+                            }
+
+                            Location block1 = l.clone();
+                            Location block2 = l.clone();
+                            if(isX){
+                                block1.add(-2,-1,-1);
+                                block2.add(4,6,1);
+                            }else {
+                                block1.add(-1,-1,-2);
+                                block2.add(1,6,4);
+                            }
+
+                            Portal portal = new Portal(block1,block2);
+                            npm.getPortalsToDefault().put(portal,event.getFrom());
+                            npm.portalUsedByPlayer.put(event.getPlayer(),event.getFrom());
+                            System.out.println(l.getBlockX()+"/"+l.getBlockY()+"/"+l.getBlockZ());
+                            data.b = true;
+                        }
+
+
+                    }else {
+                        p.setCreationRadius(1);
+                        p.setSearchRadius(1);
+                        l = npm.netherLocGeneration();
+                        l = p.findOrCreate(l);
+
+                        npm.addPortals(event.getFrom(),l);
+                    }
+                }else{
+                    PortalData data = npm.find(event.getFrom());
+                    Location search = data.dLoc;
+                    System.out.println(search);
+                    if(search != null){
+                        p.setCreationRadius(1);
+                        p.setSearchRadius(1);
+                        l = p.findOrCreate(search);
+                        if(!data.b){
+                            Location v = l.clone();
+                            boolean isX = false;
+                            double lastValue;
+                            for (int i = -1; i < 1; i++) {
+                                v.setX(v.getX()+i);
+                                if(v.getBlock().getType().equals(Material.OBSIDIAN)){
+                                    isX = true;
+                                    lastValue = v.getBlockX()+i;
+                                    break;
+                                }
+                            }
+
+                            Location block1 = l.clone();
+                            Location block2 = l.clone();
+                            if(isX){
+                                block1.add(-2,-1,-1);
+                                block2.add(4,6,1);
+                            }else {
+                                block1.add(-1,-1,-2);
+                                block2.add(1,6,4);
+                            }
+
+                            Portal portal = new Portal(block1,block2);
+                            npm.getPortalsToNether().put(portal,event.getFrom());
+                            System.out.println(l.getBlockX()+"/"+l.getBlockY()+"/"+l.getBlockZ());
+                            data.b = true;
+                        }
+
+
+
+                        //     npm.getPortalsToDefault().put();
+                    }else {
+                        l = npm.defaultLocGeneration();
+                        p.setCreationRadius(1);
+                        p.setSearchRadius(1);
+                        l = p.findOrCreate(l);
+                        npm.addPortals(l,event.getFrom());
+                    }
+                }
+                event.setTo(l);
+                // event.setPortalTravelAgent(p);
+                PortalTravelAgent po;
+
+                System.out.println("portal>" );
+                return;
+            }
+
+            event.setCancelled(true);
+            event.getPlayer().sendMessage(Messages.get("game.netherAllowed"));
         }
-
-        event.setCancelled(true);
-        event.getPlayer().sendMessage(Messages.get("game.netherAllowed"));
-
     }
    /* @EventHandler
     public void onMove(PlayerMoveEvent event){

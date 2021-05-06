@@ -275,7 +275,7 @@ public class PlayerEvent implements Listener {
                                     if(!it.getType().equals(Material.AIR))
                                         player.getWorld().dropItemNaturally(player.getLocation(),it);
                                 }
-
+                          
                             }
 
                            ((ExperienceOrb)CustomExp.spawn(i,player.getLocation()).getBukkitEntity()).setExperience(playerInstantDeathEvent.getDroppedExp());

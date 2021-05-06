@@ -123,7 +123,7 @@ public class RejoinManager implements Listener {
             p.setFlying(false);
         }
 
-
+        if(playerInventory.containsKey(p.getUniqueId()))
         playerInventory.get(p.getUniqueId()).restitutionToPlayer(p);
 
         Block b = playerChest.get(p.getUniqueId());

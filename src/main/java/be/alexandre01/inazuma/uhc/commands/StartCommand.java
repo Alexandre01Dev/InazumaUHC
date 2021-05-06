@@ -39,9 +39,9 @@ public class StartCommand implements CommandExecutor{
                             InazumaUHC.get.worldGen.gen();
                         }else {
                             ChunksGenerator c = new ChunksGenerator();
-                            InazumaUHC.get.worldGen.defaultWorldLoaded();
                             World world = InazumaUHC.get.worldGen.defaultWorld;
                             c.generate(world.getChunkAt(0,0),(Preset.instance.p.getBorderSize(world.getEnvironment())/16)+InazumaUHC.get.getServer().getViewDistance()+5,true);
+                            InazumaUHC.get.worldGen.defaultWorldLoaded();
                         }
 
                         return true;

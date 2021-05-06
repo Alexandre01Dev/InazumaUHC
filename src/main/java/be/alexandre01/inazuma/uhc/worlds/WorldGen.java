@@ -4,6 +4,7 @@ import be.alexandre01.inazuma.uhc.InazumaUHC;
 import be.alexandre01.inazuma.uhc.config.Config;
 import be.alexandre01.inazuma.uhc.config.Options;
 import be.alexandre01.inazuma.uhc.config.yaml.YamlUtils;
+import be.alexandre01.inazuma.uhc.custom_events.worlds.DefaultWorldLoadedEvent;
 import be.alexandre01.inazuma.uhc.generations.NetherPortalsManager;
 import be.alexandre01.inazuma.uhc.presets.Preset;
 import be.alexandre01.inazuma.uhc.spectators.BukkitTeamInitializer;
@@ -17,11 +18,13 @@ import org.bukkit.plugin.Plugin;
 import spg.lgdev.config.ImanityWorldConfig;
 import spg.lgdev.iSpigot;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
 import java.util.UUID;
 
 public class WorldGen {
+    private int worlds = 1;
     YamlUtils yml;
     Plugin p;
     Options o;
@@ -112,6 +115,7 @@ public class WorldGen {
     }
 
     public void defaultWorldLoaded(){
+        Bukkit.getServer().getPluginManager().callEvent(new DefaultWorldLoadedEvent());
         isGenerating = true;
         BukkitTeamInitializer.initialize();
         if(Preset.instance.p.getPlatform() != null){
