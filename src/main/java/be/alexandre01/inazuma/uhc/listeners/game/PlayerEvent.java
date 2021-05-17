@@ -2,6 +2,7 @@ package be.alexandre01.inazuma.uhc.listeners.game;
 
 import be.alexandre01.inazuma.uhc.InazumaUHC;
 import be.alexandre01.inazuma.uhc.config.Options;
+import be.alexandre01.inazuma.uhc.custom_events.player.PlayerEliminatedEvent;
 import be.alexandre01.inazuma.uhc.custom_events.player.PlayerInstantDeathEvent;
 import be.alexandre01.inazuma.uhc.custom_events.teams.TeamDeathEvent;
 import be.alexandre01.inazuma.uhc.presets.IPreset;
@@ -329,6 +330,9 @@ public class PlayerEvent implements Listener {
                             World world = InazumaUHC.get.worldGen.defaultWorld;
                             player.teleport(world.getSpawnLocation());
 
+
+                        PlayerEliminatedEvent playerEliminatedEvent = new PlayerEliminatedEvent(player,i.dm.getKiller(player));
+                        Bukkit.getPluginManager().callEvent(playerEliminatedEvent);
                         }
                     return;
                     }

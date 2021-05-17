@@ -2,9 +2,6 @@ package be.alexandre01.inazuma.uhc.commands;
 
 import be.alexandre01.inazuma.uhc.InazumaUHC;
 import be.alexandre01.inazuma.uhc.generations.chunks.ChunksGenerator;
-import be.alexandre01.inazuma.uhc.listeners.host.InventoryClick;
-import be.alexandre01.inazuma.uhc.listeners.host.InventoryClose;
-import be.alexandre01.inazuma.uhc.presets.IPreset;
 import be.alexandre01.inazuma.uhc.presets.Preset;
 import be.alexandre01.inazuma.uhc.state.GameState;
 import be.alexandre01.inazuma.uhc.state.State;
