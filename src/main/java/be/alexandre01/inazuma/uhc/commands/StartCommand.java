@@ -11,6 +11,8 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryCloseEvent;
 
 public class StartCommand implements CommandExecutor{
 
@@ -28,8 +30,8 @@ public class StartCommand implements CommandExecutor{
                             player.sendMessage("§7La §cprégénération §7est entrain de s'effectuer.");
                             return true;
                         }
-                        InazumaUHC.get.lm.removeListener(InventoryClick.class);
-                        InazumaUHC.get.lm.removeListener(InventoryClose.class);
+                        InazumaUHC.get.lm.removeListener(InventoryClickEvent.class);
+                        InazumaUHC.get.lm.removeListener(InventoryCloseEvent.class);
 
                         player.sendMessage("§7Lancement de la §cprégénération§7.");
                         if(!InazumaUHC.get.loadWorldBefore){

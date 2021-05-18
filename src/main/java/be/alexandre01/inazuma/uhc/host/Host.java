@@ -29,14 +29,15 @@ public class Host {
     @Getter
     private static Host instance;
     private WorkingPlace home;
-    public void Host(){
+    public Host(){
         instance = this;
         FastInv inv = new FastInv(9*6,"Menu de Host");
          home = new WorkingPlace(inv);
-
+        home.readyToSetClickableItems();
     }
 
     public void createHostPanel(Player player){
         workingPlaces.put(player,home);
+        home.getInv().open(player);
     }
 }

@@ -44,6 +44,8 @@ import org.bukkit.command.CommandMap;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
@@ -309,9 +311,10 @@ public final class InazumaUHC extends JavaPlugin {
 
 
         if(isHosted){
-            lm.removeListener(InventoryClick.class);
-            lm.removeListener(InventoryClose.class);
+            lm.removeListener(InventoryClickEvent.class);
+            lm.removeListener(InventoryCloseEvent.class);
             host = new Host();
+
             this.getCommand("host").setExecutor(new HostCommand());
         }
 

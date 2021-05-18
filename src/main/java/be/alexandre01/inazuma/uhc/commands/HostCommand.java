@@ -21,13 +21,8 @@ public class HostCommand implements CommandExecutor {
             if(cmd.getName().equalsIgnoreCase("host")){
                 if(InazumaUHC.get.isHosted && GameState.get().contains(State.PREPARING) && !InazumaUHC.get.worldGen.isGenerating()){
                     Host host = InazumaUHC.get.host;
-                    if(host.currentTGUI.containsKey(player.getUniqueId())){
-                        if(host.lastTGUI.containsKey(player.getUniqueId())){
-                            host.lastTGUI.remove(player.getUniqueId());
-                        }
-                        host.currentTGUI.remove(player.getUniqueId());
-                    }
-                    player.openInventory(InazumaUHC.get.host.getInv());
+                    host.createHostPanel(player);
+
                 }else {
                     player.sendMessage("Vous ne pouvez plus ouvrir le menu de host.");
                 }

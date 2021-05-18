@@ -17,8 +17,8 @@ public class ClickInventory implements Listener {
 
         Player player = (Player) event.getWhoClicked();
 
-        if(host.getInventories().containsKey(player)){
+        //if(host.getInventories().containsKey(player)){
 
-        }
+        //}
     }
 }

@@ -2,14 +2,18 @@ package be.alexandre01.inazuma.uhc.host.gui;
 
 import be.alexandre01.inazuma.uhc.utils.ItemBuilder;
 import be.alexandre01.inazuma.uhc.utils.fastinv.FastInv;
+import lombok.Data;
+import lombok.Getter;
 import net.minecraft.server.v1_8_R3.Tuple;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.material.MaterialData;
 
 import java.util.HashMap;
-
+@Data
 public class WorkingPlace {
     private FastInv inv;
     private int beginSlot = 10;
@@ -36,11 +40,19 @@ public class WorkingPlace {
 
         ItemStack p_glass = new ItemStack(Material.STAINED_GLASS_PANE);
 
-        p_glass.getData().setData((byte) varianteTuple.a().data);
+        ItemMeta p_meta = p_glass.getItemMeta();
+        p_meta.setDisplayName(" ");
+        p_glass.setItemMeta(p_meta);
+        p_glass.setDurability(varianteTuple.a().data);
 
         ItemStack s_glass = new ItemStack(Material.STAINED_GLASS_PANE);
 
-        s_glass.getData().setData((byte) varianteTuple.a().data);
+        ItemMeta s_meta = s_glass.getItemMeta();
+        s_meta.setDisplayName(" ");
+        s_glass.setItemMeta(s_meta);
+        s_glass.setDurability(varianteTuple.a().data);
+
+
         int[] greyPos = {1*6-1,2*6-1,4*6-1,6*6-1,8*6-1,9*6-1,5*5-1};
         int[] principalPos = {
                 /*TOP*/2*1-1,4*1-1,6*1-1,8*1-1,
@@ -104,34 +116,35 @@ public class WorkingPlace {
         }
     }
     public void readyToSetClickableItems(){
+        buildDecoration();
         isBuilded = true;
     }
 
 
 
     public enum ColorVariante{
-        White(0),
-        Gray(8),
-        DarkGray(7),
-        Black(15),
+        White((byte)0),
+        Gray((byte)8),
+        DarkGray((byte)7),
+        Black((byte)15),
 
-        Magenta(10),
-        Purple(2),
+        Magenta((byte)10),
+        Purple((byte)2),
 
-        Green(5),
-        DarkGreen(13),
+        Green((byte)5),
+        DarkGreen((byte)13),
 
-        Yellow(4),
-        Orange(1),
-        Red(14),
-        Pink(6),
+        Yellow((byte)4),
+        Orange((byte)1),
+        Red((byte)14),
+        Pink((byte)6),
 
-        LightBlue(3),
-        Cyan(9),
-        Blue(11);
+        LightBlue((byte) 3),
+        Cyan((byte)9),
+        Blue((byte)11);
 
-        private int data;
-        ColorVariante(int data){
+        private byte data;
+        ColorVariante(byte data){
             this.data = data;
         }
 
