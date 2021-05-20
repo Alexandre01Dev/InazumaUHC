@@ -11,6 +11,8 @@ import be.alexandre01.inazuma.uhc.generations.NetherPortalsManager;
 import be.alexandre01.inazuma.uhc.host.Host;
 import be.alexandre01.inazuma.uhc.listeners.ListenersManager;
 import be.alexandre01.inazuma.uhc.listeners.game.*;
+import be.alexandre01.inazuma.uhc.listeners.host.ClickInventory;
+import be.alexandre01.inazuma.uhc.listeners.host.CloseInventory;
 import be.alexandre01.inazuma.uhc.managers.*;
 import be.alexandre01.inazuma.uhc.managers.chat.ChatManager;
 import be.alexandre01.inazuma.uhc.managers.damage.DamageManager;
@@ -311,8 +313,8 @@ public final class InazumaUHC extends JavaPlugin {
 
 
         if(isHosted){
-            lm.removeListener(InventoryClickEvent.class);
-            lm.removeListener(InventoryCloseEvent.class);
+            lm.removeListener(ClickInventory.class);
+            lm.removeListener(CloseInventory.class);
             host = new Host();
 
             this.getCommand("host").setExecutor(new HostCommand());

@@ -51,6 +51,7 @@ public class Role {
         this.name = name;
         rolesByInstance.add(this);
         description = new ArrayList<>();
+        this.preset = iPreset;
     }
     public static void clear(){
         commands.clear();

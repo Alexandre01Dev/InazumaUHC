@@ -4,6 +4,9 @@ import be.alexandre01.inazuma.uhc.InazumaUHC;
 import be.alexandre01.inazuma.uhc.config.LanguageData;
 import be.alexandre01.inazuma.uhc.config.Messages;
 import be.alexandre01.inazuma.uhc.host.gui.WorkingPlace;
+import be.alexandre01.inazuma.uhc.host.gui.menus.Home;
+import be.alexandre01.inazuma.uhc.listeners.host.ClickInventory;
+import be.alexandre01.inazuma.uhc.listeners.host.CloseInventory;
 import be.alexandre01.inazuma.uhc.modules.Module;
 import be.alexandre01.inazuma.uhc.presets.Preset;
 import be.alexandre01.inazuma.uhc.presets.PresetData;
@@ -26,18 +29,25 @@ import java.util.UUID;
 @Getter
 public class Host {
     private HashMap<Player, WorkingPlace> workingPlaces = new HashMap<>();
+    private HashMap<Player, FastInv> instances = new HashMap<>();
     @Getter
     private static Host instance;
     private WorkingPlace home;
     public Host(){
         instance = this;
-        FastInv inv = new FastInv(9*6,"Menu de Host");
-         home = new WorkingPlace(inv);
-        home.readyToSetClickableItems();
+        FastInv inv = new FastInv(9*6,"Menu de §bHost");
+         home = new Home(inv);
+         InazumaUHC.get.lm.addListener(new ClickInventory());
+         InazumaUHC.get.lm.addListener(new CloseInventory());
+
     }
 
     public void createHostPanel(Player player){
+        if(!home.getInvs().containsKey(player)){
+            home.addInstance(player);
+        }
+        FastInv inv = home.getInvs().get(player);
         workingPlaces.put(player,home);
-        home.getInv().open(player);
+        inv.open(player);
     }
 }
