@@ -29,7 +29,7 @@ public class Preset {
 
     @SneakyThrows
     public void set(Module module){
-
+        Role.clear();
         p = (IPreset) module.getPresetClass().getConstructor().newInstance();
         pData = (PresetData) p;
         modules.put(module.getPresetClass(),module);

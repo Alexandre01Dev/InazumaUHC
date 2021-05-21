@@ -11,9 +11,11 @@ import net.minecraft.server.v1_8_R3.Tuple;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.Sound;
+import org.bukkit.craftbukkit.v1_8_R3.inventory.CraftShapedRecipe;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.material.MaterialData;
 
@@ -38,7 +40,7 @@ public class WorkingPlace {
     private Tuple<ColorVariante,ColorVariante> varianteTuple = null;
     public WorkingPlace nextWorkingPlace = null;
     public WorkingPlace(FastInv fastInv){
-        this.inv = fastInv;
+        this.inv = new FastInv(fastInv.getInventory().getSize(),fastInv.getInventory().getTitle());
     }
     //ADDPLAYER
     public void addInstance(Player player){
@@ -47,10 +49,18 @@ public class WorkingPlace {
 
         invs.put(player,fastInv);
     }
+
+    //ADDPLAYER WITH INVENTORY
+    public void addInstance(Player player,FastInv fastInv){
+        updateInventory(fastInv);
+        invs.put(player,fastInv);
+    }
     //RMVPLAYER
     public void rmvInstance(Player player){
         invs.remove(player);
     }
+
+
     //UPDATING INVENTORIES
     public void updateItem(int i, HostButton hostButton){
 
@@ -86,6 +96,7 @@ public class WorkingPlace {
             i = setSlot(i,hostButton.getItemStack());
         }else {
             inv.setItem(i,hostButton.getItemStack());
+            updateInventories();
         }
         hostsButtons.put(i,hostButton);
         hostButton.addOnWorkingPlace(this,i);
@@ -202,11 +213,13 @@ public class WorkingPlace {
                 System.out.println("ENDSLOT"+ (i-(endSlot-beginSlot)));
 
                 nextWorkingPlace.setSlot((i-(endSlot-beginSlot)),itemStack);
+                updateInventories();
                 return i-endSlot;
             }
             whereToPlace++;
         }
         inv.setItem(whereToPlace,itemStack);
+        updateInventories();
         return whereToPlace; //A FAIRE GAFFE
     }
 

@@ -24,6 +24,7 @@ public class CloseInventory implements Listener {
                 if(host.getWorkingPlaces().containsKey(player)){
                     WorkingPlace workingPlace = host.getWorkingPlaces().get(player);
                     workingPlace.rmvInstance(player);
+                    host.getInstances().remove(player);
                     //SOUND
                     if(workingPlace.getSoundProperty() != null){
                         player.playSound(player.getLocation(),workingPlace.getSoundProperty().getSound(), workingPlace.getSoundProperty().getV1(), workingPlace.getSoundProperty().getV2());
