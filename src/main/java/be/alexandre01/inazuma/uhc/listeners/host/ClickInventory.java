@@ -19,11 +19,13 @@ public class ClickInventory implements Listener {
     public void onClick(InventoryClickEvent event){
         System.out.println("CLICK");
         Player player = (Player) event.getWhoClicked();
-        if(host.getHome().getInvs().containsKey(player)){
-            FastInv inv = host.getHome().getInventory(player);
+        if(host.getWorkingPlaces().containsKey(player)){
+            WorkingPlace workingPlace = host.getWorkingPlaces().get(player);
+        if(workingPlace.getInvs().containsKey(player)){
+            FastInv inv = workingPlace.getInvs().get(player);
             if(inv.getInventory().equals(event.getInventory())){
-                if(host.getWorkingPlaces().containsKey(player)){
-                    WorkingPlace workingPlace = host.getWorkingPlaces().get(player);
+
+
                     if(workingPlace.getHostsButtons().containsKey(event.getSlot())){
                         HostButton hostButton = workingPlace.getHostsButtons().get(event.getSlot());
                         //SOUND
@@ -40,6 +42,11 @@ public class ClickInventory implements Listener {
                             case OPTION:
                                 break;
                             case REDIRECTION:
+                                if(hostButton.getRedirection() == null)
+                                    break;
+                                host.getWorkingPlaces().put(player,hostButton.getRedirection());
+                                hostButton.getRedirection().addInstance(player,inv);
+                                workingPlace.rmvInstance(player);
                                 break;
                         }
 

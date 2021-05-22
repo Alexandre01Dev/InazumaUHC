@@ -23,6 +23,7 @@ public class Home extends WorkingPlace {
         HostButton mdj= new HostButton(Material.BEACON,"Modes de jeux", HostButton.Type.REDIRECTION);
         mdj.playSound(Sound.CLICK,1f,1.1f);
         addButton(mdj);
+        mdj.setRedirection(MDJ.class);
 
         HostButton scenarios= new HostButton(Material.REDSTONE_TORCH_ON,"Scénarios", HostButton.Type.REDIRECTION);
         scenarios.playSound(Sound.CLICK,1f,1.0f);

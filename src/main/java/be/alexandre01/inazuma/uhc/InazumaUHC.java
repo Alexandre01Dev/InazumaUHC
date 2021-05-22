@@ -9,6 +9,7 @@ import be.alexandre01.inazuma.uhc.config.Config;
 import be.alexandre01.inazuma.uhc.config.Messages;
 import be.alexandre01.inazuma.uhc.generations.NetherPortalsManager;
 import be.alexandre01.inazuma.uhc.host.Host;
+import be.alexandre01.inazuma.uhc.host.gui.WorkingPlace;
 import be.alexandre01.inazuma.uhc.listeners.ListenersManager;
 import be.alexandre01.inazuma.uhc.listeners.game.*;
 import be.alexandre01.inazuma.uhc.listeners.host.ClickInventory;
@@ -33,6 +34,7 @@ import be.alexandre01.inazuma.uhc.teams.TeamManager;
 import be.alexandre01.inazuma.uhc.timers.TimersManager;
 import be.alexandre01.inazuma.uhc.timers.game.*;
 import be.alexandre01.inazuma.uhc.utils.*;
+import be.alexandre01.inazuma.uhc.utils.fastinv.FastInv;
 import be.alexandre01.inazuma.uhc.worlds.WorldGen;
 import be.alexandre01.inazuma.uhc.worlds.utils.WorldUtils;
 import be.alexandre01.inazuma.uhc.worlds.executors.ArrowToCenter;
@@ -56,6 +58,7 @@ import org.bukkit.scoreboard.Team;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.stream.Collectors;
@@ -284,7 +287,7 @@ public final class InazumaUHC extends JavaPlugin {
 
         if(!Bukkit.getOnlinePlayers().isEmpty()){
             for(Player player : Bukkit.getOnlinePlayers()){
-                player.closeInventory();
+                //player.closeInventory();
             }
         }
         if(p.p.isArrowCalculated()){
@@ -315,9 +318,30 @@ public final class InazumaUHC extends JavaPlugin {
         if(isHosted){
             lm.removeListener(ClickInventory.class);
             lm.removeListener(CloseInventory.class);
-            host = new Host();
+            if(host != null){
+                HashMap<Player, FastInv> playersCurrentInv = host.getInstances();
+                HashMap<Player, WorkingPlace> playersCurrentWP = host.getWorkingPlaces();
+                host = new Host();
+                System.out.println("YES0");
+                for(Player player : Bukkit.getOnlinePlayers()){
+                    System.out.println("YES1");
+                    if(playersCurrentInv.containsKey(player)){
+                        System.out.println("YES2");
+                        FastInv fastInv = playersCurrentInv.get(player);
+                        if(playersCurrentWP.containsKey(player)){
+                            System.out.println("YES3");
+                            WorkingPlace workingPlace =  host.getMenu(playersCurrentWP.get(player).getClass());
+                            workingPlace.addInstance(player,fastInv);
+                            host.getWorkingPlaces().put(player,workingPlace);
+                            host.getInstances().put(player,fastInv);
+                        }
+                    }
+                }
 
-            this.getCommand("host").setExecutor(new HostCommand());
+            }else {
+                host = new Host();
+                this.getCommand("host").setExecutor(new HostCommand());
+            }
         }
 
 

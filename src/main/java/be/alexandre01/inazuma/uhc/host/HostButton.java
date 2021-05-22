@@ -3,17 +3,24 @@ package be.alexandre01.inazuma.uhc.host;
 import be.alexandre01.inazuma.uhc.host.gui.WorkingPlace;
 
 import be.alexandre01.inazuma.uhc.utils.SoundProperty;
+import be.alexandre01.inazuma.uhc.utils.fastinv.FastInv;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import net.minecraft.server.v1_8_R3.NBTTagCompound;
+import net.minecraft.server.v1_8_R3.NBTTagList;
 import org.bukkit.Material;
 import org.bukkit.Sound;
+import org.bukkit.craftbukkit.v1_8_R3.entity.CraftItem;
+import org.bukkit.craftbukkit.v1_8_R3.inventory.CraftItemStack;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 @Getter @Setter
 public class HostButton {
@@ -21,6 +28,7 @@ public class HostButton {
     private SoundProperty sound = null;
     private Type type;
     private action action;
+    private WorkingPlace redirection;
     private HashMap<WorkingPlace,Integer> locations = new HashMap<>();
 
     public HostButton(ItemStack itemStack){
@@ -41,10 +49,13 @@ public class HostButton {
         itemMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
         itemStack.setItemMeta(itemMeta);
         this.type = type;
-        if(isEnchanted)
-            itemStack.addEnchantment(Enchantment.DURABILITY,1);
+        setEnchant(isEnchanted);
     }
-
+    public void setEnchant(boolean b){
+        if(b){
+            addGlow(itemStack);
+        }
+    }
     public void addOnWorkingPlace(WorkingPlace workingPlace, int slot){
         locations.put(workingPlace,slot);
     }
@@ -82,4 +93,34 @@ public class HostButton {
             this.s = s;
         }
     }
+    private void addGlow(org.bukkit.inventory.ItemStack stack) {
+        net.minecraft.server.v1_8_R3.ItemStack nmsStack = CraftItemStack.asNMSCopy(stack);
+        NBTTagCompound compound = nmsStack.getTag();
+
+        // Initialize the compound if we need to
+        if (compound == null) {
+            compound = new NBTTagCompound();
+            nmsStack.setTag(compound);
+        }
+
+        // Empty enchanting compound
+        compound.set("ench", new NBTTagList());
+
+        itemStack = CraftItemStack.asBukkitCopy(nmsStack);
+    }
+
+    public void setRedirection(Class<?> redirection){
+        Host host = Host.getInstance();
+        if(host.getMenu(redirection) != null){
+            this.redirection = Host.getInstance().getMenu(redirection);
+            return;
+        }
+        try {
+            this.redirection = (WorkingPlace) redirection.getDeclaredConstructor(FastInv.class).newInstance(Host.getInstance().getDefaultInv());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Host.getInstance().addMenu(this.redirection);
+    }
+
 }
