@@ -25,6 +25,7 @@ import java.util.HashMap;
 @Getter @Setter
 public class HostButton {
     private ItemStack itemStack;
+    private Object value = null;
     private SoundProperty sound = null;
     private Type type;
     private action action;
@@ -36,6 +37,14 @@ public class HostButton {
     }
     public HostButton(Material material, String name,Type type){
         this.itemStack = new ItemStack(material);
+        ItemMeta itemMeta = itemStack.getItemMeta();
+        itemMeta.setDisplayName(name);
+        itemMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+        itemStack.setItemMeta(itemMeta);
+        this.type = type;
+    }
+    public HostButton(ItemStack itemStack, String name,Type type){
+        this.itemStack = itemStack;
         ItemMeta itemMeta = itemStack.getItemMeta();
         itemMeta.setDisplayName(name);
         itemMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
@@ -54,7 +63,11 @@ public class HostButton {
     public void setEnchant(boolean b){
         if(b){
             addGlow(itemStack);
+        }else {
+            removeGlow(itemStack);
         }
+
+
     }
     public void addOnWorkingPlace(WorkingPlace workingPlace, int slot){
         locations.put(workingPlace,slot);
@@ -108,7 +121,22 @@ public class HostButton {
 
         itemStack = CraftItemStack.asBukkitCopy(nmsStack);
     }
+    private void removeGlow(org.bukkit.inventory.ItemStack stack) {
+        net.minecraft.server.v1_8_R3.ItemStack nmsStack = CraftItemStack.asNMSCopy(stack);
+        NBTTagCompound compound = nmsStack.getTag();
 
+        // Initialize the compound if we need to
+        if (compound == null) {
+            compound = new NBTTagCompound();
+            nmsStack.setTag(compound);
+        }
+
+        // Empty enchanting compound
+        compound.remove("ench");
+
+
+        itemStack = CraftItemStack.asBukkitCopy(nmsStack);
+    }
     public void setRedirection(Class<?> redirection){
         Host host = Host.getInstance();
         if(host.getMenu(redirection) != null){

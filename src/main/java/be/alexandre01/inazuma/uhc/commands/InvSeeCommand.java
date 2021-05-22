@@ -114,6 +114,7 @@ public class InvSeeCommand extends Command {
         return true;
     }
 
+
     @EventHandler
     public void invsee(InventoryClickEvent event) {
         if (event.getInventory().getName().startsWith("§6Inventaire de §c§l")) {

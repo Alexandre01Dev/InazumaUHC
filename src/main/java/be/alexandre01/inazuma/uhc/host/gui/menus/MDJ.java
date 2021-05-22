@@ -18,6 +18,7 @@ public class MDJ extends WorkingPlace {
 
     public MDJ(FastInv fastInv) {
         super(fastInv);
+
         setColorVariations(ColorVariante.Green,ColorVariante.DarkGreen);
         readyToSetClickableItems();
         setSeparation(1,ColorVariante.Cyan);

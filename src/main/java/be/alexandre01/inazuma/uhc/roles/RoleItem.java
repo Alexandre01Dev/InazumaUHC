@@ -204,8 +204,6 @@ public class RoleItem {
                 @Override
                 public boolean verification(Player player) {
                     int currentEpisode = Episode.getEpisode();
-                    System.out.println("CALC EPISODE " +i+episodeLastRange);
-                    System.out.println("CURRENT "+ currentEpisode);
                     if(i+episodeLastRange >= currentEpisode){
                         player.sendMessage(Preset.instance.p.prefixName()+"§c Tu peux utiliser cette item tout les "+(episodeLastRange+1)+" épisode(s) après son utilisation ");
                         return false;

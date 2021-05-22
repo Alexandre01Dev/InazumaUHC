@@ -2,6 +2,7 @@ package be.alexandre01.inazuma.uhc.host.gui.menus;
 
 import be.alexandre01.inazuma.uhc.host.HostButton;
 import be.alexandre01.inazuma.uhc.host.gui.WorkingPlace;
+import be.alexandre01.inazuma.uhc.scenarios.Scenario;
 import be.alexandre01.inazuma.uhc.utils.fastinv.FastInv;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -18,6 +19,7 @@ public class Home extends WorkingPlace {
 
         HostButton pregen = new HostButton(Material.GRASS,"Prégeneration", HostButton.Type.REDIRECTION);
         pregen.playSound(Sound.CLICK,1f,1.2f);
+        pregen.setRedirection(Pregeneration.class);
         addButton(pregen);
 
         HostButton mdj= new HostButton(Material.BEACON,"Modes de jeux", HostButton.Type.REDIRECTION);
@@ -28,6 +30,7 @@ public class Home extends WorkingPlace {
         HostButton scenarios= new HostButton(Material.REDSTONE_TORCH_ON,"Scénarios", HostButton.Type.REDIRECTION);
         scenarios.playSound(Sound.CLICK,1f,1.0f);
         addButton(scenarios);
+        scenarios.setRedirection(ScenariosMenu.class);
 
     }
 }
