@@ -47,9 +47,9 @@ public class BaseCommand extends Command {
                     if(role.getName() != null){
                         if(!role.getInitialPlayers().isEmpty()){
                             role.getInitialPlayers().forEach(player -> {
-                                String name = "§b"+ role.getName();
+                                String name = role.getRoleCategory().getPrefixColor()+role.getName();
                                 if(role.getEliminatedPlayers().contains(player))
-                                    name = "§8§m"+role.getRoleCategory().getPrefixColor()+role.getName();
+                                    name = "§8§m"+role.getName();
 
 
                                 sender.sendMessage("§e- "+name+".");
