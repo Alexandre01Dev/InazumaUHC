@@ -12,6 +12,7 @@ import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.craftbukkit.v1_8_R3.inventory.CraftShapedRecipe;
+import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -63,7 +64,12 @@ public class WorkingPlace {
 
     //UPDATING INVENTORIES
     public void updateItem(int i, HostButton hostButton){
-
+        updateItem(i,hostButton.getItemStack());
+    }
+    public void updateItem(int i, ItemStack itemStack){
+        for(FastInv inv : invs.values()){
+            inv.setItem(i,itemStack);
+        }
     }
     private void updateInventory(FastInv fastInv){
         int i = 0;
@@ -81,15 +87,16 @@ public class WorkingPlace {
 
 
     //OPTIONS
-    public void addButton(HostButton hostButton){
-        addButton(hostButton,actualPlace,false);
+    public int addButton(HostButton hostButton){
+        int i =  addButton(hostButton,actualPlace,false);
         actualPlace++;
+        return i;
     }
     public void addButton(HostButton hostButton, int i){
         addButton(hostButton,i,false);
     }
 
-    private void addButton(HostButton hostButton, int i,boolean customPlace){
+    private int addButton(HostButton hostButton, int i,boolean customPlace){
 
         if(!customPlace){
             System.out.println("NotCustomPlace "+ i);
@@ -100,7 +107,7 @@ public class WorkingPlace {
         }
         hostsButtons.put(i,hostButton);
         hostButton.addOnWorkingPlace(this,i);
-
+        return i;
     }
     //PRE-CONFIGURATION-UTILS
     public void setColorVariations(ColorVariante principal, ColorVariante secondary){
@@ -154,7 +161,9 @@ public class WorkingPlace {
     public int getCase(int slot, int raw){
         return (slot-1)+((raw-1)*9);
     }
-
+    public int getSlot(int slot, int raw){
+        return (slot)+((raw-1)*7);
+    }
 
     //PRE-CONFIGURATION
     private void staticButtons(WorkingPlace workingPlace){
@@ -289,7 +298,11 @@ public class WorkingPlace {
 
         LightBlue((byte) 3),
         Cyan((byte)9),
-        Blue((byte)11);
+        Blue((byte)11),
+
+        Brown((byte)12);
+
+
 
         private byte data;
         ColorVariante(byte data){

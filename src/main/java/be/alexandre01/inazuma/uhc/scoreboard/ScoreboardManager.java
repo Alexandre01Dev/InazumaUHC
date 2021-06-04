@@ -87,6 +87,25 @@ public class ScoreboardManager {
             scoreboards.get(player.getUniqueId()).reloadData();
         }
     }
+    private String colorIpAt_dev(){
+        if(cooldown > 0){
+            cooldown--;
+            return ChatColor.BLUE + ip;
+        }
+        StringBuilder formattedIp = new StringBuilder();
+        int i = 1;
+            if(ipCharIndex > 0) {
+                formattedIp.append(ip.substring(0,ipCharIndex-1));
+                formattedIp.append(ChatColor.AQUA+ip.substring(ipCharIndex-1,ipCharIndex));
+                formattedIp.append(ChatColor.WHITE+ip.substring(ipCharIndex,ipCharIndex+1));
+            }
+            formattedIp.append(ChatColor.BLUE+ip.substring(ipCharIndex,ipCharIndex+1));
+
+
+        ipCharIndex++;
+
+        return ChatColor.BLUE + formattedIp.toString();
+    }
 
     private String colorIpAt() {
 
@@ -98,11 +117,11 @@ public class ScoreboardManager {
         StringBuilder formattedIp = new StringBuilder();
         if(ipCharIndex > 0 && reverse){
             formattedIp.append(ip.substring(0, ipCharIndex - 1));
-            formattedIp.append(ChatColor.BLUE).append(ip.substring(ipCharIndex -1, ipCharIndex));
+            formattedIp.append(ChatColor.AQUA).append(ip.substring(ipCharIndex -1, ipCharIndex));
         }else {
             if (ipCharIndex > 0 && !reverse) {
                 formattedIp.append(ip.substring(0, ipCharIndex - 1));
-                formattedIp.append(ChatColor.BLUE).append(ip.substring(ipCharIndex - 1, ipCharIndex));
+                formattedIp.append(ChatColor.AQUA).append(ip.substring(ipCharIndex - 1, ipCharIndex));
             } else {
                 if(reverse){
                     formattedIp.append(ChatColor.AQUA+"p"+ChatColor.BLUE+ip.substring(1));
