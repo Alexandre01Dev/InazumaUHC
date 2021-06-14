@@ -5,6 +5,7 @@ import be.alexandre01.inazuma.uhc.timers.utils.DateBuilderTimer;
 import be.alexandre01.inazuma.uhc.timers.utils.MSToSec;
 import be.alexandre01.inazuma.uhc.utils.Episode;
 import com.google.common.collect.Lists;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import net.minecraft.server.v1_8_R3.Tuple;
@@ -19,19 +20,22 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+@Data
 public class RoleItem {
     private ItemStack itemStack;
-    @Getter boolean isPlaceableItem = false;
-    @Getter @Setter private RightClick rightClick;
-    private Role LinkedRole;
-    @Getter @Setter private RightClickOnPlayer rightClickOnPlayer = null;
-    @Getter @Setter private PlaceBlock placeBlock = null;
-    @Getter @Setter private Tuple<Integer,RightClickOnPlayer> rightClickOnPlayerFarTuple = null;
-    @Getter @Setter private LeftClick leftClick;
-    @Getter @Setter private VerificationOnRightClick verificationOnRightClick = null;
-    @Getter @Setter private VerificationOnLeftClick verificationOnLeftClick = null;
-    @Getter @Setter private VerificationOnRightClickOnPlayer verificationOnRightClickOnPlayer = null;
-    @Getter @Setter private VerificationOnPlaceBlock verificationOnPlaceBlock = null;
+    boolean isPlaceableItem = false;
+    boolean isDroppableItem = false;
+    private ArrayList<Class<?>> rolesToAccess = new ArrayList<>();
+    private RightClick rightClick;
+    private ArrayList<Player> playersHaveItem = new ArrayList<>();
+    private RightClickOnPlayer rightClickOnPlayer = null;
+    private PlaceBlock placeBlock = null;
+    private Tuple<Integer,RightClickOnPlayer> rightClickOnPlayerFarTuple = null;
+    private LeftClick leftClick;
+    private VerificationOnRightClick verificationOnRightClick = null;
+    private VerificationOnLeftClick verificationOnLeftClick = null;
+    private VerificationOnRightClickOnPlayer verificationOnRightClickOnPlayer = null;
+    private VerificationOnPlaceBlock verificationOnPlaceBlock = null;
     private int slot = 8;
 
 
@@ -63,13 +67,6 @@ public class RoleItem {
         return slot;
     }
 
-    public Role getLinkedRole() {
-        return LinkedRole;
-    }
-
-    public void setLinkedRole(Role linkedRole) {
-        LinkedRole = linkedRole;
-    }
 
     public VerificationOnRightClick getVerificationOnRightClick() {
         return verificationOnRightClick;
@@ -117,7 +114,6 @@ public class RoleItem {
                     if(!(v.verification(player)))
                         return false;
                 }
-                System.out.println("true true");
                 return true;
             }
         };
@@ -231,12 +227,14 @@ public class RoleItem {
                 }
             };
         }
+
         return v;
     }
 
     public void setPlaceableItem(boolean placeableItem) {
         isPlaceableItem = placeableItem;
     }
+
 
 
     public interface VerificationGeneration{
@@ -278,7 +276,7 @@ public class RoleItem {
     }
 
     public void updateItem(ItemStack newItem){
-        for(Player player : getLinkedRole().getPlayers()){
+        for(Player player : playersHaveItem){
 
             List<ItemStack> arrayList =  Arrays.asList(player.getInventory().getContents());
             for(ItemStack it : arrayList){

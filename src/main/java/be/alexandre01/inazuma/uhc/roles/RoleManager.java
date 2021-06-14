@@ -98,6 +98,9 @@ public class RoleManager {
         Collections.shuffle(totalRole);
         System.out.println(totalRole.size());
         for(Player player: p){
+            if(getRole(player) != null){
+                continue;
+            }
             if(totalRole.size() < i+1){
                 i = 0;
             }

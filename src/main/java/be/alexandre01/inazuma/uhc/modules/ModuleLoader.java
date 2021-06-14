@@ -85,7 +85,7 @@ public class ModuleLoader {
                     if(module == null)
                         return;
 
-                    Class classToLoad = Class.forName(module.getPresetPath(), true, child);
+                    Class<?> classToLoad = Class.forName(module.getPresetPath(), true, child);
                     module.setPresetClass(classToLoad);
 
                     System.out.println(module.getModuleName());
@@ -241,9 +241,11 @@ public class ModuleLoader {
                         if(!role.isListenerDeployed){
                             role.deployListeners();
                         }
-                        if(!role.isListenerDeployed){
+                        if(!role.isCommandDeployed){
                             role.loadCommands();
                         }
+
+                        System.out.println(role.getRoleItems());
 
                     }
                 }

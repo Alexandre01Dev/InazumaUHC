@@ -18,6 +18,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -28,6 +29,7 @@ public class Role {
     public boolean isCommandDeployed = false;
     public static boolean isDistributed = false;
     private ArrayList<Class<?>> roleToSpoil = new ArrayList<>();
+
     private ArrayList<UUID> players;
     private ArrayList<Player> onlinePlayers;
     @Getter private ArrayList<UUID> eliminatedPlayers;
@@ -41,6 +43,7 @@ public class Role {
     private static final HashMap<String,CommandRole> commands = new HashMap<>();
   private final HashMap<String,RoleItem> roleItems = new HashMap<>();
     private static ArrayList<Role> rolesByInstance = new ArrayList<>();
+    private static ArrayList<Class<?>> rolesClass = new ArrayList<>();
     private RoleCategory roleCategory = null;
     public Role(String name,IPreset iPreset){
         this.players = new ArrayList<>();
@@ -57,6 +60,7 @@ public class Role {
         commands.clear();
         isDistributed = false;
         rolesByInstance.clear();
+        rolesClass.clear();
     }
 
     public void setRoleToSpoil(Class<?>... c){
@@ -144,6 +148,7 @@ public class Role {
             boolean full = false;
             if(!roleItems.isEmpty()){
                 for(RoleItem roleItem : roleItems.values()){
+                    roleItem.getPlayersHaveItem().add(player);
                     if(hasAvaliableSlot(player)){
                         if(player.getInventory().getItem(roleItem.getSlot()) == null){
                             player.getInventory().setItem(roleItem.getSlot(),roleItem.getItemStack());
@@ -158,6 +163,7 @@ public class Role {
                     player.getInventory().setItem(roleItem.getSlot(),roleItem.getItemStack());
                     player.getWorld().dropItemNaturally(player.getLocation(),itemStack,player);
                     full = true;
+
                 }
                 if(full){
                     player.sendMessage("§cInventaire est plein lors de la distribution d'un item spécial.");
@@ -171,7 +177,7 @@ public class Role {
         Bukkit.getScheduler().scheduleSyncDelayedTask(inazumaUHC,() -> {
             boolean full = false;
             if(!roleItems.isEmpty()){
-
+                roleItem.getPlayersHaveItem().add(player);
                     if(hasAvaliableSlot(player)){
                         if(player.getInventory().getItem(roleItem.getSlot()) == null){
                             player.getInventory().setItem(roleItem.getSlot(),roleItem.getItemStack());
@@ -234,8 +240,10 @@ public class Role {
     }
 
     public void addRoleItem(RoleItem roleItem) {
+        if(!roleItem.getRolesToAccess().contains(this.getClass()))
+            roleItem.getRolesToAccess().add(this.getClass());
+
         roleItems.put(roleItem.getItemStack().getItemMeta().getDisplayName(),roleItem);
-        roleItem.setLinkedRole(this);
     }
 
     public void addCommand(String name,command command){
@@ -259,6 +267,9 @@ public class Role {
     }
     public static ArrayList<Role> getRoles(){
         return rolesByInstance;
+    }
+    public static ArrayList<Class<?>> getClassRoles(){
+        return rolesClass;
     }
 
 
@@ -290,7 +301,25 @@ public class Role {
         c.append(TextComponent.fromLegacyText(s));
         description.add(c.create());
     }
+    public static void addRoles(Class<?>... roles){
+        rolesClass.addAll(Arrays.asList(roles));
+    }
 
+    public static void initializeRoles(){
+        for(Class<?> c : rolesClass){
+            try {
+                c.getDeclaredConstructor(IPreset.class).newInstance(Preset.instance.p);
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+            } catch (NoSuchMethodException e) {
+                e.printStackTrace();
+            }
+        }
+    }
     public void addDescription(BaseComponent... baseComponents){
         description.add(baseComponents);
     }
