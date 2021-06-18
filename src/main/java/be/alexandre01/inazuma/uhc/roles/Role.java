@@ -264,6 +264,7 @@ public class Role {
             InazumaUHC.get.registerCommand(name, commandRole);
         }
         isCommandDeployed = true;
+
     }
     public static ArrayList<Role> getRoles(){
         return rolesByInstance;
