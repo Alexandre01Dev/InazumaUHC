@@ -5,6 +5,8 @@ import be.alexandre01.inazuma.uhc.roles.listeners.DropRoleItemEvent;
 import be.alexandre01.inazuma.uhc.roles.listeners.InteractItemEvent;
 import be.alexandre01.inazuma.uhc.roles.listeners.PlayerInstantDeath;
 import lombok.Data;
+import net.minecraft.server.v1_8_R3.CraftingManager;
+import net.minecraft.server.v1_8_R3.RecipesCrafting;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -97,6 +99,8 @@ public class RoleManager {
         totalRole = new ArrayList<>(Role.getRoles());
         Collections.shuffle(totalRole);
         System.out.println(totalRole.size());
+        RecipesCrafting
+        CraftingManager.getInstance().registerShapedRecipe()
         for(Player player: p){
             if(getRole(player) != null){
                 continue;

@@ -76,7 +76,6 @@ public class PlayerEvent implements Listener {
         EntityPlayer nmsPlayer =((CraftPlayer)player).getHandle();
 
 
-
         //PATCH DAMAGE NBT
         for(Object o : nmsPlayer.getAttributeMap().a()){
             if(o instanceof AttributeModifiable){
