@@ -93,7 +93,7 @@ public final class InazumaUHC extends JavaPlugin {
 
     public ArrowToCenter arrowToCenter;
     private ArrayList<Player> remainingPlayers;
-    public String ip = "play.inazumauhc.fr";
+    public String ip = "mc.shirome.eu";
     public boolean isHosted = true;
     public boolean autoStart = false;
     public boolean loadWorldBefore = true;
