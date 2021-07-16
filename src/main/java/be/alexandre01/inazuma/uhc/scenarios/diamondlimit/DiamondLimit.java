@@ -16,11 +16,17 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
 
 public class DiamondLimit extends Scenario implements Listener {
     private HashMap <UUID, Integer> ints;
+    public ArrayList<Material> ores =  new ArrayList<>();
+    public HashMap<Material,Material> oresTo = new HashMap<>();
+    public HashMap<Material,Integer> xpTo = new HashMap<>();
+    public Material[] materials = {Material.DIAMOND_ORE};
+    public Material[] materialTo = {Material.GOLD_INGOT};
     public DiamondLimit() {
         super("DiamondLimit", "Définir une limite de diamant");
         addListener(this);
@@ -51,7 +57,7 @@ public class DiamondLimit extends Scenario implements Listener {
                 e.setCancelled(true);
                 e.getBlock().setType(Material.AIR);
                 ((ExperienceOrb)CustomExp.spawn(InazumaUHC.getGet(),player.getLocation()).getBukkitEntity()).setExperience(e.getExpToDrop());
-                Item itzem = (Item)e.getBlock().getWorld().dropItem(e.getBlock().getLocation(),new ItemStack(Material.GOLD_ORE));
+                Item item = (Item)e.getBlock().getWorld().dropItem(e.getBlock().getLocation(),new ItemStack(Material.GOLD_ORE));
             }
         }
 

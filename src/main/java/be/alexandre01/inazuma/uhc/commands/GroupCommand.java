@@ -33,6 +33,17 @@ public class GroupCommand  extends Command {
                 }
 
                 if (args.length > 0) {
+
+                    if(args[0].equalsIgnoreCase("help")){
+
+                    }
+
+                    if(args[0].equalsIgnoreCase("set")){
+
+
+
+                    }
+
                     int args_num;
                     String reas = "";
                     for (args_num = 0; args_num < args.length; ++args_num) {
