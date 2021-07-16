@@ -4,15 +4,19 @@ import be.alexandre01.inazuma.uhc.InazumaUHC;
 import be.alexandre01.inazuma.uhc.custom_events.state.PlayingEvent;
 import be.alexandre01.inazuma.uhc.custom_events.state.StartingEvent;
 import be.alexandre01.inazuma.uhc.custom_events.state.StateChangeEvent;
+import be.alexandre01.inazuma.uhc.listeners.host.ClickInventory;
+import be.alexandre01.inazuma.uhc.listeners.host.CloseInventory;
 import be.alexandre01.inazuma.uhc.presets.Preset;
 import be.alexandre01.inazuma.uhc.scenarios.Scenario;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 
 public class StateEvent implements Listener {
     @EventHandler
     public void onStarting(StartingEvent event){
-
+        InazumaUHC.get.lm.removeListener(ClickInventory.class);
+        InazumaUHC.get.lm.removeListener(CloseInventory.class);
     }
 
     @EventHandler

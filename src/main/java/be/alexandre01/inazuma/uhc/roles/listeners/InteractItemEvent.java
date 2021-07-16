@@ -67,22 +67,18 @@ public class InteractItemEvent implements Listener {
 
 
                             Player target = (Player) entity;
-                                System.out.println("SNIF1");
                                 if((roleItem.getVerificationOnRightClickOnPlayer() != null)){
                                     if(!roleItem.getVerificationOnRightClickOnPlayer().verification(player, target))
                                         return;
                                 }
 
-                                System.out.println("SNIF2");
                                 RoleItemTargetEvent roleItemTargetEvent = new RoleItemTargetEvent(player,target, i.rm.getRole(player), roleItem);
                                 Bukkit.getPluginManager().callEvent(roleItemTargetEvent);
                                 if(roleItemTargetEvent.isCancelled())
                                     return;
-                                System.out.println(roleItem.getRightClickOnPlayerFarTuple().b() +"executed ?");
                                 roleItem.getRightClickOnPlayerFarTuple().b().execute(player,target);
                             }
                             if(!roleItem.isPlaceableItem()){
-                                System.out.println("YES");
                                 if(roleItem.getPlaceBlock() != null){
                                     if((roleItem.getVerificationOnPlaceBlock() != null)){
                                         if(!roleItem.getVerificationOnPlaceBlock().verification(player))

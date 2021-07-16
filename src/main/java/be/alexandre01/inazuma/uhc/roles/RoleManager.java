@@ -99,6 +99,7 @@ public class RoleManager {
         totalRole = new ArrayList<>(Role.getRoles());
         Collections.shuffle(totalRole);
         System.out.println(totalRole.size());
+
         for(Player player: p){
             if(getRole(player) != null){
                 continue;

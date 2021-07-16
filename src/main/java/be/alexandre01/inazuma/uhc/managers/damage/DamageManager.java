@@ -3,6 +3,7 @@ package be.alexandre01.inazuma.uhc.managers.damage;
 import be.alexandre01.inazuma.uhc.timers.utils.DateBuilderTimer;
 import be.alexandre01.inazuma.uhc.timers.utils.MSToSec;
 import be.alexandre01.inazuma.uhc.utils.WeaponItem;
+import lombok.Data;
 import net.minecraft.server.v1_8_R3.*;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
@@ -15,6 +16,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.UUID;
 
+@Data
 public class DamageManager {
     private final HashMap<Player/*Killed*/,Tuple<Player,Long> /*Damager*/> playersDamager;
     private final HashMap<Player/*Damager*/,Player/*Killed*/> damagersPlayer;
