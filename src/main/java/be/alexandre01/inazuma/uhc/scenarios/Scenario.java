@@ -7,6 +7,7 @@ import be.alexandre01.inazuma.uhc.scenarios.cateyes.CatEyes;
 import be.alexandre01.inazuma.uhc.scenarios.cutclean.Cutclean;
 import be.alexandre01.inazuma.uhc.scenarios.diamondlimit.DiamondLimit;
 import be.alexandre01.inazuma.uhc.scenarios.hasteyboys.HasteyBoys;
+import be.alexandre01.inazuma.uhc.scenarios.merite.Merite;
 import be.alexandre01.inazuma.uhc.scenarios.rodless.RodLess;
 import be.alexandre01.inazuma.uhc.scenarios.timber.Timber;
 import be.alexandre01.inazuma.uhc.scenarios.trashpotion.TrashPotion;
@@ -41,6 +42,7 @@ public class Scenario {
         scenarios.put(TrashPotion.class,new TrashPotion());
         scenarios.put(DiamondLimit.class,new DiamondLimit());
         scenarios.put(CancelEnchant.class,new CancelEnchant());
+        scenarios.put(Merite.class,new Merite());
     }
     public Scenario(String name, String description) {
         this.name = name;
