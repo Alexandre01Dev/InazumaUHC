@@ -13,6 +13,4 @@ public class Timber extends Scenario {
         ItemBuilder itemBuilder = new ItemBuilder(Material.LOG);
         setItemStack(itemBuilder.toItemStack());
     }
-
-
 }

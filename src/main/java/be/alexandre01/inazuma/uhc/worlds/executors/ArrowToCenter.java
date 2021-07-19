@@ -1,5 +1,7 @@
 package be.alexandre01.inazuma.uhc.worlds.executors;
 
+import be.alexandre01.inazuma.uhc.custom_events.episode.EpisodeChangeEvent;
+import be.alexandre01.inazuma.uhc.custom_events.player.PlayerDelayedMoveEvent;
 import be.alexandre01.inazuma.uhc.generations.chunks.ChunksGenerator;
 import be.alexandre01.inazuma.uhc.presets.IPreset;
 import be.alexandre01.inazuma.uhc.presets.Preset;
@@ -31,6 +33,9 @@ public class ArrowToCenter {
                  World world = player.getWorld();
 
                  Location l1 =  player.getLocation();
+
+                 Bukkit.getPluginManager().callEvent(new PlayerDelayedMoveEvent(player,l1));
+
                  l1.setPitch(0);
                  l1.setY(0);
                  Vector direction = l1.getDirection();
