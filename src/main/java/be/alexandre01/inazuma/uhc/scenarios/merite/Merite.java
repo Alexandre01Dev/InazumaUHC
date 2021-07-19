@@ -1,5 +1,6 @@
 package be.alexandre01.inazuma.uhc.scenarios.merite;
 
+import be.alexandre01.inazuma.uhc.InazumaUHC;
 import be.alexandre01.inazuma.uhc.custom_events.player.PlayerInstantDeathEvent;
 import be.alexandre01.inazuma.uhc.presets.Preset;
 import be.alexandre01.inazuma.uhc.scenarios.Scenario;
@@ -16,10 +17,10 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Merite extends Scenario implements Listener {
-
 
     HashMap<Player, Float> swordMap = new HashMap<>();
     HashMap<Player, Float> armorMap = new HashMap<>();
@@ -28,13 +29,20 @@ public class Merite extends Scenario implements Listener {
     HashMap<Player, Float> armorPourcent = new HashMap<>();
     HashMap<Player, Float> bowPourcent = new HashMap<>();
     HashMap<Player, Integer> points = new HashMap<>();
+    ArrayList<Player> players = new ArrayList<>();
 
     public Merite() {
         super("Merite", "Améliore le stuff");
+        onLoad(() -> {
+            InazumaUHC.get.registerCommand("boost", new MeriteBoostCommand("",this));
+        });
         addListener(this);
         ItemBuilder itemBuilder = new ItemBuilder(Material.BLAZE_POWDER);
         setItemStack(itemBuilder.toItemStack());
     }
+
+    //Au début ajouter tout les players dans toutes les hashmaps et dans players pour les pourcent le float doit etre 1 et pour les autres hashmap le float doit etre 0
+
 
     @EventHandler
     public void onCraftingEvent(CraftItemEvent event){
@@ -130,6 +138,7 @@ public class Merite extends Scenario implements Listener {
     void checkSword(Player player, ItemStack sword)
     {
         float i = swordMap.get(player);
+
         if(i > 300)
         {
             ItemMeta meta = sword.getItemMeta();
