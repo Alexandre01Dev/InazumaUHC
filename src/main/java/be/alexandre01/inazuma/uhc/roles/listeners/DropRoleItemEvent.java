@@ -94,6 +94,8 @@ public class DropRoleItemEvent implements Listener {
                         Bukkit.getPluginManager().callEvent(roleItemUseEvent);
                         if(roleItemUseEvent.isCancelled())
                             return;
+
+
                         roleItem.getPlaceBlock().execute(player,event.getBlockAgainst());
                     }
 

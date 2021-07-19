@@ -6,6 +6,7 @@ import be.alexandre01.inazuma.uhc.commands.test.ForceEpisodeCommand;
 import be.alexandre01.inazuma.uhc.commands.test.InaReload;
 import be.alexandre01.inazuma.uhc.commands.test.StuffMeetupCommand;
 import be.alexandre01.inazuma.uhc.config.Config;
+import be.alexandre01.inazuma.uhc.config.CustomExceptionHandler;
 import be.alexandre01.inazuma.uhc.config.Messages;
 import be.alexandre01.inazuma.uhc.generations.NetherPortalsManager;
 import be.alexandre01.inazuma.uhc.host.Host;
@@ -61,6 +62,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
+import java.util.logging.Level;
 import java.util.stream.Collectors;
 
 public final class InazumaUHC extends JavaPlugin {
@@ -102,12 +104,16 @@ public final class InazumaUHC extends JavaPlugin {
 
     public ModuleLoader moduleLoader;
 
+    public boolean debugMode = true;
+
     @Override
     public void onEnable() {
+        try {
+
         //Instance
         InazumaUHC.get = this;
         //TOCHANGE
-
+        Thread.setDefaultUncaughtExceptionHandler(new CustomExceptionHandler());
         Config.createDir(getDataFolder().getAbsolutePath()+"/modules");
 
         //OBJECTIVES && TEAM RESET
@@ -221,6 +227,7 @@ public final class InazumaUHC extends JavaPlugin {
         this.getCommand("scenario").setExecutor(new ScenarioCommand());
         this.getCommand("start").setExecutor(new StartCommand());
         this.getCommand("doc").setExecutor(new DocCommand());
+        this.getCommand("debug").setExecutor(new DebugCommand());
         this.getCommand("pack").setExecutor(new PackCommand());
         this.getCommand("mumble").setExecutor(new MumbleCommand());
 
@@ -261,7 +268,22 @@ public final class InazumaUHC extends JavaPlugin {
         registerCommand("changerole", new ChangeRoleCommand("changerole"));
         registerCommand("hrtp", new HRTPCommand("hrtp"));
         //lm.automaticFindListener();
+        }catch (Exception e){
 
+            e.printStackTrace();
+            if(debugMode){
+                System.out.println("Debug");
+                for(Player player : Bukkit.getOnlinePlayers()){
+                    if(player.hasPermission("debug.view")){
+                       player.sendMessage("§cERREUR >> "+e.getMessage()+" §4||§c "+ e.getClass().getSimpleName());
+                        for(StackTraceElement s : e.getStackTrace()){
+                           player.sendMessage("----->");
+                           player.sendMessage("§cERREUR DANS>> §f" +s.getClassName()+":"+s.getMethodName()+":"+s.getLineNumber());
+                        }
+                    }
+                }
+            }
+        }
     }
 
     public void onLoadPreset(){

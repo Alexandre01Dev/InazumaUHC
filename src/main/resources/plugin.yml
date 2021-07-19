@@ -24,3 +24,4 @@ commands:
   mumble:
     aliases:
       - mumbles
+  debug:
