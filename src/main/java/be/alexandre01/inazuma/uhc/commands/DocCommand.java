@@ -13,7 +13,7 @@ public class DocCommand implements CommandExecutor {
             Player player = (Player) sender;
             if(cmd.getName().equalsIgnoreCase("doc")){
                 player.sendMessage("§e§lInazuma §lEleven §e§7» " +  " §6§lNos §6§lG§7-§6§lDoc §7:");
-                player.sendMessage("§3§lInazuma §lEleven §7: §chttps://app.gitbook.com/@inazumauhcpro/s/inazuma-gitbook/inazuma-eleven-uhc/inazuma-eleven-uhc");
+                player.sendMessage("§3§lInazuma §lEleven §7: §chttps://blog.inazumauhc.fr/");
             }
         }
 
