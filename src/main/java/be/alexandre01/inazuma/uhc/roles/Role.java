@@ -310,7 +310,12 @@ public class Role {
     public static void initializeRoles(){
         for(Class<?> c : rolesClass){
             try {
-                c.getDeclaredConstructor(IPreset.class).newInstance(Preset.instance.p);
+                Role role = (Role) c.getDeclaredConstructor(IPreset.class).newInstance(Preset.instance.p);
+
+                if(InazumaUHC.get.rm != null){
+                    InazumaUHC.get.rm.getClasses().put(role.getClass(),role);
+                    System.out.println("PUT CLASSES");
+                }
             } catch (InstantiationException e) {
                 e.printStackTrace();
             } catch (IllegalAccessException e) {

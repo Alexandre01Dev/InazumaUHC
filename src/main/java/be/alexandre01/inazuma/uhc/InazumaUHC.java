@@ -233,14 +233,7 @@ public final class InazumaUHC extends JavaPlugin {
 
 
 
-
-
-
-
-
-
         Bukkit.getWorld("world").setSpawnLocation(-176,90,-211);
-
 
          teamManager = new TeamManager();
 

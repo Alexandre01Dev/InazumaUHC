@@ -28,6 +28,11 @@ public class RoleManager {
         classes = new HashMap<>();
         roleCategories = new HashMap<>();
         rolesByCat = new HashMap<>();
+        System.out.println("RoleManager");
+        for(Role role : Role.getRoles()){
+            System.out.println(role.getName());
+            classes.put(role.getClass(),role);
+        }
         InazumaUHC.get.lm.addListener(new InteractItemEvent());
         InazumaUHC.get.lm.addListener(new DropRoleItemEvent());
         InazumaUHC.get.lm.addListener(new PlayerInstantDeath());
@@ -62,7 +67,7 @@ public class RoleManager {
             return;
 
         roles.put(uuid,role);
-        classes.put(role.getClass(),role);
+        //classes.put(role.getClass(),role);
         List<UUID> p = new ArrayList<>();
         if(uuids.containsKey(role)){
             p.addAll(uuids.get(role));
