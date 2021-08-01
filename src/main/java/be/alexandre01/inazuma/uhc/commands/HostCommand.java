@@ -18,6 +18,10 @@ public class HostCommand implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command cmd, String msg, String[] args) {
         if(sender instanceof Player){
             Player player = (Player) sender;
+            if(!player.hasPermission("host.admin")){
+                player.sendMessage("Vous ne pouvez pas ouvrir le menu de host.");
+                return false;
+            }
             if(cmd.getName().equalsIgnoreCase("host")){
                 if(InazumaUHC.get.isHosted && GameState.get().contains(State.PREPARING) && !InazumaUHC.get.worldGen.isGenerating()){
                     Host host = InazumaUHC.get.host;

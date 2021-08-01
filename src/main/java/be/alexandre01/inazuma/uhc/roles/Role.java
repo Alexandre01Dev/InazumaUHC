@@ -18,6 +18,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
@@ -150,6 +151,13 @@ public class Role {
             if(!roleItems.isEmpty()){
                 for(RoleItem roleItem : roleItems.values()){
                     roleItem.getPlayersHaveItem().add(player);
+                    if(!roleItem.getItemStack().hasItemMeta()){
+                        if(!roleItem.getItemStack().getItemMeta().hasDisplayName()){
+                            ItemMeta itemMeta = roleItem.getItemStack().getItemMeta();
+                            itemMeta.setDisplayName(roleItem.getItemStack().getType().toString());
+                            roleItem.getItemStack().setItemMeta(itemMeta);
+                        }
+                    }
                     if(hasAvaliableSlot(player)){
                         if(player.getInventory().getItem(roleItem.getSlot()) == null){
                             player.getInventory().setItem(roleItem.getSlot(),roleItem.getItemStack());
@@ -178,6 +186,13 @@ public class Role {
         Bukkit.getScheduler().scheduleSyncDelayedTask(inazumaUHC,() -> {
             boolean full = false;
             if(!roleItems.isEmpty()){
+                if(!roleItem.getItemStack().hasItemMeta()){
+                    if(!roleItem.getItemStack().getItemMeta().hasDisplayName()){
+                        ItemMeta itemMeta = roleItem.getItemStack().getItemMeta();
+                        itemMeta.setDisplayName(roleItem.getItemStack().getType().toString());
+                        roleItem.getItemStack().setItemMeta(itemMeta);
+                    }
+                }
                 roleItem.getPlayersHaveItem().add(player);
                     if(hasAvaliableSlot(player)){
                         if(player.getInventory().getItem(roleItem.getSlot()) == null){
