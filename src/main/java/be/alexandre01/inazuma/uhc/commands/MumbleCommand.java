@@ -14,8 +14,8 @@ public class MumbleCommand implements CommandExecutor {
             Player player = (Player) sender;
             if(cmd.getName().equalsIgnoreCase("mumble")){
                 player.sendMessage("§e§lInazuma §lEleven §e§7» " + " §6§lLe §lmumble §7:");
-                player.sendMessage("§9§lAdresse §7: §e§lantique.mumble.gg");
-                player.sendMessage("§9§lPort §7: §e§l10008");
+                player.sendMessage("§9§lAdresse §7: §e§linazumauhc.mumble.gg");
+                player.sendMessage("§9§lPort §7: §e§l10011");
                 player.sendMessage("§9§lChannel §7: §e§lInazuma §lEleven");
             }
         }
