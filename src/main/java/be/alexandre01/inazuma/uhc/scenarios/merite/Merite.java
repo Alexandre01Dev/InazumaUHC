@@ -5,6 +5,7 @@ import be.alexandre01.inazuma.uhc.custom_events.player.PlayerInstantDeathEvent;
 import be.alexandre01.inazuma.uhc.presets.Preset;
 import be.alexandre01.inazuma.uhc.scenarios.Scenario;
 import be.alexandre01.inazuma.uhc.utils.ItemBuilder;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
@@ -34,6 +35,20 @@ public class Merite extends Scenario implements Listener {
         super("Merite", "Améliore le stuff");
         onLoad(() -> {
             InazumaUHC.get.registerCommand("boost", new MeriteBoostCommand("",this));
+            for(Player player : InazumaUHC.get.getRemainingPlayers())
+            {
+                swordMap.put(player, 0f);
+                armorMap.put(player, 0f);
+                bowMap.put(player, 0f);
+                swordPourcent.put(player, 1f);
+                armorPourcent.put(player, 1f);
+                bowPourcent.put(player, 1f);
+                points.put(player, 99);
+                players.add(player);
+
+                player.sendMessage("Choisissez votre premier boost qui sera de 1.25 grâce au /boost");
+
+            }
         });
         addListener(this);
         ItemBuilder itemBuilder = new ItemBuilder(Material.BLAZE_POWDER);
@@ -149,37 +164,37 @@ public class Merite extends Scenario implements Listener {
         if(current == null)
             return;
 
-        if(event.getClickedInventory().getName().equalsIgnoreCase("Boostez votre multiplicateur"))
+        if(event.getClickedInventory().getName().equalsIgnoreCase("Boostez votre multiplicateur") && points.containsKey(player))
         {
             switch (current.getItemMeta().getDisplayName())
             {
-                case "§6Mêlée" : if(swordPourcent.containsKey(player))
-                {
-                    if(points.containsKey(player) && points.get(player) != 0)
-                    {
-                        swordPourcent.replace(player, swordPourcent.get(player) + 0.05f);
-                        points.replace(player, points.get(player) - 1);
-                    }
-
-                }
+                case "§6Mêlée" :
+                    checkPoints(player, swordPourcent);
                 break;
 
-                case "§6Armure" : if(armorPourcent.containsKey(player))
-                {
-                    armorPourcent.replace(player, armorPourcent.get(player) + 0.05f);
-                    points.replace(player, points.get(player) - 1);
-                }
-                break;
+                case "§6Armure" :
+                    checkPoints(player, armorPourcent);
+                    break;
 
-                case "§6Arc" : if(bowPourcent.containsKey(player))
-                {
-                    bowPourcent.replace(player, bowPourcent.get(player) + 0.05f);
-                    points.replace(player, points.get(player) - 1);
-                }
-                break;
+                case "§6Arc" :
+                    checkPoints(player, bowPourcent);
+                    break;
 
                 default: break;
             }
+        }
+    }
+
+    private void checkPoints(Player player, HashMap<Player, Float> pourcent) {
+        if(pourcent.containsKey(player))
+        {
+            if(points.get(player) == 99)
+            {
+                pourcent.replace(player, 1.25f);
+                points.replace(player, 0);
+            }
+            pourcent.replace(player, pourcent.get(player) + 0.05f);
+            points.replace(player, points.get(player) - 1);
         }
     }
 
