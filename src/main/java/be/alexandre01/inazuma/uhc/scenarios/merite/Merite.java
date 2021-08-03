@@ -5,17 +5,14 @@ import be.alexandre01.inazuma.uhc.custom_events.player.PlayerInstantDeathEvent;
 import be.alexandre01.inazuma.uhc.presets.Preset;
 import be.alexandre01.inazuma.uhc.scenarios.Scenario;
 import be.alexandre01.inazuma.uhc.utils.ItemBuilder;
-import lombok.Getter;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.inventory.CraftItemEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -245,111 +242,49 @@ public class Merite extends Scenario implements Listener {
 
         if(i > 300)
         {
-            ItemMeta meta = sword.getItemMeta();
-            if(!meta.getEnchants().containsKey(Enchantment.DAMAGE_ALL))
-            {
-                meta.addEnchant(Enchantment.DAMAGE_ALL, 5, true);
-                sword.setItemMeta(meta);
-            }
+            addEnchant(Enchantment.DAMAGE_ALL, 5, sword);
         }
         else if(i > 200)
         {
-            ItemMeta meta = sword.getItemMeta();
-            if(!meta.getEnchants().containsKey(Enchantment.DAMAGE_ALL))
-            {
-                meta.addEnchant(Enchantment.DAMAGE_ALL, 4, true);
-                sword.setItemMeta(meta);
-            }
+            addEnchant(Enchantment.DAMAGE_ALL, 4, sword);
         }
         else if(i > 120)
         {
-            ItemMeta meta = sword.getItemMeta();
-            if(!meta.getEnchants().containsKey(Enchantment.DAMAGE_ALL))
-            {
-                meta.addEnchant(Enchantment.DAMAGE_ALL, 3, true);
-                sword.setItemMeta(meta);
-            }
+            addEnchant(Enchantment.DAMAGE_ALL, 3, sword);
         }
         else if(i > 80)
         {
-            ItemMeta meta = sword.getItemMeta();
-            if(!meta.getEnchants().containsKey(Enchantment.DAMAGE_ALL))
-            {
-                meta.addEnchant(Enchantment.DAMAGE_ALL, 2, true);
-                sword.setItemMeta(meta);
-            }
+            addEnchant(Enchantment.DAMAGE_ALL, 2, sword);
         }
         else if(i > 40)
         {
-            ItemMeta meta = sword.getItemMeta();
-            if(!meta.getEnchants().containsKey(Enchantment.DAMAGE_ALL))
-            {
-                meta.addEnchant(Enchantment.DAMAGE_ALL, 1, true);
-                sword.setItemMeta(meta);
-            }
+            addEnchant(Enchantment.DAMAGE_ALL, 1, sword);
         }
 
     }
+
+
     void checkArmor(Player player, ItemStack... armors)
     {
         float i = swordMap.get(player);
         if(i > 300)
         {
-            for(ItemStack armor : armors)
-            {
-                ItemMeta meta = armor.getItemMeta();
-                if(!meta.getEnchants().containsKey(Enchantment.DAMAGE_ALL))
-                {
-                    meta.addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 5, true);
-                    armor.setItemMeta(meta);
-                }
-            }
-
+            addEnchant(5, armors);
         }
         else if(i > 200)
         {
-            for(ItemStack armor : armors)
-            {
-                ItemMeta meta = armor.getItemMeta();
-                if(!meta.getEnchants().containsKey(Enchantment.DAMAGE_ALL))
-                {
-                    meta.addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 4, true);
-                    armor.setItemMeta(meta);
-                }
-            }
+            addEnchant(4, armors);
         }
         else if(i > 120)
         {
-            for(ItemStack armor : armors)
-            {
-                ItemMeta meta = armor.getItemMeta();
-                if(!meta.getEnchants().containsKey(Enchantment.DAMAGE_ALL))
-                {
-                    meta.addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 3, true);
-                    armor.setItemMeta(meta);
-                }
-            }
+            addEnchant(3, armors);
         }
         else if(i > 80)
         {
-            for(ItemStack armor : armors)
-            {
-                ItemMeta meta = armor.getItemMeta();
-                if(!meta.getEnchants().containsKey(Enchantment.DAMAGE_ALL))
-                {
-                    meta.addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 2, true);
-                    armor.setItemMeta(meta);
-                }
-            }
+            addEnchant(2, armors);
         }
-        for(ItemStack armor : armors)
-        {
-            ItemMeta meta = armor.getItemMeta();
-            if(!meta.getEnchants().containsKey(Enchantment.DAMAGE_ALL))
-            {
-                meta.addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 1, true);
-                armor.setItemMeta(meta);
-            }
+        else if(i > 40){
+            addEnchant(1, armors);
         }
 
     }
@@ -359,48 +294,23 @@ public class Merite extends Scenario implements Listener {
         float i = swordMap.get(player);
         if(i > 300)
         {
-            ItemMeta meta = bow.getItemMeta();
-            if(!meta.getEnchants().containsKey(Enchantment.DAMAGE_ALL))
-            {
-                meta.addEnchant(Enchantment.ARROW_DAMAGE, 5, true);
-                bow.setItemMeta(meta);
-            }
+            addEnchant(Enchantment.ARROW_DAMAGE, 5, bow);
         }
         else if(i > 200)
         {
-            ItemMeta meta = bow.getItemMeta();
-            if(!meta.getEnchants().containsKey(Enchantment.DAMAGE_ALL))
-            {
-                meta.addEnchant(Enchantment.ARROW_DAMAGE, 4, true);
-                bow.setItemMeta(meta);
-            }
+            addEnchant(Enchantment.ARROW_DAMAGE, 4, bow);
         }
         else if(i > 120)
         {
-            ItemMeta meta = bow.getItemMeta();
-            if(!meta.getEnchants().containsKey(Enchantment.DAMAGE_ALL))
-            {
-                meta.addEnchant(Enchantment.ARROW_DAMAGE, 3, true);
-                bow.setItemMeta(meta);
-            }
+            addEnchant(Enchantment.ARROW_DAMAGE, 3, bow);
         }
         else if(i > 80)
         {
-            ItemMeta meta = bow.getItemMeta();
-            if(!meta.getEnchants().containsKey(Enchantment.DAMAGE_ALL))
-            {
-                meta.addEnchant(Enchantment.ARROW_DAMAGE, 2, true);
-                bow.setItemMeta(meta);
-            }
+            addEnchant(Enchantment.ARROW_DAMAGE, 2, bow);
         }
         else if(i > 40)
         {
-            ItemMeta meta = bow.getItemMeta();
-            if(!meta.getEnchants().containsKey(Enchantment.DAMAGE_ALL))
-            {
-                meta.addEnchant(Enchantment.ARROW_DAMAGE, 1, true);
-                bow.setItemMeta(meta);
-            }
+            addEnchant(Enchantment.ARROW_DAMAGE, 1, bow);
         }
 
     }
@@ -412,6 +322,28 @@ public class Merite extends Scenario implements Listener {
         if(points.containsKey(killer))
         {
             points.replace(killer, points.get(killer) + 1);
+        }
+    }
+
+    void addEnchant(Enchantment enchantment, int level, ItemStack it)
+    {
+        ItemMeta meta = it.getItemMeta();
+        if(!meta.getEnchants().containsKey(enchantment))
+        {
+            meta.addEnchant(enchantment, level, true);
+            it.setItemMeta(meta);
+        }
+        else {
+            meta.removeEnchant(enchantment);
+            meta.addEnchant(enchantment, level,true);
+            it.setItemMeta(meta);
+        }
+    }
+    void addEnchant(int level, ItemStack... armors)
+    {
+        for(ItemStack armor : armors)
+        {
+            addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, level, armor);
         }
     }
 }
