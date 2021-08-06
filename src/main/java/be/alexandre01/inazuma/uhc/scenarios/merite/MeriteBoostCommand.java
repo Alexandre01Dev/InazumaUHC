@@ -25,6 +25,8 @@ public class MeriteBoostCommand extends Command {
 
     @Override
     public boolean execute(CommandSender sender, String label, String[] args) {
+
+        sender.sendMessage("t'es un gros fils de pute comme la fibre en belgique");
         if(sender instanceof Player)
         {
             Player player = (Player) sender;
@@ -32,14 +34,23 @@ public class MeriteBoostCommand extends Command {
             {
                 Inventory inv = Bukkit.createInventory(null, 54, "Boostez votre multiplicateur");
 
+                String s;
+
+                if(merite.getKill(player) == 99)
+                    s = "Choix de classe";
+                else {
+                    s = Float.toString(merite.getKill(player));
+                }
+
+
                 inv.setItem(20, new ItemBuilder(Material.IRON_SWORD).setName("§6Mêlée").setLore("Multiplicateur : " + merite.getSwordPourcent(player)+ " + 0.05 §7(Prix » 1 kill)").toItemStack() );
                 inv.setItem(22, new ItemBuilder(Material.IRON_CHESTPLATE).setName("§6Armure").setLore("Multiplicateur : " + merite.getArmorPourcent(player)+ " + 0.05 §7(Prix » 1 kill)").toItemStack());
                 inv.setItem(24, new ItemBuilder(Material.BOW).setName("§6Arc").setLore("Multiplicateur : " + merite.getBowPourcent(player)+ " + 0.05 §7(Prix » 1 kill)").toItemStack());
-                inv.setItem(49, new ItemBuilder(Material.SKULL_ITEM).setSkullOwner(sender.getName()).setName("§6Stats").setLore("Mêlée » §7 " + merite.getSword(player) + "\n§rArmure  » §7 " + merite.getArmor(player) + "\n§rArc » §7" + merite.getBow(player) + "\n§rPoint(s) disponible(s) » §7" + merite.getKill(player)).toItemStack());
+                inv.setItem(49, new ItemBuilder(Material.SKULL_ITEM).setSkullOwner(sender.getName()).setName("§6Stats").setLore("§rMêlée » §7 " + merite.getSword(player) , "§rArmure  » §7 " + merite.getArmor(player) , "§rArc » §7" + merite.getBow(player) , "§rPoint(s) disponible(s) » §7" + s).toItemStack());
                 player.openInventory(inv);
 
             }
         }
-        return false;
+    return false;
     }
 }

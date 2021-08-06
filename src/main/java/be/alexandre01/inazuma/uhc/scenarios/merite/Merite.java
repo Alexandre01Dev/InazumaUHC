@@ -3,20 +3,26 @@ package be.alexandre01.inazuma.uhc.scenarios.merite;
 import be.alexandre01.inazuma.uhc.InazumaUHC;
 import be.alexandre01.inazuma.uhc.custom_events.player.PlayerInstantDeathEvent;
 import be.alexandre01.inazuma.uhc.presets.Preset;
+import be.alexandre01.inazuma.uhc.roles.Role;
 import be.alexandre01.inazuma.uhc.scenarios.Scenario;
 import be.alexandre01.inazuma.uhc.utils.ItemBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.inventory.CraftItemEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.scheduler.BukkitTask;
 
+import java.nio.BufferUnderflowException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -34,8 +40,8 @@ public class Merite extends Scenario implements Listener {
     public Merite() {
         super("Merite", "Améliore le stuff");
         onLoad(() -> {
-            InazumaUHC.get.registerCommand("boost", new MeriteBoostCommand("",this));
-            for(Player player : InazumaUHC.get.getRemainingPlayers())
+            InazumaUHC.get.registerCommand("mxp", new MeriteBoostCommand("mxp",this));
+            for(Player player : Bukkit.getOnlinePlayers())
             {
                 swordMap.put(player, 0f);
                 armorMap.put(player, 0f);
@@ -46,7 +52,27 @@ public class Merite extends Scenario implements Listener {
                 points.put(player, 99);
                 players.add(player);
 
-                player.sendMessage("Choisissez votre premier boost qui sera de 1.25 grâce au /boost");
+                player.getInventory().addItem(new ItemBuilder(Material.DIAMOND_BOOTS).toItemStack(), new ItemBuilder(Material.DIAMOND_SWORD).toItemStack(), new ItemBuilder(Material.DIAMOND_LEGGINGS).toItemStack(),new ItemBuilder(Material.DIAMOND_CHESTPLATE).toItemStack(), new ItemBuilder(Material.DIAMOND_HELMET).toItemStack(), new ItemBuilder(Material.BOW).toItemStack(), new ItemBuilder(Material.ARROW, 128).toItemStack());
+
+                /*Role role = InazumaUHC.get.rm.getRole(player);
+                role.addCommand("boost", new Role.command() {
+                    @Override
+                    public void a(String[] args, Player player) {
+                        if(players.contains(player))
+                        {
+                            Inventory inv = Bukkit.createInventory(null, 54, "Boostez votre multiplicateur");
+
+                            inv.setItem(20, new ItemBuilder(Material.IRON_SWORD).setName("§6Mêlée").setLore("Multiplicateur : " + getSwordPourcent(player)+ " + 0.05 §7(Prix » 1 kill)").toItemStack() );
+                            inv.setItem(22, new ItemBuilder(Material.IRON_CHESTPLATE).setName("§6Armure").setLore("Multiplicateur : " + getArmorPourcent(player)+ " + 0.05 §7(Prix » 1 kill)").toItemStack());
+                            inv.setItem(24, new ItemBuilder(Material.BOW).setName("§6Arc").setLore("Multiplicateur : " + getBowPourcent(player)+ " + 0.05 §7(Prix » 1 kill)").toItemStack());
+                            inv.setItem(49, new ItemBuilder(Material.SKULL_ITEM).setSkullOwner(player.getName()).setName("§6Stats").setLore("Mêlée » §7 " + getSword(player) + "\n§rArmure  » §7 " + getArmor(player) + "\n§rArc » §7" + getBow(player) + "\n§rPoint(s) disponible(s) » §7" + getKill(player)).toItemStack());
+                            player.openInventory(inv);
+
+                        }
+                    }
+                });*/
+
+                player.sendMessage("Choisissez votre premier boost qui sera de 1.25 grâce au /mxp");
 
             }
         });
@@ -135,6 +161,21 @@ public class Merite extends Scenario implements Listener {
     @EventHandler
     public void onDamage(EntityDamageByEntityEvent event){
 
+
+        if(event.getDamager() instanceof Arrow && event.getEntity() instanceof Player)
+        {
+            Player damaged = (Player) event.getEntity();
+            Arrow arrow = (Arrow) event.getDamager();
+            if(arrow.getShooter() instanceof Player)
+            {
+                Player damager = (Player) arrow.getShooter();
+                damaged.sendMessage("tu t'es pris une grosse fleche dans tes dents par " + damager.getName());
+                addBow(damager, (float) event.getFinalDamage());
+                addArmor(damaged, (float) event.getFinalDamage());
+            }
+
+        }
+
         if(event.getDamager() instanceof Player && event.getEntity() instanceof Player)
         {
             Player damager = (Player) event.getDamager();
@@ -142,14 +183,10 @@ public class Merite extends Scenario implements Listener {
             if(damager.getItemInHand() != null)
             {
                 Material itemInHand = damager.getItemInHand().getType();
+                Bukkit.broadcastMessage(itemInHand.toString());
                 if(itemInHand == Material.DIAMOND_SWORD || itemInHand == Material.IRON_SWORD)
                 {
                     addSword(damager, (float) event.getFinalDamage());
-                    addArmor(damaged, (float) event.getFinalDamage());
-                }
-                if(itemInHand == Material.BOW)
-                {
-                    addBow(damager, (float) event.getFinalDamage());
                     addArmor(damaged, (float) event.getFinalDamage());
                 }
             }
@@ -170,18 +207,23 @@ public class Merite extends Scenario implements Listener {
             {
                 case "§6Mêlée" :
                     checkPoints(player, swordPourcent);
-                break;
+                    player.closeInventory();
+                    break;
 
                 case "§6Armure" :
                     checkPoints(player, armorPourcent);
+                    player.closeInventory();
                     break;
 
                 case "§6Arc" :
                     checkPoints(player, bowPourcent);
+                    player.closeInventory();
                     break;
 
                 default: break;
             }
+
+            event.setCancelled(true);
         }
     }
 
@@ -192,9 +234,17 @@ public class Merite extends Scenario implements Listener {
             {
                 pourcent.replace(player, 1.25f);
                 points.replace(player, 0);
+                return;
             }
-            pourcent.replace(player, pourcent.get(player) + 0.05f);
-            points.replace(player, points.get(player) - 1);
+            if(points.get(player) > 0)
+            {
+                pourcent.replace(player, (float) (Math.round((pourcent.get(player) + 0.05f)*100))/100);
+                points.replace(player, points.get(player) - 1);
+            }
+            else {
+                player.sendMessage("§cVous n'avez pas de points à utiliser");
+            }
+
         }
     }
 
@@ -207,7 +257,8 @@ public class Merite extends Scenario implements Listener {
             {
                 multiplicator = swordPourcent.get(player);
             }
-            swordMap.replace(player, swordMap.get(player) + (((int)(i*multiplicator*100))/100));
+            int point = (int) (i*multiplicator*100);
+            swordMap.replace(player, swordMap.get(player) + Math.round(point)/100);
             checkSword(player, player.getItemInHand());
 
         }
@@ -218,6 +269,7 @@ public class Merite extends Scenario implements Listener {
     }
     void addArmor(Player player, float i)
     {
+        Bukkit.broadcastMessage(player.getName() + " se fait boloss");
         if(armorMap.containsKey(player))
         {
             float multiplicator = 1;
@@ -225,7 +277,8 @@ public class Merite extends Scenario implements Listener {
             {
                 multiplicator = armorPourcent.get(player);
             }
-            armorMap.replace(player, armorMap.get(player) + (((int)(i*multiplicator*100))/100));
+            int point = (int) (i*multiplicator*100);
+            armorMap.replace(player, armorMap.get(player) + point/100);
             checkArmor(player, player.getInventory().getArmorContents());
 
         }
@@ -242,7 +295,8 @@ public class Merite extends Scenario implements Listener {
             {
                 multiplicator = bowPourcent.get(player);
             }
-            bowMap.replace(player, bowMap.get(player) + (((int)(i*multiplicator*100))/100));
+            int point = (int) (i*multiplicator*100);
+            bowMap.replace(player, bowMap.get(player) + point/100);
             checkBow(player, player.getItemInHand());
 
         }
@@ -254,6 +308,7 @@ public class Merite extends Scenario implements Listener {
     void checkSword(Player player, ItemStack sword)
     {
         float i = swordMap.get(player);
+        player.sendMessage("check... point = " + i);
 
         if(i > 300)
         {
@@ -281,7 +336,8 @@ public class Merite extends Scenario implements Listener {
 
     void checkArmor(Player player, ItemStack... armors)
     {
-        float i = swordMap.get(player);
+        float i = armorMap.get(player);
+        player.sendMessage("check... armor = " + player.getName() + "possede :" + i);
         if(i > 300)
         {
             addEnchant(5, armors);
@@ -306,7 +362,9 @@ public class Merite extends Scenario implements Listener {
 
     void checkBow(Player player, ItemStack bow)
     {
+
         float i = swordMap.get(player);
+        player.sendMessage("check... point = " + i);
         if(i > 300)
         {
             addEnchant(Enchantment.ARROW_DAMAGE, 5, bow);
@@ -343,16 +401,11 @@ public class Merite extends Scenario implements Listener {
     void addEnchant(Enchantment enchantment, int level, ItemStack it)
     {
         ItemMeta meta = it.getItemMeta();
-        if(!meta.getEnchants().containsKey(enchantment))
-        {
-            meta.addEnchant(enchantment, level, true);
-            it.setItemMeta(meta);
-        }
-        else {
+        if (meta.getEnchants().containsKey(enchantment)) {
             meta.removeEnchant(enchantment);
-            meta.addEnchant(enchantment, level,true);
-            it.setItemMeta(meta);
         }
+        meta.addEnchant(enchantment, level, true);
+        it.setItemMeta(meta);
     }
     void addEnchant(int level, ItemStack... armors)
     {
