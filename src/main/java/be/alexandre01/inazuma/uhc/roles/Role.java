@@ -111,8 +111,7 @@ public class Role {
                         return;
                     }
                     for(Player spoiledP : role.getPlayers()){
-                        player.sendMessage(Preset.instance.p.prefixName()+"Tu connais le role de §a"+spoiledP.getName());
-                        player.sendMessage("§7Il est §7§l"+role.getName());
+                        player.sendMessage(Preset.instance.p.prefixName()+" §a§l"+spoiledP.getName() + "§7est " + role.getRoleCategory().getPrefixColor()+"§l"+getName());
                     }
 
 
