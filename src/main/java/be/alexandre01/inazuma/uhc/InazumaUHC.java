@@ -49,8 +49,6 @@ import org.bukkit.command.CommandMap;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
-import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
@@ -62,7 +60,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.logging.Level;
 import java.util.stream.Collectors;
 
 public final class InazumaUHC extends JavaPlugin {
@@ -254,6 +251,7 @@ public final class InazumaUHC extends JavaPlugin {
         Tracker.initialize();
         registerCommand("force", new ForceCommand("force"));
         registerCommand("compo", new CompoCommand("compo"));
+        registerCommand("composee", new CompoSeeCommand("composee"));
         registerCommand("ina",new BaseCommand("ina","ina"));
         registerCommand("ina",new StuffMeetupCommand("stuffmeetup"));
         registerCommand("invsee",new InvSeeCommand( "invsee"));
