@@ -2,7 +2,9 @@ package be.alexandre01.inazuma.uhc.roles.listeners;
 
 import be.alexandre01.inazuma.uhc.InazumaUHC;
 import be.alexandre01.inazuma.uhc.custom_events.player.PlayerInstantDeathEvent;
+import be.alexandre01.inazuma.uhc.presets.Preset;
 import be.alexandre01.inazuma.uhc.roles.Role;
+import be.alexandre01.inazuma.uhc.roles.RoleCategory;
 import be.alexandre01.inazuma.uhc.roles.RoleItem;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -11,6 +13,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -51,6 +54,26 @@ public class PlayerInstantDeath implements Listener {
                 role.removePlayer(player);
             }
             role.getEliminatedPlayers().add(player.getUniqueId());
+            int i = 0;
+            Role rr = null;
+            for (RoleCategory rc: InazumaUHC.get.rm.getRoleCategories().values()){
+                for (Role r : rc.getRoles()){
+                    if(!r.getPlayers().isEmpty())
+                    {
+                        i++;
+                        rr = r;
+                        break;
+                    }
+                }
+            }
+            if(i > 1)
+            {
+                return;
+            }
+            if (i == 1){
+                Bukkit.broadcastMessage( Preset.instance.p.prefixName() + "Félicitations ! l'équipe : " + rr.getRoleCategory().getName() + "remporte la partie");
+            }
+
             return;
         }
         Bukkit.broadcastMessage("§r§l§8»§8§m-----------------------------------------------§l§8«");

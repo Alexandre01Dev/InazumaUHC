@@ -17,7 +17,6 @@ import org.inventivetalent.packetlistener.PacketListenerAPI;
 import org.inventivetalent.packetlistener.handler.PacketHandler;
 import org.inventivetalent.packetlistener.handler.ReceivedPacket;
 import org.inventivetalent.packetlistener.handler.SentPacket;
-import org.omg.CORBA.PUBLIC_MEMBER;
 
 import java.lang.reflect.Field;
 import java.util.*;
