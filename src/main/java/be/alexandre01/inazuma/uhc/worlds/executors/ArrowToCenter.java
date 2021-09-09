@@ -87,7 +87,7 @@ public class ArrowToCenter {
                              }
                          }
                      }
-                     sb.append(c+" (§c"+distance+"§e)");
+                     sb.append(c+" (§c"+distance+"§6)");
                      preset.getArrows().put(player.getUniqueId(),sb.toString());
                      continue;
                  }

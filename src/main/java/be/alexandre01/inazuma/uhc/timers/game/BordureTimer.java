@@ -45,7 +45,7 @@ public class BordureTimer extends Timer {
                 }
 
                 p.bordureText = "§cMeetup ";
-                p.bordureValue= "§e"+modifier+"s";
+                p.bordureValue= "§a"+modifier+"s";
                 Date date = new Date(time-now);
                 int hour =  (int) ((date.getTime() / (1000*60*60)) % 24);
                 String minute = m.format(date);
@@ -84,7 +84,7 @@ public class BordureTimer extends Timer {
                   }
 
               }
-                p.bordureValue = "§e"+sb.toString()+"s";
+                p.bordureValue = "§a"+sb.toString()+"s";
                 }
         });
     }

@@ -46,7 +46,7 @@ public class PVPTimer extends Timer {
                 }
 
                 p.pvpText = "§cPVP ";
-                p.pvpValue = "§e"+modifier+"s";
+                p.pvpValue = "§a"+modifier+"s";
                 Date date = new Date(pvpTime-now);
                 int hour =  (int) ((date.getTime() / (1000*60*60)) % 24);
                 String minute = m.format(date);
@@ -83,7 +83,7 @@ public class PVPTimer extends Timer {
                   }
 
               }
-                p.pvpValue = "§e"+sb.toString()+"s";
+                p.pvpValue = "§a"+sb.toString()+"s";
 
             }
         });

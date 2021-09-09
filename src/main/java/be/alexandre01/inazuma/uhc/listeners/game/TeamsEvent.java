@@ -18,7 +18,7 @@ public class TeamsEvent implements Listener {
         TeamManager teamManager = i.teamManager;
         if(teamManager.getTeams().size() == 1){
             for(Player player : teamManager.getTeams().get(0).getAllPlayers()){
-                Bukkit.broadcastMessage("§e"+player.getDisplayName()+" a gagné la partie");
+                //Bukkit.broadcastMessage("§e"+player.getDisplayName()+" a gagné la partie");
             }
 
         }
