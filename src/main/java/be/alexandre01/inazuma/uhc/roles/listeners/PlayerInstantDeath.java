@@ -71,7 +71,7 @@ public class PlayerInstantDeath implements Listener {
                 return;
             }
             if (i == 1){
-                Bukkit.broadcastMessage( Preset.instance.p.prefixName() + "Félicitations ! L'équipe : " + rr.getRoleCategory().getName() + "remporte la partie");
+                Bukkit.broadcastMessage( Preset.instance.p.prefixName() + rr.getRoleCategory().getWinMessage());
             }
 
             return;

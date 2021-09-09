@@ -13,11 +13,13 @@ public class RoleCategory {
     @Getter @Setter
     String[] deathMessage = {"§e%player%§7 est §cmort(e)§7","§7 Son rôle était §f: %role%"};
     String prefixColor;
+    String winMessage;
     private ArrayList<Role> roles = new ArrayList<>();
 
-    public RoleCategory(String name, String prefixColor){
+    public RoleCategory(String name, String prefixColor, String winMessage){
         this.name = name;
         this.prefixColor = prefixColor;
+        this.winMessage = winMessage;
         if(InazumaUHC.get.rm == null){
             InazumaUHC.get.rm = new RoleManager();
         }
@@ -43,4 +45,6 @@ public class RoleCategory {
     public String getPrefixColor() {
         return prefixColor;
     }
+
+    public String getWinMessage(){return winMessage;}
 }
