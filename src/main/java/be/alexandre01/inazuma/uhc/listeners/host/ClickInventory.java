@@ -17,7 +17,6 @@ public class ClickInventory implements Listener {
     }
     @EventHandler
     public void onClick(InventoryClickEvent event){
-        System.out.println("CLICK");
         Player player = (Player) event.getWhoClicked();
         if(host.getWorkingPlaces().containsKey(player)){
             WorkingPlace workingPlace = host.getWorkingPlaces().get(player);

@@ -30,6 +30,8 @@ public class PatchedEntity{
     private static HashMap<Packet<?>,Integer> authorizedPackets = new HashMap<>();
     private static PacketHandler packetHandler;
     private static boolean register = false;
+    
+    @SuppressWarnings("deprecation")
     public static void init(){
         packetHandler = new PacketHandler() {
             @Override

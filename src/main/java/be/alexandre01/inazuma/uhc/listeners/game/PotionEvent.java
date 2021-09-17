@@ -34,29 +34,15 @@ public class PotionEvent implements Listener {
             Player damager = (Player) event.getDamager();
             WeaponItem weaponItemstack = new WeaponItem(damager.getItemInHand());
             double resetDamage = getNewDamagePoint(damager);
-            double damageIncreased = (resetDamage+sharpnessCalc(damager.getItemInHand())+critCalc(damager)) * (inazumaUHC.dm.getEffectPourcentage(damager, DamageManager.EffectType.INCREASE_DAMAGE));
+            double damageIncreased = ((resetDamage) * (inazumaUHC.dm.getEffectPourcentage(damager, DamageManager.EffectType.INCREASE_DAMAGE)))+ +sharpnessCalc(damager.getItemInHand())+critCalc(damager);
+
+            if(event.getEntity() instanceof Player){
+                Player player = (Player) event.getEntity();
+                damageIncreased = damageIncreased/inazumaUHC.dm.getEffectPourcentage(player, DamageManager.EffectType.RESISTANCE);
+            }
+
             event.setDamage(damageIncreased);
 
-           // System.out.println("NEW base >>" + damageIncreased);
-            try {
-              //  System.out.println("DEFAULT ARMOR >>" + event.getDamage(EntityDamageEvent.DamageModifier.ARMOR));
-              //  event.setDamage(EntityDamageEvent.DamageModifier.ARMOR,(event.getDamage(EntityDamageEvent.DamageModifier.ARMOR)/event.getDamage(EntityDamageEvent.DamageModifier.BASE))*damageIncreased);
-              //  System.out.println("COEF ARMOR >>"+(event.getDamage(EntityDamageEvent.DamageModifier.ARMOR)/event.getDamage(EntityDamageEvent.DamageModifier.BASE)));
-              //  System.out.println("MOD ARMOR >>"+(event.getDamage(EntityDamageEvent.DamageModifier.ARMOR)/event.getDamage(EntityDamageEvent.DamageModifier.BASE))*damageIncreased);
-            }catch (Exception e){
-
-            }
-            try {
-                if(event.getEntity() instanceof Player){
-                    Player player = (Player) event.getEntity();
-                //    System.out.println("DEFAULT RESISTANCE >>" + event.getDamage(EntityDamageEvent.DamageModifier.RESISTANCE));
-                  //  System.out.println("EQUALS ? >>" + event.getDamage(EntityDamageEvent.DamageModifier.BASE)*0.2);
-                    //event.setDamage(EntityDamageEvent.DamageModifier.RESISTANCE,-damageIncreased*inazumaUHC.dm.getEffectPourcentage(player, DamageManager.EffectType.RESISTANCE));
-
-                    //event.setDamage(EntityDamageEvent.DamageModifier.RESISTANCE,(damageIncreased/(inazumaUHC.dm.getEffectPourcentage(player, DamageManager.EffectType.RESISTANCE))));
-                  //  System.out.println(-damageIncreased*inazumaUHC.dm.getEffectPourcentage(player, DamageManager.EffectType.RESISTANCE));
-                }
-            }catch (Exception e){}
 
         }
     }
