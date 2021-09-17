@@ -26,6 +26,7 @@ public class MCToUTF {
         c.put("§7","u00a77");
         c.put("§8","u00a78");
         c.put("§0","u00a70");
+        c.put("é","u00e9");
 
         System.out.println("Ecris ici >");
         BufferedReader reader = new BufferedReader(
