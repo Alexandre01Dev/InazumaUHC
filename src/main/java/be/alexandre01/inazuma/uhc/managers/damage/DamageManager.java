@@ -5,6 +5,7 @@ import be.alexandre01.inazuma.uhc.timers.utils.MSToSec;
 import be.alexandre01.inazuma.uhc.utils.WeaponItem;
 import lombok.Data;
 import net.minecraft.server.v1_8_R3.*;
+import org.bukkit.Bukkit;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -45,13 +46,13 @@ public class DamageManager {
 
     public void addEffectPourcentage(Player player,EffectType effectType,int level, int pourcentage){
         switch (effectType){
-            case RESISTANCE:
-                resistance.put(player,pourcentage/100D);
-                resistance_level.put(player,level);
-                break;
             case INCREASE_DAMAGE:
                 increased_damage.put(player,pourcentage/100D);
                 increased_damage_level.put(player,level);
+                break;
+            case RESISTANCE:
+                resistance.put(player,pourcentage/100D);
+                resistance_level.put(player,level);
                 break;
         }
     }
@@ -83,12 +84,14 @@ public class DamageManager {
                     }
                     return 1.15d;
                 }
+                break;
             case INCREASE_DAMAGE:
                 if(player.hasPotionEffect(PotionEffectType.INCREASE_DAMAGE)){
                      if(increased_damage.containsKey(player)){
                         return increased_damage.get(player);
                      }
                 }
+                break;
         }
         return 1;
     }

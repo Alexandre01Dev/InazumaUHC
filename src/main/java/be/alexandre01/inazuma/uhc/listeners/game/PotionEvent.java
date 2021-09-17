@@ -6,6 +6,7 @@ import be.alexandre01.inazuma.uhc.utils.WeaponItem;
 import net.minecraft.server.v1_8_R3.AttributeModifiable;
 import net.minecraft.server.v1_8_R3.AttributeModifier;
 import net.minecraft.server.v1_8_R3.EntityPlayer;
+import org.bukkit.Bukkit;
 import org.bukkit.craftbukkit.v1_8_R3.entity.CraftPlayer;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
@@ -32,16 +33,19 @@ public class PotionEvent implements Listener {
         //System.out.println("DEFAULT base >>" + event.getDamage(EntityDamageEvent.DamageModifier.BASE));
         if(event.getDamager() instanceof Player){
             Player damager = (Player) event.getDamager();
-            WeaponItem weaponItemstack = new WeaponItem(damager.getItemInHand());
             double resetDamage = getNewDamagePoint(damager);
             double damageIncreased = ((resetDamage) * (inazumaUHC.dm.getEffectPourcentage(damager, DamageManager.EffectType.INCREASE_DAMAGE)))+ +sharpnessCalc(damager.getItemInHand())+critCalc(damager);
-
             if(event.getEntity() instanceof Player){
                 Player player = (Player) event.getEntity();
                 damageIncreased = damageIncreased/inazumaUHC.dm.getEffectPourcentage(player, DamageManager.EffectType.RESISTANCE);
-            }
+                event.setDamage(EntityDamageEvent.DamageModifier.RESISTANCE,0);
 
+            }
             event.setDamage(damageIncreased);
+
+
+
+
 
 
         }
@@ -94,7 +98,7 @@ public class PotionEvent implements Listener {
 
     private double critCalc(Player damager){
         if(damager.getFallDistance() > 0.0F && !damager.isOnGround() && !damager.hasPotionEffect(PotionEffectType.BLINDNESS) && damager.getVehicle() == null){
-            return 0.5D;
+            return 0.25D;
         }
         return 0;
     }
