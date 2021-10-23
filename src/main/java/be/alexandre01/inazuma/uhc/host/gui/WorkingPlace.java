@@ -1,6 +1,11 @@
 package be.alexandre01.inazuma.uhc.host.gui;
 
+import be.alexandre01.inazuma.uhc.InazumaUHC;
+import be.alexandre01.inazuma.uhc.generations.chunks.ChunksGenerator;
 import be.alexandre01.inazuma.uhc.host.HostButton;
+import be.alexandre01.inazuma.uhc.presets.Preset;
+import be.alexandre01.inazuma.uhc.state.GameState;
+import be.alexandre01.inazuma.uhc.state.State;
 import be.alexandre01.inazuma.uhc.utils.ItemBuilder;
 import be.alexandre01.inazuma.uhc.utils.SoundProperty;
 import be.alexandre01.inazuma.uhc.utils.fastinv.FastInv;
@@ -11,9 +16,12 @@ import net.minecraft.server.v1_8_R3.Tuple;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.Sound;
+import org.bukkit.World;
 import org.bukkit.craftbukkit.v1_8_R3.inventory.CraftShapedRecipe;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
@@ -42,6 +50,28 @@ public class WorkingPlace {
     public WorkingPlace nextWorkingPlace = null;
     public WorkingPlace(FastInv fastInv){
         this.inv = new FastInv(fastInv.getInventory().getSize(),fastInv.getInventory().getTitle());
+        start.setAction(player -> {
+            if(GameState.get().contains(State.PREPARING)){
+                if(InazumaUHC.get.worldGen.isGenerating()){
+                    player.sendMessage("§7La §cprégénération §7est entrain de s'effectuer.");
+                    return;
+                }
+                InazumaUHC.get.lm.removeListener(InventoryClickEvent.class);
+                InazumaUHC.get.lm.removeListener(InventoryCloseEvent.class);
+
+                player.sendMessage("§7Lancement de la §cprégénération§7.");
+                if(!InazumaUHC.get.loadWorldBefore){
+                    InazumaUHC.get.worldGen.gen();
+                }else {
+                    ChunksGenerator c = new ChunksGenerator();
+                    World world = InazumaUHC.get.worldGen.defaultWorld;
+                    c.generate(world.getChunkAt(0,0),(Preset.instance.p.getBorderSize(world.getEnvironment())/16)+InazumaUHC.get.getServer().getViewDistance()+5,true);
+                    InazumaUHC.get.worldGen.defaultWorldLoaded();
+                }
+
+                return;
+            }
+        });
     }
     //ADDPLAYER
     public void addInstance(Player player){

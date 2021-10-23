@@ -310,23 +310,23 @@ public class Merite extends Scenario implements Listener {
         float i = swordMap.get(player);
         player.sendMessage("check... point = " + i);
 
-        if(i > 300)
+        if(i >= 300)
         {
             addEnchant(Enchantment.DAMAGE_ALL, 5, sword);
         }
-        else if(i > 200)
+        else if(i >= 200)
         {
             addEnchant(Enchantment.DAMAGE_ALL, 4, sword);
         }
-        else if(i > 120)
+        else if(i >= 120)
         {
             addEnchant(Enchantment.DAMAGE_ALL, 3, sword);
         }
-        else if(i > 80)
+        else if(i >= 80)
         {
             addEnchant(Enchantment.DAMAGE_ALL, 2, sword);
         }
-        else if(i > 40)
+        else if(i >= 40)
         {
             addEnchant(Enchantment.DAMAGE_ALL, 1, sword);
         }
@@ -338,23 +338,23 @@ public class Merite extends Scenario implements Listener {
     {
         float i = armorMap.get(player);
         player.sendMessage("check... armor = " + player.getName() + "possede :" + i);
-        if(i > 300)
+        if(i >= 300)
         {
             addEnchant(5, armors);
         }
-        else if(i > 200)
+        else if(i >= 200)
         {
             addEnchant(4, armors);
         }
-        else if(i > 120)
+        else if(i >= 120)
         {
             addEnchant(3, armors);
         }
-        else if(i > 80)
+        else if(i >= 80)
         {
             addEnchant(2, armors);
         }
-        else if(i > 40){
+        else if(i >= 40){
             addEnchant(1, armors);
         }
 
@@ -365,23 +365,23 @@ public class Merite extends Scenario implements Listener {
 
         float i = swordMap.get(player);
         player.sendMessage("check... point = " + i);
-        if(i > 300)
+        if(i >= 300)
         {
             addEnchant(Enchantment.ARROW_DAMAGE, 5, bow);
         }
-        else if(i > 200)
+        else if(i >= 200)
         {
             addEnchant(Enchantment.ARROW_DAMAGE, 4, bow);
         }
-        else if(i > 120)
+        else if(i >= 120)
         {
             addEnchant(Enchantment.ARROW_DAMAGE, 3, bow);
         }
-        else if(i > 80)
+        else if(i >= 80)
         {
             addEnchant(Enchantment.ARROW_DAMAGE, 2, bow);
         }
-        else if(i > 40)
+        else if(i >= 40)
         {
             addEnchant(Enchantment.ARROW_DAMAGE, 1, bow);
         }

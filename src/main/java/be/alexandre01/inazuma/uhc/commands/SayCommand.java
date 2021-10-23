@@ -39,7 +39,7 @@ public class SayCommand  extends Command {
                             reas = reas + args[args_num] + " ";
                         }
                         Bukkit.broadcastMessage(" ");
-                        Bukkit.broadcastMessage(Preset.instance.p.prefixName() + "§c " + reas);
+                        Bukkit.broadcastMessage("§c§lHOST " + player.getName() + "§c§» " + reas);
                         Bukkit.broadcastMessage(" ");
                     }
 

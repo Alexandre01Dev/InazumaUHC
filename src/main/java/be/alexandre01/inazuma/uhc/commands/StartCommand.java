@@ -16,7 +16,6 @@ import org.bukkit.event.inventory.InventoryCloseEvent;
 
 public class StartCommand implements CommandExecutor{
 
-
         public StartCommand(){
 
         }
@@ -25,26 +24,6 @@ public class StartCommand implements CommandExecutor{
             if(sender instanceof Player){
                 Player player = (Player) sender;
                 if(cmd.getName().equalsIgnoreCase("start")){
-                    if(GameState.get().contains(State.PREPARING)){
-                        if(InazumaUHC.get.worldGen.isGenerating()){
-                            player.sendMessage("§7La §cprégénération §7est entrain de s'effectuer.");
-                            return true;
-                        }
-                        InazumaUHC.get.lm.removeListener(InventoryClickEvent.class);
-                        InazumaUHC.get.lm.removeListener(InventoryCloseEvent.class);
-
-                        player.sendMessage("§7Lancement de la §cprégénération§7.");
-                        if(!InazumaUHC.get.loadWorldBefore){
-                            InazumaUHC.get.worldGen.gen();
-                        }else {
-                            ChunksGenerator c = new ChunksGenerator();
-                            World world = InazumaUHC.get.worldGen.defaultWorld;
-                            c.generate(world.getChunkAt(0,0),(Preset.instance.p.getBorderSize(world.getEnvironment())/16)+InazumaUHC.get.getServer().getViewDistance()+5,true);
-                            InazumaUHC.get.worldGen.defaultWorldLoaded();
-                        }
-
-                        return true;
-                    }
                     if(GameState.get().contains(State.WAITING)){
                         player.sendMessage("§7Lancement de la §apartie§7...");
                         player.sendMessage("§7Téléportation des §ejoueurs§7.");
@@ -56,10 +35,16 @@ public class StartCommand implements CommandExecutor{
                         }
                         GameState.get().setTo(State.STARTING);
                     }
+                    else{
+                        if (GameState.get().contains(State.PREPARING)) {
+                            player.sendMessage("§7Vous n'avez pas fait la §cprégénération§7 de la map ! (§c/pregen§7)");
+                        }
+                        else{
+                            player.sendMessage("§7La partie est déja en cours !");
+                        }
+                    }
                     }
                 }
-
-
             return false;
         }
     }

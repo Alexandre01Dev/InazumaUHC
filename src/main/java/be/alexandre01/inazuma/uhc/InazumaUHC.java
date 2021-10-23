@@ -227,6 +227,7 @@ public final class InazumaUHC extends JavaPlugin {
         this.getCommand("debug").setExecutor(new DebugCommand());
         this.getCommand("pack").setExecutor(new PackCommand());
         this.getCommand("mumble").setExecutor(new MumbleCommand());
+        this.getCommand("pregen").setExecutor(new PregenCommand());
 
 
 
