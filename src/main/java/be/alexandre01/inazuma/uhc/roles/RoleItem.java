@@ -184,7 +184,7 @@ public class RoleItem {
                 @Override
                 public boolean verification(Player player) {
                     if(i >= value){
-                        player.sendMessage(Preset.instance.p.prefixName()+"§c Tu ne peux pas utiliser cette item plus de "+iMax+" fois durant la partie");
+                        player.sendMessage(Preset.instance.p.prefixName()+"§c Vous ne pouvez pas utiliser cette item plus de "+iMax+" fois durant la partie.");
                         return false;
                     }
                     i++;
@@ -200,7 +200,7 @@ public class RoleItem {
                 public boolean verification(Player player) {
                     int currentEpisode = Episode.getEpisode();
                     if(i+episodeLastRange >= currentEpisode){
-                        player.sendMessage(Preset.instance.p.prefixName()+"§c Tu peux utiliser cette item tout les "+(episodeLastRange+1)+" épisode(s) après son utilisation ");
+                        player.sendMessage(Preset.instance.p.prefixName()+"§c Vous pouvez utiliser cette item tout les "+(episodeLastRange+1)+" épisode(s) après son utilisation.");
                         return false;
                     }
                     i = currentEpisode;
@@ -217,7 +217,7 @@ public class RoleItem {
                     dateBuilderTimer.loadComplexDate();
 
                     if(dateBuilderTimer.getDate().getTime() > 0){
-                        player.sendMessage(Preset.instance.p.prefixName()+"§c Tu peux utiliser cette item tout les "+dateBuilderTimer.getLongBuild()+"  après son utilisation");
+                        player.sendMessage(Preset.instance.p.prefixName()+"§c Vous pouvez utiliser cette item tout les "+dateBuilderTimer.getLongBuild()+"  après son utilisation.");
                         return false;
                     }
 
