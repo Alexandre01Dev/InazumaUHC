@@ -9,6 +9,7 @@ import be.alexandre01.inazuma.uhc.config.Config;
 import be.alexandre01.inazuma.uhc.config.CustomExceptionHandler;
 import be.alexandre01.inazuma.uhc.config.Messages;
 import be.alexandre01.inazuma.uhc.generations.NetherPortalsManager;
+import be.alexandre01.inazuma.uhc.handler.RessourcePackHandler;
 import be.alexandre01.inazuma.uhc.host.Host;
 import be.alexandre01.inazuma.uhc.host.gui.WorkingPlace;
 import be.alexandre01.inazuma.uhc.listeners.ListenersManager;
@@ -138,6 +139,8 @@ public final class InazumaUHC extends JavaPlugin {
         lm.addListener(new PlayerEvent());
         lm.addListener(new WorldEvent());
         lm.addListener(new TimerEvent());
+
+        getServer().imanity().registerPacketHandler(this,new RessourcePackHandler());
         //lm.addListener(new BoatEvent());
         for(World world : Bukkit.getWorlds()){
             for(Entity entity : world.getEntities()){
@@ -217,17 +220,20 @@ public final class InazumaUHC extends JavaPlugin {
 
         ScoreboardUtil.initialize();
 
+            System.out.println("Scheduled GO to");
         scheduledExecutorService = Executors.newScheduledThreadPool(16);
         executorMonoThread = Executors.newScheduledThreadPool(1);
         scoreboardManager = new ScoreboardManager();
-
+            System.out.println("Scheduled SET to");
         this.getCommand("scenario").setExecutor(new ScenarioCommand());
         this.getCommand("start").setExecutor(new StartCommand());
         this.getCommand("doc").setExecutor(new DocCommand());
         this.getCommand("debug").setExecutor(new DebugCommand());
         this.getCommand("pack").setExecutor(new PackCommand());
         this.getCommand("mumble").setExecutor(new MumbleCommand());
-        this.getCommand("pregen").setExecutor(new PregenCommand());
+
+        registerCommand("pregen", new PregenCommand("pregen"));
+
 
 
 

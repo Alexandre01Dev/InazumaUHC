@@ -14,17 +14,18 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 
-public class PregenCommand implements CommandExecutor{
-
-
-    public PregenCommand(){
-
+public class PregenCommand extends Command{
+    public PregenCommand(String pregen) {
+        super(pregen);
     }
+
+
+
     @Override
-    public boolean onCommand(CommandSender sender, Command cmd, String msg, String[] args) {
+    public boolean execute(CommandSender sender,  String msg, String[] args) {
         if(sender instanceof Player){
             Player player = (Player) sender;
-            if(cmd.getName().equalsIgnoreCase("pregen")){
+
                 if(GameState.get().contains(State.PREPARING)){
                     if(InazumaUHC.get.worldGen.isGenerating()){
                         player.sendMessage("§7La §cprégénération §7est entrain de s'effectuer.");
@@ -45,7 +46,6 @@ public class PregenCommand implements CommandExecutor{
 
                     return true;
                 }
-            }
             else{
                 player.sendMessage("§7Vous avez déja fait la §cprégénération§7 de la map !");
             }

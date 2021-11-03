@@ -9,7 +9,6 @@ import be.alexandre01.inazuma.uhc.utils.TitleUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
-import spg.lgdev.iSpigot;
 
 import java.text.Format;
 import java.text.SimpleDateFormat;
@@ -22,7 +21,6 @@ public class MoveBordureTimer extends Timer {
         super("moveBordureTimer");
 
         be.alexandre01.inazuma.uhc.InazumaUHC i = be.alexandre01.inazuma.uhc.InazumaUHC.get;
-        iSpigot iSpigot = spg.lgdev.iSpigot.INSTANCE;
         ArrayList<Player> players = new ArrayList<>(Bukkit.getOnlinePlayers());
         super.setTimer(new ITimer() {
             Format h = new SimpleDateFormat("hh");

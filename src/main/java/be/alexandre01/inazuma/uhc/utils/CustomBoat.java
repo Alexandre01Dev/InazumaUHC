@@ -18,7 +18,7 @@ import org.bukkit.event.entity.EntityCombustEvent;
 import org.bukkit.event.entity.EntityTargetEvent;
 import org.bukkit.event.entity.EntityTargetLivingEntityEvent;
 import org.bukkit.event.vehicle.*;
-import spg.lgdev.config.iSpigotConfig;
+
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -138,7 +138,7 @@ public class CustomBoat extends EntityBoat {
 		int var18;
 		double var19;
 		double var21;
-		if (!iSpigotConfig.minimize_packets && var34 > 0.2975D) {
+		if (var34 > 0.2975D) {
 			var14 = Math.cos((double)this.yaw * 3.141592653589793D / 180.0D);
 			var16 = Math.sin((double)this.yaw * 3.141592653589793D / 180.0D);
 
@@ -365,145 +365,6 @@ public class CustomBoat extends EntityBoat {
 
 
 
-	@Override
-	public void move(double var1, double var3, double var5) {
-		int h = (int) getPrivateField("h",Entity.class,this);
-		if (this.loadChunks) {
-			int var7 = (int)var1 >> 4;
-			int var8 = (int)var5 >> 4;
-			int var9 = (int)this.locX >> 4;
-			int var10 = (int)this.locZ >> 4;
-			if (var7 != var9 || var8 != var10) {
-				this.loadChunks();
-			}
-		}
-
-		if (this.noclip) {
-			this.a(this.getBoundingBox().c(var1, var3, var5));
-		} else {
-			try {
-
-			} catch (Throwable var61) {
-				CrashReport var63 = CrashReport.a(var61, "Checking entity block collision");
-				CrashReportSystemDetails var64 = var63.a("Entity being checked for collision");
-				this.appendEntityCrashDetails(var64);
-				throw new ReportedException(var63);
-			}
-
-			if (var1 == 0.0D && var3 == 0.0D && var5 == 0.0D && this.vehicle == null && this.passenger == null) {
-				return;
-			}
-
-			this.world.methodProfiler.a("move");
-			double var62 = this.locX;
-			double var65 = this.locY;
-			double var11 = this.locZ;
-			if (this.H) {
-				this.H = false;
-				var1 *= 0.25D;
-				var3 *= 0.05000000074505806D;
-				var5 *= 0.25D;
-				this.motX = 0.0D;
-				this.motY = 0.0D;
-				this.motZ = 0.0D;
-			}
-
-			double var13 = var1;
-			double var15 = var3;
-			double var17 = var5;
-			boolean var19 = this.onGround && this.isSneaking() && (Entity)this instanceof EntityHuman;
-			List var20 = this.world.getCubes(this, this.getBoundingBox().a(var1, var3, var5));
-			AxisAlignedBB var21 = this.getBoundingBox();
-
-			AxisAlignedBB var22;
-			for(Iterator var23 = var20.iterator(); var23.hasNext(); var3 = var22.b(this.getBoundingBox(), var3)) {
-				var22 = (AxisAlignedBB)var23.next();
-			}
-
-		//	this.a(this.getBoundingBox().c(0.0D, var3, 0.0D));
-			boolean var66 = this.onGround || var15 != var3 && var15 < 0.0D;
-
-			AxisAlignedBB var24;
-			Iterator var25;
-			for(var25 = var20.iterator(); var25.hasNext(); var1 = var24.a(this.getBoundingBox(), var1)) {
-				var24 = (AxisAlignedBB)var25.next();
-			}
-
-		//	this.a(this.getBoundingBox().c(var1, 0.0D, 0.0D));
-
-			for(var25 = var20.iterator(); var25.hasNext(); var5 = var24.c(this.getBoundingBox(), var5)) {
-				var24 = (AxisAlignedBB)var25.next();
-			}
-
-			this.a(this.getBoundingBox().c(0.0D, 0.0D, var5));
-			if (this.S > 0.0F && var66 && (var13 != var1 || var17 != var5)) {
-				double var26 = var1;
-				double var28 = var3;
-				double var30 = var5;
-				AxisAlignedBB var32 = this.getBoundingBox();
-				this.a(var21);
-				var3 = (double)this.S;
-				List var33 = this.world.getCubes(this, this.getBoundingBox().a(var13, var3, var17));
-				AxisAlignedBB var34 = this.getBoundingBox();
-				AxisAlignedBB var35 = var34.a(var13, 0.0D, var17);
-				double var36 = var3;
-
-
-			}
-
-			this.world.methodProfiler.b();
-			this.world.methodProfiler.a("rest");
-			//this.recalcPosition();
-			//this.positionChanged = var13 != var1 || var17 != var5;
-			this.positionChanged = false;
-			this.E = var15 != var3;
-			this.onGround = this.E && var15 < 0.0D;
-			this.F = this.positionChanged || this.E;
-			int var67 = MathHelper.floor(this.locX);
-			int var27 = MathHelper.floor(this.locY - 0.20000000298023224D);
-			int var68 = MathHelper.floor(this.locZ);
-			BlockPosition var29 = new BlockPosition(var67, var27, var68);
-			net.minecraft.server.v1_8_R3.Block var69 = this.world.getType(var29).getBlock();
-			if (var69.getMaterial() == Material.AIR) {
-				net.minecraft.server.v1_8_R3.Block var31 = this.world.getType(var29.down()).getBlock();
-				if (var31 instanceof BlockFence || var31 instanceof BlockCobbleWall || var31 instanceof BlockFenceGate) {
-					var69 = var31;
-					var29 = var29.down();
-				}
-			}
-
-
-			if (this.positionChanged && this.getBukkitEntity() instanceof Vehicle) {
-				System.out.println("VEHICLE MOVE");
-				/*Vehicle var70 = (Vehicle)this.getBukkitEntity();
-				org.bukkit.block.Block var73 = this.world.getWorld().getBlockAt(MathHelper.floor(this.locX), MathHelper.floor(this.locY), MathHelper.floor(this.locZ));
-				if (var13 > var1) {
-					var73 = var73.getRelative(BlockFace.EAST);
-				} else if (var13 < var1) {
-					var73 = var73.getRelative(BlockFace.WEST);
-				} else if (var17 > var5) {
-					var73 = var73.getRelative(BlockFace.SOUTH);
-				} else if (var17 < var5) {
-					var73 = var73.getRelative(BlockFace.NORTH);
-				}
-
-				VehicleBlockCollisionEvent var74 = new VehicleBlockCollisionEvent(var70, var73);
-				this.world.getServer().getPluginManager().callEvent(var74);*/
-			}
-
-			if (this.s_() && !var19 && this.vehicle == null) {
-
-			}
-
-			boolean var72 = this.U();
-			if (this.world.e(this.getBoundingBox().shrink(0.001D, 0.001D, 0.001D))) {
-
-			}
-
-			this.world.methodProfiler.b();
-		}
-
-	}
 	@Override
 	protected void checkBlockCollisions() {
 

@@ -103,7 +103,7 @@ public class ChunksGenerator {
         System.out.println("finish");
         ForcedChunkFinishedEvent forcedChunkFinishedEvent = new ForcedChunkFinishedEvent(this);
         Bukkit.getPluginManager().callEvent(forcedChunkFinishedEvent);
-     //   System.gc(); A VOIR
+        //   System.gc(); A VOIR
     }
 
     public ArrayList<ChunkCoord> getChunksCord() {

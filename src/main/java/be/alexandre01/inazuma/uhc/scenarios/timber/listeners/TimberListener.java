@@ -13,7 +13,7 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
-import org.checkerframework.checker.units.qual.A;
+
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -94,7 +94,7 @@ public class TimberListener implements Listener {
                                 Location clone = upLoc.clone().add(x,0,z);
                                 Item item = clone.getWorld().dropItem(upLoc, new ItemStack(Material.APPLE));
                                 item.setVelocity(new Vector(0,0,0));
-                                item.setStackAmount(1);
+                               // item.setStackAmount(1);
 
 
                                 i--;

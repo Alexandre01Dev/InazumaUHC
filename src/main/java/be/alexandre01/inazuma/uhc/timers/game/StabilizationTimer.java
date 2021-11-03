@@ -5,6 +5,7 @@ import be.alexandre01.inazuma.uhc.presets.Preset;
 import be.alexandre01.inazuma.uhc.timers.ITimer;
 import be.alexandre01.inazuma.uhc.timers.Timer;
 import be.alexandre01.inazuma.uhc.timers.utils.DateBuilderTimer;
+import net.minecraft.server.v1_8_R3.MinecraftServer;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -16,7 +17,6 @@ public class StabilizationTimer extends Timer {
         super("stabilizationTimer");
 
             be.alexandre01.inazuma.uhc.InazumaUHC i = be.alexandre01.inazuma.uhc.InazumaUHC.get;
-            spg.lgdev.iSpigot iSpigot = spg.lgdev.iSpigot.INSTANCE;
             ArrayList<Player> players = new ArrayList<>(Bukkit.getOnlinePlayers());
             super.setOptimisation(false);
             super.setTimer(new ITimer() {
@@ -31,7 +31,7 @@ public class StabilizationTimer extends Timer {
 
                 @Override
                 public void run() {
-                    double tps = iSpigot.getTPS()[0];
+                    double tps =  MinecraftServer.getServer().recentTps[0];
 
 
                     if(tps < 20.5 && tps >= 20|| tps > 19.5 && tps <= 20){

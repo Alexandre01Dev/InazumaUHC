@@ -6,11 +6,13 @@ import be.alexandre01.inazuma.uhc.custom_events.timers.TimerCreateEvent;
 import be.alexandre01.inazuma.uhc.presets.IPreset;
 import be.alexandre01.inazuma.uhc.presets.Preset;
 import be.alexandre01.inazuma.uhc.timers.exception.NullTimerException;
+import net.minecraft.server.v1_8_R3.MinecraftServer;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
-import spg.lgdev.iSpigot;
+
 
 import java.time.Instant;
 
@@ -24,7 +26,7 @@ public class Timer extends BukkitRunnable{
     private Timer timer;
     Instant now = Instant.now();
     Instant sec = Instant.now();
-    iSpigot iSpigot = spg.lgdev.iSpigot.INSTANCE;
+   // iSpigot iSpigot = spg.lgdev.iSpigot.INSTANCE;
     BukkitTask bukkitTask;
     String timerName;
     setup setup = null;
@@ -58,7 +60,9 @@ public class Timer extends BukkitRunnable{
     @Override
     public void run() {
         if(optimisation){
-            double tps = iSpigot.getTPS()[0];
+           // StringBuilder sb = new StringBuilder( ChatColor.GOLD + "TPS from last 1m, 5m, 15m: " );
+
+            double tps =  MinecraftServer.getServer().recentTps[0];
 
 
             if(tps > 22){

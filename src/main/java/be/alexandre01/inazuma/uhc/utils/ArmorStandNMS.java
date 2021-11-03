@@ -46,7 +46,7 @@ public class ArmorStandNMS extends Reflections {
         sendPacket(player,packet);
     }
     public void setup(boolean arms , boolean baseblate, boolean small){
-        DataWatcher w = new DataWatcher((DataWatcher) null);
+        DataWatcher w = new DataWatcher(null);
         byte b1 = 0x00;
         byte b2 = 0x00;
         byte b3 = 0x00;
@@ -84,7 +84,7 @@ public class ArmorStandNMS extends Reflections {
 
     public void setPose(ArmorStand pose,float x,float y,float z){
 
-        DataWatcher w = new DataWatcher((DataWatcher) null);
+        DataWatcher w = new DataWatcher(null);
         int value = 11;
         if(pose.equals(ArmorStand.HEAD)){
             value =11;
@@ -166,7 +166,7 @@ public class ArmorStandNMS extends Reflections {
         }.runTaskTimer(InazumaUHC.get,0,1);
     }
     public void setInvisible(){
-        DataWatcher w = new DataWatcher((DataWatcher) null);
+        DataWatcher w = new DataWatcher(null);
 
         w.a(0,(byte)0x20);
     PacketPlayOutEntityMetadata metadataPacket = new PacketPlayOutEntityMetadata(as.getId(),w,true);

@@ -1,7 +1,6 @@
 package be.alexandre01.inazuma.uhc.spectators;
 
 import be.alexandre01.inazuma.uhc.InazumaUHC;
-import it.unimi.dsi.fastutil.Hash;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

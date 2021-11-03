@@ -1,6 +1,6 @@
 package be.alexandre01.inazuma.uhc.scenarios.cutclean.listeners;
 
-import it.unimi.dsi.fastutil.Hash;
+
 import org.bukkit.Material;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;

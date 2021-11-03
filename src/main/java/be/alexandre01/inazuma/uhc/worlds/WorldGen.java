@@ -15,8 +15,7 @@ import org.bukkit.WorldCreator;
 import org.bukkit.entity.Player;
 import org.bukkit.generator.BlockPopulator;
 import org.bukkit.plugin.Plugin;
-import spg.lgdev.config.ImanityWorldConfig;
-import spg.lgdev.iSpigot;
+
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -51,7 +50,7 @@ public class WorldGen {
             isGenerating = true;
         }
 
-        ImanityWorldConfig iwc =  iSpigot.INSTANCE.getWorldConfigByName("default");
+        //ImanityWorldConfig iwc =  iSpigot.INSTANCE.getWorldConfigByName("default");
 
         /*
         iwc.set("generateRate",700);
@@ -66,9 +65,9 @@ public class WorldGen {
         iwc.orePopulatorRules.put(173,new OrePopulatorRule(173,80,0,60,10,1));
         iwc.biomePlains = false;
         */
-        iwc.sugarCaneHeightMin = 1;
+        /*iwc.sugarCaneHeightMin = 1;
         iwc.sugarCaneHeightMax = 4;
-        iwc.sugarCaneRound = 40;
+        iwc.sugarCaneRound = 40;*/
         System.out.println("> GEN1 ");
         if(InazumaUHC.get.unloadWorlds){
             for (World ws: Bukkit.getWorlds()

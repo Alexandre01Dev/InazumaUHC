@@ -47,7 +47,7 @@ public class PlayerEvent implements Listener {
 
     @EventHandler
     public void onLogin(PlayerLoginEvent event){
-        event.setAsync(false);
+       // event.setAsync(false);
         if (GameState.get().contains(State.STARTING)){
             event.disallow(PlayerLoginEvent.Result.KICK_OTHER,"§cLa partie est entrain de commencer.");
             return;
@@ -64,9 +64,10 @@ public class PlayerEvent implements Listener {
             }
      }
     }
+
     @EventHandler
     public void onJoin(PlayerJoinEvent event){
-        event.setAsync(false);
+       // event.setAsync(false);
 
         InazumaUHC inazumaUHC = InazumaUHC.get;
         Player player = event.getPlayer();
@@ -178,7 +179,7 @@ public class PlayerEvent implements Listener {
 
     @EventHandler
     public void onLeave(PlayerQuitEvent event){
-        event.setAsync(false);
+       // event.setAsync(false);
         InazumaUHC inazumaUHC = InazumaUHC.get;
         IPreset p = Preset.instance.p;
         Player player = event.getPlayer();

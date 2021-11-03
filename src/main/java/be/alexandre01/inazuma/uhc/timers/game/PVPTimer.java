@@ -9,7 +9,7 @@ import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
-import spg.lgdev.iSpigot;
+
 
 import java.text.Format;
 import java.text.SimpleDateFormat;
@@ -21,7 +21,7 @@ public class PVPTimer extends Timer {
     public PVPTimer() {
         super("pvpTimer");
         be.alexandre01.inazuma.uhc.InazumaUHC i = be.alexandre01.inazuma.uhc.InazumaUHC.get;
-        iSpigot iSpigot = spg.lgdev.iSpigot.INSTANCE;
+        //iSpigot iSpigot = spg.lgdev.iSpigot.INSTANCE;
         ArrayList<Player> players = new ArrayList<>(Bukkit.getOnlinePlayers());
         super.setTimer(new ITimer() {
             Format h = new SimpleDateFormat("hh");

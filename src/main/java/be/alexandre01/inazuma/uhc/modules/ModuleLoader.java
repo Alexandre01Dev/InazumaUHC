@@ -15,6 +15,7 @@ import lombok.val;
 import lombok.var;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.SerializationUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -236,7 +237,9 @@ public class ModuleLoader {
                         role.onLoad(null);
                         InazumaUHC.get.rm.addRole(player.getUniqueId(),role);
                         System.out.println("addRole");
-                        role.onLoad(load);
+
+                            role.onLoad(load);
+
                        // role.addPlayer(player);
                         if(!role.isListenerDeployed){
                             role.deployListeners();

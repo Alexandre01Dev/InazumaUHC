@@ -80,7 +80,9 @@ public class RoleManager {
         role.addPlayer(Bukkit.getPlayer(uuid));
 
         if(role.getLoad() != null){
-            role.getLoad().a(player);
+            Bukkit.getScheduler().scheduleSyncDelayedTask(InazumaUHC.get,() -> {
+                role.getLoad().a(player);
+            });
         }
 
         if(!role.listeners.isEmpty()){

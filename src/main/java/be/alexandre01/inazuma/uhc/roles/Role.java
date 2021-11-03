@@ -169,7 +169,7 @@ public class Role {
                     }
                     ItemStack itemStack = player.getInventory().getItem(roleItem.getSlot());
                     player.getInventory().setItem(roleItem.getSlot(),roleItem.getItemStack());
-                    player.getWorld().dropItemNaturally(player.getLocation(),itemStack,player);
+                    player.getWorld().dropItemNaturally(player.getLocation(),itemStack);
                     full = true;
 
                 }
@@ -205,7 +205,7 @@ public class Role {
                     }
                     ItemStack itemStack = player.getInventory().getItem(roleItem.getSlot());
                     player.getInventory().setItem(roleItem.getSlot(),roleItem.getItemStack());
-                    player.getWorld().dropItemNaturally(player.getLocation(),itemStack,player);
+                    player.getWorld().dropItemNaturally(player.getLocation(),itemStack);
 
                     player.sendMessage("§cInventaire est plein lors de la distribution d'un item spécial.");
                     player.sendMessage("§4ATTENTION §cCertain de vos items ont été jeter au sol.");
