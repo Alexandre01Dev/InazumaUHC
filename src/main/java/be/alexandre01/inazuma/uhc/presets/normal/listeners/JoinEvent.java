@@ -22,6 +22,6 @@ public class JoinEvent implements Listener {
         if(!gameState.contains(State.WAITING) && !gameState.contains(State.PREPARING)){
             return;
         }
-        event.setJoinMessage("§c"+player.getName()+"§e a rejoins la partie");
+        event.setJoinMessage("§c"+player.getName()+"§e a rejoint la partie");
     }
 }

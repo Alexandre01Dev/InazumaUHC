@@ -38,8 +38,8 @@ public class StuffMeetupCommand  extends Command {
                         ItemBuilder chestplate = new ItemBuilder(Material.DIAMOND_CHESTPLATE);
                         chestplate.addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 2);
 
-                        ItemBuilder leggings = new ItemBuilder(Material.DIAMOND_LEGGINGS);
-                        leggings.addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 2);
+                        ItemBuilder leggings = new ItemBuilder(Material.IRON_LEGGINGS);
+                        leggings.addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 3);
 
                         ItemBuilder boots = new ItemBuilder(Material.DIAMOND_BOOTS);
                         boots.addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 2);
@@ -56,6 +56,10 @@ public class StuffMeetupCommand  extends Command {
 
                         ItemBuilder block = new ItemBuilder(Material.COBBLESTONE, 256);
 
+                        ItemBuilder water = new ItemBuilder(Material.WATER_BUCKET, 2);
+
+                        ItemBuilder lava = new ItemBuilder(Material.LAVA_BUCKET, 2);
+
                         players.getInventory (). setHelmet (helmet.toItemStack());
                         players.getInventory (). setChestplate (chestplate.toItemStack());
                         players.getInventory (). setLeggings (leggings.toItemStack());
@@ -66,6 +70,8 @@ public class StuffMeetupCommand  extends Command {
                         players.getInventory ().addItem (arrow.toItemStack());
                         players.getInventory ().addItem (apple.toItemStack());
                         players.getInventory ().addItem (block.toItemStack());
+                        players.getInventory ().addItem (water.toItemStack());
+                        players.getInventory ().addItem (lava.toItemStack());
 
                         players.updateInventory();
 

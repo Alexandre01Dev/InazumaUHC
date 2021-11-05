@@ -231,13 +231,14 @@ public final class InazumaUHC extends JavaPlugin {
         this.getCommand("debug").setExecutor(new DebugCommand());
         this.getCommand("pack").setExecutor(new PackCommand());
         this.getCommand("mumble").setExecutor(new MumbleCommand());
+        //this.getCommand("rules").setExecutor(new RulesCommand());
 
         registerCommand("pregen", new PregenCommand("pregen"));
 
 
 
 
-        Bukkit.getWorld("world").setSpawnLocation(-176,90,-211);
+        Bukkit.getWorld("world").setSpawnLocation(1001,33,1001);
 
          teamManager = new TeamManager();
 
