@@ -11,21 +11,21 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
-public class MuteAllCommand extends Command {
+public class MuteChatCommand extends Command {
     public boolean chat = true;
-    public MuteAllCommand(String s) {
+    public MuteChatCommand(String s) {
         super(s);
-        super.setPermission("uhc.muteall");
+        super.setPermission("uhc.mutechat");
     }
 
     @Override
     public boolean execute(CommandSender sender, String msg, String[] args) {
-        if(!sender.hasPermission("uhc.heal")){
+        if(!sender.hasPermission("uhc.mutechat")){
             sender.sendMessage(super.getPermissionMessage());
             return false;
         }
         if(args.length == 0){
-            sender.sendMessage(Preset.instance.p.prefixName()+ " §cFaites /muteall on ou /muteall off");
+            sender.sendMessage(Preset.instance.p.prefixName()+ " §cFaites /mutechat on ou /mutechat off");
         }
 
         if(args[0].equalsIgnoreCase("off")){

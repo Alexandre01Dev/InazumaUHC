@@ -266,6 +266,7 @@ public final class InazumaUHC extends JavaPlugin {
         registerCommand("module", new ModuleCommand("module"));
         registerCommand("changerole", new ChangeRoleCommand("changerole"));
         registerCommand("hrtp", new HRTPCommand("hrtp"));
+        registerCommand("mutechat", new MuteChatCommand("mutechat"));
         //lm.automaticFindListener();
         }catch (Exception e){
 
