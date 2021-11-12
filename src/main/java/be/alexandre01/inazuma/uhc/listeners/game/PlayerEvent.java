@@ -47,7 +47,7 @@ public class PlayerEvent implements Listener {
 
     @EventHandler
     public void onLogin(PlayerLoginEvent event){
-       // event.setAsync(false);
+        //event.setAsync(false);
         if (GameState.get().contains(State.STARTING)){
             event.disallow(PlayerLoginEvent.Result.KICK_OTHER,"§cLa partie est entrain de commencer.");
             return;
@@ -332,6 +332,7 @@ public class PlayerEvent implements Listener {
 
 
                         PlayerEliminatedEvent playerEliminatedEvent = new PlayerEliminatedEvent(player,i.dm.getKiller(player));
+
                         Bukkit.getPluginManager().callEvent(playerEliminatedEvent);
                         }
                     return;

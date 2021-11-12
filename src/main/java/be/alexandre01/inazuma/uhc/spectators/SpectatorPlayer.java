@@ -58,11 +58,12 @@ public class SpectatorPlayer{
             player.showPlayer(players);
         }
         setInvisibleTeam();
-        player.setGameMode(GameMode.ADVENTURE);
-        player.setAllowFlight(true);
-        player.setFlying(true);
+        player.setGameMode(GameMode.SPECTATOR);
+       /* player.setAllowFlight(true);
+        player.setFlying(true);*/
     }
 
+    
     public void setCamera(Entity entity){
         PacketPlayOutCamera p = new PacketPlayOutCamera(((CraftEntity)entity).getHandle());
         ((CraftPlayer)player).getHandle().playerConnection.sendPacket(p);

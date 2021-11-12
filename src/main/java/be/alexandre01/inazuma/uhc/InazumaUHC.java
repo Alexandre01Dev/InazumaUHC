@@ -9,6 +9,7 @@ import be.alexandre01.inazuma.uhc.config.Config;
 import be.alexandre01.inazuma.uhc.config.CustomExceptionHandler;
 import be.alexandre01.inazuma.uhc.config.Messages;
 import be.alexandre01.inazuma.uhc.generations.NetherPortalsManager;
+import be.alexandre01.inazuma.uhc.handler.GlobalMoveHandler;
 import be.alexandre01.inazuma.uhc.handler.RessourcePackHandler;
 import be.alexandre01.inazuma.uhc.host.Host;
 import be.alexandre01.inazuma.uhc.host.gui.WorkingPlace;
@@ -84,6 +85,8 @@ public final class InazumaUHC extends JavaPlugin {
     public SpectatorManager spectatorManager;
     @Getter private RejoinManager rejoinManager;
     public InvisibilityInventory invisibilityInventory = new InvisibilityInventory();
+    @Getter
+    private GlobalMoveHandler globalMoveHandler = new GlobalMoveHandler();
 
 
     //OPEN LISTENER
