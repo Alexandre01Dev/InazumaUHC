@@ -17,9 +17,9 @@ import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
-public class InteractItemEvent implements Listener {
+public class InteractItemListener implements Listener {
     InazumaUHC i;
-    public InteractItemEvent(){
+    public InteractItemListener(){
         i = InazumaUHC.get;
     }
     @EventHandler

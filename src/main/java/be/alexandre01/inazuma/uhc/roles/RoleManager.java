@@ -1,12 +1,11 @@
 package be.alexandre01.inazuma.uhc.roles;
 
 import be.alexandre01.inazuma.uhc.InazumaUHC;
-import be.alexandre01.inazuma.uhc.roles.listeners.DropRoleItemEvent;
-import be.alexandre01.inazuma.uhc.roles.listeners.InteractItemEvent;
-import be.alexandre01.inazuma.uhc.roles.listeners.PlayerInstantDeath;
+import be.alexandre01.inazuma.uhc.roles.listeners.DropRoleItemListener;
+import be.alexandre01.inazuma.uhc.roles.listeners.InteractItemListener;
+import be.alexandre01.inazuma.uhc.roles.listeners.PlayerCraftItemListener;
+import be.alexandre01.inazuma.uhc.roles.listeners.PlayerInstantDeathListener;
 import lombok.Data;
-import net.minecraft.server.v1_8_R3.CraftingManager;
-import net.minecraft.server.v1_8_R3.RecipesCrafting;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -33,9 +32,10 @@ public class RoleManager {
             System.out.println(role.getName());
             classes.put(role.getClass(),role);
         }
-        InazumaUHC.get.lm.addListener(new InteractItemEvent());
-        InazumaUHC.get.lm.addListener(new DropRoleItemEvent());
-        InazumaUHC.get.lm.addListener(new PlayerInstantDeath());
+        InazumaUHC.get.lm.addListener(new InteractItemListener());
+        InazumaUHC.get.lm.addListener(new DropRoleItemListener());
+        InazumaUHC.get.lm.addListener(new PlayerInstantDeathListener());
+        InazumaUHC.get.lm.addListener(new PlayerCraftItemListener());
     }
 
     public Role getRole(UUID uuid){

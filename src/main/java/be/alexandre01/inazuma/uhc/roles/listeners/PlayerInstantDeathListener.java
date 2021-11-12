@@ -19,9 +19,9 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class PlayerInstantDeath implements Listener {
+public class PlayerInstantDeathListener implements Listener {
     private final InazumaUHC i;
-    public PlayerInstantDeath(){
+    public PlayerInstantDeathListener(){
         i = InazumaUHC.get;
     }
     @EventHandler(priority = EventPriority.HIGHEST)

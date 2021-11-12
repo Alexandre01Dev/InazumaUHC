@@ -18,6 +18,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.lang.reflect.InvocationTargetException;
@@ -25,27 +26,28 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class Role {
-    private IPreset preset;
-    private String name;
+    private final IPreset preset;
+    private final String name;
     public boolean isListenerDeployed = false;
     public boolean isCommandDeployed = false;
     public static boolean isDistributed = false;
-    private ArrayList<Class<?>> roleToSpoil = new ArrayList<>();
+    private final ArrayList<Class<?>> roleToSpoil = new ArrayList<>();
 
-    private ArrayList<UUID> players;
-    private ArrayList<Player> onlinePlayers;
-    @Getter private ArrayList<UUID> eliminatedPlayers;
-    @Getter private ArrayList<UUID> initialPlayers;
+    @Getter private final HashMap<Recipe,RoleCraft> roleCrafts = new HashMap<>();
+    private final ArrayList<UUID> players;
+    private final ArrayList<Player> onlinePlayers;
+    @Getter private final ArrayList<UUID> eliminatedPlayers;
+    @Getter private final ArrayList<UUID> initialPlayers;
     private load load;
     private command command;
 
-    private ArrayList<BaseComponent[]> description;
+    private final ArrayList<BaseComponent[]> description;
     protected InazumaUHC inazumaUHC;
     public ArrayList<Listener> listeners = new ArrayList<>();
     private static final HashMap<String,CommandRole> commands = new HashMap<>();
   private final HashMap<String,RoleItem> roleItems = new HashMap<>();
-    private static ArrayList<Role> rolesByInstance = new ArrayList<>();
-    private static ArrayList<Class<?>> rolesClass = new ArrayList<>();
+    private static final ArrayList<Role> rolesByInstance = new ArrayList<>();
+    private static final ArrayList<Class<?>> rolesClass = new ArrayList<>();
     private RoleCategory roleCategory = null;
     public Role(String name,IPreset iPreset){
         this.players = new ArrayList<>();
@@ -260,7 +262,9 @@ public class Role {
 
         roleItems.put(roleItem.getItemStack().getItemMeta().getDisplayName(),roleItem);
     }
-
+    public void addCraft(RoleCraft roleCraft){
+        roleCrafts.put(roleCraft.getRecipe(),roleCraft);
+    }
     public void addCommand(String name,command command){
         if(commands.containsKey(name)){
             CommandRole commandRole =  commands.get(name);

@@ -20,11 +20,11 @@ import org.bukkit.inventory.ItemStack;
 import java.util.HashMap;
 import java.util.List;
 
-public class DropRoleItemEvent implements Listener {
+public class DropRoleItemListener implements Listener {
     private final InazumaUHC i;
     private HashMap<Integer,RoleItem> roleItemDropped = new HashMap<>();
 
-    public DropRoleItemEvent(){
+    public DropRoleItemListener(){
        i = InazumaUHC.get;
     }
     @EventHandler
