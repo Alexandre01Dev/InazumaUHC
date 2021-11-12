@@ -20,6 +20,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.scheduler.BukkitTask;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
@@ -34,6 +35,8 @@ public class Role {
     private final ArrayList<Class<?>> roleToSpoil = new ArrayList<>();
 
     @Getter private final HashMap<Recipe,RoleCraft> roleCrafts = new HashMap<>();
+    @Getter private final ArrayList<BukkitTask> bukkitTasks = new ArrayList<>();
+    @Getter private final HashMap<UUID,BukkitTask> bukkitTaskByPlayers = new HashMap<>();
     private final ArrayList<UUID> players;
     private final ArrayList<Player> onlinePlayers;
     @Getter private final ArrayList<UUID> eliminatedPlayers;
@@ -261,6 +264,9 @@ public class Role {
             roleItem.getRolesToAccess().add(this.getClass());
 
         roleItems.put(roleItem.getItemStack().getItemMeta().getDisplayName(),roleItem);
+    }
+    public void runBukkitRunnable(BukkitTask bukkitTask){
+        bukkitTasks.add(bukkitTask);
     }
     public void addCraft(RoleCraft roleCraft){
         roleCrafts.put(roleCraft.getRecipe(),roleCraft);
