@@ -4,7 +4,9 @@ import be.alexandre01.inazuma.uhc.InazumaUHC;
 import be.alexandre01.inazuma.uhc.custom_events.teams.TeamSafeTeleportEvent;
 import be.alexandre01.inazuma.uhc.presets.IPreset;
 import be.alexandre01.inazuma.uhc.presets.Preset;
+import be.alexandre01.inazuma.uhc.spectators.SpectatorPlayer;
 import be.alexandre01.inazuma.uhc.utils.TitleUtils;
+import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -17,6 +19,7 @@ import java.util.*;
 public class TeamManager {
     private int currentTeam = 0;
     public static TeamManager instance;
+    @Getter private ArrayList<Player> spectators = new ArrayList<>();
     private ArrayList<Team> teams;
     private HashMap<UUID,Team> teamByPlayer;
     public Instant lastChunkLoaded;
@@ -71,6 +74,7 @@ public class TeamManager {
 
     public void distributeTeamToPlayer(){
         ArrayList<Player> p = new ArrayList<>(Bukkit.getOnlinePlayers());
+        p.removeAll(spectators);
         Collections.shuffle(p);
         float f =  p.size() / this.p.getTeamSize();
         if(f > (int) f){
@@ -96,6 +100,13 @@ public class TeamManager {
             System.out.println("TeleportFinish");
             TeamSafeTeleportEvent teleportEvent = new TeamSafeTeleportEvent(this);
             Bukkit.getPluginManager().callEvent(teleportEvent);
+
+            for(Player spectator : spectators){
+                SpectatorPlayer spectatorPlayer = new SpectatorPlayer(spectator);
+                spectatorPlayer.setSpectator();
+                InazumaUHC.get.spectatorManager.addPlayer(spectator);
+                spectator.teleport(InazumaUHC.get.worldGen.defaultWorld.getSpawnLocation());
+            }
             return;
         }
         Team team = getTeams().get(i);
@@ -105,7 +116,6 @@ public class TeamManager {
         team.teleport();
         lastChunkLoaded = Instant.now();
       new BukkitRunnable(){
-
           @Override
           public void run() {
               if(lastChunkLoaded != null){

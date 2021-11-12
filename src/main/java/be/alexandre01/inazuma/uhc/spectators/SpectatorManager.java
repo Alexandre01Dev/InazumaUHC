@@ -35,7 +35,7 @@ public class SpectatorManager {
                     if(i > 5){
                         if(Duration.between(t,Instant.now()).toMillis() <= 5000L){
                             player.teleport(player.getWorld().getSpawnLocation());
-                            player.sendMessage("§cAuriez vous l'obligence d'arrêter d'essayer de partir de la bordure. Merci bien.");
+                            player.sendMessage("§cAuriez-vous l'obligence d'arrêter d'essayer de partir de la bordure. Merci bien.");
                         }else{
                             warnings.put(player,0);
                             time.put(player,Instant.now());

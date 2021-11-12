@@ -15,7 +15,7 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.*;
 
-public class ChunksGenerator {
+public class ChunksGenerator extends Thread{
     public static HashMap<World.Environment,ArrayList<ChunkCoord>> chunksCalcHash = new HashMap<>();
     private ChunksExecutor chunksExecutor;
     private  ArrayList<ChunkCoord> chunksCord;
@@ -34,17 +34,19 @@ public class ChunksGenerator {
         org.bukkit.World world =  origin.getWorld();
 
         int length = (radius * 2) + 1;
-        ArrayList<ChunkCoord> chunks = new ArrayList<>(length * length);
+        ArrayList<ChunkCoord> chunks = new ArrayList<>();
 
         int cX = origin.getX();
         int cZ = origin.getZ();
-
+        System.out.println("ChunksRad");
         for (int x = -radius; x <= radius; x++) {
             for (int z = -radius; z <= radius; z++) {
-                System.out.println(cX + x+">"+cZ + z);
+                System.out.println(cX +"|"+ x+">"+cZ +"|" + z);
+                System.out.println(cX +"|" + x*16+ ">"+cZ +"|" + z*16);
                 chunks.add(new ChunkCoord(cX + x, cZ + z));
             }
         }
+        System.out.println("Finish Loading ChunkCoord");
         chunksCalcHash.put(origin.getWorld().getEnvironment(),new ArrayList<>(chunks));
         return chunks;
 

@@ -86,7 +86,7 @@ public final class InazumaUHC extends JavaPlugin {
     @Getter private RejoinManager rejoinManager;
     public InvisibilityInventory invisibilityInventory = new InvisibilityInventory();
     @Getter
-    private GlobalMoveHandler globalMoveHandler = new GlobalMoveHandler();
+    private final GlobalMoveHandler globalMoveHandler = new GlobalMoveHandler();
 
 
     //OPEN LISTENER
