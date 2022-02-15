@@ -34,23 +34,23 @@ public class StateEvent implements Listener {
                 if(Preset.instance.p.getPlatform() != null){
                     Preset.instance.p.getPlatform().despawn();
                 }
+                if(!Scenario.deployed){
+                    if(!Preset.instance.pData.getScenarios().isEmpty()){
+                        for(Class<?> c : Preset.instance.pData.getScenarios()){
+                            if(Scenario.getScenarios().containsKey(c)){
+                                Scenario scenario = Scenario.getScenarios().get(c);
+                                if(scenario.getLoad() != null){
+                                    scenario.getLoad().a();
+                                }
+
+                                scenario.deployListener();
+                            }
+                        }
+                        Scenario.deployed = true;
+                    }
+                }
             }
         });
 
-        if(!Scenario.deployed){
-            if(!Preset.instance.pData.getScenarios().isEmpty()){
-                for(Class<?> c : Preset.instance.pData.getScenarios()){
-                    if(Scenario.getScenarios().containsKey(c)){
-                        Scenario scenario = Scenario.getScenarios().get(c);
-                        if(scenario.getLoad() != null){
-                            scenario.getLoad().a();
-                        }
-
-                        scenario.deployListener();
-                    }
-                }
-                Scenario.deployed = true;
-            }
-        }
     }
 }

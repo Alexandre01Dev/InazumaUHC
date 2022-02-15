@@ -81,18 +81,20 @@ public class StateEvent implements Listener {
             System.out.println("already launched");
         }
         isLaunched = true;
-        for(Team team : i.teamManager.getTeams()){
-            for(Player player : team.getPlayers().values()){
-                player.setFlying(false);
-                player.setGameMode(GameMode.SURVIVAL);
-                player.setAllowFlight(false);
-                player.setFlySpeed(0.2f);
-            }
+
             Bukkit.getScheduler().scheduleSyncDelayedTask(i, new BukkitRunnable() {
                         @Override
                         public void run() {
-                            team.getPlateform().despawn();
+                            for(Team team : i.teamManager.getTeams()){
 
+                                for(Player player : team.getPlayers().values()){
+                                    player.setFlying(false);
+                                    player.setGameMode(GameMode.SURVIVAL);
+                                    player.setAllowFlight(false);
+                                    player.setFlySpeed(0.2f);
+                                }
+                                team.getPlateform().despawn();
+                            }
                             Timer timer = i.tm.getTimer(PVPTimer.class);
                             timer.runTaskTimerAsynchronously(InazumaUHC.get,0,10);
                             if(p.getNether()){
@@ -108,6 +110,6 @@ public class StateEvent implements Listener {
                     });
 
 
-        }
+
     }
 }
