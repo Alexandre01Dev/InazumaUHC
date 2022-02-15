@@ -4,7 +4,6 @@ import be.alexandre01.inazuma.uhc.InazumaUHC;
 import be.alexandre01.inazuma.uhc.modules.Module;
 import be.alexandre01.inazuma.uhc.presets.Preset;
 import be.alexandre01.inazuma.uhc.state.GameState;
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 

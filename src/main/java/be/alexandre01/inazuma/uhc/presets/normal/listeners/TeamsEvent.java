@@ -18,5 +18,4 @@ public class TeamsEvent implements Listener {
         timer.runTaskTimerAsynchronously(i,0,20);
     }
 
-
 }

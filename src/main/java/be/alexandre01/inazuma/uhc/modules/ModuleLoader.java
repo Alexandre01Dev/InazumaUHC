@@ -28,6 +28,9 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.nio.file.DirectoryStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.*;
 import java.util.jar.JarFile;
 
@@ -40,6 +43,9 @@ public class ModuleLoader {
             String[] dirs = plugin.getConfig().getStringList("config.modules-dirs").toArray(new String[0]);
             for(String dPath : dirs){
                 dir = new File(dPath.replaceAll("%plugin_dir%",plugin.getDataFolder().getAbsolutePath()));
+                if(!dir.exists() || isDirEmpty(dir.toPath()))
+                    return;
+
                 for(File file : Objects.requireNonNull(dir.listFiles())){
                     if(file.isDirectory())
                         continue;
@@ -445,6 +451,12 @@ public class ModuleLoader {
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    private boolean isDirEmpty(final Path directory) throws IOException {
+        try(DirectoryStream<Path> dirStream = Files.newDirectoryStream(directory)) {
+            return !dirStream.iterator().hasNext();
         }
     }
 }

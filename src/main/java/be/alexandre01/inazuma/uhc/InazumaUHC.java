@@ -10,7 +10,6 @@ import be.alexandre01.inazuma.uhc.config.CustomExceptionHandler;
 import be.alexandre01.inazuma.uhc.config.Messages;
 import be.alexandre01.inazuma.uhc.generations.NetherPortalsManager;
 import be.alexandre01.inazuma.uhc.handler.GlobalMoveHandler;
-import be.alexandre01.inazuma.uhc.handler.RessourcePackHandler;
 import be.alexandre01.inazuma.uhc.host.Host;
 import be.alexandre01.inazuma.uhc.host.gui.WorkingPlace;
 import be.alexandre01.inazuma.uhc.listeners.ListenersManager;
@@ -143,7 +142,6 @@ public final class InazumaUHC extends JavaPlugin {
         lm.addListener(new WorldEvent());
         lm.addListener(new TimerEvent());
 
-        getServer().imanity().registerPacketHandler(this,new RessourcePackHandler());
         //lm.addListener(new BoatEvent());
         for(World world : Bukkit.getWorlds()){
             for(Entity entity : world.getEntities()){
